@@ -1,1 +1,3 @@
+The main wiki of GoogleTransitDataFeed is located here:
+
 http://www.googletransitdatafeed.org

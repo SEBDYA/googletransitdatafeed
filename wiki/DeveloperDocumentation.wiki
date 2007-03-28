@@ -8,7 +8,7 @@ The [http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTr
   * processes command line arguments
   * call the SAX handler ([http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTransit/src/transxchange2GoogleTransitHandler/TransxchangeHandler.java TransxchangeHandler]). It parses the input xml file and generates data structures ready for Google Transit data feed file set generation
   * generate Google Transit data feed file set
-The SAX handler is the "brain" of the Transxchange2GoogleTransit program. The source files of the SAX handler reside in the transxchange2GoogleTransitHandler/src directory. TransxchangeHandler holds and fills the data structures for the Google Transit data feed file set generation
+The SAX handler is the "brain" of the Transxchange2GoogleTransit program. The source files of the SAX handler reside in the transxchange2GoogleTransitHandler/src directory. http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTransit/src/transxchange2GoogleTransitHandler/TransxchangeHandler.java TransxchangeHandler] holds and fills the data structures for the Google Transit data feed file set generation
 {{{
 	TransxchangeAgency agencies;
 	TransxchangeStops stops;
@@ -18,7 +18,7 @@ The SAX handler is the "brain" of the Transxchange2GoogleTransit program. The so
 	TransxchangeCalendar calendar;
 	TransxchangeCalendarDates calendarDates;
 }}}
-TransxchangeHandler also implements the SAX parsing methods startElement(), characters() and endElement(). The implementations of these three methods in TransxchangeHandler call their respective implementations in the classes TransxchangeAgency through TransxchangeCalendarDates. They cover the corresponding aspects of the input file. TransxchangeRoutes for example focuses on the aspect of route data transformation. Common code of these classes is centralized in the abstract superclass TransxchangeDataAspect. The data structures are filled with ValueLists. Finally, TransxchangeHandler has a method to write the Google Transit output files.
+http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTransit/src/transxchange2GoogleTransitHandler/TransxchangeHandler.java TransxchangeHandler] also implements the SAX parsing methods startElement(), characters() and endElement(). The implementations of these three methods in http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTransit/src/transxchange2GoogleTransitHandler/TransxchangeHandler.java TransxchangeHandler] call their respective implementations in the classes TransxchangeAgency through TransxchangeCalendarDates. They cover the corresponding aspects of the input file. TransxchangeRoutes for example focuses on the aspect of route data transformation. Common code of these classes is centralized in the abstract superclass TransxchangeDataAspect. The data structures are filled with ValueLists. Finally, http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTransit/src/transxchange2GoogleTransitHandler/TransxchangeHandler.java TransxchangeHandler] has a method to write the Google Transit output files.
 
 == GWT_Transxchange2GoogleTransit ==
 GWT_TransxchangeGoogleTransit is implemented as a web application. On the server side, it requires a [http://java.sun.com/products/servlet Sun Servlet] compliant application server and Java 1.4.2. The client side is JavaScript/AJAX-based. The [http://code.google.com/webtoolkit Google Web Toolkit] is used as a cross compiler to create the relevant JavaScript code from Java source code.
@@ -39,6 +39,5 @@ The source code of GoogleTransitDataFeed software is managed in [http://code.goo
   * TransXChange 1.0b - Eclipse 3.2.2 workbench
   * TransXChange 1.0a - Add build.xml
   * TransXChange 1.0  - Initial release. Binaries, validation tools, source files
-
 
 

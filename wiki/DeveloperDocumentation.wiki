@@ -21,7 +21,7 @@ The SAX handler is the "brain" of the Transxchange2GoogleTransit program. The so
 TransxchangeHandler also implements the SAX parsing methods startElement(), characters() and endElement(). The implementations of these three methods in TransxchangeHandler call their respective implementations in the classes TransxchangeAgency through TransxchangeCalendarDates. They cover the corresponding aspects of the input file. TransxchangeRoutes for example focuses on the aspect of route data transformation. Common code of these classes is centralized in the abstract superclass TransxchangeDataAspect. The data structures are filled with ValueLists. Finally, TransxchangeHandler has a method to write the Google Transit output files.
 
 == GWT_Transxchange2GoogleTransit ==
-GWT_TransxchangeGoogleTransit is implemented as a web application. On the server side, it requires a [http://java.sun.com/products/servlet Sun Servlet] compliant application server and Java 1.4.2. The client side is JavaScripy/AJAX-based. The [http://code.google.com/webtoolkit Google Web Toolkit] is used as a cross compiler to create the relevant JavaScript code from Java source code.
+GWT_TransxchangeGoogleTransit is implemented as a web application. On the server side, it requires a [http://java.sun.com/products/servlet Sun Servlet] compliant application server and Java 1.4.2. The client side is JavaScript/AJAX-based. The [http://code.google.com/webtoolkit Google Web Toolkit] is used as a cross compiler to create the relevant JavaScript code from Java source code.
 
 = Change validation tool =
 You can verify program changes by running validate.bat (Windows) or validate.sh (Linux). The validate script runs the transformation program with a set of representative source transit data, and compares the resulting files against a reference file set which was created by the original version of the transformation program you are working with. 
@@ -39,7 +39,6 @@ The source code of GoogleTransitDataFeed software is managed in [http://code.goo
   * TransXChange 1.0b - Eclipse 3.2.2 workbench
   * TransXChange 1.0a - Add build.xml
   * TransXChange 1.0  - Initial release. Binaries, validation tools, source files
-
 
 
 

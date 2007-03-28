@@ -6,7 +6,7 @@ This page describes the developer edition of transformation programs. The projec
 == Transxchange2GoogleTransit ==
 The Transxchange2GoogleTransit class contains the main() method. main() runs through three steps:
   * processes command line arguments
-  * call the SAX handler (TransxchangeHandler). It parses the input xml file and generates data structures ready for Google Transit data feed file set generation
+  * call the SAX handler ([http://googletransitdatafeed.googlecode.com/svn/trunk/Transxchange2GoogleTransit/src/transxchange2GoogleTransitHandler/TransxchangeHandler.java TransxchangeHandler]). It parses the input xml file and generates data structures ready for Google Transit data feed file set generation
   * generate Google Transit data feed file set
 The SAX handler is the "brain" of the Transxchange2GoogleTransit program. The source files of the SAX handler reside in the transxchange2GoogleTransitHandler/src directory. TransxchangeHandler holds and fills the data structures for the Google Transit data feed file set generation
 {{{

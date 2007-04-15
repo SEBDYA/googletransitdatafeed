@@ -31,11 +31,14 @@ The validate script envokes the diff tool to show differences in the resulting f
 = Change process =
 The source code of GoogleTransitDataFeed software is managed in [http://code.google.com/p/googletransitdatafeed Google Code]. Google Code uses [http://www.subversion.tigris.org Subversion] to manage change.
 
-= Version release notes =
-  * TransXChange 1.3  - google_transit.zip is now automatically created
-  * TransXChange 1.3  - Web application GWT_Transxchange2GoogleTransit added
-  * TransXChange 1.2  - Refactored transxchange2GoogleTransitHandler to create self-contained package; remove compile warnings. Not intended for binary release
-  * TransXChange 1.1  - Java 1.4.2 support
-  * TransXChange 1.0b - Eclipse 3.2.2 workbench
-  * TransXChange 1.0a - Add build.xml
-  * TransXChange 1.0  - Initial release. Binaries, validation tools, source files
+= TransXchange2GoogleTransit version release notes =
+  * v1.4  - Switch to [http://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0]
+  * v1.4  - Internet ready web application; integrates with Mediawiki user management
+  * v1.4  - New upload-only google_transit.zip feature
+  * v1.3  - google_transit.zip is now automatically created
+  * v1.3  - Web application GWT_Transxchange2GoogleTransit added
+  * v1.2  - Refactored transxchange2GoogleTransitHandler to create self-contained package; remove compile warnings. Not intended for binary release
+  * v1.1  - Java 1.4.2 support
+  * v1.0b - Eclipse 3.2.2 workbench
+  * v1.0a - Add build.xml
+  * v1.0  - Initial release. Binaries, validation tools, source files

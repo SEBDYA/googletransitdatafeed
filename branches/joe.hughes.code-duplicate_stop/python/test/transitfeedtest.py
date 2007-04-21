@@ -66,6 +66,12 @@ class LoadFromZipTestCase(unittest.TestCase):
       extra_validation = True)
     loader.Load()
 
+    # now try using Schedule.Load
+    schedule = transitfeed.Schedule(
+        problem_reporter=transitfeed.ExceptionProblemReporter())
+    schedule.Load(DataPath('good_feed.zip'), extra_validation=True)
+    
+
 class LoadFromDirectoryTestCase(unittest.TestCase):
   def runTest(self):
     loader = transitfeed.Loader(
@@ -171,6 +177,17 @@ class MissingColumnTestCase(unittest.TestCase):
 class ZeroBasedStopSequenceTestCase(LoadTestCase):
   def runTest(self):
     self.ExpectInvalidValue('zero_based_stop_sequence', 'stop_sequence')
+    
+    
+class DuplicateStopTestCase(unittest.TestCase):
+  def runTest(self):
+    schedule = transitfeed.Schedule(
+        problem_reporter=transitfeed.ExceptionProblemReporter())
+    try:
+      schedule.Load(DataPath('duplicate_stop'), extra_validation=True)
+      self.fail('OtherProblem exception expected')
+    except transitfeed.OtherProblem:
+      pass
 
 
 INVALID_VALUE = Exception()

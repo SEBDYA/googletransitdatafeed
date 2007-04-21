@@ -1,0 +1,10 @@
+#summary List of publicly-accessible transit data feeds
+
+= Google Transit Feed Specification = 
+
+|| *Agency* || *Area* || *Feed Location* || *Notes* ||
+|| Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
+|| TriMet || Portland, OR || http://trimet.org/dev/schedule/google_transit/ || Versions of the feed are in different subdirectories by date. ||
+
+
+

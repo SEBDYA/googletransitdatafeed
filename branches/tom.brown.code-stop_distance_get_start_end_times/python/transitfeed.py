@@ -42,14 +42,14 @@ Stop object which has attributes such as stop_lat and stop_name.
 # TODO: Preserve arbitrary columns?
 
 import bisect
-import codecs
 import cStringIO as StringIO
+import codecs
 import csv
 import logging
+import math
 import os
 import re
 import zipfile
-import math
 
 OUTPUT_ENCODING = 'utf-8'
 
@@ -1543,6 +1543,7 @@ class Schedule:
     """Return the n nearest stops to lat,lon"""
     dist_stop_list = []
     for s in self.stops.values():
+      # TODO: Use ApproximateDistanceBetweenStops?
       dist = (s.stop_lat - lat)**2 + (s.stop_lon - lon)**2
       if len(dist_stop_list) < n:
         bisect.insort(dist_stop_list, (dist, s))

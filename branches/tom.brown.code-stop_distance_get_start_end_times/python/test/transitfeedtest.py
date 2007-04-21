@@ -601,6 +601,8 @@ class TripHasStopTimeValidationTestCase(ValidationTestCase):
     schedule.AddStopObject(stop)
     trip.AddStopTime(stop, "5:15:00", "5:16:00")
     schedule.Validate(self.problems)
+
+    # Add some more stop times and test GetEndTime does the correct thing
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetStartTime()),
         "05:11:00")
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetEndTime()),
@@ -613,6 +615,14 @@ class TripHasStopTimeValidationTestCase(ValidationTestCase):
     trip.AddStopTime(stop, "05:22:00", None)
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetEndTime()),
         "05:22:00")
+
+    # Last stop must always have a time
+    trip.AddStopTime(stop, None, None)
+    try:
+      trip.GetEndTime()
+      self.fail('exception expected')
+    except transitfeed.Error, e:
+      pass
 
 
 class BasicParsingTestCase(unittest.TestCase):

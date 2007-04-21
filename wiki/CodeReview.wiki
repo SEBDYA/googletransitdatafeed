@@ -67,3 +67,32 @@ $ ezmerge ALL <username>-<change_name>
 $ svn commit
 $ svn rm https://googletransitdatafeed.googlecode.com/svn/branches/<username>-<change_name>
 }}}
+
+= Code Reviewer =
+
+To review a change that was made as described above, you can run:
+{{{
+$ svn diff https://googletransitdatafeed.googlecode.com/svn/trunk
+https://googletransitdatafeed.googlecode.com/svn/branches/(branch_name)
+}}}
+
+to see what the change modifies.
+
+== Mac OS X ==
+
+If you are on Mac OS X, you can use the [http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-viewdiff svn-viewdiff] script to see the differences in the change graphically (it wraps the FileMerge tool that comes with the Mac OS X developer tools).  Once you've installed the script somewhere on your path, run:
+
+{{{
+$ svn diff --diff-cmd=svn-viewdiff https://googletransitdatafeed.googlecode.com/svn/trunk
+https://googletransitdatafeed.googlecode.com/svn/branches/(branch_name)
+}}}
+
+This will give you one FileMerge window for each changed file, showing the differences.
+
+== Mailing Feedback ==
+
+Respond to the review request email, being sure to cc `googletransitdatafeed@googlegroups.com` so that others can benefit from the feedback as well.  Once the change is close enough to be acceptable for submission, mention that the change "looks good to me" or is "OK to submit" so that it's clear that you approve.
+
+
+
+

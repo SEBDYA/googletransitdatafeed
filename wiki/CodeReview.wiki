@@ -4,7 +4,7 @@
 
 To help us coordinate our work we would like at least one person other than the writer to review each change before it is added to the trunk.
 
-See the Source tab, above for instructions on downloading the source. If you are not a member of this project please send the output of `svn diff` and a statement that you license the code to this project under the terms of the [http://www.apache.org/licenses/ Apache License 2.0] to googletransitdatafeed@googlegroups.com. If you are a member please use the following process to modify our code.
+See the Source tab above for instructions on downloading the source. If you are not a member of this project please send the output of `svn diff` and a statement that you license the code to this project under the terms of the [http://www.apache.org/licenses/ Apache License 2.0] to googletransitdatafeed@googlegroups.com. If you are a member please use the following process to modify our code.
 
 To make working with branches easier you should install http://mg.pov.lt/eazysvn/. Running `easy_install eazysvn` as root should do the trick.
 

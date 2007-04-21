@@ -1,4 +1,0 @@
-This page gathers information about publicly-available transit feeds.
-
-= Google Data Feed Specification =
-

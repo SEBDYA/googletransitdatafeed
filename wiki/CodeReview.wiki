@@ -20,7 +20,7 @@ Create a branch for your change:
 $ ezswitch --create -m '* Make new branch <username>-<change_name>' <username>-<change_name>
 }}}
 
-==Edit in your branch===
+==Edit in your branch==
 
 Make some changes and commit them to the branch. Repeat this step as many times as you like:
 {{{
@@ -32,7 +32,9 @@ Merge changes from the trunk into your working copy with:
 $ ezmerge ALL trunk
 }}}
 
-==Edit in trunk==
+~~==Edit in trunk==~~
+
+_this doesn't seem to work_
 
 Alternately may work in the trunk and copy your changes to the branch.
 {{{
@@ -92,6 +94,7 @@ This will give you one FileMerge window for each changed file, showing the diffe
 == Mailing Feedback ==
 
 Respond to the review request email, being sure to cc `googletransitdatafeed@googlegroups.com` so that others can benefit from the feedback as well.  Once the change is close enough to be acceptable for submission, mention that the change "looks good to me" or is "OK to submit" so that it's clear that you approve.
+
 
 
 

@@ -1743,7 +1743,7 @@ class Loader:
   def __init__(self,
                feed_path,
                schedule=None,
-               problems=ProblemReporter(),
+               problems=default_problem_reporter,
                extra_validation=False):
     if not schedule:
       schedule = Schedule()

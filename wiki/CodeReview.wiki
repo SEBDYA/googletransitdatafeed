@@ -1,0 +1,55 @@
+#summary Proposed code review process using subversion
+
+= Introduction =
+
+To help us coordinate our work we would like at least one person other than the writer to review each change before it is added to the trunk. Please use the following process to modify our code.
+
+To make working with branches easier you should install http://mg.pov.lt/eazysvn/. Running `easy_install eazysvn` should do the trick.
+
+==Setup your branch==
+
+Make sure you are in the directory `trunk` and it is up to date:
+`$ svn info |grep ^URL`
+`URL: https://svn.google.com/whatever/our/path/is/trunk`
+`$ svn update`
+
+Create a branch for your change:
+`$ ezswitch --create -m '* Make new branch <username>-<change_name>' <username>-<change_name>`
+
+==Edit in your branch===
+
+Make some changes and commit them to the branch. Repeat this step as many times as you like:
+`$ svn commit -m '* Fixed some typo'`
+
+Merge changes from the trunk into your working copy with:
+`$ ezmerge ALL trunk`
+
+==Edit in trunk==
+
+Alternatly may work in the trunk and copy your changes to the branch.
+
+`$ ezswitch trunk`
+`$ svn update`
+
+To copy changes to the branch:
+`$ ezswitch <username>-<change_name>`
+`$ svn commit -m '* Sync change to branch'`
+`$ ezswitch trunk`
+`$ ezmerge ALL <username>-<change_name>`
+
+
+==Request a review==
+
+When you want someone to review your code make sure all your changes are commited in the branch and mail the branch name and revision to googletransitdatafeed@googlegroups.com. You may need to go back and make more changes to the branch.
+
+==Commit change to the trunk==
+
+When you are ready to merge your branch into the trunk make sure you have a clean updated trunk:
+`$ ezswitch trunk`
+`$ svn revert -R .` (you did commit all your changes into the branch, didn't you?)
+`$ svn update`
+
+Merge and commit the changes in your branch, then delete the branch:
+`$ ezmerge ALL <username>-<change_name>`
+`$ svn commit`
+`$ svn rm file:///home/thecap/tmp/r/branches/thecap-work-in-subdir`

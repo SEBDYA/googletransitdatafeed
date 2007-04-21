@@ -8,6 +8,8 @@ See the Source tab above for instructions on downloading the source. If you are 
 
 To make working with branches easier you should install http://mg.pov.lt/eazysvn/. Running `easy_install eazysvn` as root should do the trick.
 
+= If you're writing the code =
+
 ==Setup your branch==
 
 Make sure you are in the directory `trunk` and it is up to date. It is okay if you have already started making changes:
@@ -52,7 +54,7 @@ $ svn commit
 $ svn rm https://googletransitdatafeed.googlecode.com/svn/branches/<username>-<change_name>
 }}}
 
-= Code Reviewer =
+= If you're reviewing the code =
 
 To review a change that was made as described above, you can run:
 {{{

@@ -1,0 +1,13 @@
+#summary Revision history of the Google Transit Feed Specification
+#labels Featured
+
+= Introduction =
+
+This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
+
+
+= April 9, 2007 =
+
+= February 28, 2007 =
+
+[http://headwayblog.com/ Headway] has a comprehensive writeup of the [http://headwayblog.com/2007/03/02/google-feed-spec-update-2007-02/ February 2007 changes].

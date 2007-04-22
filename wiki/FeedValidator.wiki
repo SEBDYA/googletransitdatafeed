@@ -1,4 +1,5 @@
 #summary Instructions for feedvalidator.
+#labels Featured
 
 = Introduction =
 
@@ -48,7 +49,6 @@ Adds testing to identify stops that probably refer to the same location because 
 
 ==== v1.0b1 ====
 First standalone Windows version.
-
 
 
 

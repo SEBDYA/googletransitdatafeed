@@ -7,3 +7,5 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 || [http://www.python.org/ftp/python/2.4/python-2.4.msi Python 2.4 for Windows] || py2exe doesn't recognize the Cygwin version, so you'll need to have this one around ||
 || [http://sourceforge.net/project/showfiles.php?group_id=15583 py2exe] || ||
 || [http://cheeseshop.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
+
+To be continued...

@@ -5,8 +5,8 @@
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
 
-
 == April 9, 2007 ==
+Description coming soon...
 
 ==== March 8, 2007 ====
 Minor edit to move the `stop_url` field from `stop_times.txt`, where it was incorrectly specified in the Feb. 28 update, to `stops.txt`, where it belongs.
@@ -15,15 +15,17 @@ Minor edit to move the `stop_url` field from `stop_times.txt`, where it was inco
 Minor edit to clarify the description of the `route_long_name` field.
 
 == February 28, 2007 ==
-
 [http://headwayblog.com/ Headway] has a comprehensive writeup of the [http://headwayblog.com/2007/03/02/google-feed-spec-update-2007-02/ February 2007 changes].
 
 
 == November 29, 2006 ==
+Description coming soon...
 
 == October 31, 2006 ==
+Description coming soon...
 
 == September 29, 2006 ==
+Description coming soon...
 
 == September 25, 2006 ==
 Initial version.

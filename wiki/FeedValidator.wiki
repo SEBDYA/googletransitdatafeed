@@ -2,15 +2,32 @@
 
 = Introduction =
 
-The feedvalidator is a command line tool that parses a Google Transit Feed file and lists any errors it detects. You can use it to detect some problems in your file before you distribute it.
+The feedvalidator is a command line tool that checks a Google Transit Feed for problems.  Running it on your transit data feed and fixing the issues that it finds can save you from display and routing problems down the road.
 
-= Download =
+= Windows standalone version =
+
+We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download [http://googletransitdatafeed.googlecode.com/files/feedvalidator-1.0b1.zip feedvalidator-1.0b1.zip] from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
+
+Once you have it downloaded and unzipped, there are a few ways to run it:
+
+==== Easiest ====
+Drag a feed zip file or directory onto `feedvalidator.exe`.  A window will pop up with the result of the validation test.
+
+==== Intermediate ====
+Double-click `feedvalidator.exe`.  A window will pop up and ask you to enter the location of your feed file or directory.  You can type it in, or just drag a feed file or directory onto the window and hit Enter.
+
+==== Expert ====
+Go to the Windows command prompt, and type: `feedvalidator <name of feed file or directory>`.  If you want to avoid the prompt at the end of the validation, use the `--noprompt` parameter.
+
+= Python source code version =
+
+Use this version if you're on Mac OS X or Linux.
 
 Before you run the feed validator you must install Python 2.4 or 2.5. You can download it from http://www.python.org/download/
 
 Fetch the feedvalidator from our source code repository (see Source tab above) or by directly downloading http://googletransitdatafeed.googlecode.com/svn/trunk/python/feedvalidator.py and http://googletransitdatafeed.googlecode.com/svn/trunk/python/transitfeed.py to the same directory.
 
-= Running =
+== Running ==
 
 Run the feed validator as
 {{{
@@ -23,3 +40,11 @@ The warning "Timezone not checked (install pytz package for timezone validation)
 == Extra help for Windows XP/2000 users ==
 
 Open a new Command Prompt window. Change into the directory containing feedvalidator.py and  transitfeed.py (Hint: type "cd " without quotes and drag the icon of the folder into command prompt window). Run feedvalidator.py <feed filename>. If you don't want to type the feed filename try dragging it into the command prompt window. 
+
+
+
+
+
+
+
+

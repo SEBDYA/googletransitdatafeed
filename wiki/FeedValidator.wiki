@@ -6,7 +6,7 @@ The feedvalidator is a command line tool that checks a Google Transit Feed for p
 
 = Windows standalone version =
 
-We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download [http://googletransitdatafeed.googlecode.com/files/feedvalidator-1.0b1.zip feedvalidator-1.0b1.zip] from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
+We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download [http://googletransitdatafeed.googlecode.com/files/feedvalidator-1.0b2.zip feedvalidator-1.0b2.zip] from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
 
 Once you have it downloaded and unzipped, there are a few ways to run it:
 
@@ -40,7 +40,6 @@ The warning "Timezone not checked (install pytz package for timezone validation)
 == Extra help for Windows XP/2000 users ==
 
 Open a new Command Prompt window. Change into the directory containing feedvalidator.py and  transitfeed.py (Hint: type "cd " without quotes and drag the icon of the folder into command prompt window). Run feedvalidator.py <feed filename>. If you don't want to type the feed filename try dragging it into the command prompt window. 
-
 
 
 

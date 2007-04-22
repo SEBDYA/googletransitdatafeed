@@ -8,9 +8,16 @@ This page documents the revisions that the [http://code.google.com/transit/spec/
 
 == April 9, 2007 ==
 
+==== March 8, 2007 ====
+Minor edit to move the `stop_url` field from `stop_times.txt`, where it was incorrectly specified in the Feb. 28 update, to `stops.txt`, where it belongs.
+
+==== March 5, 2007 ====
+Minor edit to clarify the description of the `route_long_name` field.
+
 == February 28, 2007 ==
 
 [http://headwayblog.com/ Headway] has a comprehensive writeup of the [http://headwayblog.com/2007/03/02/google-feed-spec-update-2007-02/ February 2007 changes].
+
 
 == November 29, 2006 ==
 

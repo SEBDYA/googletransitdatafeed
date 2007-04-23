@@ -12,7 +12,9 @@ We provide a Windows executable version for convenience; if you're running Windo
 Once you have it downloaded and unzipped, there are a few ways to run it:
 
 ==== Easiest ====
-Drag a feed zip file or directory onto `feedvalidator.exe`.  A window will pop up with the result of the validation test.
+Drag a feed zip file or directory onto `feedvalidator.exe`.  A window will pop up with the result of the validation test:
+
+http://googletransitdatafeed.googlecode.com/svn/wiki/images/validation-complete.png
 
 ==== Intermediate ====
 Double-click `feedvalidator.exe`.  A window will pop up and ask you to enter the location of your feed file or directory.  You can type it in, or just drag a feed file or directory onto the window and hit Enter.

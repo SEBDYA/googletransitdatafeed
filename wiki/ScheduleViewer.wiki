@@ -1,4 +1,5 @@
 #summary The schedule_viewer application for exploring a feed on a map
+#labels Featured
 
 http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer.png
 
@@ -6,3 +7,24 @@ http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer.png
 = Introduction =
 
 Schedule Viewer is a Python program for viewing the contents of a Google Transit Feed Spec feed on a map.  It's a diagnostic program intended for those creating a feed, and as such doesn't include trip planning or other features that are useful to transit riders.
+
+= Installation =
+
+There isn't a standalone executable for Schedule Viewer yet, so installing and running it currently requires a familiarity with the Python programming language.  Here's what you need to run Schedule Viewer:
+  # Python 2.4 or higher
+  # The `simplejson` Python library
+  # The `pytz` Python library (to avoid a warning)
+  # A Google Maps API key for the address `http://localhost:8765`, available from the [http://www.google.com/apis/maps/signup.html Google Maps API signup page].
+  # A transit feed in [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] format; some publicly-available feeds are listed on the PublicFeeds page.
+  # The source code from the GoogleTransitDataFeed project; see the [http://code.google.com/p/googletransitdatafeed/source project source page] for some information on how to check out the source
+
+Once you have these things, you can run the Schedule Viewer program by typing something like this:
+{{{
+$ python schedule_viewer.py --key <google_maps_api_key> --feed <feed_file_or_directory>
+}}}
+
+
+= Instructions =
+Click on one of the route names on the left-hand side to see the trip patterns for that route.  The first trip will automatically be selected, and shown on the map.  To see another trip, click a different blue time.  When a trip is selected, some of the source data for that route will be displayed at the bottom of the window.
+
+The yellow icons on the map belong to the currently-selected route/trip; the blue icons are other nearby stops.  You can click on an icon to see the `stop_name` and `stop_id` of a stop, along with the next few stop times for it.

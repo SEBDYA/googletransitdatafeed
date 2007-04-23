@@ -1,13 +1,8 @@
-#summary One-sentence summary of this page.
+#summary The schedule_viewer application for exploring a feed on a map
+
+http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer.png
+
 
 = Introduction =
 
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Schedule Viewer is a Python program for viewing the contents of a Google Transit Feed Spec feed on a map.  It's a diagnostic program intended for those creating a feed, and as such doesn't include trip planning or other features that are useful to transit riders.

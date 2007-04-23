@@ -28,6 +28,7 @@ from optparse import OptionParser
 import re
 import os.path
 import bisect
+import marey_graph
 
 
 class ResultEncoder(simplejson.JSONEncoder):
@@ -99,7 +100,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     schedule = self.server.schedule
     (min_lat, min_lon, max_lat, max_lon) = schedule.GetStopBoundingBox()
 
-    agency = schedule.GetAgency()['agency_name'].encode('utf-8')
+    agency = ', '.join(a.agency_name for a in schedule.GetAgencyList()).encode('utf-8')
 
     key = self.server.key
 
@@ -271,6 +272,55 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     # TODO: combine times for a route to show next 2 departure times
     return [(time, trip.GetFieldValuesTuple()) for time, trip in time_trips]
 
+  def handle_GET_ttablegraph(self,params):
+    """Draw a Marey graph in SVG for a pattern (collection of trips in a route
+    that visit the same sequence of stops)."""
+    schedule = self.server.schedule
+    marey = marey_graph.MareyGraph()
+    trip = schedule.GetTrip(params.get('trip', None))
+    route = schedule.GetRoute(trip.route_id)
+    height = int(params.get('height', 300))
+
+    if not route:
+      print 'no such route'
+      self.send_error(404)
+      return
+
+    pattern_id_trip_dict = route.GetPatternIdTripDict()
+    pattern_id = trip.pattern_id
+    if pattern_id not in pattern_id_trip_dict:
+      print 'no pattern %s found in %s' % (pattern_id, pattern_id_trip_dict.keys())
+      self.send_error(404)
+      return
+    triplist = pattern_id_trip_dict[pattern_id]
+
+    service=params.get('service', None)
+    if service is not None:
+      triplist=[trip for trip in triplist if trip.service_id==service]
+
+    pattern_start_time = min((t.GetStartTime() for t in triplist))
+    pattern_end_time = max((t.GetEndTime() for t in triplist))
+
+    marey.SetSpan(pattern_start_time,pattern_end_time)
+    marey.Draw(triplist[0].GetPattern(), triplist, height)
+
+    travel_times = [t.GetEndTime() - t.GetStartTime() for t in triplist]
+    mean_travel_time = sum(travel_times) / len(travel_times)
+
+    marey.AddTextStripDecoration( \
+       "Mean travel time : %s Span [%s, %s]" \
+       % (transitfeed.FormatSecondsSinceMidnight(mean_travel_time), \
+          transitfeed.FormatSecondsSinceMidnight(travel_times[0]), \
+          transitfeed.FormatSecondsSinceMidnight(travel_times[-1])))
+
+    content = marey.Draw()
+
+    self.send_response(200)
+    self.send_header('Content-Type', 'image/svg+xml')
+    self.send_header('Content-Length', str(len(content)))
+    self.end_headers()
+    self.wfile.write(content)
+
 
 if __name__ == '__main__':
   parser = OptionParser()
@@ -285,7 +335,7 @@ if __name__ == '__main__':
   parser.set_defaults(port=8765, file_dir='schedule_viewer_files')
   (options, args) = parser.parse_args()
 
-  schedule = transitfeed.Schedule()
+  schedule = transitfeed.Schedule(problem_reporter=transitfeed.ProblemReporter())
   print 'Loading data from feed "%s"...' % options.feed_filename
   print '(this may take a few minutes for larger cities)'
   schedule.Load(options.feed_filename)

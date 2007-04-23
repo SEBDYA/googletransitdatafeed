@@ -19,7 +19,7 @@ This file is the script used to create the standalone Windows executable
 version of the feedvalidator program.
 
 To run:
-    C:\Python24\python feedvalidator.py py2exe
+    C:\Python24\python feedvalidator-setup.py py2exe
     
 This will create a dist/ directory containing feedvalidator.exe and its
 associated support files, which can then be zipped up and distributed.

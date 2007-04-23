@@ -40,7 +40,8 @@ class CountingProblemReporter(transitfeed.ProblemReporter):
 if __name__ == '__main__':
   parser = optparse.OptionParser()
   parser.add_option('-n', '--noprompt', action='store_false',
-                    dest='manual_entry', default=True)
+                    dest='manual_entry')
+  parser.set_defaults(manual_entry=True)
   (options, args) = parser.parse_args()
   manual_entry = options.manual_entry
   if not len(args) == 1:
@@ -52,6 +53,7 @@ if __name__ == '__main__':
   else:
     feed = args[0]
 
+  feed = feed.strip('"')
   print 'validating %s\n' % feed
   problems = CountingProblemReporter()
   loader = transitfeed.Loader(feed, problems=problems, extra_validation=True)

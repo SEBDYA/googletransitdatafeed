@@ -22,13 +22,17 @@
 # schedule_viewer.py --key `cat key` --port 8765 --feed_filename feed.zip
 
 import BaseHTTPServer, sys, urlparse
-import transitfeed
-import simplejson
-from optparse import OptionParser
-import re
-import os.path
 import bisect
 import marey_graph
+import mimetypes
+from optparse import OptionParser
+import os.path
+import re
+import simplejson
+import transitfeed
+
+
+mimetypes.add_type('text/plain', '.vbs')
 
 
 class ResultEncoder(simplejson.JSONEncoder):
@@ -86,7 +90,6 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     self.send_error(404)
 
   def handle_static_file_GET(self, filename):
-    import mimetypes
     (mime_type, encoding) = mimetypes.guess_type(filename)
     assert mime_type
     content = open(filename).read()

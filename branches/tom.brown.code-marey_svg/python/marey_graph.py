@@ -155,12 +155,7 @@ class MareyGraph:
         while (dynTxt.hasChildNodes()){
           dynTxt.removeChild(dynTxt.firstChild);
         }
-        var pointsAttr = line.getAttribute("points");
         dynTxt.appendChild(tripIdTxt);
-
-        var timeStr = parseLinePoints(pointsAttr);
-        var timeTableStr = document.createTextNode(timeStr);
-        dynTxt.appendChild(timeTableStr);
       }
       ]]> </script>
       <style type="text/css"><![CDATA[

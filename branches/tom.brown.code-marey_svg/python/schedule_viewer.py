@@ -297,24 +297,11 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
       return
     triplist = pattern_id_trip_dict[pattern_id]
 
-    service=params.get('service', None)
-    if service is not None:
-      triplist=[trip for trip in triplist if trip.service_id==service]
-
     pattern_start_time = min((t.GetStartTime() for t in triplist))
     pattern_end_time = max((t.GetEndTime() for t in triplist))
 
     marey.SetSpan(pattern_start_time,pattern_end_time)
     marey.Draw(triplist[0].GetPattern(), triplist, height)
-
-    travel_times = [t.GetEndTime() - t.GetStartTime() for t in triplist]
-    mean_travel_time = sum(travel_times) / len(travel_times)
-
-    marey.AddTextStripDecoration( \
-       "Mean travel time : %s Span [%s, %s]" \
-       % (transitfeed.FormatSecondsSinceMidnight(mean_travel_time), \
-          transitfeed.FormatSecondsSinceMidnight(travel_times[0]), \
-          transitfeed.FormatSecondsSinceMidnight(travel_times[-1])))
 
     content = marey.Draw()
 

@@ -33,7 +33,6 @@ http://transliteracies.english.ucsb.edu/post/research-project/research-clearingh
 
 """
 
-import math
 import itertools
 import transitfeed
 
@@ -97,7 +96,7 @@ class MareyGraph:
       self._tlist=triplist
       self._slist=stoplist
       self._decorators = []
-      self._stations = self._BuildStations(stoplist, triplist)
+      self._stations = self._BuildStations(stoplist)
       self._cache = "%s %s %s %s" % (self._DrawBox(),
                                       self._DrawHours(),
                                       self._DrawStations(),
@@ -141,8 +140,8 @@ class MareyGraph:
         return xstr;
       }
 
-      function LineClick(x) {
-        var line = document.getElementById(x);
+      function LineClick(tripid, x) {
+        var line = document.getElementById(tripid);
         if (oldLine)
           oldLine.setAttribute("stroke",oldStroke);
         oldLine = line;
@@ -151,7 +150,7 @@ class MareyGraph:
         line.setAttribute("stroke","#fff");
 
         var dynTxt = document.getElementById("dynamicText");
-        var tripIdTxt = document.createTextNode("Trip " + x);
+        var tripIdTxt = document.createTextNode(x);
         while (dynTxt.hasChildNodes()){
           dynTxt.removeChild(dynTxt.firstChild);
         }
@@ -168,14 +167,14 @@ class MareyGraph:
       .Label { fill:#aaa; font-family:Helvetica,Arial,sans;
        text-anchor:middle }
       .Info { fill:#111; font-family:Helvetica,Arial,sans;
-      text-anchor:start }
+      text-anchor:start; }
        ]]></style>
        <text class="Info" id="dynamicText" x="0" y="%d"></text>
        <g id="mcanvas"  transform="translate(%s,%s)">
        <g id="zcanvas" transform="scale(%s)">
 
-       """ % (self._gwidth + self._xoffset + 20, self._gheight + 40,
-              self._offset, self._gheight + 20,
+       """ % (self._gwidth + self._xoffset + 20, self._gheight + 15,
+              self._offset, self._gheight + 10,
               self._xoffset, self._yoffset, self._zoomfactor)
 
      return svg_header
@@ -190,10 +189,10 @@ class MareyGraph:
   def _DrawBox(self):
     tmpstr = """<rect x="%s" y="%s" width="%s" height="%s"
                 fill="lightgrey" stroke="%s" stroke-width="2" />
-             """ % (0 , 0, self._gwidth + 20, self._gheight, self._bgcolor)
+             """ % (0, 0, self._gwidth + 20, self._gheight, self._bgcolor)
     return tmpstr
 
-  def _BuildStations(self, stoplist, triplist):
+  def _BuildStations(self, stoplist):
     """Dispatches the best algorithm for calculating station line position.
 
     Args:
@@ -233,7 +232,7 @@ class MareyGraph:
 
     return e_dists2
 
-  def _CalculateYLines(self,dists):
+  def _CalculateYLines(self, dists):
     """Builds a list with y-coordinates for the horizontal lines in the graph.
 
     Args:
@@ -283,7 +282,6 @@ class MareyGraph:
     if not triplist:
       return []
 
-    stations = []
     if 0 < index < len(triplist):
       trip = triplist[index]
     else:
@@ -296,7 +294,7 @@ class MareyGraph:
   def _AddWarning(self, str):
     print str
 
-  def _DrawTrips(self,triplist,colpar="",expand_freqs=True):
+  def _DrawTrips(self,triplist,colpar=""):
     """Generates svg polylines for each transit trip.
 
     Args:
@@ -332,17 +330,16 @@ class MareyGraph:
 
       start_offsets = [0]
       first_stop = t.GetTimeStops()[0]
-      arr_time = first_stop[2]
 
       for j,freq_offset in enumerate(start_offsets):
         if j>0 and not colpar:
           color="purple"
-        scriptcall = 'onmouseover="LineClick(%s)"' % str(t.trip_id)
+        scriptcall = 'onmouseover="LineClick(%s,\'Trip %s starting %s\')"' % (t.trip_id,
+            t.trip_id, transitfeed.FormatSecondsSinceMidnight(t.GetStartTime()))
         tmpstrhead = '<polyline class="T" id="%s" stroke="%s" %s points="' % \
           (str(t.trip_id),color, scriptcall)
         tmpstrs.append(tmpstrhead)
 
-        last_x = 0
         for i, s in enumerate(t.GetTimeStops()):
           arr_t = s[0]
           dep_t = s[1]
@@ -352,7 +349,6 @@ class MareyGraph:
           dep_x = int(dep_t/3600.0 * self._hour_grid) - self._hour_grid * self._offset
           tmpstrs.append("%s,%s " % (int(arr_x+20), int(stations[i]+20)))
           tmpstrs.append("%s,%s " % (int(dep_x+20), int(stations[i]+20)))
-          last_x = dep_x
         tmpstrs.append('" />')
     return "".join(tmpstrs)
 
@@ -360,11 +356,7 @@ class MareyGraph:
     """Fallback to assuming uniform distance between stations"""
     # This should not be neseccary, but we are in fallback mode
     longest = max([len(t.GetTimeStops()) for t in triplist])
-    dists = []
-    if (longest>1):
-      for s in range(0, longest - 1):
-        dists.append(100)
-    return dists
+    return [100] * longest
 
   def _DrawStations(self, color="#aaa"):
     """Generates svg with a horizontal line for each station/stop.
@@ -420,12 +412,10 @@ class MareyGraph:
       if 0<ind<num_stations:
         y = self._stations[ind]
         tmpstr = '<polyline class="Dec" stroke="%s" points="%s,%s,%s,%s" />' \
-          % (color,20,20+y+.5,self._gwidth+20,20+y+.5)
+          % (color, 20, 20+y+.5, self._gwidth+20, 20+y+.5)
     self._decorators.append(tmpstr)
 
-
-
-  def AddTripDecoration(self, triplist, color="#f00",expand_freqs=False):
+  def AddTripDecoration(self, triplist, color="#f00"):
     """Flushes existing decorations and highlights the given trips.
 
     Args:
@@ -434,7 +424,7 @@ class MareyGraph:
       # An optional string with a html color code
       color: "#fff"
     """
-    tmpstr = self._DrawTrips(triplist,color,expand_freqs)
+    tmpstr = self._DrawTrips(triplist,color)
     self._decorators.append(tmpstr)
 
   def ChangeScaleFactor(self, newfactor):

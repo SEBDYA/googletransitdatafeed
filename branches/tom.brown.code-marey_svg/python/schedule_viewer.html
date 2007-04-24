@@ -534,7 +534,7 @@
         var row = rows[i][1];
         html += "<b>" + filename + "</b>: " + formatDictionary(row) + "<br>";
       }
-      html += svgTag("/ttablegraph?height=100&trip=" + tripId, "height='140' width='100%'");
+      html += svgTag("/ttablegraph?height=100&trip=" + tripId, "height='115' width='100%'");
       var bottombarDiv = document.getElementById("bottombar");
       bottombarDiv.style.display = "block";
       bottombarDiv.innerHTML = html;
@@ -551,10 +551,10 @@
         if (isSVGControlInstalled()) {
           return "<embed pluginspage='http://www.adobe.com/svg/viewer/install/' src='" + src + "' " + attributes +"></embed>";
         } else {
-          return "<p>I expect you to install <a href='http://www.adobe.com/svg/viewer/install/'>Adobe's SVG Viewer</a> to get SVG support in IE</p>";
+          return "<p>Please install the <a href='http://www.adobe.com/svg/viewer/install/'>Adobe SVG Viewer</a> to get SVG support in IE</p>";
         }
       } else {
-        return "<object data='" + src + "' type='image/svg+xml' " + attributes + "><p>No SVG support in your browser. Try Firefox 1.5 or newer or install the Adobe's SVG Viewer</p></object>";
+        return "<object data='" + src + "' type='image/svg+xml' " + attributes + "><p>No SVG support in your browser. Try Firefox 1.5 or newer or install the <a href='http://www.adobe.com/svg/viewer/install/'>Adobe SVG Viewer</a></p></object>";
       }
     }
 

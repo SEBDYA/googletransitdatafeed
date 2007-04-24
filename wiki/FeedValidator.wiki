@@ -46,10 +46,12 @@ Open a new Command Prompt window. Change into the directory containing feedvalid
 
 = Revision History =
 
+==== v1.0b3 ====
+Adds better line wrapping to make the output more pleasant to read.
+
 ==== v1.0b2 ====
 Adds testing to identify stops that probably refer to the same location because they're close enough together.
 
 ==== v1.0b1 ====
 First standalone Windows version.
-
 

@@ -7,7 +7,7 @@ The feedvalidator is a command line tool that checks a Google Transit Feed for p
 
 = Windows standalone version =
 
-We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download [http://googletransitdatafeed.googlecode.com/files/feedvalidator-1.0b3.zip feedvalidator-1.0b3.zip] from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
+We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download [http://googletransitdatafeed.googlecode.com/files/feedvalidator-1.0b4.zip feedvalidator-1.0b4.zip] from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
 
 Once you have it downloaded and unzipped, there are a few ways to run it:
 
@@ -46,6 +46,9 @@ Open a new Command Prompt window. Change into the directory containing feedvalid
 
 = Revision History =
 
+==== v1.0b4 ====
+Further improves line wrapping, improves ID display, limits the number of unused stops shown.
+
 ==== v1.0b3 ====
 Adds better line wrapping to make the output more pleasant to read.
 
@@ -54,4 +57,3 @@ Adds testing to identify stops that probably refer to the same location because 
 
 ==== v1.0b1 ====
 First standalone Windows version.
-

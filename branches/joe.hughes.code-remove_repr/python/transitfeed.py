@@ -67,9 +67,9 @@ class ProblemReporter:
                     (row_num, filename, ', '.join(map(unicode, row))))
 
   def _Report(self, problem_text):
-    print self._LineWrap(problem_text.encode(OUTPUT_ENCODING), 80)
+    print self._LineWrap(problem_text, 79).encode(OUTPUT_ENCODING)
     if self._context:
-      print self._LineWrap(self._context.encode(OUTPUT_ENCODING), 80)
+      print self._LineWrap(self._context, 79).encode(OUTPUT_ENCODING)
       
   def _LineWrap(self, text, width):
     """

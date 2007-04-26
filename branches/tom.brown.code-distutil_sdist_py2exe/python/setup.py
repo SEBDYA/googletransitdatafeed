@@ -26,13 +26,26 @@ associated support files, which can then be zipped up and distributed.
 """
 
 from distutils.core import setup
-import py2exe
+import glob
+import os.path
+
+try:
+  import py2exe
+except ImportError, e:
+  # Won't be able to generate win32 exe
+  pass
 
 options = {'py2exe': {'packages': ['pytz']}}  
+scripts = ['feedvalidator.py', 'schedule_viewer.py']
 setup(
     version='0.1.0',
+    name='transitfeed',
     url='http://code.google.com/p/googletransitdatafeed/',
-    scrips=['feedvalidator.py', 'schedule_viewer.py'],
-    console=['feedvalidator.py'],
-    package_data={'schedule_viewer': ['schedule_viewer_files/*']},
-    options=options)
+    py_modules=['transitfeed'],
+    scripts=scripts,
+    data_files=[('schedule_viewer_files', glob.glob(os.path.join('schedule_viewer_files', '*')))],
+    console=scripts,
+    options=options
+    )
+
+#    package_data={'schedule_viewer': ['schedule_viewer_files/*', 'schedule_viewer.html']}

@@ -26,6 +26,22 @@ We need to make a source distribution file and add it to PyPI.
 
 Please create a new issue if you find bugs or have a feature requests. Patches released under the terms of the Apache 2.0 license are more than welcome! You may contact the developers in the [http://groups.google.com/group/googletransitdatafeed Google Transit Data Feed Google Group]. 
 
-= Changes =
+= Revision History =
 
-As we make new versions we shall list the changes here.
+==== v1.0b6 ====
+Adds a Windows executable for schedule_viewer.
+
+==== v1.0b5 ====
+Adds more validation of service_ids.
+
+==== v1.0b4 ====
+Further improves line wrapping, improves ID display, limits the number of unused stops shown.
+
+==== v1.0b3 ====
+Adds better line wrapping to make the output more pleasant to read.
+
+==== v1.0b2 ====
+Adds testing to identify stops that probably refer to the same location because they're close enough together.
+
+==== v1.0b1 ====
+First standalone Windows version.

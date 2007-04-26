@@ -298,20 +298,26 @@ def FormatSecondsSinceMidnight(s):
 
 
 EARTH_RADIUS = 6378135          # in meters
-def ApproximateDistanceBetweenStops(stop1, stop2):
-  """Compute approximate distance between two stops in meters. Assumes the
-  Earth is a sphere."""
+def DistanceInMeters(lat1, lon1, lat2, lon2):
+  """Compute approximate distance in meters between two geographic locations.
+     Assumes the Earth is a sphere."""
   # TODO: change to ellipsoid approximation, such as
   # http://www.codeguru.com/Cpp/Cpp/algorithms/article.php/c5115/
-  lat1 = math.radians(stop1.stop_lat)
-  lat2 = math.radians(stop2.stop_lat)
-  lng1 = math.radians(stop1.stop_lon)
-  lng2 = math.radians(stop2.stop_lon)
-  dlat = math.sin(0.5 * (lat2 - lat1))
-  dlng = math.sin(0.5 * (lng2 - lng1))
-  x = dlat * dlat + dlng * dlng * math.cos(lat1) * math.cos(lat2)
+  lat1_rad = math.radians(lat1)
+  lat2_rad = math.radians(lat2)
+  lon1_rad = math.radians(lon1)
+  lon2_rad = math.radians(lon2)
+  dlat = math.sin(0.5 * (lat2_rad - lat1_rad))
+  dlng = math.sin(0.5 * (lon2_rad - lon1_rad))
+  x = dlat * dlat + dlng * dlng * math.cos(lat1_rad) * math.cos(lat2_rad)
   return EARTH_RADIUS * (2 * math.atan2(math.sqrt(x),
-      math.sqrt(max(0.0, 1.0 - x))))
+                         math.sqrt(max(0.0, 1.0 - x))))
+
+
+def ApproximateDistanceBetweenStops(stop1, stop2):
+  """Compute approximate distance between two stops in meters."""
+  return DistanceInMeters(stop1.stop_lat, stop1.stop_lon,
+                          stop2.stop_lat, stop2.stop_lon)
 
 
 def ReadCSV(str, encoding, cols):

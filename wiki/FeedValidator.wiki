@@ -7,7 +7,7 @@ The feedvalidator is a command line tool that checks a Google Transit Feed for p
 
 = Windows standalone version =
 
-We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download [http://googletransitdatafeed.googlecode.com/files/feedvalidator-1.0b5.zip feedvalidator-1.0b5.zip] from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
+We provide a Windows executable version for convenience; if you're running Windows, you should use this one.  To get it, download the latest `transitfeed-(version)-windows.zip` from the [http://code.google.com/p/googletransitdatafeed/downloads/list project download page].
 
 Once you have it downloaded and unzipped, there are a few ways to run it:
 

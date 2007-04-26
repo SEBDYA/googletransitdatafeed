@@ -44,19 +44,5 @@ The warning "Timezone not checked (install pytz package for timezone validation)
 
 Open a new Command Prompt window. Change into the directory containing feedvalidator.py and  transitfeed.py (Hint: type "cd " without quotes and drag the icon of the folder into command prompt window). Run feedvalidator.py <feed filename>. If you don't want to type the feed filename try dragging it into the command prompt window. 
 
-= Revision History =
-
-==== v1.0b5 ====
-Adds more validation of service_ids.
-
-==== v1.0b4 ====
-Further improves line wrapping, improves ID display, limits the number of unused stops shown.
-
-==== v1.0b3 ====
-Adds better line wrapping to make the output more pleasant to read.
-
-==== v1.0b2 ====
-Adds testing to identify stops that probably refer to the same location because they're close enough together.
-
-==== v1.0b1 ====
-First standalone Windows version.
+== Revision History ==
+See the TransitFeedDistribution page.

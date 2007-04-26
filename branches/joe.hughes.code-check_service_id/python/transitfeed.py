@@ -1516,6 +1516,7 @@ class Schedule:
         return
       else:
         trip.service_period = self.service_periods[trip.service_id]
+        del trip.service_id  # so that trip only has one service member
 
     # TODO: validate distance values in stop times (if applicable)
 

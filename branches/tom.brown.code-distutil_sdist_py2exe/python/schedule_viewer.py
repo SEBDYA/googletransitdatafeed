@@ -82,8 +82,8 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     m = re.match(r'/file/([a-z0-9_-]{1,64}\.?[a-z0-9_-]{1,64})$', path)
     if m and m.group(1):
       try:
-        fh = self.OpenFile(m.group(1))
-        return self.handle_static_file_GET(fh, m.group(1))
+        f, mime_type = self.OpenFile(m.group(1))
+        return self.handle_static_file_GET(f, mime_type)
       except IOError, e:
         print "Error: unable to open %s" % m.group(1)
         # Ignore and treat as 404
@@ -99,15 +99,21 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def OpenFile(self, filename):
     """Try to open filename in the static files directory of this server.
-    Return a filehandle if it worked, else raise IOError."""
-    return open(os.path.join(self.server.file_dir, filename))
+    Return a tuple (file object, string mime_type) or raise an exception."""
+    (mime_type, encoding) = mimetypes.guess_type(filename)
+    assert mime_type
+    # A crude guess of when we should use binary mode. Without it non-unix
+    # platforms may corrupt binary files.
+    if mime_type.startswith('text/'):
+      mode = 'r'
+    else:
+      mode = 'rb'
+    return open(os.path.join(self.server.file_dir, filename), mode), mime_type
 
   def handle_GET_default(self, parsed_params, path):
     self.send_error(404)
 
-  def handle_static_file_GET(self, fh, filename):
-    (mime_type, encoding) = mimetypes.guess_type(filename)
-    assert mime_type
+  def handle_static_file_GET(self, fh, mime_type):
     content = fh.read()
     self.send_response(200)
     self.send_header('Content-Type', mime_type)
@@ -125,7 +131,8 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
     # A very simple template system. For a fixed set of values replace [xxx]
     # with the value of local variable xxx
-    content = self.OpenFile('index.html').read()
+    f, _ = self.OpenFile('index.html')
+    content = f.read()
     for v in ('agency', 'min_lat', 'min_lon', 'max_lat', 'max_lon', 'key'):
       content = content.replace('[%s]' % v, str(locals()[v]))
 

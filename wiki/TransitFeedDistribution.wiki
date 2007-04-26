@@ -12,7 +12,7 @@ The TransitFeedDistribution contains several parts, each with its own instructio
 
 == Windows ==
 
-If you just want to run the tools you may download prebuilt exe files from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Download the latest version of `transitfeed-<version>exe.zip` and unzip the contents into an empty directory.
+If you just want to run the tools you may download prebuilt Windows programs from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Download the latest version of `transitfeed-<version>-windows.zip` and unzip the contents into an empty directory.  Then see the ScheduleViewer and FeedValidator pages for further instructions.
 
 Windows users may also install and run the python source code fetched from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
 
@@ -28,4 +28,4 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Changes =
 
-As we make new version we shall list the changes here.
+As we make new versions we shall list the changes here.

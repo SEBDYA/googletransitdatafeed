@@ -1,0 +1,27 @@
+#summary A Distribution of python tools
+
+= Introduction =
+
+The TransitFeedDistribution contains several parts, each with their own instructions
+
+  * TransitFeed - a Python module for reading, writing, and validating feeds
+  * FeedValidator - a command line tool that checks a Google Transit Feed for problems
+  * ScheduleViewer - an application for exploring a feed on a map    
+
+= Download =
+
+== Windows ==
+
+If you just want to run the tools you may download prebuilt exe files from http://code.google.com/p/googletransitdatafeed/downloads/list . Look for =transitfeed-<version>exe.zip=. Unzip the contents into an empty directory.
+
+Windows users may also install and run the python source code fetched from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
+
+== All others ==
+
+For now you must download the source from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
+
+We need to make a source distribution file and add it to PyPI.
+
+= Changes =
+
+As we make new version we shall list the changes here.

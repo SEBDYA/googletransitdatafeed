@@ -81,9 +81,12 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     # Restrict allowable file names to prevent relative path attacks etc
     m = re.match(r'/file/([a-z0-9_-]{1,64}\.?[a-z0-9_-]{1,64})$', path)
     if m and m.group(1):
-      file_path = os.path.join(self.server.file_dir, m.group(1))
-      if os.path.exists(file_path):
-        return self.handle_static_file_GET(file_path)
+      try:
+        fh = self.OpenFile(m.group(1))
+        return self.handle_static_file_GET(fh, m.group(1))
+      except IOError, e:
+        print "Error: unable to open %s" % m.group(1)
+        # Ignore and treat as 404
 
     m = re.match(r'/([a-z]{1,64})', path)
     if m:
@@ -92,15 +95,20 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
       if callable(handler):
         return handler(parsed_params)
 
-    return self.handle_GET_default(parsed_params)
+    return self.handle_GET_default(parsed_params, path)
 
-  def handle_GET_default(self, parsed_params):
+  def OpenFile(self, filename):
+    """Try to open filename in the static files directory of this server.
+    Return a filehandle if it worked, else raise IOError."""
+    return open(os.path.join(self.server.file_dir, filename))
+
+  def handle_GET_default(self, parsed_params, path):
     self.send_error(404)
 
-  def handle_static_file_GET(self, filename):
+  def handle_static_file_GET(self, fh, filename):
     (mime_type, encoding) = mimetypes.guess_type(filename)
     assert mime_type
-    content = open(filename).read()
+    content = fh.read()
     self.send_response(200)
     self.send_header('Content-Type', mime_type)
     self.send_header('Content-Length', str(len(content)))
@@ -117,9 +125,8 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
     # A very simple template system. For a fixed set of values replace [xxx]
     # with the value of local variable xxx
-    content = open('schedule_viewer.html').read()
+    content = self.OpenFile('index.html').read()
     for v in ('agency', 'min_lat', 'min_lon', 'max_lat', 'max_lon', 'key'):
-      print "%s = %s" % (v, str(locals()[v]))
       content = content.replace('[%s]' % v, str(locals()[v]))
 
     self.send_response(200)

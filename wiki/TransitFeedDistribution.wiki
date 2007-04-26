@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The TransitFeedDistribution contains several parts, each with their own instructions
+The TransitFeedDistribution contains several parts, each with its own instructions
 
   * TransitFeed - a Python module for reading, writing, and validating feeds
   * FeedValidator - a command line tool that checks a Google Transit Feed for problems
@@ -12,7 +12,7 @@ The TransitFeedDistribution contains several parts, each with their own instruct
 
 == Windows ==
 
-If you just want to run the tools you may download prebuilt exe files from http://code.google.com/p/googletransitdatafeed/downloads/list . Look for =transitfeed-<version>exe.zip=. Unzip the contents into an empty directory.
+If you just want to run the tools you may download prebuilt exe files from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Download the latest version of =transitfeed-<version>exe.zip= and unzip the contents into an empty directory.
 
 Windows users may also install and run the python source code fetched from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
 
@@ -21,6 +21,10 @@ Windows users may also install and run the python source code fetched from our s
 For now you must download the source from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
 
 We need to make a source distribution file and add it to PyPI.
+
+= Bugs and feature requests =
+
+Please create a new issue if you find bugs or have a feature requests. Patches released under the terms of the Apache 2.0 license are more than welcome! You may contact the developers in the [http://groups.google.com/group/googletransitdatafeed Google Transit Data Feed Google Group]. 
 
 = Changes =
 

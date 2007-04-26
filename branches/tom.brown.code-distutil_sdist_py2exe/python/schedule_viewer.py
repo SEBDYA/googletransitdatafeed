@@ -28,8 +28,16 @@ import mimetypes
 from optparse import OptionParser
 import os.path
 import re
+import signal
 import simplejson
+import time
 import transitfeed
+
+
+# By default Windows kills Python with Ctrl+Break. Instead make Ctrl+Break
+# raise a KeyboardInterrupt.
+if hasattr(signal, 'SIGBREAK'):
+  signal.signal(signal.SIGBREAK, signal.default_int_handler) 
 
 
 mimetypes.add_type('text/plain', '.vbs')
@@ -111,6 +119,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     # with the value of local variable xxx
     content = open('schedule_viewer.html').read()
     for v in ('agency', 'min_lat', 'min_lon', 'max_lat', 'max_lon', 'key'):
+      print "%s = %s" % (v, str(locals()[v]))
       content = content.replace('[%s]' % v, str(locals()[v]))
 
     self.send_response(200)
@@ -312,6 +321,20 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     self.wfile.write(content)
 
 
+def StartServerThread(server):
+  """Start server in its own thread because KeyboardInterrupt doesn't
+  interrupt a socket call in Windows."""
+  # Code taken from http://mail.python.org/pipermail/python-list/2003-July/212751.html
+  # An alternate approuch is shown at http://groups.google.com/group/webpy/msg/9f41fd8430c188dc
+  import threading
+  th = threading.Thread(target=lambda: server.serve_forever())
+  th.setDaemon(1)
+  th.start()
+  # I don't care about shutting down the server thread cleanly. If you kill
+  # python while it is serving a request the browser may get an incomplete
+  # reply.
+
+
 if __name__ == '__main__':
   parser = OptionParser()
   parser.add_option('--feed_filename', dest='feed_filename',
@@ -336,6 +359,12 @@ if __name__ == '__main__':
   server.schedule = schedule
   server.file_dir = options.file_dir
 
+  StartServerThread(server)  # Spawns a thread for server and returns
   print "To view, point your browser at http://%s:%d/" \
     % (server.server_name, server.server_port)
-  server.serve_forever()
+
+  try:
+    while 1:
+      time.sleep(0.5)
+  except KeyboardInterrupt:
+    pass

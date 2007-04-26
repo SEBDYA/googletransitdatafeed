@@ -23,9 +23,15 @@ route.route_short_name = "66"
 route.route_long_name = "Sample Route"
 schedule.AddRouteObject(route)
 
+service_period = transitfeed.ServicePeriod("WEEK")
+service_period.SetStartDate("20070101")
+service_period.SetEndDate("20071231")
+service_period.SetWeekdayService(True)
+schedule.AddServicePeriodObject(service_period)
+
 trip = transitfeed.Trip()
 trip.route_id = "SAMPLE_ID"
-trip.service_id = "WEEK"
+trip.service_period = service_period
 trip.trip_id = "SAMPLE_TRIP"
 trip.direction_id = "0"
 trip.block_id = None

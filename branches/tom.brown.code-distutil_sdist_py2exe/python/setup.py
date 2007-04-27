@@ -45,5 +45,3 @@ setup(
     console=scripts,
     options=options
     )
-
-#    package_data={'schedule_viewer': ['schedule_viewer_files/*', 'schedule_viewer.html']}

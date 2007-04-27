@@ -338,8 +338,10 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 def StartServerThread(server):
   """Start server in its own thread because KeyboardInterrupt doesn't
   interrupt a socket call in Windows."""
-  # Code taken from http://mail.python.org/pipermail/python-list/2003-July/212751.html
-  # An alternate approuch is shown at http://groups.google.com/group/webpy/msg/9f41fd8430c188dc
+  # Code taken from
+  # http://mail.python.org/pipermail/python-list/2003-July/212751.html
+  # An alternate approach is shown at
+  # http://groups.google.com/group/webpy/msg/9f41fd8430c188dc
   import threading
   th = threading.Thread(target=lambda: server.serve_forever())
   th.setDaemon(1)

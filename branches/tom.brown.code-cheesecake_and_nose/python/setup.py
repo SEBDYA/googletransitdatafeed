@@ -49,6 +49,8 @@ setup(
     version=VERSION,
     name='transitfeed',
     url='http://code.google.com/p/googletransitdatafeed/',
+    maintainer='Tom Brown',
+    maintainer_email='tom.brown.code@gmail.com',
     py_modules=['transitfeed'],
     scripts=scripts,
     data_files=[('schedule_viewer_files', glob.glob(os.path.join('schedule_viewer_files', '*')))],

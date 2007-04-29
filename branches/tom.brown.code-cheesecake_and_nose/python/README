@@ -1,0 +1,11 @@
+README file for Google Transit Feed Distribution
+
+
+
+See INSTALL for installation instructions
+
+The most recent source can be downloaded from our subversion repository at
+http://googletransitdatafeed.googlecode.com/svn/trunk/python/
+
+See http://code.google.com/p/googletransitdatafeed/wiki/TransitFeedDistribution
+for more information.

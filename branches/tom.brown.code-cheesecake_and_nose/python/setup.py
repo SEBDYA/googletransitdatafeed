@@ -26,22 +26,43 @@ for help on creating Windows executables.
 from distutils.core import setup
 import glob
 import os.path
+from transitfeed import __version__ as VERSION
 
 try:
   import py2exe
+  has_py2exe = True
 except ImportError, e:
   # Won't be able to generate win32 exe
+  has_py2exe = False
   pass
+
 
 options = {'py2exe': {'packages': ['pytz']}}  
 scripts = ['feedvalidator.py', 'schedule_viewer.py']
+kwargs = {}
+
+if has_py2exe:
+  kwargs['console'] = scripts
+
+
 setup(
-    version='0.1.0',
+    version=VERSION,
     name='transitfeed',
     url='http://code.google.com/p/googletransitdatafeed/',
     py_modules=['transitfeed'],
     scripts=scripts,
     data_files=[('schedule_viewer_files', glob.glob(os.path.join('schedule_viewer_files', '*')))],
-    console=scripts,
-    options=options
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Information Technology',
+        'Intended Audience :: Other Audience',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Scientific/Engineering :: GIS',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+        ],
+    options=options,
+    **kwargs
     )

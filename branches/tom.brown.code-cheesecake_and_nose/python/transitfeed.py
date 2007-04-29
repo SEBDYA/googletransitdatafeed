@@ -53,6 +53,11 @@ import zipfile
 
 OUTPUT_ENCODING = 'utf-8'
 
+
+__versioninfo__ = (1, 0, '0b7')
+__version__ = '.'.join(map(str, __versioninfo__))
+
+
 class ProblemReporter:
   """This is a basic problem reporter that just prints to console."""
 

@@ -63,20 +63,38 @@ class ProblemReporter:
     self._context = context
 
   def SetFileContext(self, filename, row_num, row):
+    """Save the current context to be output with any errors.
+
+    Args:
+      filename: string
+      row_num: int
+      row: list of unicode strings
+    """
     self.SetContext('in line %d of %s:\n%s' %
                     (row_num, filename, ', '.join(map(unicode, row))))
 
   def _Report(self, problem_text):
-    print self._LineWrap(problem_text, 79).encode(OUTPUT_ENCODING)
+    print self._EncodeUnicode(self._LineWrap(problem_text, 79))
     if self._context:
-      print self._LineWrap(self._context, 79).encode(OUTPUT_ENCODING)
-      
-  def _LineWrap(self, text, width):
+      print self._EncodeUnicode(self._LineWrap(self._context, 79))
+
+  @staticmethod
+  def _EncodeUnicode(text):
+    """
+    Optionally encode text and return it. The result should be safe to print.
+    """
+    if type(text) == type(u''):
+      return text.encode(OUTPUT_ENCODING)
+    else:
+      return text
+
+  @staticmethod
+  def _LineWrap(text, width):
     """
     A word-wrap function that preserves existing line breaks
     and most spaces in the text. Expects that existing line
     breaks are posix newlines (\n).
-    
+
     Taken from:
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
     """
@@ -117,7 +135,7 @@ class ProblemReporter:
   def DuplicateID(self, column_name, value):
     self._Report('Duplicated ID "%s" found in "%s" column' %
                  (value, column_name))
-				 
+
   def UnusedStop(self, stop_id, stop_name):
     self._Report('The stop "%s" (with ID "%s") isn\'t '
                  'used for any trips.' % (stop_name, stop_id))
@@ -201,8 +219,8 @@ class DuplicateID(Exception):
 
   def __str__(self):
     return '"%s" in column "%s"' % (self.value, self.column_name)
-	
-	
+
+
 class UnusedStop(Exception):
   def __init__(self, stop_id, stop_name):
     Exception.__init__(self)
@@ -245,7 +263,7 @@ class ExceptionProblemReporter(ProblemReporter):
 
   def DuplicateID(self, column_name, value):
     raise DuplicateID(column_name, value)
-	
+
   def UnusedStop(self, stop_id, stop_name):
     raise UnusedStop(stop_id, stop_name)
 
@@ -1330,6 +1348,36 @@ class ServicePeriod(object):
         problems.InvalidValue('date', date)
 
 
+class CsvUnicodeWriter:
+  """
+  Create a wrapper around a csv writer object which can safely write unicode
+  values. Passes all arguments to csv.writer.
+  """
+  def __init__(self, *args, **kwargs):
+    self.writer = csv.writer(*args, **kwargs)
+
+  def WriteUnicodeRow(self, row):
+    """Write row to the csv file. Any unicode strings in row are encoded as
+    utf-8."""
+    encoded_row = []
+    for s in row:
+      if isinstance(s, unicode):
+        encoded_row.append(s.encode("utf-8"))
+      else:
+        encoded_row.append(s)
+    try:
+      self.writer.writerow(encoded_row)
+    except Exception, e:
+      print 'error writing %s as %s' % (row, encoded_row)
+      raise e
+
+  def WriteUnicodeRows(self, rows):
+    """Write rows to the csv file. Any unicode strings in rows are encoded as
+    utf-8."""
+    for row in rows:
+      self.WriteUnicodeRow(row)
+
+
 class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
@@ -1611,66 +1659,66 @@ class Schedule:
                     extra_validation=extra_validation)
     loader.Load()
 
-  def WriteGoogleTransitFeed(self, file_name):
+  def WriteGoogleTransitFeed(self, file):
     """Output this schedule as a Google Transit Feed in file_name.
 
     Args:
-      filename: path of new feed file, should end in ".zip"
+      file: path of new feed file (a string) or a file-like object
 
     Returns:
       None
     """
-    archive = zipfile.ZipFile(file_name, 'w')
+    archive = zipfile.ZipFile(file, 'w')
 
     agency_string = StringIO.StringIO()
-    writer = csv.writer(agency_string)
-    writer.writerow(Agency._FIELD_NAMES)
+    writer = CsvUnicodeWriter(agency_string)
+    writer.WriteUnicodeRow(Agency._FIELD_NAMES)
     for agency in self.agencies.values():
-      writer.writerow(agency.GetFieldValuesTuple())
+      writer.WriteUnicodeRow(agency.GetFieldValuesTuple())
     archive.writestr('agency.txt', agency_string.getvalue())
 
     calendar_dates_string = StringIO.StringIO()
-    writer = csv.writer(calendar_dates_string)
-    writer.writerow(ServicePeriod._FIELD_NAMES_CALENDAR_DATES)
+    writer = CsvUnicodeWriter(calendar_dates_string)
+    writer.WriteUnicodeRow(ServicePeriod._FIELD_NAMES_CALENDAR_DATES)
     has_data = False
     for period in self.service_periods.values():
       for row in period.GenerateCalendarDatesFieldValuesTuples():
         has_data = True
-        writer.writerow(row)
+        writer.WriteUnicodeRow(row)
     wrote_calendar_dates = False
     if has_data:
       wrote_calendar_dates = True
       archive.writestr('calendar_dates.txt', calendar_dates_string.getvalue())
 
     calendar_string = StringIO.StringIO()
-    writer = csv.writer(calendar_string)
-    writer.writerow(ServicePeriod._FIELD_NAMES)
+    writer = CsvUnicodeWriter(calendar_string)
+    writer.WriteUnicodeRow(ServicePeriod._FIELD_NAMES)
     has_data = False
     for s in self.service_periods.values():
       row = s.GetCalendarFieldValuesTuple()
       if row:
         has_data = True
-        writer.writerow(row)
+        writer.WriteUnicodeRow(row)
     if has_data or not wrote_calendar_dates:
       archive.writestr('calendar.txt', calendar_string.getvalue())
 
     stop_string = StringIO.StringIO()
-    writer = csv.writer(stop_string)
-    writer.writerow(Stop._FIELD_NAMES)
-    writer.writerows(s.GetFieldValuesTuple() for s in self.stops.values())
+    writer = CsvUnicodeWriter(stop_string)
+    writer.WriteUnicodeRow(Stop._FIELD_NAMES)
+    writer.WriteUnicodeRows(s.GetFieldValuesTuple() for s in self.stops.values())
     archive.writestr('stops.txt', stop_string.getvalue())
 
     route_string = StringIO.StringIO()
-    writer = csv.writer(route_string)
-    writer.writerow(Route._FIELD_NAMES)
-    writer.writerows(r.GetFieldValuesTuple() for r in self.routes.values())
+    writer = CsvUnicodeWriter(route_string)
+    writer.WriteUnicodeRow(Route._FIELD_NAMES)
+    writer.WriteUnicodeRows(r.GetFieldValuesTuple() for r in self.routes.values())
     archive.writestr('routes.txt', route_string.getvalue())
 
     # write trips.txt
     trips_string = StringIO.StringIO()
-    writer = csv.writer(trips_string)
-    writer.writerow(Trip._FIELD_NAMES)
-    writer.writerows(t.GetFieldValuesTuple() for t in self.trips.values())
+    writer = CsvUnicodeWriter(trips_string)
+    writer.WriteUnicodeRow(Trip._FIELD_NAMES)
+    writer.WriteUnicodeRows(t.GetFieldValuesTuple() for t in self.trips.values())
     archive.writestr('trips.txt', trips_string.getvalue())
 
     # write frequencies.txt (if applicable)
@@ -1679,17 +1727,17 @@ class Schedule:
       headway_rows += trip.GetHeadwayPeriodOutputTuples()
     if headway_rows:
       headway_string = StringIO.StringIO()
-      writer = csv.writer(headway_string)
-      writer.writerow(Trip._FIELD_NAMES_HEADWAY)
-      writer.writerows(headway_rows)
+      writer = CsvUnicodeWriter(headway_string)
+      writer.WriteUnicodeRow(Trip._FIELD_NAMES_HEADWAY)
+      writer.WriteUnicodeRows(headway_rows)
       archive.writestr('frequencies.txt', headway_string.getvalue())
 
     # write fares (if applicable)
     if self.GetFareList():
       fare_string = StringIO.StringIO()
-      writer = csv.writer(fare_string)
-      writer.writerow(Fare._FIELD_NAMES)
-      writer.writerows(t.GetFieldValuesTuple() for t in self.GetFareList())
+      writer = CsvUnicodeWriter(fare_string)
+      writer.WriteUnicodeRow(Fare._FIELD_NAMES)
+      writer.WriteUnicodeRows(f.GetFieldValuesTuple() for f in self.GetFareList())
       archive.writestr('fare_attributes.txt', fare_string.getvalue())
 
     # write fare rules (if applicable)
@@ -1699,16 +1747,16 @@ class Schedule:
         rule_rows.append(rule.GetFieldValuesTuple())
     if rule_rows:
       rule_string = StringIO.StringIO()
-      writer = csv.writer(rule_string)
-      writer.writerow(FareRule._FIELD_NAMES)
-      writer.writerows(rule_rows)
+      writer = CsvUnicodeWriter(rule_string)
+      writer.WriteUnicodeRow(FareRule._FIELD_NAMES)
+      writer.WriteUnicodeRows(rule_rows)
       archive.writestr('fare_rules.txt', rule_string.getvalue())
 
     stop_times_string = StringIO.StringIO()
-    writer = csv.writer(stop_times_string)
-    writer.writerow(Trip._FIELD_NAMES_STOP_TIMES)
+    writer = CsvUnicodeWriter(stop_times_string)
+    writer.WriteUnicodeRow(Trip._FIELD_NAMES_STOP_TIMES)
     for t in self.trips.values():
-      writer.writerows(t._GenerateStopTimesTuples())
+      writer.WriteUnicodeRows(t._GenerateStopTimesTuples())
     archive.writestr('stop_times.txt', stop_times_string.getvalue())
 
     # write shapes (if applicable)
@@ -1720,17 +1768,18 @@ class Schedule:
         seq += 1
     if shape_rows:
       shape_string = StringIO.StringIO()
-      writer = csv.writer(shape_string)
-      writer.writerow(Shape._FIELD_NAMES)
-      writer.writerows(shape_rows)
+      writer = CsvUnicodeWriter(shape_string)
+      writer.WriteUnicodeRow(Shape._FIELD_NAMES)
+      writer.WriteUnicodeRows(shape_rows)
       archive.writestr('shapes.txt', shape_string.getvalue())
 
     archive.close()
 
-  def Validate(self, problems=default_problem_reporter,
-               validate_children=True):
+  def Validate(self, problems=None, validate_children=True):
     """Validates various holistic aspects of the schedule
        (mostly interrelationships between the various data sets)."""
+    if not problems:
+      problems = self.problem_reporter
 
     # TODO: Check Trip fields against valid values
 
@@ -1739,7 +1788,7 @@ class Schedule:
       if validate_children:
         stop.Validate(problems)
       if not stop.trip_index:
-	    problems.UnusedStop(stop.stop_id, stop.stop_name)
+        problems.UnusedStop(stop.stop_id, stop.stop_name)
 
     # Check for stops that might represent the same location
     # (specifically, stops that are less that 2 meters apart)
@@ -1825,7 +1874,7 @@ class Loader:
                problems=default_problem_reporter,
                extra_validation=False):
     if not schedule:
-      schedule = Schedule()
+      schedule = Schedule(problem_reporter=problems)
     self._extra_validation = extra_validation
     self._schedule = schedule
     self._problems = problems
@@ -1855,8 +1904,8 @@ class Loader:
     return True
 
   def _ReadCSV(self, file_name, cols, required):
-    """Reads lines from file_name, yielding a list of values corresponding to
-    the column names in cols."""
+    """Reads lines from file_name, yielding a list of unicode values
+    corresponding to the column names in cols."""
 
     contents = self._FileContents(file_name)
     if not contents:  # Missing file

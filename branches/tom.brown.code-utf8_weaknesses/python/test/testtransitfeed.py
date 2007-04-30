@@ -19,8 +19,10 @@
 import dircache
 import os.path
 import sys
+import tempfile
 import transitfeed
 import unittest
+import StringIO
 
 
 def DataPath(path):
@@ -37,27 +39,30 @@ class TestFailureProblemReporter(transitfeed.ProblemReporter):
 
   def _Report(self, problem_text):
     self.test_case.fail(problem_text)
-    
-    
-class DoNothingProblemReporter(transitfeed.ProblemReporter):
-  """Ignores any problems."""
-  def __init__(self):
-    transitfeed.ProblemReporter.__init__(self)
-  
-  def _Report(self, problem_text):
-    pass
+
+
+class RedirectStdOutTestCaseBase(unittest.TestCase):
+  """Save stdout to the StringIO buffer self.this_stdout"""
+  def setUp(self):
+    self.saved_stdout = sys.stdout
+    self.this_stdout = StringIO.StringIO()
+    sys.stdout = self.this_stdout
+
+  def tearDown(self):
+    sys.stdout = self.saved_stdout
+    self.this_stdout.close()
 
 
 # ensure that there are no exceptions when attempting to load
 # (so that the validator won't crash)
-class NoExceptionTestCase(unittest.TestCase):
+class NoExceptionTestCase(RedirectStdOutTestCaseBase):
   def runTest(self):
-    problems = DoNothingProblemReporter()
     for feed in GetDataPathContents():
-      loader = transitfeed.Loader(DataPath(feed), problems=problems,
+      loader = transitfeed.Loader(DataPath(feed),
+                                  problems=transitfeed.ProblemReporter(),
                                   extra_validation=True)
       schedule = loader.Load()
-      schedule.Validate(problems=problems)
+      schedule.Validate()
 
 
 class LoadTestCase(unittest.TestCase):
@@ -94,7 +99,10 @@ class LoadFromZipTestCase(unittest.TestCase):
     schedule = transitfeed.Schedule(
         problem_reporter=transitfeed.ExceptionProblemReporter())
     schedule.Load(DataPath('good_feed.zip'), extra_validation=True)
-    
+
+    # Finally see if write crashes
+    schedule.WriteGoogleTransitFeed(tempfile.TemporaryFile())
+
 
 class LoadFromDirectoryTestCase(unittest.TestCase):
   def runTest(self):
@@ -139,6 +147,45 @@ class LoadUTF8BOMTestCase(unittest.TestCase):
       problems = TestFailureProblemReporter(self),
       extra_validation = True)
     loader.Load()
+
+
+class ProblemReporterTestCase(RedirectStdOutTestCaseBase):
+  def testContextWithBadUnicode(self):
+    pr = transitfeed.ProblemReporter()
+    pr.SetFileContext('filename.foo', 23,
+                      [u'Andr\202', u'Person \xec\x9c\xa0 foo', None])
+    pr._Report('test string')
+    pr._Report('\xff\xfe\x80\x88')
+    pr._Report(u'\xff\xfe\x80\x88')
+
+  def testNoContextWithBadUnicode(self):
+    pr = transitfeed.ProblemReporter()
+    pr._Report('test string')
+    pr._Report('\xff\xfe\x80\x88')
+    pr._Report(u'\xff\xfe\x80\x88')
+
+  def testLongWord(self):
+    # Make sure LineWrap doesn't puke
+    pr = transitfeed.ProblemReporter()
+    pr._Report('nthountheontuhoenuthoentuhntoehuontehuntoehuntoehuntohuntoheuntheounthoeunthoeunthoeuntheontuheontuhoue')
+
+
+
+class BadProblemReporterTestCase(RedirectStdOutTestCaseBase):
+  """Make sure ProblemReporter doesn't crash when given bad unicode data and
+  does find some error"""
+  def runTest(self):
+    loader = transitfeed.Loader(
+      DataPath('bad_utf8'),
+      problems = transitfeed.ProblemReporter(),
+      extra_validation = True)
+    loader.Load()
+    self.this_stdout.getvalue().index('Invalid value')  # raises exception if not found
+
+
+class BadUtf8TestCase(LoadTestCase):
+  def runTest(self):
+    self.ExpectInvalidValue('bad_utf8', 'agency_name')
 
 
 class LoadMissingAgencyTestCase(LoadTestCase):
@@ -201,8 +248,8 @@ class MissingColumnTestCase(unittest.TestCase):
 class ZeroBasedStopSequenceTestCase(LoadTestCase):
   def runTest(self):
     self.ExpectInvalidValue('zero_based_stop_sequence', 'stop_sequence')
-    
-    
+
+
 class DuplicateStopTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(
@@ -838,7 +885,7 @@ class DuplicateStopValidationTestCase(ValidationTestCase):
     stop1.stop_lon = 32.258937
     schedule.AddStopObject(stop1)
     trip.AddStopTime(stop1, "12:00:00", "12:00:00")
-    
+
     stop2 = transitfeed.Stop()
     stop2.stop_id = "STOP2"
     stop2.stop_name = "Stop 2"
@@ -883,7 +930,7 @@ class MinimalWriteTestCase(unittest.TestCase):
     route.route_id = "SAMPLE_ID"
     route.route_type = 3
     route.route_short_name = "66"
-    route.route_long_name = "Sample Route"
+    route.route_long_name = "Sample Route acute letter e\202"
     schedule.AddRouteObject(route)
 
     service_period = transitfeed.ServicePeriod("WEEK")
@@ -900,7 +947,7 @@ class MinimalWriteTestCase(unittest.TestCase):
 
     stop1 = transitfeed.Stop()
     stop1.stop_id = "STOP1"
-    stop1.stop_name = "Stop 1"
+    stop1.stop_name = u'Stop 1 acute letter e\202'
     stop1.stop_lat = 78.243587
     stop1.stop_lon = 32.258937
     schedule.AddStopObject(stop1)

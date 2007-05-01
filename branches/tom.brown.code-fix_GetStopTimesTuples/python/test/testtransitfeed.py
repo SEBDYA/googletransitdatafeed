@@ -688,6 +688,9 @@ class TripHasStopTimeValidationTestCase(ValidationTestCase):
     trip.AddStopTime(stop, "05:22:00", None)
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetEndTime()),
         "05:22:00")
+    self.assertEqual(len(trip.GetStopTimesTuples()), 4)
+    self.assertEqual(trip.GetStopTimesTuples()[0], (trip.trip_id, "05:11:00", "05:12:00", "STOP1", 1))
+    self.assertEqual(trip.GetStopTimesTuples()[3], (trip.trip_id, "05:22:00", "", "STOP2", 4))
 
     # Last stop must always have a time
     trip.AddStopTime(stop, None, None)

@@ -1653,20 +1653,6 @@ class Schedule:
           break
     return stop_list
 
-  def GetUnusedStops(self):
-    """Return a list of stops not used by any trips"""
-    stop_list = []
-    for stop in self.stops.values():
-      if len(stop.trip_index) == 0:
-        stop_list.append(stop)
-    return stop_list
-
-  def RemoveStop(self, stop):
-    """Remove stop from this schedule. Do not use unless stop is not used by
-    any trips"""
-    assert len(stop.trip_index) == 0
-    del self.stops[stop.stop_id]
-
   def Load(self, feed_path, extra_validation=False):
     loader = Loader(feed_path, self, problems=self.problem_reporter,
                     extra_validation=extra_validation)

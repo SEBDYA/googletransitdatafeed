@@ -481,6 +481,8 @@ class Route(object):
     """
     if trip_id is None:
       trip_id = unicode(len(schedule.trips))
+    if service_period is None:
+      service_period = schedule.GetDefaultServicePeriod()
     trip = Trip(route=self, headsign=headsign, service_period=service_period,
                 trip_id=trip_id)
     schedule.AddTripObject(trip)
@@ -1104,15 +1106,16 @@ class Agency(object):
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['agency_id']
 
   def __init__(self, name=None, url=None, timezone=None, id=None,
-               field_list=None):
+               field_list=None, agency_url=None, agency_name=None,
+               agency_timezone=None, agency_id=None):
     if field_list:
       for fn, fv in zip(Agency._FIELD_NAMES, field_list):
         self.__dict__[fn] = fv
     else:
-      self.agency_name = name
-      self.agency_url = url
-      self.agency_timezone = timezone
-      self.agency_id = id
+      self.agency_name = name or agency_name
+      self.agency_url = url or agency_url
+      self.agency_timezone = timezone or agency_timezone
+      self.agency_id = id or agency_id
 
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) for fn in Agency._FIELD_NAMES]
@@ -1212,9 +1215,12 @@ class ServicePeriod(object):
       yield (self.service_id, date, unicode(exception_type))
 
   def GetCalendarDatesFieldValuesTuples(self):
+    """Return a list of date execeptions"""
     result = []
     for date_tuple in self.GenerateCalendarDatesFieldValuesTuples():
       result.append(date_tuple)
+    result.sort()  # helps with __eq__
+    return result
 
   def SetDateHasService(self, date, has_service=True):
     self.date_exceptions[date] = has_service and 1 or 2
@@ -1335,7 +1341,7 @@ class Schedule:
   an agency.  This is the main class for this module."""
 
   def __init__(self, problem_reporter=default_problem_reporter):
-    self.agencies = {}
+    self._agencies = {}
     self.stops = {}
     self.routes = {}
     self.trips = {}
@@ -1343,7 +1349,8 @@ class Schedule:
     self.fares = {}
     self.fare_zones = {}  # represents the set of all known fare zones
     self._shapes = {}  # shape_id to Shape
-    self.active_service_period = None
+    self._default_service_period = None
+    self._default_agency = None
     self.problem_reporter = problem_reporter
 
   def GetStopBoundingBox(self):
@@ -1363,42 +1370,81 @@ class Schedule:
     if not problem_reporter:
       problem_reporter = self.problem_reporter
     agency.Validate(problem_reporter)
-    self.agencies[agency.agency_id] = agency
+    self._agencies[agency.agency_id] = agency
 
   def GetAgency(self, agency_id=None):
-    try:
-      return self.agencies[agency_id]
-    except KeyError:  # If there's only one agency, we know what they mean.
-      if not agency_id and len(self.agencies) == 1:
-        return self.agencies.values()[0]
-      else:
-        return None
+    """Return Agency with agency_id or throw a KeyError"""
+    return self._agencies[agency_id]
+
+  def GetDefaultAgency(self):
+    """Return the default Agency. If no default Agency has been set select the
+    default depending on how many Agency objects are in the Schedule. If there
+    are 0 make a new Agency the default, if there is 1 it becomes the default,
+    if there is more than 1 then return None.
+    """
+    if not self._default_agency:
+      if len(self._agencies) == 0:
+        self.NewDefaultAgency()
+      elif len(self._agencies) == 1:
+        self._default_agency = self._agencies.values()[0]
+    return self._default_agency
+
+  def NewDefaultAgency(self, **kwargs):
+    """Create a new Agency object and make it the default agency for this Schedule"""
+    agency = Agency(**kwargs)
+    if not agency.agency_id:
+      agency.agency_id = str(len(self._agencies))
+    self._default_agency = agency
+    # Can't use AddAgencyObject because it tries to validate agency before it
+    # has a name
+    self._agencies[agency.agency_id] = agency
+    return agency
+
+  def SetDefaultAgency(self, agency):
+    """Make agency the default and add it to the schedule if not already added"""
+    assert isinstance(agency, Agency)
+    self._default_agency = agency
+    if agency.agency_id not in self._agencies:
+      self.AddAgencyObject(agency)
 
   def GetAgencyList(self):
     """Returns the list of Agency objects known to this Schedule."""
-    return self.agencies.values()
-
-  def GetActiveServicePeriod(self):
-    if not self.active_service_period:
-      return self.AddActiveServicePeriod()
-    else:
-      return self.active_service_period
+    return self._agencies.values()
 
   def GetServicePeriod(self, service_id):
     """Returns the ServicePeriod object with the given ID."""
     return self.service_periods[service_id]
 
-  def AddActiveServicePeriod(self):
-    """Create a new ServicePeriod object, make it the active service period and
-    return it. The active service period is used when you create a trip without
+  def GetDefaultServicePeriod(self):
+    """Return the default ServicePeriod. If no default ServicePeriod has been
+    set select the default depending on how many ServicePeriod objects are in
+    the Schedule. If there are 0 make a new ServicePeriod the default, if there
+    is 1 it becomes the default, if there is more than 1 then return None.
+    """
+    if not self._default_service_period:
+      if len(self.service_periods) == 0:
+        self.NewDefaultServicePeriod()
+      elif len(self.service_periods) == 1:
+        self._default_service_period = self.service_periods.values()[0]
+    return self._default_service_period
+
+  def NewDefaultServicePeriod(self):
+    """Create a new ServicePeriod object, make it the default service period and
+    return it. The default service period is used when you create a trip without
     providing an explict service period. """
-    service_period = ServicePeriod(self)
-    self.active_service_period = service_period
+    service_period = ServicePeriod()
+    service_period.service_id = str(len(self.service_periods))
+    # Can't use SetDefaultServicePeriod because service_period might have no
+    # service days defined
+    self.service_periods[service_period.service_id] = service_period
+    self._default_service_period = service_period
     return service_period
 
-  def SetActiveServicePeriod(self, service_period):
+  def SetDefaultServicePeriod(self, service_period):
     assert isinstance(service_period, ServicePeriod)
-    self.active_service_period = service_period
+    self._default_service_period = service_period
+    if service_period.service_id not in self.service_periods:
+      self.AddServicePeriodObject(service_period)
 
   def AddServicePeriodObject(self, service_period, problem_reporter=None):
     if not problem_reporter:
@@ -1442,13 +1488,14 @@ class Schedule:
     Args:
       short_name: Short name of the route, such as "71L"
       long_name: Full name of the route, such as "NW 21st Ave/St Helens Rd"
-      type: A type such as "Tram", "Subway" or "Bus"
+      route_type: A type such as "Tram", "Subway" or "Bus"
     Returns:
       A new Route object
     """
     route_id = unicode(len(self.routes))
     route = Route(short_name=short_name, long_name=long_name,
                   route_type=route_type, route_id=route_id)
+    route.agency_id = self.GetDefaultAgency().agency_id
     self.AddRouteObject(route)
     return route
 
@@ -1462,8 +1509,8 @@ class Schedule:
       problem_reporter.DuplicateID('route_id', route.route_id)
       return
 
-    if route.agency_id not in self.agencies:
-      if not route.agency_id and len(self.agencies) == 1:
+    if route.agency_id not in self._agencies:
+      if not route.agency_id and len(self._agencies) == 1:
         # we'll just assume that the route applies to the only agency
         pass
       else:
@@ -1606,6 +1653,20 @@ class Schedule:
           break
     return stop_list
 
+  def GetUnusedStops(self):
+    """Return a list of stops not used by any trips"""
+    stop_list = []
+    for stop in self.stops.values():
+      if len(stop.trip_index) == 0:
+        stop_list.append(stop)
+    return stop_list
+
+  def RemoveStop(self, stop):
+    """Remove stop from this schedule. Do not use unless stop is not used by
+    any trips"""
+    assert len(stop.trip_index) == 0
+    del self.stops[stop.stop_id]
+
   def Load(self, feed_path, extra_validation=False):
     loader = Loader(feed_path, self, problems=self.problem_reporter,
                     extra_validation=extra_validation)
@@ -1625,7 +1686,7 @@ class Schedule:
     agency_string = StringIO.StringIO()
     writer = csv.writer(agency_string)
     writer.writerow(Agency._FIELD_NAMES)
-    for agency in self.agencies.values():
+    for agency in self._agencies.values():
       writer.writerow(agency.GetFieldValuesTuple())
     archive.writestr('agency.txt', agency_string.getvalue())
 
@@ -1786,7 +1847,7 @@ class Schedule:
     # Check that routes' agency IDs are valid, if set
     for route in self.routes.values():
       if (not IsEmpty(route.agency_id) and
-          not route.agency_id in self.agencies):
+          not route.agency_id in self._agencies):
         problems.InvalidValue('agency_id',
                               route.agency_id,
                               'The route with ID "%s" specifies agency_id '
@@ -1936,7 +1997,7 @@ class Loader:
       self._problems.SetFileContext('agency.txt', row_num, row)
       agency = Agency(field_list=row)
 
-      if agency.agency_id in self._schedule.agencies:
+      if agency.agency_id in self._schedule._agencies:
         self._problems.DuplicateID('agency_id', agency.agency_id)
       else:
         self._schedule.AddAgencyObject(agency, self._problems)

@@ -48,6 +48,7 @@ import csv
 import logging
 import math
 import os
+import random
 import re
 import zipfile
 
@@ -278,6 +279,14 @@ def IsValidColor(color):
 
 def IsEmpty(value):
   return not value or (isinstance(value, basestring) and not value.strip())
+
+
+def FindUniqueId(dic):
+  """Return a string not used as a key in the dictionary dic"""
+  name = str(len(dic))
+  while name in dic:
+    name = str(random.randint(1, 999999999))
+  return name
 
 
 def TimeToSecondsSinceMidnight(time_string):
@@ -1366,13 +1375,19 @@ class Schedule:
     self.AddAgencyObject(agency)
     return agency
 
-  def AddAgencyObject(self, agency, problem_reporter=None):
+  def AddAgencyObject(self, agency, problem_reporter=None, validate=True):
     if not problem_reporter:
       problem_reporter = self.problem_reporter
-    agency.Validate(problem_reporter)
+
+    if agency.agency_id in self._agencies:
+      problem_reporter.DuplicateID('agency_id', agency.agency_id)
+      return
+
+    if validate:
+      agency.Validate(problem_reporter)
     self._agencies[agency.agency_id] = agency
 
-  def GetAgency(self, agency_id=None):
+  def GetAgency(self, agency_id):
     """Return Agency with agency_id or throw a KeyError"""
     return self._agencies[agency_id]
 
@@ -1393,19 +1408,17 @@ class Schedule:
     """Create a new Agency object and make it the default agency for this Schedule"""
     agency = Agency(**kwargs)
     if not agency.agency_id:
-      agency.agency_id = str(len(self._agencies))
+      agency.agency_id = FindUniqueId(self._agencies)
     self._default_agency = agency
-    # Can't use AddAgencyObject because it tries to validate agency before it
-    # has a name
-    self._agencies[agency.agency_id] = agency
+    self.SetDefaultAgency(agency, validate=False)  # Blank agency won't validate
     return agency
 
-  def SetDefaultAgency(self, agency):
+  def SetDefaultAgency(self, agency, validate=True):
     """Make agency the default and add it to the schedule if not already added"""
     assert isinstance(agency, Agency)
     self._default_agency = agency
     if agency.agency_id not in self._agencies:
-      self.AddAgencyObject(agency)
+      self.AddAgencyObject(agency, validate=validate)
 
   def GetAgencyList(self):
     """Returns the list of Agency objects known to this Schedule."""
@@ -1433,28 +1446,29 @@ class Schedule:
     return it. The default service period is used when you create a trip without
     providing an explict service period. """
     service_period = ServicePeriod()
-    service_period.service_id = str(len(self.service_periods))
-    # Can't use SetDefaultServicePeriod because service_period might have no
-    # service days defined
-    self.service_periods[service_period.service_id] = service_period
-    self._default_service_period = service_period
+    service_period.service_id = FindUniqueId(self.service_periods)
+    # blank service won't validate in AddServicePeriodObject
+    self.SetDefaultServicePeriod(service_period, validate=False)
     return service_period
 
-  def SetDefaultServicePeriod(self, service_period):
+  def SetDefaultServicePeriod(self, service_period, validate=True):
     assert isinstance(service_period, ServicePeriod)
     self._default_service_period = service_period
     if service_period.service_id not in self.service_periods:
-      self.AddServicePeriodObject(service_period)
+      self.AddServicePeriodObject(service_period, validate=validate)
 
-  def AddServicePeriodObject(self, service_period, problem_reporter=None):
+  def AddServicePeriodObject(self, service_period, problem_reporter=None,
+                             validate=True):
     if not problem_reporter:
       problem_reporter = self.problem_reporter
-    service_period.Validate(problem_reporter)
 
     if service_period.service_id in self.service_periods:
       problem_reporter.DuplicateID('service_id', service_period.service_id)
-    else:
-      self.service_periods[service_period.service_id] = service_period
+      return
+
+    if validate:
+      service_period.Validate(problem_reporter)
+    self.service_periods[service_period.service_id] = service_period
 
   def GetServicePeriodList(self):
     return self.service_periods.values()
@@ -1982,11 +1996,7 @@ class Loader:
                                               Agency._REQUIRED_FIELD_NAMES):
       self._problems.SetFileContext('agency.txt', row_num, row)
       agency = Agency(field_list=row)
-
-      if agency.agency_id in self._schedule._agencies:
-        self._problems.DuplicateID('agency_id', agency.agency_id)
-      else:
-        self._schedule.AddAgencyObject(agency, self._problems)
+      self._schedule.AddAgencyObject(agency, self._problems)
       self._problems.SetContext(None)
 
   def _LoadStops(self):

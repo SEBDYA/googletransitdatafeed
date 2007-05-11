@@ -1353,8 +1353,12 @@ class DefaultAgencyTestCase(unittest.TestCase):
     schedule = transitfeed.Schedule()
     agency1 = schedule.NewDefaultAgency()
     self.assertTrue(agency1.agency_id)
+    self.assertEqual(agency1.agency_id, schedule.GetDefaultAgency().agency_id)
+    self.assertEqual(1, len(schedule.GetAgencyList()))
     agency2 = schedule.NewDefaultAgency()
     self.assertTrue(agency2.agency_id)
+    self.assertEqual(agency2.agency_id, schedule.GetDefaultAgency().agency_id)
+    self.assertEqual(2, len(schedule.GetAgencyList()))
     self.assertNotEqual(agency1, agency2)
     self.assertNotEqual(agency1.agency_id, agency2.agency_id)
 
@@ -1365,12 +1369,17 @@ class DefaultAgencyTestCase(unittest.TestCase):
     self.assertEqual(agency3.agency_name, 'Agency 3')
     self.assertEqual(agency3.agency_url, 'http://goagency')
     self.assertEqual(agency3, schedule.GetDefaultAgency())
+    self.assertEqual('agency3', schedule.GetDefaultAgency().agency_id)
+    self.assertEqual(3, len(schedule.GetAgencyList()))
 
   def test_NoAgencyMakeNewDefault(self):
     schedule = transitfeed.Schedule()
     agency = schedule.GetDefaultAgency()
     self.assertTrue(isinstance(agency, transitfeed.Agency))
     self.assertTrue(agency.agency_id)
+    self.assertEqual(1, len(schedule.GetAgencyList()))
+    self.assertEqual(agency, schedule.GetAgencyList()[0])
+    self.assertEqual(agency.agency_id, schedule.GetAgencyList()[0].agency_id)
 
   def test_AssumeSingleAgencyIsDefault(self):
     schedule = transitfeed.Schedule()
@@ -1387,6 +1396,35 @@ class DefaultAgencyTestCase(unittest.TestCase):
     agency2 = self.freeAgency('2')
     schedule.AddAgencyObject(agency2)
     self.assertEqual(None, schedule.GetDefaultAgency())
+
+  def test_OverwriteExistingAgency(self):
+    schedule = transitfeed.Schedule()
+    agency1 = self.freeAgency()
+    agency1.agency_id = '1'
+    schedule.AddAgencyObject(agency1)
+    agency2 = schedule.NewDefaultAgency()
+    # Make sure agency1 was not overwritten by the new default
+    self.assertEqual(agency1, schedule.GetAgency(agency1.agency_id))
+    self.assertNotEqual('1', agency2.agency_id)
+
+
+class FindUniqueIdTestCase(unittest.TestCase):
+  def test_simple(self):
+    d = {}
+    for i in range(0, 5):
+      d[transitfeed.FindUniqueId(d)] = 1
+    k = d.keys()
+    k.sort()
+    self.assertEqual(('0', '1', '2', '3', '4'), tuple(k))
+
+  def test_AvoidCollision(self):
+    d = {'1': 1}
+    d[transitfeed.FindUniqueId(d)] = 1
+    self.assertEqual(2, len(d))
+    self.assertFalse('2' in d, "Ops, next statement should add something to d")
+    d['2'] = None
+    d[transitfeed.FindUniqueId(d)] = 1
+    self.assertEqual(4, len(d))
 
 
 class DefaultServicePeriodTestCase(unittest.TestCase):

@@ -67,9 +67,9 @@ class ProblemReporter:
                     (row_num, filename, ', '.join(map(unicode, row))))
 
   def _Report(self, problem_text):
-    print self._LineWrap(problem_text.encode(OUTPUT_ENCODING), 80)
+    print self._LineWrap(problem_text, 79).encode(OUTPUT_ENCODING)
     if self._context:
-      print self._LineWrap(self._context.encode(OUTPUT_ENCODING), 80)
+      print self._LineWrap(self._context, 79).encode(OUTPUT_ENCODING)
       
   def _LineWrap(self, text, width):
     """
@@ -109,14 +109,18 @@ class ProblemReporter:
     self._Report('Missing value for field "%s"' % field_name)
 
   def InvalidValue(self, field_name, value, reason=None):
-    text = 'Invalid value %s found for field "%s"' % (repr(value), field_name)
+    text = 'Invalid value "%s" found for field "%s"' % (value, field_name)
     if reason:
       text += '\n' + reason
     self._Report(text)
 
   def DuplicateID(self, column_name, value):
-    self._Report('Duplicated ID %s found in "%s" column' %
-                 (repr(value), column_name))
+    self._Report('Duplicated ID "%s" found in "%s" column' %
+                 (value, column_name))
+				 
+  def UnusedStop(self, stop_id, stop_name):
+    self._Report('The stop "%s" (with ID "%s") isn\'t '
+                 'used for any trips.' % (stop_name, stop_id))
 
   def OtherProblem(self, description):
     self._Report(description)
@@ -196,8 +200,17 @@ class DuplicateID(Exception):
     self.value = value
 
   def __str__(self):
-    return '%s in column "%s"' % (repr(self.value), self.column_name)
+    return '"%s" in column "%s"' % (self.value, self.column_name)
+	
+	
+class UnusedStop(Exception):
+  def __init__(self, stop_id, stop_name):
+    Exception.__init__(self)
+    self.stop_id = stop_id
+    self.stop_name = stop_name
 
+  def __str__(self):
+    return '%s (ID %s)' % (self.stop_name, self.stop_id)
 
 class OtherProblem(Exception):
   def __init__(self, description):
@@ -232,6 +245,9 @@ class ExceptionProblemReporter(ProblemReporter):
 
   def DuplicateID(self, column_name, value):
     raise DuplicateID(column_name, value)
+	
+  def UnusedStop(self, stop_id, stop_name):
+    raise UnusedStop(stop_id, stop_name)
 
   def OtherProblem(self, description):
     raise OtherProblem(description)
@@ -1079,8 +1095,8 @@ class Shape(object):
       problems.MissingValue('shape_id')
 
     if not self.points:
-      problems.OtherProblem('The shape with shape_id %s contains no points.' %
-                            repr(self.shape_id))
+      problems.OtherProblem('The shape with shape_id "%s" contains no points.' %
+                            self.shape_id)
 
 class Agency(object):
   """Represents an agency in a schedule"""
@@ -1494,6 +1510,14 @@ class Schedule:
     if trip.shape_id and trip.shape_id not in self._shapes:
       problem_reporter.InvalidValue('shape_id', trip.shape_id)
 
+    if not trip.service_period:
+      if trip.service_id not in self.service_periods:
+        problem_reporter.InvalidValue('service_id', trip.service_id)
+        return
+      else:
+        trip.service_period = self.service_periods[trip.service_id]
+        del trip.service_id  # so that trip only has one service member
+
     # TODO: validate distance values in stop times (if applicable)
 
     self.trips[trip.trip_id] = trip
@@ -1715,9 +1739,7 @@ class Schedule:
       if validate_children:
         stop.Validate(problems)
       if not stop.trip_index:
-        problems.OtherProblem('The stop "%s" (with ID "%s") isn\'t '
-                              'used for any trips.' %
-                              (stop.stop_name, stop.stop_id))
+	    problems.UnusedStop(stop.stop_id, stop.stop_name)
 
     # Check for stops that might represent the same location
     # (specifically, stops that are less that 2 meters apart)
@@ -1776,13 +1798,13 @@ class Schedule:
     # Trips can be validated without error during the reading of trips.txt
     for trip in self.trips.values():
       if not trip.GetTimeStops():
-        problems.OtherProblem('The trip with the trip_id %s doesn\'t have '
-                              'any stop times defined.' % repr(trip.trip_id))
+        problems.OtherProblem('The trip with the trip_id "%s" doesn\'t have '
+                              'any stop times defined.' % trip.trip_id)
       if len(trip.GetTimeStops()) == 1:
-        problems.OtherProblem('The trip with the trip_id %s only has one '
+        problems.OtherProblem('The trip with the trip_id "%s" only has one '
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %
-                              repr(trip.trip_id))
+                              trip.trip_id)
 
     # Check for unused shapes
     known_shape_ids = set(self._shapes.keys())
@@ -2039,12 +2061,12 @@ class Loader:
         if (seq == last_seq):
           self._problems.InvalidValue('shape_pt_sequence', seq,
                                       'This sequence number is used twice in '
-                                      'shape %s.' % repr(shape_id))
+                                      'shape "%s".' % shape_id)
         elif (seq != last_seq + 1):
           self._problems.InvalidValue('shape_pt_sequence', seq,
                                       'Gap between sequence numbers %d and %d '
-                                      'in shape %s.' %
-                                      (last_seq, seq, repr(shape_id)))
+                                      'in shape "%s".' %
+                                      (last_seq, seq, shape_id))
           last_seq = seq  # avoid spurious warning on the next point
           continue
         last_seq = seq

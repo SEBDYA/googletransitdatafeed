@@ -34,10 +34,9 @@ try:
 except ImportError, e:
   # Won't be able to generate win32 exe
   has_py2exe = False
-  pass
 
 
-options = {'py2exe': {'packages': ['pytz']}}  
+options = {'py2exe': {'packages': ['pytz']}}
 scripts = ['feedvalidator.py', 'schedule_viewer.py']
 kwargs = {}
 

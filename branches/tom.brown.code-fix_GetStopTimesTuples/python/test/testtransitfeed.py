@@ -1,5 +1,3 @@
-#!/usr/bin/python2.4
-
 # Copyright (C) 2007 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,15 +17,18 @@
 import dircache
 import os.path
 import sys
+import tempfile
 import transitfeed
 import unittest
 
 
 def DataPath(path):
-  return os.path.join('data', path)
+  here = os.path.dirname(__file__)
+  return os.path.join(here, 'data', path)
 
 def GetDataPathContents():
-  return dircache.listdir('data')
+  here = os.path.dirname(__file__)
+  return dircache.listdir(os.path.join(here, 'data'))
 
 class TestFailureProblemReporter(transitfeed.ProblemReporter):
   """Causes a test failure immediately on any problem."""
@@ -709,7 +710,7 @@ class BasicParsingTestCase(unittest.TestCase):
       problems = transitfeed.ExceptionProblemReporter(),
       extra_validation = True)
     schedule = loader.Load()
-    self.assertEqual(1, len(schedule.agencies))
+    self.assertEqual(1, len(schedule._agencies))
     self.assertEqual(5, len(schedule.routes))
     self.assertEqual(2, len(schedule.service_periods))
     self.assertEqual(9, len(schedule.stops))
@@ -869,8 +870,21 @@ class DuplicateStopValidationTestCase(ValidationTestCase):
     trip.AddStopTime(stop4, "12:15:00", "12:15:00")
     self.ExpectOtherProblem(schedule)
     
-    
-class MinimalWriteTestCase(unittest.TestCase):
+
+class TempFileTestCaseBase(unittest.TestCase):
+  """
+  Subclass of TestCase which sets self.tempfilepath to a valid temporary zip
+  file name and removes the file if it exists when the test is done.
+  """
+  def setUp(self):
+    (_, self.tempfilepath) = tempfile.mkstemp(".zip")
+
+  def tearDown(self):
+    if os.path.exists(self.tempfilepath):
+      os.remove(self.tempfilepath)
+
+
+class MinimalWriteTestCase(TempFileTestCaseBase):
   """
   This test case simply constructs an incomplete feed with very few
   fields set and ensures that there are no exceptions when writing it out.
@@ -918,7 +932,7 @@ class MinimalWriteTestCase(unittest.TestCase):
     trip.AddStopTime(stop2, "12:05:00", "12:05:00")
 
     schedule.Validate()
-    schedule.WriteGoogleTransitFeed("test_output.zip")
+    schedule.WriteGoogleTransitFeed(self.tempfilepath)
     
     
 class TransitFeedSampleCodeTestCase(unittest.TestCase):
@@ -1078,7 +1092,7 @@ class ScheduleBuilderTestCase(unittest.TestCase):
     schedule.AddAgency("Test Agency", "http://example.com",
                        "America/Los_Angeles")
 
-    service_period = schedule.GetActiveServicePeriod()
+    service_period = schedule.GetDefaultServicePeriod()
     self.assertTrue(service_period.service_id)
     service_period.SetWeekdayService(has_service=True)
     service_period.SetStartDate("20070320")
@@ -1110,7 +1124,7 @@ class ScheduleBuilderTestCase(unittest.TestCase):
     self.assertEqual(1, len(schedule.GetRouteList()))
     self.assertEqual(3, len(schedule.GetStopList()))
 
-class WriteSampleFeedTestCase(unittest.TestCase):
+class WriteSampleFeedTestCase(TempFileTestCaseBase):
   def runTest(self):
     problems = TestFailureProblemReporter(self)
     schedule = transitfeed.Schedule(problem_reporter=problems)
@@ -1299,10 +1313,10 @@ class WriteSampleFeedTestCase(unittest.TestCase):
       schedule.AddFareRuleObject(rule, problems)
 
     schedule.Validate(problems)
-    schedule.WriteGoogleTransitFeed("test-output.zip")
+    schedule.WriteGoogleTransitFeed(self.tempfilepath)
 
     read_schedule = \
-        transitfeed.Loader("test-output.zip", problems=problems,
+        transitfeed.Loader(self.tempfilepath, problems=problems,
                            extra_validation=True).Load()
 
     self.assertEqual(1, len(read_schedule.GetAgencyList()))
@@ -1337,6 +1351,148 @@ class WriteSampleFeedTestCase(unittest.TestCase):
     self.assertEqual(1, len(read_schedule.GetShapeList()))
     self.assertEqual(shape, read_schedule.GetShape(shape.shape_id))
 
+class DefaultAgencyTestCase(unittest.TestCase):
+  def freeAgency(self, ex=''):
+    agency = transitfeed.Agency()
+    agency.agency_id = 'agencytestid' + ex
+    agency.agency_name = 'Foo Bus Line' + ex
+    agency.agency_url = 'http://gofoo.com/' + ex
+    agency.agency_timezone='America/Los_Angeles'
+    return agency
+
+  def test_SetDefault(self):
+    schedule = transitfeed.Schedule()
+    agency = self.freeAgency()
+    schedule.SetDefaultAgency(agency)
+    self.assertEqual(agency, schedule.GetDefaultAgency())
+
+  def test_NewDefaultAgency(self):
+    schedule = transitfeed.Schedule()
+    agency1 = schedule.NewDefaultAgency()
+    self.assertTrue(agency1.agency_id)
+    self.assertEqual(agency1.agency_id, schedule.GetDefaultAgency().agency_id)
+    self.assertEqual(1, len(schedule.GetAgencyList()))
+    agency2 = schedule.NewDefaultAgency()
+    self.assertTrue(agency2.agency_id)
+    self.assertEqual(agency2.agency_id, schedule.GetDefaultAgency().agency_id)
+    self.assertEqual(2, len(schedule.GetAgencyList()))
+    self.assertNotEqual(agency1, agency2)
+    self.assertNotEqual(agency1.agency_id, agency2.agency_id)
+
+    agency3 = schedule.NewDefaultAgency(agency_id='agency3',
+                                        agency_name='Agency 3',
+                                        agency_url='http://goagency')
+    self.assertEqual(agency3.agency_id, 'agency3')
+    self.assertEqual(agency3.agency_name, 'Agency 3')
+    self.assertEqual(agency3.agency_url, 'http://goagency')
+    self.assertEqual(agency3, schedule.GetDefaultAgency())
+    self.assertEqual('agency3', schedule.GetDefaultAgency().agency_id)
+    self.assertEqual(3, len(schedule.GetAgencyList()))
+
+  def test_NoAgencyMakeNewDefault(self):
+    schedule = transitfeed.Schedule()
+    agency = schedule.GetDefaultAgency()
+    self.assertTrue(isinstance(agency, transitfeed.Agency))
+    self.assertTrue(agency.agency_id)
+    self.assertEqual(1, len(schedule.GetAgencyList()))
+    self.assertEqual(agency, schedule.GetAgencyList()[0])
+    self.assertEqual(agency.agency_id, schedule.GetAgencyList()[0].agency_id)
+
+  def test_AssumeSingleAgencyIsDefault(self):
+    schedule = transitfeed.Schedule()
+    agency1 = self.freeAgency()
+    schedule.AddAgencyObject(agency1)
+    agency2 = self.freeAgency('2')  # don't add to schedule
+    # agency1 is default because it is the only Agency in schedule
+    self.assertEqual(agency1, schedule.GetDefaultAgency())
+
+  def test_MultipleAgencyCausesNoDefault(self):
+    schedule = transitfeed.Schedule()
+    agency1 = self.freeAgency()
+    schedule.AddAgencyObject(agency1)
+    agency2 = self.freeAgency('2')
+    schedule.AddAgencyObject(agency2)
+    self.assertEqual(None, schedule.GetDefaultAgency())
+
+  def test_OverwriteExistingAgency(self):
+    schedule = transitfeed.Schedule()
+    agency1 = self.freeAgency()
+    agency1.agency_id = '1'
+    schedule.AddAgencyObject(agency1)
+    agency2 = schedule.NewDefaultAgency()
+    # Make sure agency1 was not overwritten by the new default
+    self.assertEqual(agency1, schedule.GetAgency(agency1.agency_id))
+    self.assertNotEqual('1', agency2.agency_id)
+
+
+class FindUniqueIdTestCase(unittest.TestCase):
+  def test_simple(self):
+    d = {}
+    for i in range(0, 5):
+      d[transitfeed.FindUniqueId(d)] = 1
+    k = d.keys()
+    k.sort()
+    self.assertEqual(('0', '1', '2', '3', '4'), tuple(k))
+
+  def test_AvoidCollision(self):
+    d = {'1': 1}
+    d[transitfeed.FindUniqueId(d)] = 1
+    self.assertEqual(2, len(d))
+    self.assertFalse('2' in d, "Ops, next statement should add something to d")
+    d['2'] = None
+    d[transitfeed.FindUniqueId(d)] = 1
+    self.assertEqual(4, len(d))
+
+
+class DefaultServicePeriodTestCase(unittest.TestCase):
+  def test_SetDefault(self):
+    schedule = transitfeed.Schedule()
+    service1 = transitfeed.ServicePeriod()
+    service1.SetDateHasService('20070101', True)
+    service1.service_id = 'SERVICE1'
+    schedule.SetDefaultServicePeriod(service1)
+    self.assertEqual(service1, schedule.GetDefaultServicePeriod())
+    self.assertEqual(service1, schedule.GetServicePeriod(service1.service_id))
+
+  def test_NewDefault(self):
+    schedule = transitfeed.Schedule()
+    service1 = schedule.NewDefaultServicePeriod()
+    self.assertTrue(service1.service_id)
+    schedule.GetServicePeriod(service1.service_id)
+    service1.SetDateHasService('20070101', True)  # Make service1 different
+    service2 = schedule.NewDefaultServicePeriod()
+    schedule.GetServicePeriod(service2.service_id)
+    self.assertTrue(service1.service_id)
+    self.assertTrue(service2.service_id)
+    self.assertNotEqual(service1, service2)
+    self.assertNotEqual(service1.service_id, service2.service_id)
+
+  def test_NoServicesMakesNewDefault(self):
+    schedule = transitfeed.Schedule()
+    service1 = schedule.GetDefaultServicePeriod()
+    self.assertEqual(service1, schedule.GetServicePeriod(service1.service_id))
+
+  def test_AssumeSingleServiceIsDefault(self):
+    schedule = transitfeed.Schedule()
+    service1 = transitfeed.ServicePeriod()
+    service1.SetDateHasService('20070101', True)
+    service1.service_id = 'SERVICE1'
+    schedule.AddServicePeriodObject(service1)
+    self.assertEqual(service1, schedule.GetDefaultServicePeriod())
+    self.assertEqual(service1.service_id, schedule.GetDefaultServicePeriod().service_id)
+
+  def test_MultipleServicesCausesNoDefault(self):
+    schedule = transitfeed.Schedule()
+    service1 = transitfeed.ServicePeriod()
+    service1.service_id = 'SERVICE1'
+    service1.SetDateHasService('20070101', True)
+    schedule.AddServicePeriodObject(service1)
+    service2 = transitfeed.ServicePeriod()
+    service2.service_id = 'SERVICE2'
+    service2.SetDateHasService('20070201', True)
+    schedule.AddServicePeriodObject(service2)
+    service_d = schedule.GetDefaultServicePeriod()
+    self.assertEqual(service_d, None)
 
 class ApproximateDistanceBetweenStopsTestCase(unittest.TestCase):
   def testEquator(self):

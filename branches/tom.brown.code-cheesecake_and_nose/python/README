@@ -1,5 +1,12 @@
-README file for Google Transit Feed Distribution
+README file for transitfeed distribution
 
+
+
+This distribution contains a library to help you parse and generate Google
+Transit Feed files. It also contains some sample tools that demonstrate the
+library and are useful in their own right when maintaining Google
+Transit Feed files. You may fetch the specification from
+http://code.google.com/transit/spec/transit_feed_specification.htm
 
 
 See INSTALL for installation instructions

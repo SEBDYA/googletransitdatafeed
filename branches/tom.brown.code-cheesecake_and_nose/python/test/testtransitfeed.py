@@ -871,7 +871,7 @@ class DuplicateStopValidationTestCase(ValidationTestCase):
 class TempFileTestCaseBase(unittest.TestCase):
   """
   Subclass of TestCase which sets self.tempfilepath to a valid temporary zip
-  file name and removes the file if it exists when th etest is done.
+  file name and removes the file if it exists when the test is done.
   """
   def setUp(self):
     (_, self.tempfilepath) = tempfile.mkstemp(".zip")

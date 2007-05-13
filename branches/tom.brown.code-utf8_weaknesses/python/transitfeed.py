@@ -1371,7 +1371,7 @@ class CsvUnicodeWriter:
   def __init__(self, *args, **kwargs):
     self.writer = csv.writer(*args, **kwargs)
 
-  def WriteUnicodeRow(self, row):
+  def writerow(self, row):
     """Write row to the csv file. Any unicode strings in row are encoded as
     utf-8."""
     encoded_row = []
@@ -1386,11 +1386,14 @@ class CsvUnicodeWriter:
       print 'error writing %s as %s' % (row, encoded_row)
       raise e
 
-  def WriteUnicodeRows(self, rows):
+  def writerows(self, rows):
     """Write rows to the csv file. Any unicode strings in rows are encoded as
     utf-8."""
     for row in rows:
-      self.WriteUnicodeRow(row)
+      self.writerow(row)
+
+  def __getattr__(self, name):
+    return getattr(self.writer, name)
 
 
 class Schedule:
@@ -1733,19 +1736,19 @@ class Schedule:
 
     agency_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(agency_string)
-    writer.WriteUnicodeRow(Agency._FIELD_NAMES)
+    writer.writerow(Agency._FIELD_NAMES)
     for agency in self._agencies.values():
-      writer.WriteUnicodeRow(agency.GetFieldValuesTuple())
+      writer.writerow(agency.GetFieldValuesTuple())
     archive.writestr('agency.txt', agency_string.getvalue())
 
     calendar_dates_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(calendar_dates_string)
-    writer.WriteUnicodeRow(ServicePeriod._FIELD_NAMES_CALENDAR_DATES)
+    writer.writerow(ServicePeriod._FIELD_NAMES_CALENDAR_DATES)
     has_data = False
     for period in self.service_periods.values():
       for row in period.GenerateCalendarDatesFieldValuesTuples():
         has_data = True
-        writer.WriteUnicodeRow(row)
+        writer.writerow(row)
     wrote_calendar_dates = False
     if has_data:
       wrote_calendar_dates = True
@@ -1753,33 +1756,33 @@ class Schedule:
 
     calendar_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(calendar_string)
-    writer.WriteUnicodeRow(ServicePeriod._FIELD_NAMES)
+    writer.writerow(ServicePeriod._FIELD_NAMES)
     has_data = False
     for s in self.service_periods.values():
       row = s.GetCalendarFieldValuesTuple()
       if row:
         has_data = True
-        writer.WriteUnicodeRow(row)
+        writer.writerow(row)
     if has_data or not wrote_calendar_dates:
       archive.writestr('calendar.txt', calendar_string.getvalue())
 
     stop_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(stop_string)
-    writer.WriteUnicodeRow(Stop._FIELD_NAMES)
-    writer.WriteUnicodeRows(s.GetFieldValuesTuple() for s in self.stops.values())
+    writer.writerow(Stop._FIELD_NAMES)
+    writer.writerows(s.GetFieldValuesTuple() for s in self.stops.values())
     archive.writestr('stops.txt', stop_string.getvalue())
 
     route_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(route_string)
-    writer.WriteUnicodeRow(Route._FIELD_NAMES)
-    writer.WriteUnicodeRows(r.GetFieldValuesTuple() for r in self.routes.values())
+    writer.writerow(Route._FIELD_NAMES)
+    writer.writerows(r.GetFieldValuesTuple() for r in self.routes.values())
     archive.writestr('routes.txt', route_string.getvalue())
 
     # write trips.txt
     trips_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(trips_string)
-    writer.WriteUnicodeRow(Trip._FIELD_NAMES)
-    writer.WriteUnicodeRows(t.GetFieldValuesTuple() for t in self.trips.values())
+    writer.writerow(Trip._FIELD_NAMES)
+    writer.writerows(t.GetFieldValuesTuple() for t in self.trips.values())
     archive.writestr('trips.txt', trips_string.getvalue())
 
     # write frequencies.txt (if applicable)
@@ -1789,16 +1792,16 @@ class Schedule:
     if headway_rows:
       headway_string = StringIO.StringIO()
       writer = CsvUnicodeWriter(headway_string)
-      writer.WriteUnicodeRow(Trip._FIELD_NAMES_HEADWAY)
-      writer.WriteUnicodeRows(headway_rows)
+      writer.writerow(Trip._FIELD_NAMES_HEADWAY)
+      writer.writerows(headway_rows)
       archive.writestr('frequencies.txt', headway_string.getvalue())
 
     # write fares (if applicable)
     if self.GetFareList():
       fare_string = StringIO.StringIO()
       writer = CsvUnicodeWriter(fare_string)
-      writer.WriteUnicodeRow(Fare._FIELD_NAMES)
-      writer.WriteUnicodeRows(f.GetFieldValuesTuple() for f in self.GetFareList())
+      writer.writerow(Fare._FIELD_NAMES)
+      writer.writerows(f.GetFieldValuesTuple() for f in self.GetFareList())
       archive.writestr('fare_attributes.txt', fare_string.getvalue())
 
     # write fare rules (if applicable)
@@ -1809,15 +1812,15 @@ class Schedule:
     if rule_rows:
       rule_string = StringIO.StringIO()
       writer = CsvUnicodeWriter(rule_string)
-      writer.WriteUnicodeRow(FareRule._FIELD_NAMES)
-      writer.WriteUnicodeRows(rule_rows)
+      writer.writerow(FareRule._FIELD_NAMES)
+      writer.writerows(rule_rows)
       archive.writestr('fare_rules.txt', rule_string.getvalue())
 
     stop_times_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(stop_times_string)
-    writer.WriteUnicodeRow(Trip._FIELD_NAMES_STOP_TIMES)
+    writer.writerow(Trip._FIELD_NAMES_STOP_TIMES)
     for t in self.trips.values():
-      writer.WriteUnicodeRows(t._GenerateStopTimesTuples())
+      writer.writerows(t._GenerateStopTimesTuples())
     archive.writestr('stop_times.txt', stop_times_string.getvalue())
 
     # write shapes (if applicable)
@@ -1830,8 +1833,8 @@ class Schedule:
     if shape_rows:
       shape_string = StringIO.StringIO()
       writer = CsvUnicodeWriter(shape_string)
-      writer.WriteUnicodeRow(Shape._FIELD_NAMES)
-      writer.WriteUnicodeRows(shape_rows)
+      writer.writerow(Shape._FIELD_NAMES)
+      writer.writerows(shape_rows)
       archive.writestr('shapes.txt', shape_string.getvalue())
 
     archive.close()

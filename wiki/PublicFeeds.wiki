@@ -5,4 +5,5 @@
 
 || *Agency* || *Area* || *Feed Location* || *Notes* ||
 || [http://www.trimet.org/ TriMet] || Portland, OR || http://trimet.org/dev/schedule/google_transit/ || Use is subject to the terms of their [http://trimet.org/dev/schedule/google_transit/TriMetWebDeveloperLicense.htm developer license] ||
+|| [http://www.bart.gov/ BART] || San Francisco Bay, CA || http://www.bart.gov/dev/schedules/ || Use is subject to the terms of their [http://www.bart.gov/dev/schedules/license.htm developer license]. Additional information at [http://www.bart.gov/open] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||

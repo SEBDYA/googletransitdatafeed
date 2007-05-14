@@ -118,7 +118,7 @@ def main():
     path = os.path.normpath(input_path)
     (feed_dir, feed) = os.path.split(path)
     if '.' in feed:
-      feed = '.'.join(feed.split('.')[:-1])  # strip extension
+      feed = feed.rsplit('.', 1)[0]  # strip extension
     output_filename = '%s.kml' % feed
     output_path = os.path.join(feed_dir, output_filename)
     

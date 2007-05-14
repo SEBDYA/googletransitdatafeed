@@ -6,7 +6,12 @@
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
 
 == April 9, 2007 ==
-Description coming soon...
+  * Added section on [http://code.google.com/transit/spec/transit_feed_specification.htm#transitFeedSubmit submitting a feed].
+  * Added the [http://code.google.com/transit/spec/transit_feed_specification.htm#transitAgencyExample Demo Transit Agency Example] feed and live demo.
+  * Added note that `calendar.txt` can be omitted if all the service dates are defined in `calendar_dates.txt`.
+  * Made the `agency_id` field optional in feeds containing only one agency.  This allows existing feeds without `agency_id` to remain valid.
+  * Added fuller specification of `agency_url`, `stop_url`, and `route_url`, and additional example values for those fields.
+  * Added `6` (Gondola) and `7` (Funicular) as valid `route_type` values.
 
 ==== March 8, 2007 ====
 Minor edit to move the `stop_url` field from `stop_times.txt`, where it was incorrectly specified in the Feb. 28 update, to `stops.txt`, where it belongs.
@@ -29,3 +34,6 @@ Description coming soon...
 
 == September 25, 2006 ==
 Initial version.
+
+
+

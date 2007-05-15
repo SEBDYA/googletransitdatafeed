@@ -38,19 +38,19 @@ class KMLWriter(object):
   Sample usage:
     KMLWriter().Write(<transitfeed.Schedule object>, <output filename>)
   """
-  
+
   def _SetIndentation(self, elem, level=0):
     """
     This is the recommended way to cause an ElementTree DOM to be
     prettyprinted on output, as per: http://effbot.org/zone/element-lib.htm
-    
+
     Run this on the root element before outputting the tree.
-    
+
     Args:
       elem - the element to start indenting from, usually the document root
       level - current indentation level for recursion
     """
-    
+
     i = "\n" + level*"  "
     if len(elem):
       if not elem.text or not elem.text.strip():
@@ -62,7 +62,7 @@ class KMLWriter(object):
     else:
       if level and (not elem.tail or not elem.tail.strip()):
         elem.tail = i
-  
+
   def Write(self, schedule, output_file):
     """
     Writes out a feed as KML.
@@ -71,7 +71,7 @@ class KMLWriter(object):
       schedule - a transitfeed.Schedule object containing the feed to write
       output_file - name of the output KML file, or file object to use
     """
-    
+
     # Generate the DOM to write
     root = ET.Element('kml')
     root.attrib['xmlns'] = 'http://earth.google.com/kml/2.1'
@@ -97,7 +97,7 @@ class KMLWriter(object):
 
     # Make sure we pretty-print
     self._SetIndentation(root)
-  
+
     # Now write the output
     if isinstance(output_file, file):
       output = output_file
@@ -110,7 +110,7 @@ def main():
   if len(sys.argv) < 2:
     print "Usage: python kmlwriter.py <input GTFS filename> [<output KML filename>]"
     sys.exit(1)
-    
+
   input_path = sys.argv[1]
   if len(sys.argv) >= 3:
     output_path = sys.argv[2]
@@ -121,12 +121,12 @@ def main():
       feed = feed.rsplit('.', 1)[0]  # strip extension
     output_filename = '%s.kml' % feed
     output_path = os.path.join(feed_dir, output_filename)
-    
+
   loader = transitfeed.Loader(input_path,
                               problems=transitfeed.ProblemReporter())
   feed = loader.Load()
   print "Writing %s" % output_path
   KMLWriter().Write(feed, output_path)
-  
+
 if __name__ == '__main__':
   main()

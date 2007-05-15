@@ -40,5 +40,10 @@ Click on one of the route names on the left-hand side to see the trip patterns f
 
 The yellow icons on the map belong to the currently-selected route/trip; the blue icons are other nearby stops.  You can click on an icon to see the `stop_name` and `stop_id` of a stop, along with the next few stop times for it. If you click on a stop time to see the entire trip.
 
+= Bugs and feature requests =
+
+[http://code.google.com/p/googletransitdatafeed/issues/list?q=label:App-ScheduleViewer Vote for known ScheduleViewer issues] so the developers know what is important.
+
+If you find an unreported bug or have a feature request please file a new issue and add the label `App-ScheduleViewer`.
 
 

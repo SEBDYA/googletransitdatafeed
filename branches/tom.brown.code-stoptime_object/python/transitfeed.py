@@ -661,7 +661,7 @@ class StopTime(object):
     result.append(str(sequence))
     for fn in StopTime._FIELD_NAMES[5:]:
       result.append(getattr(self, fn) or '' )
-    return result
+    return tuple(result)
 
   def GetTimeSecs(self):
     """Return arrival_secs or departure_secs if not None. If both are None

@@ -32,6 +32,7 @@ def GetDataPathContents():
   here = os.path.dirname(__file__)
   return dircache.listdir(os.path.join(here, 'data'))
 
+
 class TestFailureProblemReporter(transitfeed.ProblemReporter):
   """Causes a test failure immediately on any problem."""
   def __init__(self, test_case):
@@ -1129,7 +1130,8 @@ class ScheduleBuilderTestCase(unittest.TestCase):
     service_period.SetStartDate("20070320")
     service_period.SetEndDate("20071232")
 
-    stop1 = schedule.AddStop(lng=-140.12, lat=48.921, name="one forty at forty eight")
+    stop1 = schedule.AddStop(lng=-140.12, lat=48.921,
+                             name="one forty at forty eight")
     stop2 = schedule.AddStop(lng=-140.22, lat=48.421, name="west and south")
     stop3 = schedule.AddStop(lng=-140.32, lat=48.121, name="more away")
     stop4 = schedule.AddStop(lng=-140.42, lat=48.021, name="more more away")
@@ -1140,7 +1142,8 @@ class ScheduleBuilderTestCase(unittest.TestCase):
     self.assertEqual(route.route_short_name, "R")
     self.assertEqual(route.route_type, 3)
 
-    trip = route.AddTrip(schedule, headsign="To The End", service_period=service_period)
+    trip = route.AddTrip(schedule, headsign="To The End",
+                         service_period=service_period)
     trip_id = trip.trip_id
     self.assertTrue(trip_id)
     trip = schedule.GetTrip(trip_id)
@@ -1149,7 +1152,8 @@ class ScheduleBuilderTestCase(unittest.TestCase):
 
     trip.AddStopTime(stop=stop1, arrival_secs=3600*8, departure_secs=3600*8)
     trip.AddStopTime(stop=stop2)
-    trip.AddStopTime(stop=stop3, arrival_secs=3600*8 + 60*15, departure_secs=3600*8 + 60*15)
+    trip.AddStopTime(stop=stop3, arrival_secs=3600*8 + 60*15,
+                     departure_secs=3600*8 + 60*15)
     trip.AddStopTime(stop=stop4, arrival_time="8:25:00",
                      departure_secs=3600*8 + 60*26, stop_headsign="Last stop",
                      pickup_type=1, drop_off_type=3)
@@ -1158,6 +1162,7 @@ class ScheduleBuilderTestCase(unittest.TestCase):
     self.assertEqual(4, len(trip.GetTimeStops()))
     self.assertEqual(1, len(schedule.GetRouteList()))
     self.assertEqual(4, len(schedule.GetStopList()))
+
 
 class WriteSampleFeedTestCase(TempFileTestCaseBase):
   def assertEqualTimeString(self, a, b):
@@ -1321,8 +1326,6 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
                          shape_dist_traveled=shape_dist_traveled,
                          pickup_type=pickup_type, drop_off_type=drop_off_type,
                          stop_headsign=stop_headsign)
-        self.assertEqual(trip.GetStopTimes()[-1].pickup_type, pickup_type)
-        trip.GetStopTimesTuples()
 
     self.assertEqual(0, schedule.GetTrip("CITY1").GetStopTimes()[0].pickup_type)
     self.assertEqual(1, schedule.GetTrip("CITY1").GetStopTimes()[1].pickup_type)

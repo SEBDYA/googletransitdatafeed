@@ -2328,6 +2328,9 @@ class Loader:
     self._LoadFares()
     self._LoadFareRules()
 
+    if self._zip:
+      self._zip.close()
+
     if self._extra_validation:
       self._schedule.Validate(self._problems, validate_children=False)
 

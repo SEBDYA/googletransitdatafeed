@@ -1159,6 +1159,30 @@ class AddHeadwayPeriodValidationTestCase(ValidationTestCase):
     self.ExpectInvalidValue("12:00:00", "06:00:00", 1200, "end_time", 21600)
 
 
+class MinimalUtf8Builder(TempFileTestCaseBase):
+  def runTest(self):
+    problems = TestFailureProblemReporter(self)
+    schedule = transitfeed.Schedule(problem_reporter=problems)
+    schedule.AddAgency("\xc8\x8b Fly Agency", "http://iflyagency.com",
+                       "America/Los_Angeles")
+    service_period = schedule.GetDefaultServicePeriod()
+    service_period.SetDateHasService('20070101')
+    # "u020b i with inverted accent breve" encoded in utf-8
+    stop1 = schedule.AddStop(lng=140, lat=48.2, name="\xc8\x8b hub")
+    # "u020b i with inverted accent breve" as unicode string
+    stop2 = schedule.AddStop(lng=140.001, lat=48.201, name=u"remote \u020b station")
+    route = schedule.AddRoute(u"\u03b2", "Beta", "Bus")
+    trip = route.AddTrip(schedule, u"to remote \u020b station")
+    trip.AddStopTime(stop1, time_dep='10:00:00')
+    trip.AddStopTime(stop2, time_arr='10:10:00')
+
+    schedule.Validate(problems)
+    schedule.WriteGoogleTransitFeed(self.tempfilepath)
+    read_schedule = \
+        transitfeed.Loader(self.tempfilepath, problems=problems,
+                           extra_validation=True).Load()
+
+
 class ScheduleBuilderTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule()

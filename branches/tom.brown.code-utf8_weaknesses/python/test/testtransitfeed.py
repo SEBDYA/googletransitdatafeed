@@ -952,16 +952,13 @@ class TempFileTestCaseBase(unittest.TestCase):
   file name and removes the file if it exists when the test is done.
   """
   def setUp(self):
-    (_, self.tempfilepath) = tempfile.mkstemp(".zip")
+    (fd, self.tempfilepath) = tempfile.mkstemp(".zip")
+    # Open file handle causes an exception during remove in Windows
+    os.close(fd)
 
   def tearDown(self):
     if os.path.exists(self.tempfilepath):
-      try:
-        os.remove(self.tempfilepath)
-      except WindowsError, e:
-        print "Giving Windows a little time to clean up the file"
-        time.sleep(0.250)
-        os.remove(self.tempfilepath)
+      os.remove(self.tempfilepath)
 
 
 class MinimalWriteTestCase(TempFileTestCaseBase):

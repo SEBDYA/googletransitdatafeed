@@ -1178,9 +1178,9 @@ class MinimalUtf8Builder(TempFileTestCaseBase):
 
     schedule.Validate(problems)
     schedule.WriteGoogleTransitFeed(self.tempfilepath)
-    read_schedule = \
-        transitfeed.Loader(self.tempfilepath, problems=problems,
-                           extra_validation=True).Load()
+    #read_schedule = \
+    #    transitfeed.Loader(self.tempfilepath, problems=problems,
+    #                       extra_validation=True).Load()
 
 
 class ScheduleBuilderTestCase(unittest.TestCase):

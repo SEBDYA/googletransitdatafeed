@@ -2330,6 +2330,7 @@ class Loader:
 
     if self._zip:
       self._zip.close()
+      self._zip = None
 
     if self._extra_validation:
       self._schedule.Validate(self._problems, validate_children=False)

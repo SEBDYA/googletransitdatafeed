@@ -20,6 +20,7 @@ import dircache
 import os.path
 import sys
 import tempfile
+import time
 import transitfeed
 import unittest
 import StringIO
@@ -955,7 +956,12 @@ class TempFileTestCaseBase(unittest.TestCase):
 
   def tearDown(self):
     if os.path.exists(self.tempfilepath):
-      os.remove(self.tempfilepath)
+      try:
+        os.remove(self.tempfilepath)
+      except WindowsError, e:
+        print "Giving Windows a little time to clean up the file"
+        time.sleep(0.250)
+        os.remove(self.tempfilepath)
 
 
 class MinimalWriteTestCase(TempFileTestCaseBase):

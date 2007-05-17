@@ -1857,6 +1857,7 @@ class Schedule:
       if validate_children:
         stop.Validate(problems)
       if not stop.trip_index:
+        problems.UnusedStop(stop.stop_id, stop.stop_name)
 
     # Check for stops that might represent the same location
     # (specifically, stops that are less that 2 meters apart)

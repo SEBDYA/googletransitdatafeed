@@ -250,6 +250,8 @@ class MissingColumnTestCase(unittest.TestCase):
 class ZeroBasedStopSequenceTestCase(LoadTestCase):
   def runTest(self):
     self.ExpectInvalidValue('zero_based_stop_sequence', 'stop_sequence')
+    
+    
 
 
 class DuplicateStopTestCase(unittest.TestCase):
@@ -951,9 +953,7 @@ class TempFileTestCaseBase(unittest.TestCase):
   file name and removes the file if it exists when the test is done.
   """
   def setUp(self):
-    (fd, self.tempfilepath) = tempfile.mkstemp(".zip")
-    # Open file handle causes an exception during remove in Windows
-    os.close(fd)
+    (_, self.tempfilepath) = tempfile.mkstemp(".zip")
 
   def tearDown(self):
     if os.path.exists(self.tempfilepath):

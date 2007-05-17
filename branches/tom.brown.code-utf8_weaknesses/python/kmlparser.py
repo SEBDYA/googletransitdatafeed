@@ -90,7 +90,7 @@ class KmlParser(object):
   def ExtractText(self, node):
     for child in node.childNodes:
       if child.nodeType == child.TEXT_NODE:
-	return child.wholeText  # is a unicode string
+	return child.wholeText.decode('utf-8')
     return ""
 
   def ExtractCoordinates(self, node):

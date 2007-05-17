@@ -99,7 +99,7 @@ class ProblemReporter:
     A word-wrap function that preserves existing line breaks
     and most spaces in the text. Expects that existing line
     breaks are posix newlines (\n).
-
+    
     Taken from:
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
     """
@@ -140,7 +140,7 @@ class ProblemReporter:
   def DuplicateID(self, column_name, value):
     self._Report('Duplicated ID "%s" found in "%s" column' %
                  (value, column_name))
-
+				 
   def UnusedStop(self, stop_id, stop_name):
     self._Report('The stop "%s" (with ID "%s") isn\'t '
                  'used for any trips.' % (stop_name, stop_id))
@@ -224,8 +224,8 @@ class DuplicateID(Exception):
 
   def __str__(self):
     return '"%s" in column "%s"' % (self.value, self.column_name)
-
-
+	
+	
 class UnusedStop(Exception):
   def __init__(self, stop_id, stop_name):
     Exception.__init__(self)
@@ -268,7 +268,7 @@ class ExceptionProblemReporter(ProblemReporter):
 
   def DuplicateID(self, column_name, value):
     raise DuplicateID(column_name, value)
-
+	
   def UnusedStop(self, stop_id, stop_name):
     raise UnusedStop(stop_id, stop_name)
 
@@ -1857,7 +1857,6 @@ class Schedule:
       if validate_children:
         stop.Validate(problems)
       if not stop.trip_index:
-        problems.UnusedStop(stop.stop_id, stop.stop_name)
 
     # Check for stops that might represent the same location
     # (specifically, stops that are less that 2 meters apart)
@@ -2327,10 +2326,6 @@ class Loader:
     self._LoadStopTimes()
     self._LoadFares()
     self._LoadFareRules()
-
-    if self._zip:
-      self._zip.close()
-      self._zip = None
 
     if self._extra_validation:
       self._schedule.Validate(self._problems, validate_children=False)

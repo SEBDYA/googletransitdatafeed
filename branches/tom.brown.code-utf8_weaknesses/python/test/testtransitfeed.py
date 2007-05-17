@@ -102,6 +102,13 @@ class LoadFromZipTestCase(unittest.TestCase):
         problem_reporter=transitfeed.ExceptionProblemReporter())
     schedule.Load(DataPath('good_feed.zip'), extra_validation=True)
 
+
+class LoadAndRewriteFromZipTestCase(unittest.TestCase):
+  def runTest(self):
+    schedule = transitfeed.Schedule(
+        problem_reporter=transitfeed.ExceptionProblemReporter())
+    schedule.Load(DataPath('good_feed.zip'), extra_validation=True)
+
     # Finally see if write crashes
     schedule.WriteGoogleTransitFeed(tempfile.TemporaryFile())
 
@@ -152,6 +159,7 @@ class LoadUTF8BOMTestCase(unittest.TestCase):
 
 
 class ProblemReporterTestCase(RedirectStdOutTestCaseBase):
+  # Unittest for problem reporter
   def testContextWithBadUnicode(self):
     pr = transitfeed.ProblemReporter()
     pr.SetFileContext('filename.foo', 23,
@@ -176,6 +184,8 @@ class ProblemReporterTestCase(RedirectStdOutTestCaseBase):
 class BadProblemReporterTestCase(RedirectStdOutTestCaseBase):
   """Make sure ProblemReporter doesn't crash when given bad unicode data and
   does find some error"""
+  # tom.brown.code-utf8_weaknesses fixed a bug with problem reporter and bad
+  # utf-8 strings
   def runTest(self):
     loader = transitfeed.Loader(
       DataPath('bad_utf8'),

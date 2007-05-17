@@ -1806,7 +1806,7 @@ class Schedule:
       fare_string = StringIO.StringIO()
       writer = CsvUnicodeWriter(fare_string)
       writer.writerow(Fare._FIELD_NAMES)
-      writer.writerows(f.GetFieldValuesTuple() for f in self.GetFareList())
+      writer.writerows(t.GetFieldValuesTuple() for t in self.GetFareList())
       archive.writestr('fare_attributes.txt', fare_string.getvalue())
 
     # write fare rules (if applicable)

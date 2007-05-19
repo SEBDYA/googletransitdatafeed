@@ -1983,6 +1983,7 @@ class Loader:
 
     return True
 
+  # TODO: Add testing for this specific function
   def _ReadCSV(self, file_name, cols, required):
     """Reads lines from file_name, yielding a list of unicode values
     corresponding to the column names in cols."""

@@ -673,12 +673,14 @@ class StopTime(object):
 
     trip and sequence must be provided because they are not stored in StopTime.
     """
-    result = [trip_id]
-    for fn in StopTime._FIELD_NAMES[1:4]:
-      result.append(getattr(self, fn) or '' )
-    result.append(str(sequence))
-    for fn in StopTime._FIELD_NAMES[5:]:
-      result.append(getattr(self, fn) or '' )
+    result = []
+    for fn in StopTime._FIELD_NAMES:
+      if fn == 'trip_id':
+        result.append(trip_id)
+      elif fn == 'stop_sequence':
+        result.append(str(sequence))
+      else:
+        result.append(getattr(self, fn) or '' )
     return tuple(result)
 
   def GetTimeSecs(self):
@@ -741,11 +743,31 @@ class Trip(object):
       None
     """
     stoptime = StopTime(problems=problems, stop=stop, **kwargs)
-    self._AddStopTimeObject(stoptime)
+    self.AddStopTimeObject(stoptime, problems=problems)
 
-  def _AddStopTimeObject(self, stoptime):
-    stoptime.stop._AddTripStop(self, len(self._stoptimes))
-    self._stoptimes.append(stoptime)
+  def AddStopTimeObject(self, stoptime, problems=default_problem_reporter):
+    """Add a StopTime object to the end of this trip.
+
+    Args:
+      stoptime: A StopTime object. Should not be reused in multiple trips.
+
+    Returns:
+      None
+    """
+    new_secs = stoptime.GetTimeSecs()
+    prev_secs = None
+    for st in reversed(self._stoptimes):
+      prev_secs = st.GetTimeSecs()
+      if prev_secs != None:
+        break
+    if new_secs != None and prev_secs != None and new_secs < prev_secs:
+      problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s %s < %s'
+                            % (stoptime.stop_id, self.trip_id,
+                               FormatSecondsSinceMidnight(new_secs),
+                               FormatSecondsSinceMidnight(prev_secs)))
+    else:
+      stoptime.stop._AddTripStop(self, len(self._stoptimes))
+      self._stoptimes.append(stoptime)
 
   def GetTimeStops(self):
     """Return a list of (arrival_secs, departure_secs, stop) tuples.
@@ -2318,7 +2340,7 @@ class Loader:
         continue
       stop = self._schedule.stops[stop_id]
       stoptimes.setdefault(trip_id, []).append(
-          (stop_sequence, StopTime(self._problems, stop, arrival_time,
+          (sequence, StopTime(self._problems, stop, arrival_time,
                                    departure_time, stop_headsign,
                                    pickup_type, drop_off_type,
                                    shape_dist_traveled)))
@@ -2340,8 +2362,14 @@ class Loader:
         self._problems.OtherProblem(
           'No time for end of trip_id "%s" at stop_sequence "%d"' %
           (trip_id, sequence[-1][0]))
+      expected_sequence = 1
       for stop_sequence, stoptime in sequence:
-        trip._AddStopTimeObject(stoptime)
+        if expected_sequence != stop_sequence:
+          self._problems.OtherProblem(
+            'Bad stop_sequence. Expected %i, found %i in trip_id "%s"' %
+            (expected_sequence, stop_sequence, trip_id))
+        trip.AddStopTimeObject(stoptime, problems=self._problems)
+        expected_sequence = stop_sequence + 1
 
   def Load(self):
     if not self._DetermineFormat():

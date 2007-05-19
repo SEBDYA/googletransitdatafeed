@@ -58,6 +58,7 @@ class NoExceptionTestCase(unittest.TestCase):
   def runTest(self):
     problems = DoNothingProblemReporter()
     for feed in GetDataPathContents():
+      print feed
       loader = transitfeed.Loader(DataPath(feed), problems=problems,
                                   extra_validation=True)
       schedule = loader.Load()
@@ -804,7 +805,7 @@ class AddStopTimeParametersTestCase(unittest.TestCase):
 
     trip.AddStopTime(stop)
     trip.AddStopTime(stop, arrival_secs=300, departure_secs=360)
-    trip.AddStopTime(stop, arrival_time="00:03:00", departure_time="00:05:00")
+    trip.AddStopTime(stop, arrival_time="00:07:00", departure_time="00:07:30")
     trip.Validate(TestFailureProblemReporter(self))
 
 

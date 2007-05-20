@@ -558,6 +558,17 @@ class Route(object):
                             self.route_short_name,
                             'Both route_short_name and '
                             'route_long name are blank.')
+                            
+    if self.route_short_name and len(self.route_short_name) > 5:
+      problems.InvalidValue('route_short_name',
+                            self.route_short_name,
+                            'This route_short_name is relatively long, which '
+                            'probably means that it contains a place name.  '
+                            'You should only use this field to hold a short '
+                            'code that riders use to identify a route.  '
+                            'If this route doesn\'t have such a code, it\'s '
+                            'OK to leave this field empty.')
+                            
     if (self.route_short_name and
         (self.route_long_name.strip().lower().startswith(
             self.route_short_name.strip().lower() + ' ') or
@@ -691,12 +702,14 @@ class StopTime(object):
 
     trip and sequence must be provided because they are not stored in StopTime.
     """
-    result = [trip_id]
-    for fn in StopTime._FIELD_NAMES[1:4]:
-      result.append(getattr(self, fn) or '' )
-    result.append(str(sequence))
-    for fn in StopTime._FIELD_NAMES[5:]:
-      result.append(getattr(self, fn) or '' )
+    result = []
+    for fn in StopTime._FIELD_NAMES:
+      if fn == 'trip_id':
+        result.append(trip_id)
+      elif fn == 'stop_sequence':
+        result.append(str(sequence))
+      else:
+        result.append(getattr(self, fn) or '' )
     return tuple(result)
 
   def GetTimeSecs(self):
@@ -759,11 +772,31 @@ class Trip(object):
       None
     """
     stoptime = StopTime(problems=problems, stop=stop, **kwargs)
-    self._AddStopTimeObject(stoptime)
+    self.AddStopTimeObject(stoptime, problems=problems)
 
-  def _AddStopTimeObject(self, stoptime):
-    stoptime.stop._AddTripStop(self, len(self._stoptimes))
-    self._stoptimes.append(stoptime)
+  def AddStopTimeObject(self, stoptime, problems=default_problem_reporter):
+    """Add a StopTime object to the end of this trip.
+
+    Args:
+      stoptime: A StopTime object. Should not be reused in multiple trips.
+
+    Returns:
+      None
+    """
+    new_secs = stoptime.GetTimeSecs()
+    prev_secs = None
+    for st in reversed(self._stoptimes):
+      prev_secs = st.GetTimeSecs()
+      if prev_secs != None:
+        break
+    if new_secs != None and prev_secs != None and new_secs < prev_secs:
+      problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s %s < %s'
+                            % (stoptime.stop_id, self.trip_id,
+                               FormatSecondsSinceMidnight(new_secs),
+                               FormatSecondsSinceMidnight(prev_secs)))
+    else:
+      stoptime.stop._AddTripStop(self, len(self._stoptimes))
+      self._stoptimes.append(stoptime)
 
   def GetTimeStops(self):
     """Return a list of (arrival_secs, departure_secs, stop) tuples.
@@ -2066,6 +2099,7 @@ class Loader:
 
     return True
 
+  # TODO: Add testing for this specific function
   def _ReadCSV(self, file_name, cols, required):
     """Reads lines from file_name, yielding a list of unicode values
     corresponding to the column names in cols."""
@@ -2098,6 +2132,14 @@ class Loader:
       row_num += 1
       if len(row) == 0:  # skip extra empty lines in file
         continue
+        
+      if len(row) > len(header):
+        self._problems.OtherProblem('Found too many cells (commas) in line '
+                                    '%d of file "%s".  Every row in the file '
+                                    'should have the same number of cells as '
+                                    'the header (first line) does.' %
+                                    (row_num, file_name))
+        
       result = [None] * len(cols)
       for i in range(len(cols)):
         ci = col_index[i]
@@ -2370,11 +2412,10 @@ class Loader:
         continue
       stop = self._schedule.stops[stop_id]
       stoptimes.setdefault(trip_id, []).append(
-          (stop_sequence, StopTime(self._problems, stop, arrival_time,
+          (sequence, StopTime(self._problems, stop, arrival_time,
                                    departure_time, stop_headsign,
                                    pickup_type, drop_off_type,
                                    shape_dist_traveled)))
-
       self._problems.SetContext(None)
 
     for trip_id, sequence in stoptimes.iteritems():
@@ -2392,8 +2433,14 @@ class Loader:
         self._problems.OtherProblem(
           'No time for end of trip_id "%s" at stop_sequence "%d"' %
           (trip_id, sequence[-1][0]))
+      expected_sequence = 1
       for stop_sequence, stoptime in sequence:
-        trip._AddStopTimeObject(stoptime)
+        if expected_sequence != stop_sequence:
+          self._problems.OtherProblem(
+            'Bad stop_sequence. Expected %i, found %i in trip_id "%s"' %
+            (expected_sequence, stop_sequence, trip_id))
+        trip.AddStopTimeObject(stoptime, problems=self._problems)
+        expected_sequence = stop_sequence + 1
 
   def Load(self):
     if not self._DetermineFormat():

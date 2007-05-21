@@ -8,6 +8,7 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 || [http://sourceforge.net/project/showfiles.php?group_id=15583 py2exe] || ||
 || [http://cheeseshop.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
 || [http://cheeseshop.python.org/pypi/simplejson/ simplejson] || Don't install as an egg, see pytz above ||
+|| [http://effbot.org/zone/element-index.htm ElementTree] || ||
 
 = Steps =
 

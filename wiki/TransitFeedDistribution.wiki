@@ -29,6 +29,9 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.0.7 ====
+Adds kmlparser and kmlwriter utilities for partially converting feeds from and to Google Earth KML format.  Also includes several validation improvements, particularly to stop times and route_short_name.
+
 ==== v1.0b6 ====
 Adds a Windows executable for schedule_viewer.
 

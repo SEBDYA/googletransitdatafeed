@@ -16,7 +16,7 @@ First make sure the scripts work. Run them directly and run any tests (found in 
 Assuming you have python installed in the default location on your Windows machine change into the python directory of your subversion working copy and run:
 {{{\Python25\python.exe setup.py py2exe}}}
 
-This will create a directory dist. Put the contents of dist into a new zip file with the name transitfeed-<version>.py2exe.zip and upload it to the project.
+This will create a directory dist. Put the contents of dist into a new zip file with the name transitfeed-<version>-windows.zip and upload it to the project.
 
 = TODO =
 

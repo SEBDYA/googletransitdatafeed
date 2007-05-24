@@ -44,8 +44,9 @@ kwargs = {}
 
 if has_py2exe:
   kwargs['console'] = scripts
-
-
+  kwargs['data_files'] = [('schedule_viewer_files', glob.glob(os.path.join('transitfeed', 'schedule_viewer_files', '*')))]
+  options['py2exe']['packages'].append('transitfeed.marey_graph')
+  
 setup(
     version=VERSION,
     name='transitfeed',

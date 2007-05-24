@@ -335,6 +335,22 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     self.wfile.write(content)
 
 
+def FindDefaultFileDir():
+  """Return the path of the directory containing the static files. By default
+  the directory is called schedule_viewer_files. The location depends on where
+  setup.py put it."""
+  # py2exe puts transitfeed in library.zip. schedule_viewer_files is in the
+  # same directory as library.zip.
+  windows_ending = transitfeed.__file__.find('\\library.zip\\transitfeed\\__init__.py')
+  if windows_ending != -1:
+    base = transitfeed.__file__[:windows_ending]
+  else:
+    # For all other distributions schedule_viewer_files is in the transitfeed
+    # directory. 
+    base = os.path.dirname(transitfeed.__file__)  # Strip __init__.py
+  return os.path.join(base, 'schedule_viewer_files')
+
+
 def StartServerThread(server):
   """Start server in its own thread because KeyboardInterrupt doesn't
   interrupt a socket call in Windows."""
@@ -361,10 +377,23 @@ if __name__ == '__main__':
                     help='port on which to listen')
   parser.add_option('--file_dir', dest='file_dir',
                     help='directory containing static files')
-  default_file_dir = os.path.join(os.path.dirname(transitfeed.__file__),
-                                  'schedule_viewer_files')
-  parser.set_defaults(port=8765, file_dir=default_file_dir)
+  parser.add_option('-n', '--noprompt', action='store_false',
+                    dest='manual_entry',
+                    help='disable interactive prompts')
+  parser.set_defaults(port=8765,
+                      file_dir=FindDefaultFileDir(),
+                      manual_entry=True)
   (options, args) = parser.parse_args()
+  
+  if not os.path.isfile(os.path.join(options.file_dir, 'index.html')):
+    print "Can't find index.html with --file_dir=%s" % options.file_dir
+    exit(1)
+
+  if not options.feed_filename and options.manual_entry:
+    options.feed_filename = raw_input('Enter Feed Location: ').strip('"')
+
+  if not options.key and options.manual_entry:
+    options.key = raw_input('Enter Google Maps API Key: ')
 
   schedule = transitfeed.Schedule(problem_reporter=transitfeed.ProblemReporter())
   print 'Loading data from feed "%s"...' % options.feed_filename

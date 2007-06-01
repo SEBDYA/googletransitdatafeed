@@ -1,0 +1,5 @@
+#summary A list of other software that read and write GTFS files
+
+  * http://timetablepublisher.org/
+  * http://graphserver.sourceforge.net/ - Open-source transit (and more) routing engine, with support for Google Transit Feed Spec feeds
+  * giro and trapeze are working on extensions for their transit management products to export a GTFS file

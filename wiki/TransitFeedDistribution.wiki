@@ -10,6 +10,8 @@ The TransitFeedDistribution contains several parts, each with its own instructio
 
 = Download =
 
+You may download the transitfeed distribution as Windows executables, a source tar ball or directly from our Subversion repository.
+
 == Windows Executable ==
 
 If you just want to run the tools you may download prebuilt Windows programs from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Download the latest version of `transitfeed-<version>-windows.zip` and unzip the contents into an empty directory.  Then see the ScheduleViewer and FeedValidator pages for further instructions.
@@ -22,7 +24,7 @@ If you don't have easy_install on your computer you may download `transitfeed-<v
 
 == Subversion repository ==
 
-If you want to make changes grab our source from http://googletransitdatafeed.googlecode.com/svn/trunk/
+If you want to make changes grab our source from http://googletransitdatafeed.googlecode.com/svn/trunk/python.
 
 = Bugs and feature requests =
 

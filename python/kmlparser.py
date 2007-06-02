@@ -41,6 +41,8 @@ class Placemark(object):
   def IsPoint(self):
     return len(self.coordinates) == 1
 
+  def IsLine(self):
+    return len(self.coordinates) > 1
 
 class KmlParser(object):
   def __init__(self, stopNameRe = '(.*)'):
@@ -71,19 +73,26 @@ class KmlParser(object):
       dom - kml dom tree
       feed - an instance of Schedule class to be updated
     """
+    shape_num = 0
     for node in dom.getElementsByTagName('Placemark'):
       p = self.ParsePlacemark(node)
       if p.IsPoint():
 	(lon, lat) = p.coordinates[0]
 	m = self.stopNameRe.search(p.name)
 	feed.AddStop(lat, lon, m.group(1))
+      elif p.IsLine():
+	shape_num = shape_num + 1
+	shape = transitfeed.Shape("kml_shape_" + str(shape_num))
+	for (lon, lat) in p.coordinates:
+	  shape.AddPoint(lat, lon)
+	feed.AddShapeObject(shape)
 
   def ParsePlacemark(self, node):
     ret = Placemark()
     for child in node.childNodes:
       if child.nodeName == 'name':
 	ret.name = self.ExtractText(child)
-      if child.nodeName == 'Point':
+      if child.nodeName == 'Point' or child.nodeName == 'LineString':
 	ret.coordinates = self.ExtractCoordinates(child)
     return ret
 

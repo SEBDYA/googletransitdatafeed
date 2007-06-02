@@ -1,5 +1,4 @@
 #summary A Distribution of python tools
-#labels Featured
 
 = Introduction =
 
@@ -11,17 +10,19 @@ The TransitFeedDistribution contains several parts, each with its own instructio
 
 = Download =
 
-== Windows ==
+== Windows Executable ==
 
 If you just want to run the tools you may download prebuilt Windows programs from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Download the latest version of `transitfeed-<version>-windows.zip` and unzip the contents into an empty directory.  Then see the ScheduleViewer and FeedValidator pages for further instructions.
 
-Windows users may also install and run the python source code fetched from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
+== Install source distribution ==
 
-== All others ==
+`easy_install transitfeed` will download and install transitfeed and the scripts that come with it.
 
-For now you must download the source from our subversion repository http://googletransitdatafeed.googlecode.com/svn/trunk/
+If you don't have easy_install on your computer you may download `transitfeed-<version>.tar.gz` from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Expand with `tar -xzf transitfeed-<version>.tar.gz`. You may run the tools directly from the expanded directory or run `python2.4 setup.py install`.
 
-We need to make a source distribution file and add it to PyPI.
+== Subversion repository ==
+
+If you want to make changes grab our source from http://googletransitdatafeed.googlecode.com/svn/trunk/
 
 = Bugs and feature requests =
 

@@ -49,7 +49,7 @@ class KmlParser(object):
     """
     Args:
       stopNameRe - a regular expression to extract a stop name from a
-		   placemaker name
+                   placemaker name
     """
     self.stopNameRe = re.compile(stopNameRe)
 
@@ -77,23 +77,23 @@ class KmlParser(object):
     for node in dom.getElementsByTagName('Placemark'):
       p = self.ParsePlacemark(node)
       if p.IsPoint():
-	(lon, lat) = p.coordinates[0]
-	m = self.stopNameRe.search(p.name)
-	feed.AddStop(lat, lon, m.group(1))
+        (lon, lat) = p.coordinates[0]
+        m = self.stopNameRe.search(p.name)
+        feed.AddStop(lat, lon, m.group(1))
       elif p.IsLine():
-	shape_num = shape_num + 1
-	shape = transitfeed.Shape("kml_shape_" + str(shape_num))
-	for (lon, lat) in p.coordinates:
-	  shape.AddPoint(lat, lon)
-	feed.AddShapeObject(shape)
+        shape_num = shape_num + 1
+        shape = transitfeed.Shape("kml_shape_" + str(shape_num))
+        for (lon, lat) in p.coordinates:
+          shape.AddPoint(lat, lon)
+        feed.AddShapeObject(shape)
 
   def ParsePlacemark(self, node):
     ret = Placemark()
     for child in node.childNodes:
       if child.nodeName == 'name':
-	ret.name = self.ExtractText(child)
+        ret.name = self.ExtractText(child)
       if child.nodeName == 'Point' or child.nodeName == 'LineString':
-	ret.coordinates = self.ExtractCoordinates(child)
+        ret.coordinates = self.ExtractCoordinates(child)
     return ret
 
   def ExtractText(self, node):
@@ -106,8 +106,8 @@ class KmlParser(object):
     coordinatesText = ""
     for child in node.childNodes:
       if child.nodeName == 'coordinates':
-	coordinatesText = self.ExtractText(child)
-	break
+        coordinatesText = self.ExtractText(child)
+        break
     ret = []
     for point in coordinatesText.split():
       coords = point.split(',')

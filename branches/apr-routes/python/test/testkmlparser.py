@@ -28,16 +28,28 @@ def DataPath(path):
 
 
 class TestStopsParsing(unittest.TestCase):
+  def setUp(self):
+    self.feed = transitfeed.Schedule()
+
   def testSingleStop(self):
     kmlFile = DataPath('one_stop.kml')
-    feed = transitfeed.Schedule()
-    kmlparser.KmlParser().Parse(kmlFile, feed)
-    stops = feed.GetStopList()
+    kmlparser.KmlParser().Parse(kmlFile, self.feed)
+    stops = self.feed.GetStopList()
     self.assertEqual(1, len(stops))
     stop = stops[0]
     self.assertEqual(u'Stop Name', stop.stop_name)
     self.assertAlmostEqual(-93.239037, stop.stop_lon)
     self.assertAlmostEqual(44.854164, stop.stop_lat)
+
+  def testSingleShape(self):
+    kmlFile = DataPath('one_line.kml')
+    kmlparser.KmlParser().Parse(kmlFile, self.feed)
+    shapes = self.feed.GetShapeList()
+    self.assertEqual(1, len(shapes))
+    shape = shapes[0]
+    self.assertEqual(3, len(shape.points))
+    self.assertAlmostEqual(44.854240, shape.points[0][0])
+    self.assertAlmostEqual(-93.238861, shape.points[0][1])
 
 
 if __name__ == '__main__':

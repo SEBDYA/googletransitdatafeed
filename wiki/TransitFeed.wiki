@@ -5,10 +5,10 @@
 
 `transitfeed.py` is a Python module for reading, validating, and writing transit schedule information in the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] format.  Python programmers are encouraged to make use of this functionality when building programs that work with transit data.
 
-`transitfeed.py` and its unit tests are available from the [http://code.google.com/p/googletransitdatafeed/source project source repository].
+`transitfeed.py` and its unit tests are available from the [http://code.google.com/p/googletransitdatafeed/source project source repository], in the  TransitFeedDistribution source tarball or by running `easy_install transitfeed`.
 
 = Sample Usage =
-A small sample program for creating an (incomplete) feed is shown below:
+A small sample program for creating an (incomplete) feed is shown below. The source distribution directory [http://googletransitdatafeed.googlecode.com/svn/trunk/python/examples/ examples/] contains more sample scripts.
 
 {{{
 import transitfeed
@@ -20,7 +20,7 @@ schedule.AddAgency("Fly Agency", "http://iflyagency.com",
 
 service_period = schedule.GetDefaultServicePeriod()
 service_period.SetWeekdayService(True)
-service_period.SetDateHasService('20070704')
+service_period.SetDateHasService('20070704', False)
 
 stop1 = schedule.AddStop(lng=-122, lat=37.2, name="Suburbia")
 stop2 = schedule.AddStop(lng=-122.001, lat=37.201, name="Civic Center")
@@ -39,3 +39,8 @@ trip.AddStopTime(stop2, arrival_time='17:45:00')
 schedule.Validate()
 schedule.WriteGoogleTransitFeed('google_transit.zip')
 }}}
+
+
+
+
+

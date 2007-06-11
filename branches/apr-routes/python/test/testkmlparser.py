@@ -41,6 +41,10 @@ class TestStopsParsing(unittest.TestCase):
     self.assertAlmostEqual(-93.239037, stop.stop_lon)
     self.assertAlmostEqual(44.854164, stop.stop_lat)
 
+class TestShapesParsing(unittest.TestCase):
+  def setUp(self):
+    self.feed = transitfeed.Schedule()
+
   def testSingleShape(self):
     kmlFile = DataPath('one_line.kml')
     kmlparser.KmlParser().Parse(kmlFile, self.feed)
@@ -50,6 +54,10 @@ class TestStopsParsing(unittest.TestCase):
     self.assertEqual(3, len(shape.points))
     self.assertAlmostEqual(44.854240, shape.points[0][0])
     self.assertAlmostEqual(-93.238861, shape.points[0][1])
+    self.assertAlmostEqual(44.853081, shape.points[1][0])
+    self.assertAlmostEqual(-93.238708, shape.points[1][1])
+    self.assertAlmostEqual(44.852638, shape.points[2][0])
+    self.assertAlmostEqual(-93.237923, shape.points[2][1])
 
 
 if __name__ == '__main__':

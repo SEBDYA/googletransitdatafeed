@@ -5,6 +5,11 @@
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
 
+==== May 31, 2007 ====
+  * Updated page style, made HTML cleaner and more accessible
+  * Removed examples from individual field descriptions
+  * Added links to public feed examples and other useful sites
+
 == April 9, 2007 ==
   * Added section on [http://code.google.com/transit/spec/transit_feed_specification.htm#transitFeedSubmit submitting a feed].
   * Added the [http://code.google.com/transit/spec/transit_feed_specification.htm#transitAgencyExample Demo Transit Agency Example] feed and live demo.
@@ -34,6 +39,5 @@ Description coming soon...
 
 == September 25, 2006 ==
 Initial version.
-
 
 

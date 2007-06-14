@@ -30,7 +30,12 @@ Minor edit to clarify the description of the `route_long_name` field.
 Description coming soon...
 
 == October 31, 2006 ==
-Description coming soon...
+  * Added support for fare information
+  * Removed dates from individual file names
+  * Changed the `route_type` value definitions
+  * Allowed for multiple feed files to be posted at the same time, as long as their service periods didn't overlap
+  * Fixed `block_id` in `trips.txt` so that it was correctly marked _Optional_
+  * Noted that column headers _must_ be included
 
 ==== September 29, 2006 ====
 Minor edit to fix a couple errors in the examples.
@@ -50,7 +55,6 @@ The raw HTML files for each version of the specification are available below for
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20061031.htm October 31, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060929.htm September 29, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060925.html September 25, 2006]||
-
 
 
 

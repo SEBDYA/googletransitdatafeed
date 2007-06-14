@@ -41,16 +41,15 @@ Initial version.
 == Original Files ==
 The raw HTML files for each version of the specification are available below for historical reference.
 
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070531.htm May 31, 2007]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070409.htm April 9, 2007]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070308.htm March 8, 2007]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070305.htm March 5, 2007]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070228.htm February 28, 2007]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20061129.htm November 29, 2006]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20061031.htm October 31, 2006]||
-||[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20060929.htm September 29, 2006]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070531.htm May 31, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070409.htm April 9, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070308.htm March 8, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070305.htm March 5, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070228.htm February 28, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20061129.htm November 29, 2006]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20061031.htm October 31, 2006]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060929.htm September 29, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060925.html September 25, 2006]||
-
 
 
 

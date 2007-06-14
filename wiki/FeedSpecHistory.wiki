@@ -6,11 +6,12 @@
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
 
 ==== May 31, 2007 ====
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070531.htm original file]
   * Updated page style, made HTML cleaner and more accessible
   * Added links to public feed examples and other useful sites
   * Removed examples from individual field descriptions
-
 == April 9, 2007 ==
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070409.htm original file]
   * Added section on [http://code.google.com/transit/spec/transit_feed_specification.htm#transitFeedSubmit submitting a feed].
   * Added the [http://code.google.com/transit/spec/transit_feed_specification.htm#transitAgencyExample Demo Transit Agency Example] feed and live demo.
   * Added note that `calendar.txt` can be omitted if all the service dates are defined in `calendar_dates.txt`.
@@ -19,24 +20,33 @@ This page documents the revisions that the [http://code.google.com/transit/spec/
   * Added `6` (Gondola) and `7` (Funicular) as valid `route_type` values.
 
 ==== March 8, 2007 ====
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070308.htm original file]
 Minor edit to move the `stop_url` field from `stop_times.txt`, where it was incorrectly specified in the Feb. 28 update, to `stops.txt`, where it belongs.
 
 ==== March 5, 2007 ====
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070305.htm original file]
 Minor edit to clarify the description of the `route_long_name` field.
 
 == February 28, 2007 ==
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20070228.htm original file]
+
 [http://headwayblog.com/ Headway] has a comprehensive writeup of the [http://headwayblog.com/2007/03/02/google-feed-spec-update-2007-02/ February 2007 changes].
 
 
 == November 29, 2006 ==
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20061129.htm original file]
 Description coming soon...
 
 == October 31, 2006 ==
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20061031.htm original file]
 Description coming soon...
 
 == September 29, 2006 ==
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20060929.htm original file]
 Description coming soon...
 
 == September 25, 2006 ==
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20060925.htm original file]
 Initial version.
+
 

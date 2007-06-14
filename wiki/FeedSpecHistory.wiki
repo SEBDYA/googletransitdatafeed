@@ -27,7 +27,9 @@ Minor edit to clarify the description of the `route_long_name` field.
 [http://headwayblog.com/ Headway] has a comprehensive writeup of the [http://headwayblog.com/2007/03/02/google-feed-spec-update-2007-02/ February 2007 changes].
 
 == November 29, 2006 ==
-Description coming soon...
+  * Added support for trip shape information via `shapes.txt`
+  * Clarified the definition of `stop_sequence`
+  * Marked `pickup_type` and `drop_off_type` optional
 
 == October 31, 2006 ==
   * Added support for fare information
@@ -55,7 +57,6 @@ The raw HTML files for each version of the specification are available below for
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20061031.htm October 31, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060929.htm September 29, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060925.html September 25, 2006]||
-
 
 
 

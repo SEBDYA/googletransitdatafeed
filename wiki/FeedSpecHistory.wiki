@@ -46,7 +46,6 @@ Description coming soon...
 Description coming soon...
 
 == September 25, 2006 ==
-[http://googletransitdatafeed.googlecode.com/svn/wiki/images/files/FeedSpecHistory/transit_feed_specification-20060925.htm original file]
+[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060925.html original file]
 Initial version.
-
 

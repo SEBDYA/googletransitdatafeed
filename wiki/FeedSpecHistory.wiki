@@ -32,8 +32,8 @@ Description coming soon...
 == October 31, 2006 ==
 Description coming soon...
 
-== September 29, 2006 ==
-Description coming soon...
+==== September 29, 2006 ====
+Minor edit to fix a couple errors in the examples.
 
 == September 25, 2006 ==
 Initial version.
@@ -50,7 +50,6 @@ The raw HTML files for each version of the specification are available below for
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20061031.htm October 31, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060929.htm September 29, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060925.html September 25, 2006]||
-
 
 
 

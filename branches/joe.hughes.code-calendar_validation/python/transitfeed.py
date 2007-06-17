@@ -2219,7 +2219,7 @@ class Loader:
 
         if period.service_id in periods:
           problem_reporter.DuplicateID('service_id', period.service_id)
-          return
+          continue
         
         periods[period.service_id] = (period, context)
 

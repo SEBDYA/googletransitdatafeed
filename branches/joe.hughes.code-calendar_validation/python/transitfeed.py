@@ -2214,7 +2214,7 @@ class Loader:
                             ServicePeriod._FIELD_NAMES,
                             ServicePeriod._FIELD_NAMES_REQUIRED):
         context = (file_name, row_num, row, cols)
- 
+
         period = ServicePeriod(field_list=row)
 
         if period.service_id in periods:
@@ -2232,7 +2232,7 @@ class Loader:
         context = (file_name_dates, row_num, row, cols)
 
         service_id = row[0]
-        
+
         period = None
         if service_id in periods:
           period = periods[service_id][0]

@@ -32,6 +32,15 @@ The validate script envokes the diff tool to show differences in the resulting f
 The source code of GoogleTransitDataFeed software is managed in [http://code.google.com/p/googletransitdatafeed Google Code]. Google Code uses [http://www.subversion.tigris.org Subversion] to manage change.
 
 = TransXchange2GoogleTransit version release notes =
+  * v1.5 - The Google Transit feed files are compliant with the 31-May-2007 review of the Google Transit Feed Specification 
+  * v1.5 - UK stop coordinates, included in the jar files of the distribution
+  * v1.5 - Frequency format Seconds added
+  * v1.5 - England and Wales bank holidays 2007, 2008, 2009 added for consideration in services
+  * v1.5 - Bugfix for calculation of wait times. to-TimingLink wait times are added to the to-stop
+  * v1.5 - VehicleJourney specific SpecialDaysOfOperation covered
+  * v1.5 - The default DaysOfOperation of a service is assumed no days now; had been MO-FR without particular justification  
+  * v1.5 - GWT web application can run stand-alone from wiki-based authorization
+
   * v1.4  - Switch to [http://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0]
   * v1.4  - Internet ready web application; integrates with Mediawiki user management
   * v1.4  - New upload-only google_transit.zip feature
@@ -42,3 +51,5 @@ The source code of GoogleTransitDataFeed software is managed in [http://code.goo
   * v1.0b - Eclipse 3.2.2 workbench
   * v1.0a - Add build.xml
   * v1.0  - Initial release. Binaries, validation tools, source files
+
+

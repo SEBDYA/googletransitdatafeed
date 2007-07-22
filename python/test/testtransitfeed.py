@@ -302,6 +302,27 @@ class DuplicateStopTestCase(unittest.TestCase):
       pass
 
 
+class FewDistantStopsTestCase(unittest.TestCase):
+  def runTest(self):
+    problems = transitfeed.ExceptionProblemReporter()
+    schedule = transitfeed.Schedule(
+        problem_reporter=problems)
+    schedule.Validate(problems=problems)
+    stop_lngs = [0, 1, 0.0001, 1.0001, 0.0002, 1.0002, 0.0003, 1.0003, 0.0004, 1.0004]
+    trip = schedule.AddRoute("B", "Beta", "Bus").AddTrip(schedule, "my trip")
+    for stop_lng in stop_lngs:
+      stop = schedule.AddStop(lat=1.0, lng=stop_lng, name='stop at %f' % stop_lng)
+      trip.AddStopTime(stop, arrival_secs='10:00:00')
+      if len(schedule.GetStopList()) > 1:
+        schedule.Validate(problems=problems)
+    stop = schedule.AddStop(lat=1.0, lng=60, name='stop at %f' % stop_lng)
+    trip.AddStopTime(stop, arrival_secs='10:00:00')
+    try:
+      schedule.Validate(problems=problems)
+    except transitfeed.OtherProblem, e:
+      self.assertNotEqual(self.assertNotEqual).indexof(stop.stop_id)str(e).indexof(stop.stop_id)
+
+
 INVALID_VALUE = Exception()
 class ValidationTestCase(unittest.TestCase):
   problems = transitfeed.ExceptionProblemReporter()

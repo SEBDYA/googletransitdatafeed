@@ -1969,6 +1969,28 @@ class Schedule:
                                  sorted_stops[index].stop_id))
         index += 1
 
+    # Check for stops with latitude and longitude that is far from the center
+    sum_lat = 0
+    sum_lng = 0
+    stops = self.GetStopList()
+    print "testing %s" % stops
+    if len(stops) > 0:
+      for stop in stops:
+        sum_lat += stop.stop_lat
+        sum_lng += stop.stop_lon
+      center = Stop(lat=sum_lat / len(stops), lng=sum_lng / len(stops))
+      dist_stop = []  # List of (distance from center, Stop)
+      for stop in stops:
+        dist_stop.append( (ApproximateDistanceBetweenStops(center, stop), stop) )
+      dist_stop.sort()
+      print 'dst stop %s' % repr(dist_stop)
+      eightieth_i = int(len(stops) * 0.8)
+      danger_dist = dist_stop[eightieth_i][0] * 5
+      for (dist, stop) in dist_stop[eightieth_i:]:
+        if dist > danger_dist:
+          problems.OtherProblem('The stop "%s" (ID "%s") is far away from most '
+                                'other stops' % (stop.stop_name, stop.stop_id))
+
     # Check for multiple routes using same short + long name
     route_names = {}
     for route in self.routes.values():

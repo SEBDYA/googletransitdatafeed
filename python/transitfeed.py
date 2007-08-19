@@ -602,6 +602,7 @@ class StopTime(object):
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['stop_headsign', 'pickup_type',
                     'drop_off_type', 'shape_dist_traveled']
 
+  __slots__ = ('arrival_secs', 'departure_secs', 'stop_headsign', 'stop', 'stop_headsign', 'pickup_type', 'drop_off_type', 'shape_dist_traveled')
   def __init__(self, problems, stop, arrival_time=None, departure_time=None,
                stop_headsign=None, pickup_type=None, drop_off_type=None,
                shape_dist_traveled=None, arrival_secs=None,
@@ -722,6 +723,7 @@ class Trip(object):
     if field_list:
       (self.route_id, self.service_id, self.trip_id, self.trip_headsign,
        self.direction_id, self.block_id, self.shape_id) = field_list
+    self.last_headsign = self.trip_headsign
 
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) or '' for fn in Trip._FIELD_NAMES]
@@ -760,6 +762,13 @@ class Trip(object):
                                FormatSecondsSinceMidnight(new_secs),
                                FormatSecondsSinceMidnight(prev_secs)))
     else:
+      # stamp out duplicate headsigns that can pointlessly eat all our memory
+      if stoptime.stop_headsign and \
+        (stoptime.stop_headsign != self.last_headsign):
+        self.last_headsign = stoptime.stop_headsign
+      else:
+        stoptime.stop_headsign = None
+
       stoptime.stop._AddTripStop(self, len(self._stoptimes))
       self._stoptimes.append(stoptime)
 

@@ -356,23 +356,20 @@ class Stop(object):
     except (ValueError, TypeError):
       self.stop_lon = 0
     self.stop_name = name
-    self.trip_index = []  # list of (trip, index) for each Trip object.
-                          # index is offset into Trip _stoptimes
     self.stop_id = stop_id
 
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) for fn in Stop._FIELD_NAMES]
 
-  def GetStopTimeTrips(self):
+  def GetStopTimeTrips(self, schedule):
     """Returns an list of (time, trip), where time is some time.
     TODO: handle stops between timed stops."""
+    stop_times = schedules.GetStopTimesForStop(self.stop_id)
     time_trips = []
     for trip, index in self.trip_index:
-      time_trips.append((trip._stoptimes[index].GetTimeSecs(), trip))
+      time_trips.append((stop_time.GetTimeSecs(),
+                         schedule.GetTrip(stop_time.trip_id)))
     return time_trips
-
-  def _AddTripStop(self, trip, index):
-    self.trip_index.append((trip, index))
 
   def __getitem__(self, name):
     return getattr(self, name)
@@ -586,7 +583,7 @@ class StopTime(object):
 
   See the Google Transit Feed Specification for the semantic details.
 
-  stop: A Stop object
+  stop_id: str containing the ID of the stop
   arrival_time: str in the form HH:MM:SS; readonly after __init__
   departure_time: str in the form HH:MM:SS; readonly after __init__
   arrival_secs: int number of seconds since midnight
@@ -602,10 +599,18 @@ class StopTime(object):
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['stop_headsign', 'pickup_type',
                     'drop_off_type', 'shape_dist_traveled']
 
-  def __init__(self, problems, stop, arrival_time=None, departure_time=None,
+  def __init__(self, problems=None, stop=None, trip_id=None, arrival_time=None,
+               departure_time=None,
                stop_headsign=None, pickup_type=None, drop_off_type=None,
                shape_dist_traveled=None, arrival_secs=None,
-               departure_secs=None):
+               departure_secs=None, stop_sequence=None, field_list=None):
+    if field_list:
+      (trip_id, arrival_time, departure_time, stop, stop_sequence,
+       stop_headsign, pickup_type, drop_off_type,
+       shape_dist_traveled) = field_list
+
+    self.trip_id = trip_id
+    self.stop_sequence = stop_sequence
     if arrival_secs != None:
       self.arrival_secs = arrival_secs
     elif arrival_time in (None, ""):
@@ -626,14 +631,17 @@ class StopTime(object):
       except Error:
         problems.InvalidValue('departure_time', departure_time)
 
-    if not isinstance(stop, Stop):
-      # Not quite correct, but better than letting the problem propagate
+    if isinstance(stop, Stop):
+      self.stop_id = stop.stop_id
+    elif isinstance(stop, basestring):
+      self.stop_id = stop
+    else:
       problems.InvalidValue('stop', stop)
-    self.stop = stop
+      
     self.stop_headsign = stop_headsign
 
     if pickup_type in (None, ""):
-      self.pickup_type = None
+      self.pickup_type = 0
     else:
       try:
         pickup_type = int(pickup_type)
@@ -644,7 +652,7 @@ class StopTime(object):
       self.pickup_type = pickup_type
 
     if drop_off_type in (None, ""):
-      self.drop_off_type = None
+      self.drop_off_type = 0
     else:
       try:
         drop_off_type = int(drop_off_type)
@@ -662,19 +670,18 @@ class StopTime(object):
       except ValueError:
         problems.InvalidValue('shape_dist_traveled', shape_dist_traveled)
 
-  def GetFieldValuesTuple(self, trip_id, sequence):
+  def GetFieldValuesTuple(self):
     """Return a tuple that outputs a row of _FIELD_NAMES.
 
     trip and sequence must be provided because they are not stored in StopTime.
     """
     result = []
     for fn in StopTime._FIELD_NAMES:
-      if fn == 'trip_id':
-        result.append(trip_id)
-      elif fn == 'stop_sequence':
-        result.append(str(sequence))
+      value = getattr(self, fn)
+      if type(value) == type(0) and value:
+        result.append(str(value))
       else:
-        result.append(getattr(self, fn) or '' )
+        result.append(value or '')
     return tuple(result)
 
   def GetTimeSecs(self):
@@ -689,7 +696,7 @@ class StopTime(object):
 
   def __getattr__(self, name):
     if name == 'stop_id':
-      return self.stop.stop_id
+      return self.stop_id
     elif name == 'arrival_time':
       return (self.arrival_secs != None and
           FormatSecondsSinceMidnight(self.arrival_secs) or '')
@@ -697,6 +704,26 @@ class StopTime(object):
       return (self.departure_secs != None and
           FormatSecondsSinceMidnight(self.departure_secs) or '')
     raise AttributeError(name)
+
+  def __eq__(self, other):
+    if not other:
+      return False
+    if id(self) == id(other):
+      return True
+
+    if self.GetFieldValuesTuple() != other.GetFieldValuesTuple():
+      return False
+
+    return True
+
+  def __ne__(self, other):
+    return not self.__eq__(other)
+
+  def __repr__(self):
+    dictionary = {}
+    for field in StopTime._FIELD_NAMES:
+      dictionary[field] = getattr(self, field)
+    return str(dictionary)
 
 
 class Trip(object):
@@ -709,7 +736,6 @@ class Trip(object):
 
   def __init__(self, headsign=None, service_period=None,
                route=None, trip_id=None, field_list=None):
-    self._stoptimes = []  # [StopTime, StopTime, ...]
     self._headways = []  # [(start_time, end_time, headway_secs)]
     self.trip_headsign = headsign
     self.shape_id = None
@@ -726,7 +752,8 @@ class Trip(object):
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) or '' for fn in Trip._FIELD_NAMES]
 
-  def AddStopTime(self, stop, problems=default_problem_reporter, **kwargs):
+  def AddStopTime(self, stop, schedule, problems=default_problem_reporter,
+                  **kwargs):
     """Add a stop to this trip. Stops must be added in the order visited.
 
     Args:
@@ -736,21 +763,24 @@ class Trip(object):
     Returns:
       None
     """
-    stoptime = StopTime(problems=problems, stop=stop, **kwargs)
-    self.AddStopTimeObject(stoptime, problems=problems)
+    stoptime = StopTime(problems=problems, stop=stop,
+                        trip_id=self.trip_id, **kwargs)
+    self.AddStopTimeObject(stoptime, schedule, problems=problems)
 
-  def AddStopTimeObject(self, stoptime, problems=default_problem_reporter):
+  def AddStopTimeObject(self, stoptime, schedule,
+                        problems=default_problem_reporter):
     """Add a StopTime object to the end of this trip.
 
     Args:
       stoptime: A StopTime object. Should not be reused in multiple trips.
+      schedule: The Schedule object that this trip appears in
 
     Returns:
       None
     """
     new_secs = stoptime.GetTimeSecs()
     prev_secs = None
-    for st in reversed(self._stoptimes):
+    for st in reversed(self.GetStopTimes(schedule)):
       prev_secs = st.GetTimeSecs()
       if prev_secs != None:
         break
@@ -760,55 +790,65 @@ class Trip(object):
                                FormatSecondsSinceMidnight(new_secs),
                                FormatSecondsSinceMidnight(prev_secs)))
     else:
-      stoptime.stop._AddTripStop(self, len(self._stoptimes))
-      self._stoptimes.append(stoptime)
+      schedule.AddStopTime(stoptime)
 
-  def GetTimeStops(self):
+  def GetTimeStops(self, schedule):
     """Return a list of (arrival_secs, departure_secs, stop) tuples.
 
     Caution: arrival_secs and departure_secs may be 0, a false value meaning a
     stop at midnight or None, a false value meaning the stop is untimed."""
-    return [(st.arrival_secs, st.departure_secs, st.stop) for st in self._stoptimes]
+    return [(st.arrival_secs, st.departure_secs, schedule.GetStop(st.stop_id))
+            for st in self.GetStopTimes(schedule)]
 
-  def GetStopTimes(self):
+  def GetStopTimes(self, schedule):
     """Return a sorted list of StopTime objects for this trip."""
-    return self._stoptimes
+    return schedule.GetStopTimesForTrip(self.trip_id)
 
-  def GetStartTime(self):
+  def GetStartTime(self, schedule):
     """Return the first time of the trip. TODO: For trips defined by frequency
     return the first time of the first trip."""
-    if self._stoptimes[0].arrival_secs is not None:
-      return self._stoptimes[0].arrival_secs
-    elif self._stoptimes[0].departure_secs is not None:
-      return self._stoptimes[0].departure_secs
+    stop_times = self.GetStopTimes(schedule)
+    if not stop_times:
+      raise Error("Trip %s has no stop times" % self.trip_id)
+      
+    first_stop_time = stop_times[0]
+    if first_stop_time.arrival_secs is not None:
+      return first_stop_time.arrival_secs
+    elif first_stop_time.departure_secs is not None:
+      return first_stop_time.departure_secs
     else:
       raise Error("Trip without valid first time %s" % self.trip_id)
 
-  def GetEndTime(self):
+  def GetEndTime(self, schedule):
     """Return the last time of the trip. TODO: For trips defined by frequency
     return the last time of the last trip."""
-    if self._stoptimes[-1].departure_secs is not None:
-      return self._stoptimes[-1].departure_secs
-    elif self._stoptimes[-1].arrival_secs is not None:
-      return self._stoptimes[-1].arrival_secs
+    
+    stop_times = self.GetStopTimes(schedule)
+    if not stop_times:
+      raise Error("Trip %s has no stop times" % self.trip_id)
+    
+    last_stop_time = stop_times[-1]
+    if last_stop_time.departure_secs is not None:
+      return last_stop_time.departure_secs
+    elif last_stop_time.arrival_secs is not None:
+      return last_stop_time.arrival_secs
     else:
       raise Error("Trip without valid last time %s" % self.trip_id)
 
-  def _GenerateStopTimesTuples(self):
+  def _GenerateStopTimesTuples(self, schedule):
     """Generator for rows of the stop_times file"""
-    for i, st in enumerate(self._stoptimes):
-      # sequence is 1-based index
-      yield st.GetFieldValuesTuple(self.trip_id, i + 1)
+    for stop_time in self.GetStopTimes(schedule):
+      yield stop_time.GetFieldValuesTuple()
 
-  def GetStopTimesTuples(self):
+  def GetStopTimesTuples(self, schedule):
     results = []
-    for time_tuple in self._GenerateStopTimesTuples():
+    for time_tuple in self._GenerateStopTimesTuples(schedule):
       results.append(time_tuple)
     return results
 
-  def GetPattern(self):
+  def GetPattern(self, schedule):
     """Return a tuple of Stop objects, in the order visited"""
-    return tuple(timestop.stop for timestop in self._stoptimes)
+    return tuple(timestop.stop for timestop in self.GetStopTimes(schedule))
 
   def AddHeadwayPeriod(self, start_time, end_time, headway_secs,
                        problem_reporter=default_problem_reporter):
@@ -910,8 +950,6 @@ class Trip(object):
 
     if self.GetFieldValuesTuple() != other.GetFieldValuesTuple():
       return False
-    if self.GetStopTimesTuples() != other.GetStopTimesTuples():
-      return False
 
     return True
 
@@ -922,7 +960,7 @@ class Trip(object):
     dictionary = {}
     for field in Trip._FIELD_NAMES:
       dictionary[field] = getattr(self, field)
-    return "%s with trips: %s" % (dictionary, self.GetStopTimesTuples())
+    return str(dictionary)
 
   def Validate(self, problems=default_problem_reporter):
     if IsEmpty(self.route_id):
@@ -1493,14 +1531,157 @@ class CsvUnicodeWriter:
     return getattr(self.writer, name)
 
 
+class RAMBackend(object):
+  def __init__(self):
+    self.agencies = {}
+    self.routes = {}
+    self.stops = {}
+    self.stop_times_by_trip = {}
+    self.stop_times_by_stop = {}
+    
+    self.index_to_stop_headsign = {}
+    self.stop_headsign_to_index = {}
+    self.index_to_stop = {}
+    self.stop_to_index = {}
+  
+  def AddAgency(self, agency):
+    self.agencies[agency.agency_id] = agency
+    
+  def GetAgency(self, agency_id):
+    return self.agencies.get(agency_id, None)
+    
+  def GetAgencyIDs(self):
+    return self.agencies.keys()
+    
+  def AddStop(self, stop):
+    self.stops[stop.stop_id] = stop
+    
+  def GetStop(self, stop_id):
+    return self.stops.get(stop_id, None)
+    
+  def GetStopIDs(self):
+    return self.stops.keys()
+    
+  def AddRoute(self, route):
+    self.routes[route.route_id] = route
+    
+  def GetRoute(self, route_id):
+    return self.routes.get(route_id, None)
+    
+  def GetRouteIDs(self):
+    return self.routes.keys()
+    
+  # format (1), stop (4), arrival time (4), [departure time (4),] [shape dist traveled (4),] [headsign index (4)]
+  def EncodeStopTime(self, stop_time):
+    import struct
+    encoded = ''
+    format = 0
+    format |= (stop_time.pickup_type & 0x3) << 5
+    format |= (stop_time.drop_off_type & 0x3) << 3
+    departure_secs = stop_time.departure_secs
+    if departure_secs == None:
+      departure_secs = -1
+    arrival_secs = stop_time.arrival_secs
+    if arrival_secs == None:
+      arrival_secs = -1
+    if departure_secs != arrival_secs:
+      format |= 0x4
+    if stop_time.shape_dist_traveled:
+      format |= 0x2
+    if stop_time.stop_headsign:
+      format |= 0x1
+      if stop_time.stop_headsign not in self.stop_headsign_to_index:
+        headsign_index = len(self.stop_headsign_to_index)
+        self.stop_headsign_to_index[stop_time.stop_headsign] = headsign_index
+        self.index_to_stop_headsign[headsign_index] = stop_time.stop_headsign
+    
+    if stop_time.stop_id not in self.stop_to_index:
+      stop_index = len(self.stop_to_index)
+      self.stop_to_index[stop_time.stop_id] = stop_index
+      self.index_to_stop[stop_index] = stop_time.stop_id
+    encoded += struct.pack('BIi', format, self.stop_to_index[stop_time.stop_id], arrival_secs)
+    
+    if format & 0x4:
+      encoded += struct.pack('i', departure_secs)
+    if format & 0x2:
+      encoded += struct.pack('d', stop_time.shape_dist_traveled)
+    if format & 0x1:
+      encoded += struct.pack('I', headsign_index)
+    
+    return encoded
+    
+  def DecodeStopTime(self, encoded_stop_time, trip_id, sequence):
+    import struct
+    index = struct.calcsize('BIi')
+    (format, stop_index, arrival_time) = struct.unpack('BIi', encoded_stop_time[:index])
+    pickup = (format & (0x3 << 5)) >> 5
+    dropoff = (format & (0x3 << 3)) >> 3
+    format &= 0x7
+    has_departure = format & 0x4
+    has_dist = format & 0x2
+    has_headsign = format & 0x1
+    if arrival_time == -1:
+      arrival_time = None
+    headsign = None
+    shape_dist = None
+    if has_departure:
+      size = struct.calcsize('i')
+      (departure_time,) = struct.unpack('i', encoded_stop_time[index:index+size])
+      if departure_time == -1:
+        departure_time = None
+      index += size
+    else:
+      departure_time = arrival_time
+    if has_dist:
+      size = struct.calcsize('d')
+      (shape_dist,) = struct.unpack('d', encoded_stop_time[index:index+size])
+      index += size
+    if has_headsign:
+      size = struct.calcsize('I')
+      (headsign_index,) = struct.unpack('I', encoded_stop_time[index:index+size])
+      headsign = self.index_to_stop_headsign[headsign_index]
+      
+    return StopTime(stop=self.index_to_stop[stop_index],
+                    trip_id=trip_id,
+                    arrival_secs=arrival_time,
+                    departure_secs=departure_time,
+                    stop_headsign=headsign,
+                    pickup_type=str(pickup),
+                    drop_off_type=str(dropoff),
+                    shape_dist_traveled=shape_dist,
+                    stop_sequence=sequence,
+                    problems=default_problem_reporter)
+
+    
+  def AddStopTime(self, stop_time):
+    encoded = self.EncodeStopTime(stop_time)
+    trip_list = self.stop_times_by_trip.setdefault(stop_time.trip_id, [])
+    index = len(trip_list)
+    trip_list.append(encoded)
+    self.stop_times_by_stop.setdefault(stop_time.stop_id, []).append((stop_time.trip_id, index))
+    
+  def GetStopTimesForTrip(self, trip_id):
+    results = []
+    for seq, stop_time in enumerate(self.stop_times_by_trip.get(trip_id, [])):
+      results.append(self.DecodeStopTime(stop_time, trip_id, seq + 1))
+    return results
+    
+  def GetStopTimesForStop(self, stop_id):
+    results = []
+    for trip_id, index in self.stop_times_by_stop.get(stop_id, []):
+      results.append(self.DecodeStopTime(
+        self.stop_times_by_trip[trip_id][index], trip_id, index + 1))
+    return results
+    
 class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
 
   def __init__(self, problem_reporter=default_problem_reporter):
-    self._agencies = {}
-    self.stops = {}
-    self.routes = {}
+    import sqlitebackend
+#    self.backend = sqlitebackend.SQLiteBackend(':memory:')
+#    self.backend = sqlitebackend.SQLiteBackend('cache.sqlite')
+    self.backend = RAMBackend()
     self.trips = {}
     self.service_periods = {}
     self.fares = {}
@@ -1511,10 +1692,11 @@ class Schedule:
     self.problem_reporter = problem_reporter
 
   def GetStopBoundingBox(self):
-    return (min(s.stop_lat for s in self.stops.values()),
-            min(s.stop_lon for s in self.stops.values()),
-            max(s.stop_lat for s in self.stops.values()),
-            max(s.stop_lon for s in self.stops.values()),
+    stop_list = self.GetStopList()
+    return (min(s.stop_lat for s in stop_list),
+            min(s.stop_lon for s in stop_list),
+            max(s.stop_lat for s in stop_list),
+            max(s.stop_lon for s in stop_list),
            )
 
   def AddAgency(self, name, url, timezone, agency_id=None):
@@ -1527,17 +1709,20 @@ class Schedule:
     if not problem_reporter:
       problem_reporter = self.problem_reporter
 
-    if agency.agency_id in self._agencies:
+    if self.backend.GetAgency(agency.agency_id):
       problem_reporter.DuplicateID('agency_id', agency.agency_id)
       return
 
     if validate:
       agency.Validate(problem_reporter)
-    self._agencies[agency.agency_id] = agency
+    self.backend.AddAgency(agency)
 
   def GetAgency(self, agency_id):
     """Return Agency with agency_id or throw a KeyError"""
-    return self._agencies[agency_id]
+    return self.backend.GetAgency(agency_id)
+    
+  def GetAgencyIDs(self):
+    return self.backend.GetAgencyIDs()
 
   def GetDefaultAgency(self):
     """Return the default Agency. If no default Agency has been set select the
@@ -1546,17 +1731,18 @@ class Schedule:
     if there is more than 1 then return None.
     """
     if not self._default_agency:
-      if len(self._agencies) == 0:
+      ids = self.GetAgencyIDs()
+      if len(ids) == 0:
         self.NewDefaultAgency()
-      elif len(self._agencies) == 1:
-        self._default_agency = self._agencies.values()[0]
+      elif len(ids) == 1:
+        self._default_agency = self.GetAgency(ids[0])
     return self._default_agency
 
   def NewDefaultAgency(self, **kwargs):
     """Create a new Agency object and make it the default agency for this Schedule"""
     agency = Agency(**kwargs)
     if not agency.agency_id:
-      agency.agency_id = FindUniqueId(self._agencies)
+      agency.agency_id = FindUniqueId(self.GetAgencyIDs())
     self._default_agency = agency
     self.SetDefaultAgency(agency, validate=False)  # Blank agency won't validate
     return agency
@@ -1565,12 +1751,12 @@ class Schedule:
     """Make agency the default and add it to the schedule if not already added"""
     assert isinstance(agency, Agency)
     self._default_agency = agency
-    if agency.agency_id not in self._agencies:
+    if not self.GetAgency(agency.agency_id):
       self.AddAgencyObject(agency, validate=validate)
 
   def GetAgencyList(self):
     """Returns the list of Agency objects known to this Schedule."""
-    return self._agencies.values()
+    return map(self.GetAgency, self.GetAgencyIDs())
 
   def GetServicePeriod(self, service_id):
     """Returns the ServicePeriod object with the given ID."""
@@ -1631,18 +1817,21 @@ class Schedule:
     Returns:
       A new Stop object
     """
-    stop_id = unicode(len(self.stops))
+    stop_id = unicode(len(self.GetStopIDs()))
     stop = Stop(stop_id=stop_id, lat=lat, lng=lng, name=name)
     self.AddStopObject(stop)
     return stop
 
   def AddStopObject(self, stop):
-    self.stops[stop.stop_id] = stop
+    self.backend.AddStop(stop)
     if hasattr(stop, 'zone_id') and stop.zone_id:
       self.fare_zones[stop.zone_id] = True
 
+  def GetStopIDs(self):
+    return self.backend.GetStopIDs()
+
   def GetStopList(self):
-    return self.stops.values()
+    return map(self.GetStop, self.GetStopIDs())
 
   def AddRoute(self, short_name, long_name, route_type):
     """Add a route to this schedule.
@@ -1654,7 +1843,7 @@ class Schedule:
     Returns:
       A new Route object
     """
-    route_id = unicode(len(self.routes))
+    route_id = unicode(len(self.backend.GetRouteIDs()))
     route = Route(short_name=short_name, long_name=long_name,
                   route_type=route_type, route_id=route_id)
     route.agency_id = self.GetDefaultAgency().agency_id
@@ -1667,12 +1856,12 @@ class Schedule:
 
     route.Validate(problem_reporter)
 
-    if route.route_id in self.routes:
+    if route.route_id in self.backend.GetRouteIDs():
       problem_reporter.DuplicateID('route_id', route.route_id)
       return
 
-    if route.agency_id not in self._agencies:
-      if not route.agency_id and len(self._agencies) == 1:
+    if not self.GetAgency(route.agency_id):
+      if not route.agency_id and len(self.GetAgencyIDs()) == 1:
         # we'll just assume that the route applies to the only agency
         pass
       else:
@@ -1680,13 +1869,16 @@ class Schedule:
                                       'Route uses an unknown agency_id.')
         return
 
-    self.routes[route.route_id] = route
+    self.backend.AddRoute(route)
+
+  def GetRouteIDs(self):
+    return self.backend.GetRouteIDs()
 
   def GetRouteList(self):
-    return self.routes.values()
+    return map(self.GetRoute, self.GetRouteIDs())
 
   def GetRoute(self, route_id):
-    return self.routes[route_id]
+    return self.backend.GetRoute(route_id)
 
   def AddShapeObject(self, shape, problem_reporter=None):
     if not problem_reporter:
@@ -1730,16 +1922,26 @@ class Schedule:
     # TODO: validate distance values in stop times (if applicable)
 
     self.trips[trip.trip_id] = trip
-    if trip.route_id not in self.routes:
+    if not self.GetRoute(trip.route_id):
       problem_reporter.InvalidValue('route_id', trip.route_id)
-    else:
-      self.routes[trip.route_id].AddTripObject(trip)
 
   def GetTripList(self):
     return self.trips.values()
 
   def GetTrip(self, trip_id):
     return self.trips[trip_id]
+    
+  def AddStopTime(self, stop_time):
+    if not stop_time.stop_sequence:
+      stop_time.stop_sequence = \
+        str(len(self.GetStopTimesForTrip(stop_time.trip_id)) + 1)
+    self.backend.AddStopTime(stop_time)
+    
+  def GetStopTimesForTrip(self, trip_id):
+    return self.backend.GetStopTimesForTrip(trip_id)
+    
+  def GetStopTimesForStop(self, stop_id):
+    return self.backend.GetStopTimesForStop(stop_id)
 
   def AddFareObject(self, fare, problem_reporter=None):
     if not problem_reporter:
@@ -1766,7 +1968,7 @@ class Schedule:
       problem_reporter.MissingValue('fare_id')
       return
 
-    if rule.route_id and rule.route_id not in self.routes:
+    if rule.route_id and not self.GetRoute(rule.route_id):
       problem_reporter.InvalidValue('route_id', rule.route_id)
     if rule.origin_id and rule.origin_id not in self.fare_zones:
       problem_reporter.InvalidValue('origin_id', rule.origin_id)
@@ -1784,7 +1986,7 @@ class Schedule:
                                     'fare attributes.)')
 
   def GetStop(self, id):
-    return self.stops[id]
+    return self.backend.GetStop(id)
 
   def GetFareZones(self):
     """Returns the list of all fare zones that have been identified by
@@ -1794,7 +1996,7 @@ class Schedule:
   def GetNearestStops(self, lat, lon, n=1):
     """Return the n nearest stops to lat,lon"""
     dist_stop_list = []
-    for s in self.stops.values():
+    for s in self.GetStopList():
       # TODO: Use ApproximateDistanceBetweenStops?
       dist = (s.stop_lat - lat)**2 + (s.stop_lon - lon)**2
       if len(dist_stop_list) < n:
@@ -1807,7 +2009,7 @@ class Schedule:
   def GetStopsInBoundingBox(self, north, east, south, west, n):
     """Return a sample of up to n stops in a bounding box"""
     stop_list = []
-    for s in self.stops.values():
+    for s in self.GetStopList():
       if (s.stop_lat <= north and s.stop_lat >= south and
           s.stop_lon <= east and s.stop_lon >= west):
         stop_list.append(s)
@@ -1834,7 +2036,7 @@ class Schedule:
     agency_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(agency_string)
     writer.writerow(Agency._FIELD_NAMES)
-    for agency in self._agencies.values():
+    for agency in map(self.GetAgency, self.GetAgencyIDs()):
       writer.writerow(agency.GetFieldValuesTuple())
     archive.writestr('agency.txt', agency_string.getvalue())
 
@@ -1866,13 +2068,13 @@ class Schedule:
     stop_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(stop_string)
     writer.writerow(Stop._FIELD_NAMES)
-    writer.writerows(s.GetFieldValuesTuple() for s in self.stops.values())
+    writer.writerows(s.GetFieldValuesTuple() for s in self.GetStopList())
     archive.writestr('stops.txt', stop_string.getvalue())
 
     route_string = StringIO.StringIO()
     writer = CsvUnicodeWriter(route_string)
     writer.writerow(Route._FIELD_NAMES)
-    writer.writerows(r.GetFieldValuesTuple() for r in self.routes.values())
+    writer.writerows(r.GetFieldValuesTuple() for r in self.GetRouteList())
     archive.writestr('routes.txt', route_string.getvalue())
 
     # write trips.txt
@@ -1917,7 +2119,7 @@ class Schedule:
     writer = CsvUnicodeWriter(stop_times_string)
     writer.writerow(StopTime._FIELD_NAMES)
     for t in self.trips.values():
-      writer.writerows(t._GenerateStopTimesTuples())
+      writer.writerows(t._GenerateStopTimesTuples(self))
     archive.writestr('stop_times.txt', stop_times_string.getvalue())
 
     # write shapes (if applicable)
@@ -1945,10 +2147,10 @@ class Schedule:
     # TODO: Check Trip fields against valid values
 
     # Check for stops that aren't referenced by any trips
-    for stop in self.stops.values():
+    for stop in self.GetStopList():
       if validate_children:
         stop.Validate(problems)
-      if not stop.trip_index:
+      if not self.GetStopTimesForStop(stop.stop_id):
         problems.UnusedStop(stop.stop_id, stop.stop_name)
 
     # Check for stops that might represent the same location
@@ -1971,7 +2173,7 @@ class Schedule:
 
     # Check for multiple routes using same short + long name
     route_names = {}
-    for route in self.routes.values():
+    for route in self.GetRouteList():
       if validate_children:
         route.Validate(problems)
       short_name = ''
@@ -1994,9 +2196,9 @@ class Schedule:
         route_names[name] = route
 
     # Check that routes' agency IDs are valid, if set
-    for route in self.routes.values():
+    for route in self.GetRouteList():
       if (not IsEmpty(route.agency_id) and
-          not route.agency_id in self._agencies):
+          not self.GetAgency(route.agency_id)):
         problems.InvalidValue('agency_id',
                               route.agency_id,
                               'The route with ID "%s" specifies agency_id '
@@ -2007,10 +2209,10 @@ class Schedule:
     # We're doing this here instead of in Trip.Validate() so that
     # Trips can be validated without error during the reading of trips.txt
     for trip in self.trips.values():
-      if not trip.GetTimeStops():
+      if not trip.GetTimeStops(self):
         problems.OtherProblem('The trip with the trip_id "%s" doesn\'t have '
                               'any stop times defined.' % trip.trip_id)
-      if len(trip.GetTimeStops()) == 1:
+      if len(trip.GetTimeStops(self)) == 1:
         problems.OtherProblem('The trip with the trip_id "%s" only has one '
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %
@@ -2167,7 +2369,7 @@ class Loader:
       stop = Stop(field_list=row)
       stop.Validate(self._problems)
 
-      if stop.stop_id in self._schedule.stops:
+      if stop.stop_id in self._schedule.GetStopIDs():
         self._problems.DuplicateID('stop_id', stop.stop_id)
       else:
         self._schedule.AddStopObject(stop)
@@ -2364,13 +2566,12 @@ class Loader:
                                     'This should be a number.')
         continue
 
-      if stop_id not in self._schedule.stops:
+      if not self._schedule.GetStop(stop_id):
         self._problems.InvalidValue('stop_id', stop_id,
                                     'This value wasn\'t defined in stops.txt')
         continue
-      stop = self._schedule.stops[stop_id]
       stoptimes.setdefault(trip_id, []).append(
-          (sequence, StopTime(self._problems, stop, arrival_time,
+          (sequence, StopTime(self._problems, stop_id, trip_id, arrival_time,
                                    departure_time, stop_headsign,
                                    pickup_type, drop_off_type,
                                    shape_dist_traveled), file_context))
@@ -2398,7 +2599,8 @@ class Loader:
         if expected_sequence != stop_sequence:
           self._problems.InvalidValue('stop_sequence', stop_sequence,
             'Expected %i' % expected_sequence, file_context)
-        trip.AddStopTimeObject(stoptime, problems=self._problems)
+        trip.AddStopTimeObject(stoptime, self._schedule,
+                               problems=self._problems)
         expected_sequence = stop_sequence + 1
 
   def Load(self):

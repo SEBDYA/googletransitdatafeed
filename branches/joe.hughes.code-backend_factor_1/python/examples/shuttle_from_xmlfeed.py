@@ -83,7 +83,8 @@ def SaveFeed(input, output):
                             stops[xml_schedule.attrib['stopId']]) )
       trip_stops.sort()  # Sort by time
       for (time, stop) in trip_stops:
-        t.AddStopTime(stop=stop, arrival_secs=time, departure_secs=time)
+        t.AddStopTime(stop=stop, schedule=schedule,
+                      arrival_secs=time, departure_secs=time)
 
   schedule.Validate(problems=NoUnusedStopExceptionProblemReporter())
   schedule.WriteGoogleTransitFeed(output)

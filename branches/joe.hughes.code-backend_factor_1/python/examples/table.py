@@ -58,8 +58,8 @@ def AddRouteToSchedule(schedule, table):
           trip_stops.append( (transitfeed.TimeToSecondsSinceMidnight(trip[i]), table[1][i]) )
       trip_stops.sort()  # Sort by time
       for (time, stopname) in trip_stops:
-        t.AddStopTime(stop=stops[stopname.lower()], arrival_secs=time,
-                      departure_secs=time)
+        t.AddStopTime(stop=stops[stopname.lower()], schedule=schedule,
+                      arrival_secs=time, departure_secs=time)
 
 def TransposeTable(table):
   """Transpose a list of lists, using None to extend all input lists to the

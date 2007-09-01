@@ -654,6 +654,9 @@ class StopTime(object):
         problems.InvalidValue('drop_off_type', drop_off_type)
       self.drop_off_type = drop_off_type
 
+    if self.pickup_type == 1 and self.drop_off_type == 1:
+      problems.OtherProblem('pickup_type and drop_off_type are 1')
+
     if shape_dist_traveled in (None, ""):
       self.shape_dist_traveled = None
     else:

@@ -433,8 +433,7 @@ class StopTimeValidationTestCase(ValidationTestCase):
         departure_time='10:05:00', pickup_type='3', drop_off_type='0',
         shape_dist_traveled='$')
     self.ExpectOtherProblemException(transitfeed.StopTime, self.problems,
-        stop, arrival_time="10:00:00", departure_time='10:05:00',
-        pickup_type='1', drop_off_type='1')
+        stop, pickup_type='1', drop_off_type='1')
 
 
 class RouteValidationTestCase(ValidationTestCase):

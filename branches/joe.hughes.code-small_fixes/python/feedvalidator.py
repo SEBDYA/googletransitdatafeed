@@ -16,9 +16,9 @@
 
 # Validates a Google Transit Feed Specification feed.
 #
-# 
+#
 # usage: feedvalidator.py [options] feed_filename
-# 
+#
 # options:
 #   --version             show program's version number and exit
 #   -h, --help            show this help message and exit
@@ -53,7 +53,7 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
   def UnusedStop(self, stop_id, stop_name):
     self.count += 1
     self.unused_stops.append((stop_id, stop_name))
-    
+
   def _Report(self, e):
     self.count += 1
     d = e.GetDict()
@@ -86,7 +86,7 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
     except AttributeError, e:
       pass  # Hope this was getting an attribute from e ;-)
     self._output.append('</li><br>\n')
-    
+
   def _UnusedStopSection(self):
     unused = []
     unused_count = len(self.unused_stops)
@@ -112,17 +112,17 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
       unused.append('</table><br>')
       unused.append('</div>')
     return ''.join(unused)
-    
+
   def GetOutput(self, feed_location):
     if problems.count:
       summary = ('<span class="fail">%s found</span>' %
                  ProblemCountText(problems.count))
     else:
       summary = '<span class="pass">feed validated successfully</span>'
-      
+
     basename = os.path.basename(feed_location)
     feed_path = (feed_location[:feed_location.rfind(basename)], basename)
-    
+
     output_contents = """
 <html>
 <head>
@@ -185,19 +185,19 @@ if __name__ == '__main__':
   problems = HTMLCountingProblemReporter()
   loader = transitfeed.Loader(feed, problems=problems, extra_validation=True)
   loader.Load()
-  
+
   exit_code = 0
   if problems.count:
     print 'ERROR: %s found' % ProblemCountText(problems.count)
     exit_code = 1
   else:
     print 'feed validated successfully'
-    
+
   output_filename = options.output
   output_file = open(output_filename, 'w')
   output_file.write(problems.GetOutput(os.path.abspath(feed)))
   output_file.close()
   if manual_entry:
     webbrowser.open('file://%s' % os.path.abspath(output_filename))
-    
+
   sys.exit(exit_code)

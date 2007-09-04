@@ -128,7 +128,7 @@ class ProblemReporterBase:
     e = DuplicateID(column_name=column_name, value=value,
                     context=context, context2=self._context)
     self._Report(e)
-	
+
   def UnusedStop(self, stop_id, stop_name, context=None):
     e = UnusedStop(stop_id=stop_id, stop_name=stop_name,
                    context=context, context2=self._context)
@@ -143,7 +143,9 @@ class ProblemReporter(ProblemReporterBase):
   """This is a basic problem reporter that just prints to console."""
   def _Report(self, e):
     print EncodeUnicode(self._LineWrap(e.FormatProblem(), 78))
-    print e.FormatContext()
+    context = e.FormatContext()
+    if context:
+      print context
 
   @staticmethod
   def _LineWrap(text, width):
@@ -151,7 +153,7 @@ class ProblemReporter(ProblemReporterBase):
     A word-wrap function that preserves existing line breaks
     and most spaces in the text. Expects that existing line
     breaks are posix newlines (\n).
-    
+
     Taken from:
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
     """
@@ -524,7 +526,7 @@ class Route(object):
                             'Both route_short_name and '
                             'route_long name are blank.')
                             
-    if self.route_short_name and len(self.route_short_name) > 5:
+    if self.route_short_name and len(self.route_short_name) > 6:
       problems.InvalidValue('route_short_name',
                             self.route_short_name,
                             'This route_short_name is relatively long, which '
@@ -754,6 +756,7 @@ class Trip(object):
       prev_secs = st.GetTimeSecs()
       if prev_secs != None:
         break
+
     if new_secs != None and prev_secs != None and new_secs < prev_secs:
       problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s %s < %s'
                             % (stoptime.stop_id, self.trip_id,
@@ -2191,7 +2194,7 @@ class Loader:
     if not self._HasFile(file_name) and not self._HasFile(file_name_dates):
       self._problems.MissingFile(file_name)
       return
-      
+
     # map period IDs to (period object, (file_name, row_num, row, cols))
     periods = {}
 
@@ -2207,9 +2210,9 @@ class Loader:
         period = ServicePeriod(field_list=row)
 
         if period.service_id in periods:
-          problem_reporter.DuplicateID('service_id', period.service_id)
+          self._problems.DuplicateID('service_id', period.service_id)
           continue
-        
+
         periods[period.service_id] = (period, context)
 
     # process calendar_dates.txt

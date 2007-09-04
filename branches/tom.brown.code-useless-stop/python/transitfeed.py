@@ -128,7 +128,7 @@ class ProblemReporterBase:
     e = DuplicateID(column_name=column_name, value=value,
                     context=context, context2=self._context)
     self._Report(e)
-	
+
   def UnusedStop(self, stop_id, stop_name, context=None):
     e = UnusedStop(stop_id=stop_id, stop_name=stop_name,
                    context=context, context2=self._context)
@@ -654,8 +654,10 @@ class StopTime(object):
         problems.InvalidValue('drop_off_type', drop_off_type)
       self.drop_off_type = drop_off_type
 
-    if self.pickup_type == 1 and self.drop_off_type == 1:
-      problems.OtherProblem('pickup_type and drop_off_type are 1')
+    if (self.pickup_type == 1 and self.drop_off_type == 1 and
+        self.arrival_secs == None and self.departure_secs == None):
+      problems.OtherProblem(
+          'pickup_type and drop_off_type are 1 on untimed stop')
 
     if shape_dist_traveled in (None, ""):
       self.shape_dist_traveled = None

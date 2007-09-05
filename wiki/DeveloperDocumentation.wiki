@@ -32,6 +32,7 @@ The validate script envokes the diff tool to show differences in the resulting f
 The source code of GoogleTransitDataFeed software is managed in [http://code.google.com/p/googletransitdatafeed Google Code]. Google Code uses [http://www.subversion.tigris.org Subversion] to manage change.
 
 = TransXchange2GoogleTransit version release notes =
+  * v1.6.1 - Consolidation of routes
   * v1.6 - A set of input files in a zip archive are now accepted. 
   Note: 1. The first service start date of the input file is no longer used to create a sub directory in <output-directory> hosting the feed files. Feed files are now directly saved to <output-directory> ---
   2. It assumed that routes and trips are disjunctive in the input file set, i.e. routes must not be split over several input files. Stops and agency information however are consolidated to avoid replication of stop and agency records in stops.txt and agency.txt
@@ -54,5 +55,4 @@ The source code of GoogleTransitDataFeed software is managed in [http://code.goo
   * v1.0b - Eclipse 3.2.2 workbench
   * v1.0a - Add build.xml
   * v1.0  - Initial release. Binaries, validation tools, source files
-
 

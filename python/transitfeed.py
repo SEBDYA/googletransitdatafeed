@@ -656,8 +656,11 @@ class StopTime(object):
 
     if (self.pickup_type == 1 and self.drop_off_type == 1 and
         self.arrival_secs == None and self.departure_secs == None):
-      problems.OtherProblem(
-          'pickup_type and drop_off_type are 1 on untimed stop')
+      problems.OtherProblem('This stop time has a pickup_type and '
+                            'drop_off_type of 1, indicating that riders '
+                            'can\'t get on or off here.  Since it doesn\'t '
+                            'define a timepoint either, this entry serves no '
+                            'purpose and should be excluded from the trip.')
 
     if shape_dist_traveled in (None, ""):
       self.shape_dist_traveled = None

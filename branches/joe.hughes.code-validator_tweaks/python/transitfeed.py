@@ -1345,7 +1345,12 @@ class ServicePeriod(object):
 
   def GetDateRange(self):
     """Returns the range over which this ServicePeriod is valid in
-    (start date, end date) form, using YYYYMMDD format."""
+    (start date, end date) form, using YYYYMMDD format.  This range includes
+    exception dates that add service outside of (start_date, end_date),
+    but doesn't shrink the range if exception dates take away service at
+    the edges of the range."""
+    # TODO: Add more characterization of service density within the range
+
     start = self.start_date
     end = self.end_date
 
@@ -1653,20 +1658,14 @@ class Schedule:
   def GetServicePeriodList(self):
     return self.service_periods.values()
 
-  def GetServiceDateRange(self):
-    """Returns a tuple of (earliest, latest) dates on which the services
+  def GetDateRange(self):
+    """Returns a tuple of (earliest, latest) dates on which the service
     periods in the schedule define service, in YYYYMMDD form."""
-    earliest = latest = None
-    for period in self.GetServicePeriodList():
-      (start, end) = period.GetDateRange()
-      if not start or not end:
-        continue
 
-      if (start and (not earliest or (start < earliest))):
-        earliest = start
-      if (end and (not latest or (end > latest))):
-        latest = end
-    return (earliest, latest)
+    ranges = [period.GetDateRange() for period in self.GetServicePeriodList()]
+    start = min(filter(lambda x: x, [item[0] for item in ranges]))
+    end = max(filter(lambda x: x, [item[1] for item in ranges]))
+    return (start, end)
 
   def AddStop(self, lat, lng, name):
     """Add a stop to this schedule.

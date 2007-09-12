@@ -124,13 +124,12 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
     basename = os.path.basename(feed_location)
     feed_path = (feed_location[:feed_location.rfind(basename)], basename)
 
-    agencies = ', '.join(map(lambda x: x.agency_name,
-                             schedule.GetAgencyList()))
+    agencies = ', '.join([a.agency_name for a in schedule.GetAgencyList()])
     if not agencies:
       agencies = '?'
 
     dates = "No valid service dates found"
-    (start, end) = schedule.GetServiceDateRange()
+    (start, end) = schedule.GetDateRange()
     if start and end:
       src_format = "%Y%m%d"
       dst_format = "%B %d, %Y"

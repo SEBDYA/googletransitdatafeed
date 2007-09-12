@@ -738,11 +738,11 @@ class ServicePeriodDateRangeTestCase(ValidationTestCase):
 
     schedule = transitfeed.Schedule(problem_reporter=self.problems)
     schedule.AddServicePeriodObject(period)
-    self.assertEqual(('20070101', '20071231'), schedule.GetServiceDateRange())
+    self.assertEqual(('20070101', '20071231'), schedule.GetDateRange())
     schedule.AddServicePeriodObject(period2)
-    self.assertEqual(('20070101', '20080101'), schedule.GetServiceDateRange())
+    self.assertEqual(('20070101', '20080101'), schedule.GetDateRange())
     schedule.AddServicePeriodObject(period4)
-    self.assertEqual(('20051031', '20080101'), schedule.GetServiceDateRange())
+    self.assertEqual(('20051031', '20080101'), schedule.GetDateRange())
 
 
 class TripValidationTestCase(ValidationTestCase):

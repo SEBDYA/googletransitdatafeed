@@ -124,7 +124,8 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
     basename = os.path.basename(feed_location)
     feed_path = (feed_location[:feed_location.rfind(basename)], basename)
 
-    agencies = ', '.join([a.agency_name for a in schedule.GetAgencyList()])
+    agencies = ', '.join(['<a href="%s">%s</a>' % (a.agency_url, a.agency_name)
+                          for a in schedule.GetAgencyList()])
     if not agencies:
       agencies = '?'
 
@@ -168,6 +169,7 @@ GTFS validation results for feed:<br>
 <tr><th class="header">Routes:</th><td class="header">%(routes)s</td></tr>
 <tr><th class="header">Stops:</th><td class="header">%(stops)s</td></tr>
 <tr><th class="header">Trips:</th><td class="header">%(trips)s</td></tr>
+<tr><th class="header">Shapes:</th><td class="header">%(shapes)s</td></tr>
 <tr><th class="header">Effective:</th><td class="header">%(dates)s</td></tr>
 </table>
 <br>
@@ -178,6 +180,7 @@ GTFS validation results for feed:<br>
             "routes": len(schedule.GetRouteList()),
             "stops": len(schedule.GetStopList()),
             "trips": len(schedule.GetTripList()),
+            "shapes": len(schedule.GetShapeList()),
             "dates": dates,
             "summary": summary }
 

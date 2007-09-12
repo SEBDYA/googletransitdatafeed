@@ -1662,14 +1662,14 @@ class Schedule:
     """Returns a tuple of (earliest, latest) dates on which the service
     periods in the schedule define service, in YYYYMMDD form."""
 
-    service_periods = self.GetServicePeriodList()
-    if not service_periods:
+    ranges = [period.GetDateRange() for period in self.GetServicePeriodList()]
+    starts = filter(lambda x: x, [item[0] for item in ranges])
+    ends = filter(lambda x: x, [item[1] for item in ranges])
+
+    if not starts or not ends:
       return (None, None)
 
-    ranges = [period.GetDateRange() for period in service_periods]
-    start = min(filter(lambda x: x, [item[0] for item in ranges]))
-    end = max(filter(lambda x: x, [item[1] for item in ranges]))
-    return (start, end)
+    return (min(starts), max(ends))
 
   def AddStop(self, lat, lng, name):
     """Add a stop to this schedule.

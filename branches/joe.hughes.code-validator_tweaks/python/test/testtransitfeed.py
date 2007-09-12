@@ -737,6 +737,7 @@ class ServicePeriodDateRangeTestCase(ValidationTestCase):
     period4.Validate(self.problems)
 
     schedule = transitfeed.Schedule(problem_reporter=self.problems)
+    self.assertEqual((None, None), schedule.GetDateRange())
     schedule.AddServicePeriodObject(period)
     self.assertEqual(('20070101', '20071231'), schedule.GetDateRange())
     schedule.AddServicePeriodObject(period2)

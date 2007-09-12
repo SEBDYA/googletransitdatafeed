@@ -1662,7 +1662,11 @@ class Schedule:
     """Returns a tuple of (earliest, latest) dates on which the service
     periods in the schedule define service, in YYYYMMDD form."""
 
-    ranges = [period.GetDateRange() for period in self.GetServicePeriodList()]
+    service_periods = self.GetServicePeriodList()
+    if not service_periods:
+      return (None, None)
+
+    ranges = [period.GetDateRange() for period in service_periods]
     start = min(filter(lambda x: x, [item[0] for item in ranges]))
     end = max(filter(lambda x: x, [item[1] for item in ranges]))
     return (start, end)

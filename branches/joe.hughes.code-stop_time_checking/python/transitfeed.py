@@ -665,6 +665,13 @@ class StopTime(object):
                             'define a timepoint either, this entry serves no '
                             'purpose and should be excluded from the trip.')
 
+    if ((self.arrival_secs != None) and (self.departure_secs != None) and
+        (self.departure_secs < self.arrival_secs)):
+      problems.InvalidValue('departure_time', departure_time,
+                            'The departure time at this stop (%s) is before '
+                            'the arrival time (%s).  This is often caused by '
+                            'problems in the feed exporter\'s time conversion')
+
     if shape_dist_traveled in (None, ""):
       self.shape_dist_traveled = None
     else:
@@ -684,6 +691,15 @@ class StopTime(object):
         result.append(trip_id)
       elif fn == 'stop_sequence':
         result.append(str(sequence))
+        
+      # arrival_time and departure_time should either both be set or
+      # neither of them should be set
+      elif ((fn == 'arrival_time') and (self.arrival_secs == None) and
+            (self.departure_secs != None)):
+        result.append(getattr(self, 'departure_time'))
+      elif ((fn == 'departure_time') and (self.departure_secs == None) and
+            (self.arrival_secs != None)):
+        result.append(getattr(self, 'arrival_time'))
       else:
         result.append(getattr(self, fn) or '' )
     return tuple(result)
@@ -2406,6 +2422,19 @@ class Loader:
 
       (trip_id, arrival_time, departure_time, stop_id, stop_sequence,
          stop_headsign, pickup_type, drop_off_type, shape_dist_traveled) = row
+
+      if ((arrival_time and not departure_time) or
+          (departure_time and not arrival_time)):
+        missing_field = 'arrival_time'
+        missing_value = arrival_time
+        if not departure_time:
+          missing_field = 'departure_time'
+          missing_value = departure_time
+        self._problems.InvalidValue(
+            missing_field,
+            'arrival_time and departure_time should either '
+            'both be provided or both be left blank.  '
+            'It\'s OK to set them both to the same value.')
 
       try:
         sequence = int(stop_sequence)

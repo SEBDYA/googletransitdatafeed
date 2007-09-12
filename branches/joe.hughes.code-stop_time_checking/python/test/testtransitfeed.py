@@ -313,6 +313,17 @@ class DuplicateScheduleIDTestCase(unittest.TestCase):
       pass
 
 
+class MissingArrivalTestCase(unittest.TestCase):
+  def runTest(self):
+    schedule = transitfeed.Schedule(
+        problem_reporter=transitfeed.ExceptionProblemReporter())
+    try:
+      schedule.Load(DataPath('missing_arrival'), extra_validation=True)
+      self.fail('InvalidValue exception expected')
+    except transitfeed.InvalidValue:
+      pass
+
+
 INVALID_VALUE = Exception()
 class ValidationTestCase(unittest.TestCase):
   problems = transitfeed.ExceptionProblemReporter()
@@ -433,26 +444,39 @@ class StopTimeValidationTestCase(ValidationTestCase):
         lambda: transitfeed.StopTime(self.problems, stop,
                                      arrival_time="1a:00:00"))
     self.ExpectInvalidValueInClosure('departure_time', '1a:00:00',
-        lambda: transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
                                      departure_time='1a:00:00'))
     self.ExpectInvalidValueInClosure('pickup_type', '7.8',
-        lambda: transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
-                                     departure_time='10:05:00', pickup_type='7.8',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='10:05:00',
+                                     pickup_type='7.8',
                                      drop_off_type='0'))
     self.ExpectInvalidValueInClosure('drop_off_type', 'a',
-        lambda: transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
-                                     departure_time='10:05:00', pickup_type='3',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='10:05:00',
+                                     pickup_type='3',
                                      drop_off_type='a'))
     self.ExpectInvalidValueInClosure('shape_dist_traveled', '$',
-        lambda: transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
-                                     departure_time='10:05:00', pickup_type='3',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='10:05:00',
+                                     pickup_type='3',
                                      drop_off_type='0',
                                      shape_dist_traveled='$'))
-    self.ExpectOtherProblemInClosure(lambda: transitfeed.StopTime(self.problems,
-        stop, pickup_type='1', drop_off_type='1'))
+    self.ExpectOtherProblemInClosure(
+      lambda: transitfeed.StopTime(self.problems,
+                                   stop, pickup_type='1', drop_off_type='1'))
+    self.ExpectInvalidValueInClosure('departure_time', '10:00:00',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="11:00:00",
+                                     departure_time="10:00:00"))
     # The following should work
     transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
         departure_time="10:05:00", pickup_type='1', drop_off_type='1')
+    transitfeed.StopTime(self.problems, stop)  # neither time provided? OK
 
 
 class RouteValidationTestCase(ValidationTestCase):
@@ -944,9 +968,11 @@ class TripStopTimeAccessorsTestCase(unittest.TestCase):
         "05:22:00")
     self.assertEqual(len(trip.GetStopTimesTuples()), 4)
     self.assertEqual(trip.GetStopTimesTuples()[0], (trip.trip_id, "05:11:00",
-                                                    "05:12:00", stop1.stop_id, '1', '', '', '', ''))
-    self.assertEqual(trip.GetStopTimesTuples()[3], (trip.trip_id, "05:22:00",
-                                                    "", stop2.stop_id, '4', '', '', '', ''))
+                                                    "05:12:00", stop1.stop_id,
+                                                    '1', '', '', '', ''))
+    self.assertEqual(trip.GetStopTimesTuples()[3],
+                     (trip.trip_id, "05:22:00", "05:22:00",
+                      stop2.stop_id, '4', '', '', '', ''))
 
 
 class BasicParsingTestCase(unittest.TestCase):

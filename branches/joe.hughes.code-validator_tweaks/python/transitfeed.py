@@ -50,6 +50,7 @@ import math
 import os
 import random
 import re
+import time
 import zipfile
 
 OUTPUT_ENCODING = 'utf-8'
@@ -1333,8 +1334,29 @@ class ServicePeriod(object):
     self.date_exceptions = {}  # Map from 'YYYYMMDD' to 1 (add) or 2 (remove)
 
   def _IsValidDate(self, date):
-    # TODO: Add more knowledge of possible dates here
-    return not (re.match('^\d{8}$', date) == None)
+    if re.match('^\d{8}$', date) == None:
+      return False
+
+    try:
+      time.strptime(date, "%Y%m%d")
+      return True
+    except ValueError:
+      return False
+
+  def GetDateRange(self):
+    """Returns the range over which this ServicePeriod is valid in
+    (start date, end date) form, using YYYYMMDD format."""
+    start = self.start_date
+    end = self.end_date
+
+    for date in self.date_exceptions:
+      if self.date_exceptions[date] == 2:
+        continue
+      if not start or (date < start):
+        start = date
+      if not end or (date > end):
+        end = date
+    return (start, end)
 
   def GetCalendarFieldValuesTuple(self):
     """Return the tuple of calendar.txt values or None if this ServicePeriod
@@ -1630,6 +1652,21 @@ class Schedule:
 
   def GetServicePeriodList(self):
     return self.service_periods.values()
+
+  def GetServiceDateRange(self):
+    """Returns a tuple of (earliest, latest) dates on which the services
+    periods in the schedule define service, in YYYYMMDD form."""
+    earliest = latest = None
+    for period in self.GetServicePeriodList():
+      (start, end) = period.GetDateRange()
+      if not start or not end:
+        continue
+
+      if (start and (not earliest or (start < earliest))):
+        earliest = start
+      if (end and (not latest or (end > latest))):
+        latest = end
+    return (earliest, latest)
 
   def AddStop(self, lat, lng, name):
     """Add a stop to this schedule.

@@ -318,11 +318,8 @@ class ValidationTestCase(unittest.TestCase):
   problems = transitfeed.ExceptionProblemReporter()
 
   def ExpectMissingValue(self, object, column_name):
-    try:
-      object.Validate(self.problems)
-      self.fail('MissingValue exception expected')
-    except transitfeed.MissingValue, e:
-      self.assertEqual(column_name, e.column_name)
+    self.ExpectMissingValueInClosure(column_name,
+                                     lambda: object.Validate(self.problems))
 
   def ExpectMissingValueInClosure(self, column_name, c):
     try:

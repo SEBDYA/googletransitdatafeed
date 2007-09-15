@@ -302,13 +302,28 @@ class DuplicateStopTestCase(unittest.TestCase):
       pass
 
 
+class DuplicateScheduleIDTestCase(unittest.TestCase):
+  def runTest(self):
+    schedule = transitfeed.Schedule(
+        problem_reporter=transitfeed.ExceptionProblemReporter())
+    try:
+      schedule.Load(DataPath('duplicate_schedule_id'), extra_validation=True)
+      self.fail('DuplicateID exception expected')
+    except transitfeed.DuplicateID:
+      pass
+
+
 INVALID_VALUE = Exception()
 class ValidationTestCase(unittest.TestCase):
   problems = transitfeed.ExceptionProblemReporter()
 
   def ExpectMissingValue(self, object, column_name):
+    self.ExpectMissingValueInClosure(column_name,
+                                     lambda: object.Validate(self.problems))
+
+  def ExpectMissingValueInClosure(self, column_name, c):
     try:
-      object.Validate(self.problems)
+      c()
       self.fail('MissingValue exception expected')
     except transitfeed.MissingValue, e:
       self.assertEqual(column_name, e.column_name)
@@ -316,19 +331,23 @@ class ValidationTestCase(unittest.TestCase):
   def ExpectInvalidValue(self, object, column_name, value=INVALID_VALUE):
     if value==INVALID_VALUE:
       value = object.__getattribute__(column_name)
-    self.ExpectInvalidValueException(column_name, value, object.Validate, self.problems)
+    self.ExpectInvalidValueInClosure(column_name, value,
+        lambda: object.Validate(self.problems))
 
-  def ExpectInvalidValueException(self, column_name, value, f, *args, **kwargs):
+  def ExpectInvalidValueInClosure(self, column_name, value, c):
     try:
-      f(*args, **kwargs)
+      c()
       self.fail('InvalidValue exception expected')
     except transitfeed.InvalidValue, e:
       self.assertEqual(column_name, e.column_name)
       self.assertEqual(value, e.value)
 
   def ExpectOtherProblem(self, object):
+    self.ExpectOtherProblemInClosure(lambda: object.Validate(self.problems))
+
+  def ExpectOtherProblemInClosure(self, c):
     try:
-      object.Validate(self.problems)
+      c()
       self.fail('OtherProblem exception expected')
     except transitfeed.OtherProblem:
       pass
@@ -414,22 +433,49 @@ class StopValidationTestCase(ValidationTestCase):
 class StopTimeValidationTestCase(ValidationTestCase):
   def runTest(self):
     stop = transitfeed.Stop()
-    self.ExpectInvalidValueException('arrival_time', '1a:00:00',
-        transitfeed.StopTime, self.problems, stop, arrival_time="1a:00:00")
-    self.ExpectInvalidValueException('departure_time', '1a:00:00',
-        transitfeed.StopTime, self.problems, stop, arrival_time="10:00:00",
-        departure_time='1a:00:00')
-    self.ExpectInvalidValueException('pickup_type', '7.8',
-        transitfeed.StopTime, self.problems, stop, arrival_time="10:00:00",
-        departure_time='10:05:00', pickup_type='7.8', drop_off_type='0')
-    self.ExpectInvalidValueException('drop_off_type', 'a',
-        transitfeed.StopTime, self.problems, stop, arrival_time="10:00:00",
-        departure_time='10:05:00', pickup_type='3', drop_off_type='a')
-    self.ExpectInvalidValueException('shape_dist_traveled', '$',
-        transitfeed.StopTime, self.problems, stop, arrival_time="10:00:00",
-        departure_time='10:05:00', pickup_type='3', drop_off_type='0',
-        shape_dist_traveled='$')
-
+    self.ExpectInvalidValueInClosure('arrival_time', '1a:00:00',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="1a:00:00"))
+    self.ExpectInvalidValueInClosure('departure_time', '1a:00:00',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='1a:00:00'))
+    self.ExpectInvalidValueInClosure('pickup_type', '7.8',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='10:05:00',
+                                     pickup_type='7.8',
+                                     drop_off_type='0'))
+    self.ExpectInvalidValueInClosure('drop_off_type', 'a',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='10:05:00',
+                                     pickup_type='3',
+                                     drop_off_type='a'))
+    self.ExpectInvalidValueInClosure('shape_dist_traveled', '$',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00",
+                                     departure_time='10:05:00',
+                                     pickup_type='3',
+                                     drop_off_type='0',
+                                     shape_dist_traveled='$'))
+    self.ExpectOtherProblemInClosure(
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     pickup_type='1', drop_off_type='1'))
+    self.ExpectInvalidValueInClosure('departure_time', '10:00:00',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="11:00:00",
+                                     departure_time="10:00:00"))
+    self.ExpectMissingValueInClosure('arrival_time',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     departure_time="10:00:00"))
+    self.ExpectMissingValueInClosure('departure_time',
+        lambda: transitfeed.StopTime(self.problems, stop,
+                                     arrival_time="10:00:00"))
+    # The following should work
+    transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
+        departure_time="10:05:00", pickup_type='1', drop_off_type='1')
+    transitfeed.StopTime(self.problems, stop)
 
 class RouteValidationTestCase(ValidationTestCase):
   def runTest(self):
@@ -447,7 +493,7 @@ class RouteValidationTestCase(ValidationTestCase):
     self.ExpectInvalidValue(route, 'route_short_name')
     route.route_short_name = '54C'
     route.route_long_name = 'South Side - North Side'
-    
+
     # short name too long
     route.route_short_name = 'South Side'
     self.ExpectInvalidValue(route, 'route_short_name')
@@ -648,6 +694,11 @@ class ServicePeriodValidationTestCase(ValidationTestCase):
     self.ExpectInvalidValue(period, 'start_date')
     period.start_date = '20070101'
 
+    # impossible start_date
+    period.start_date = '20070229'
+    self.ExpectInvalidValue(period, 'start_date')
+    period.start_date = '20070101'
+
     # invalid end_date
     period.end_date = '2007/12/31'
     self.ExpectInvalidValue(period, 'end_date')
@@ -667,6 +718,54 @@ class ServicePeriodValidationTestCase(ValidationTestCase):
     period.SetDateHasService('2007', False)
     self.ExpectInvalidValue(period, 'date', '2007')
     period.ResetDateToNormalService('2007')
+
+    period2 = transitfeed.ServicePeriod(
+        field_list=['serviceid1', '20060101', '20071231', '1', '0', 'h', '1',
+                    '1', '1', '1'])
+    self.ExpectInvalidValue(period2, 'wednesday', 'h')
+
+
+class ServicePeriodDateRangeTestCase(ValidationTestCase):
+  def runTest(self):
+    period = transitfeed.ServicePeriod()
+    period.service_id = 'WEEKDAY'
+    period.start_date = '20070101'
+    period.end_date = '20071231'
+    period.day_of_week[0] = True
+    period.SetDateHasService('20071231', False)  # irrelevant for range
+    period.Validate(self.problems)
+    self.assertEqual(('20070101', '20071231'), period.GetDateRange())
+
+    period2 = transitfeed.ServicePeriod()
+    period2.service_id = 'HOLIDAY'
+    period2.SetDateHasService('20071225', True)
+    period2.SetDateHasService('20080101', True)
+    period2.SetDateHasService('20080102', False)
+    period2.Validate(self.problems)
+    self.assertEqual(('20071225', '20080101'), period2.GetDateRange())
+
+    period2.start_date = '20071201'
+    period2.end_date = '20071225'
+    period2.Validate(self.problems)
+    self.assertEqual(('20071201', '20080101'), period2.GetDateRange())
+
+    period3 = transitfeed.ServicePeriod()
+    self.assertEqual((None, None), period3.GetDateRange())
+
+    period4 = transitfeed.ServicePeriod()
+    period4.service_id = 'halloween'
+    period4.SetDateHasService('20051031', True)
+    self.assertEqual(('20051031', '20051031'), period4.GetDateRange())
+    period4.Validate(self.problems)
+
+    schedule = transitfeed.Schedule(problem_reporter=self.problems)
+    self.assertEqual((None, None), schedule.GetDateRange())
+    schedule.AddServicePeriodObject(period)
+    self.assertEqual(('20070101', '20071231'), schedule.GetDateRange())
+    schedule.AddServicePeriodObject(period2)
+    self.assertEqual(('20070101', '20080101'), schedule.GetDateRange())
+    schedule.AddServicePeriodObject(period4)
+    self.assertEqual(('20051031', '20080101'), schedule.GetDateRange())
 
 
 class TripValidationTestCase(ValidationTestCase):
@@ -793,8 +892,8 @@ class TripHasStopTimeValidationTestCase(ValidationTestCase):
     trip.AddStopTime(stop, arrival_time="5:15:00", departure_time="5:16:00")
     schedule.Validate(self.problems)
 
-    trip.AddStopTime(stop, arrival_secs=None, departure_time="05:20:00")
-    trip.AddStopTime(stop, arrival_time="05:22:00", departure_secs=None)
+    trip.AddStopTime(stop, stop_time="05:20:00")
+    trip.AddStopTime(stop, stop_time="05:22:00")
 
     # Last stop must always have a time
     trip.AddStopTime(stop, arrival_secs=None, departure_secs=None)
@@ -815,21 +914,21 @@ class TripAddStopTimeObjectTestCase(ValidationTestCase):
     stop2 = schedule.AddStop(lng=140.001, lat=48.201, name="Stop 2")
     route = schedule.AddRoute("B", "Beta", "Bus")
     trip = route.AddTrip(schedule, "bus trip")
-    trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=10), problems=self.problems)
-    trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop2, arrival_secs=20), problems=self.problems)
+    trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=10, departure_secs=10), problems=self.problems)
+    trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop2, arrival_secs=20, departure_secs=20), problems=self.problems)
     # TODO: Factor out checks or use mock problems object
     try:
-      trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=15), problems=self.problems)
+      trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=15, departure_secs=15), problems=self.problems)
       self.fail('OtherProblem exception expected')
     except transitfeed.OtherProblem:
       pass
     trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1), problems=self.problems)
     try:
-      trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=15), problems=self.problems)
+      trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=15, departure_secs=15), problems=self.problems)
       self.fail('OtherProblem exception expected')
     except transitfeed.OtherProblem:
       pass
-    trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=30), problems=self.problems)
+    trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1, arrival_secs=30, departure_secs=30), problems=self.problems)
 
 
 class TripStopTimeAccessorsTestCase(unittest.TestCase):
@@ -858,18 +957,20 @@ class TripStopTimeAccessorsTestCase(unittest.TestCase):
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetEndTime()),
         "05:16:00")
 
-    trip.AddStopTime(stop1, departure_time="05:20:00")
+    trip.AddStopTime(stop1, stop_time="05:20:00")
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetEndTime()),
-        "05:20:00")
+                     "05:20:00")
 
-    trip.AddStopTime(stop2, arrival_time="05:22:00")
+    trip.AddStopTime(stop2, stop_time="05:22:00")
     self.assertEqual(transitfeed.FormatSecondsSinceMidnight(trip.GetEndTime()),
-        "05:22:00")
+                     "05:22:00")
     self.assertEqual(len(trip.GetStopTimesTuples()), 4)
     self.assertEqual(trip.GetStopTimesTuples()[0], (trip.trip_id, "05:11:00",
-                                                    "05:12:00", stop1.stop_id, '1', '', '', '', ''))
+                                                    "05:12:00", stop1.stop_id,
+                                                    '1', '', '', '', ''))
     self.assertEqual(trip.GetStopTimesTuples()[3], (trip.trip_id, "05:22:00",
-                                                    "", stop2.stop_id, '4', '', '', '', ''))
+                                                    "05:22:00", stop2.stop_id,
+                                                    '4', '', '', '', ''))
 
 
 class BasicParsingTestCase(unittest.TestCase):
@@ -1274,8 +1375,8 @@ class MinimalUtf8Builder(TempFileTestCaseBase):
     stop2 = schedule.AddStop(lng=140.001, lat=48.201, name=u"remote \u020b station")
     route = schedule.AddRoute(u"\u03b2", "Beta", "Bus")
     trip = route.AddTrip(schedule, u"to remote \u020b station")
-    trip.AddStopTime(stop1, departure_time='10:00:00')
-    trip.AddStopTime(stop2, arrival_time='10:10:00')
+    trip.AddStopTime(stop1, stop_time='10:00:00')
+    trip.AddStopTime(stop2, stop_time='10:10:00')
 
     schedule.Validate(problems)
     schedule.WriteGoogleTransitFeed(self.tempfilepath)

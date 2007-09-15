@@ -50,6 +50,7 @@ import math
 import os
 import random
 import re
+import time
 import zipfile
 
 OUTPUT_ENCODING = 'utf-8'
@@ -128,7 +129,7 @@ class ProblemReporterBase:
     e = DuplicateID(column_name=column_name, value=value,
                     context=context, context2=self._context)
     self._Report(e)
-	
+
   def UnusedStop(self, stop_id, stop_name, context=None):
     e = UnusedStop(stop_id=stop_id, stop_name=stop_name,
                    context=context, context2=self._context)
@@ -143,7 +144,9 @@ class ProblemReporter(ProblemReporterBase):
   """This is a basic problem reporter that just prints to console."""
   def _Report(self, e):
     print EncodeUnicode(self._LineWrap(e.FormatProblem(), 78))
-    print e.FormatContext()
+    context = e.FormatContext()
+    if context:
+      print context
 
   @staticmethod
   def _LineWrap(text, width):
@@ -524,7 +527,7 @@ class Route(object):
                             'Both route_short_name and '
                             'route_long name are blank.')
                             
-    if self.route_short_name and len(self.route_short_name) > 5:
+    if self.route_short_name and len(self.route_short_name) > 6:
       problems.InvalidValue('route_short_name',
                             self.route_short_name,
                             'This route_short_name is relatively long, which '
@@ -596,16 +599,22 @@ class StopTime(object):
   drop_off_type: int
   shape_dist_traveled: float
   stop_id: str; readonly
+  stop_time: The only time given for this stop.  If present, it is used
+             for both arrival and departure time.
   """
   _REQUIRED_FIELD_NAMES = ['trip_id', 'arrival_time', 'departure_time',
                            'stop_id', 'stop_sequence']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['stop_headsign', 'pickup_type',
                     'drop_off_type', 'shape_dist_traveled']
 
-  def __init__(self, problems, stop, arrival_time=None, departure_time=None,
+  def __init__(self, problems, stop,
+               arrival_time=None, departure_time=None,
                stop_headsign=None, pickup_type=None, drop_off_type=None,
                shape_dist_traveled=None, arrival_secs=None,
-               departure_secs=None):
+               departure_secs=None, stop_time=None):
+    if stop_time != None:
+      arrival_time = departure_time = stop_time
+
     if arrival_secs != None:
       self.arrival_secs = arrival_secs
     elif arrival_time in (None, ""):
@@ -653,6 +662,31 @@ class StopTime(object):
       if drop_off_type < 0 or drop_off_type > 3:
         problems.InvalidValue('drop_off_type', drop_off_type)
       self.drop_off_type = drop_off_type
+
+    if (self.pickup_type == 1 and self.drop_off_type == 1 and
+        self.arrival_secs == None and self.departure_secs == None):
+      problems.OtherProblem('This stop time has a pickup_type and '
+                            'drop_off_type of 1, indicating that riders '
+                            'can\'t get on or off here.  Since it doesn\'t '
+                            'define a timepoint either, this entry serves no '
+                            'purpose and should be excluded from the trip.')
+
+    if ((self.arrival_secs != None) and (self.departure_secs != None) and
+        (self.departure_secs < self.arrival_secs)):
+      problems.InvalidValue('departure_time', departure_time,
+                            'The departure time at this stop (%s) is before '
+                            'the arrival time (%s).  This is often caused by '
+                            'problems in the feed exporter\'s time conversion')
+
+    if (((self.arrival_secs != None) and (self.departure_secs == None)) or
+        ((self.arrival_secs == None) and (self.departure_secs != None))):
+      missing_field = 'arrival_time'
+      if self.departure_secs == None:
+        missing_field = 'departure_time'
+      problems.MissingValue(missing_field,
+                            'arrival_time and departure_time should either '
+                            'both be provided or both be left blank.  '
+                            'It\'s OK to set them both to the same value.')
 
     if shape_dist_traveled in (None, ""):
       self.shape_dist_traveled = None
@@ -1323,8 +1357,34 @@ class ServicePeriod(object):
     self.date_exceptions = {}  # Map from 'YYYYMMDD' to 1 (add) or 2 (remove)
 
   def _IsValidDate(self, date):
-    # TODO: Add more knowledge of possible dates here
-    return not (re.match('^\d{8}$', date) == None)
+    if re.match('^\d{8}$', date) == None:
+      return False
+
+    try:
+      time.strptime(date, "%Y%m%d")
+      return True
+    except ValueError:
+      return False
+
+  def GetDateRange(self):
+    """Returns the range over which this ServicePeriod is valid in
+    (start date, end date) form, using YYYYMMDD format.  This range includes
+    exception dates that add service outside of (start_date, end_date),
+    but doesn't shrink the range if exception dates take away service at
+    the edges of the range."""
+    # TODO: Add more characterization of service density within the range
+
+    start = self.start_date
+    end = self.end_date
+
+    for date in self.date_exceptions:
+      if self.date_exceptions[date] == 2:
+        continue
+      if not start or (date < start):
+        start = date
+      if not end or (date > end):
+        end = date
+    return (start, end)
 
   def GetCalendarFieldValuesTuple(self):
     """Return the tuple of calendar.txt values or None if this ServicePeriod
@@ -1620,6 +1680,19 @@ class Schedule:
 
   def GetServicePeriodList(self):
     return self.service_periods.values()
+
+  def GetDateRange(self):
+    """Returns a tuple of (earliest, latest) dates on which the service
+    periods in the schedule define service, in YYYYMMDD form."""
+
+    ranges = [period.GetDateRange() for period in self.GetServicePeriodList()]
+    starts = filter(lambda x: x, [item[0] for item in ranges])
+    ends = filter(lambda x: x, [item[1] for item in ranges])
+
+    if not starts or not ends:
+      return (None, None)
+
+    return (min(starts), max(ends))
 
   def AddStop(self, lat, lng, name):
     """Add a stop to this schedule.
@@ -2191,7 +2264,7 @@ class Loader:
     if not self._HasFile(file_name) and not self._HasFile(file_name_dates):
       self._problems.MissingFile(file_name)
       return
-      
+
     # map period IDs to (period object, (file_name, row_num, row, cols))
     periods = {}
 
@@ -2207,7 +2280,7 @@ class Loader:
         period = ServicePeriod(field_list=row)
 
         if period.service_id in periods:
-          problem_reporter.DuplicateID('service_id', period.service_id)
+          self._problems.DuplicateID('service_id', period.service_id)
           continue
         
         periods[period.service_id] = (period, context)

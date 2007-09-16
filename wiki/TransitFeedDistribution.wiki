@@ -45,7 +45,9 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * Error when a stop time specifies either arrival or departure time, but not both
 
 ==== v1.0.9 ====
-feedvalidator outputs html instead of plain text and loads it in a webbrowser. added a directory of example scripts using transitfeed. kmlparser converts kml line into GTFS shape.
+  * FeedValidator now provides nicer HTML output in a browser instead of hard-to-read text.
+  * Added a directory of example Python scripts using transitfeed.
+  * kmlparser converts KML lines into GTFS shape.
 
 ==== v1.0.8 ====
 Move schedule_viewer data files and marey_graph into package gtfsscheduleviewer so that setup.py installs them in a sensible place. Add a hack so py2exe schedule_viewer can find its data files. schedule_viewer --key option will get key from a file if it exists.
@@ -70,4 +72,5 @@ Adds testing to identify stops that probably refer to the same location because 
 
 ==== v1.0b1 ====
 First standalone Windows version.
+ 
  

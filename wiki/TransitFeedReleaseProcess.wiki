@@ -1,0 +1,21 @@
+#summary How to do a transitfeed release
+
+= Run tests =
+
+Make sure you have nose installed. Run the tests in trunk in Linux and Windows. Manually start the schedule viewer, click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times.
+
+= Find changes since last release =
+
+Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk}}}.
+
+= Tag release =
+
+Check that {{{transitfeed.__version__}}} is correct. Then
+{{{svn cp https://googletransitdatafeed.googlecode.com/svn/trunk https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}
+
+= Build and upload files =
+
+See also BuildingPythonWindowsExecutables. Build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project and update PyPI with {{{python setup.py register sdist}}}.
+
+
+ 

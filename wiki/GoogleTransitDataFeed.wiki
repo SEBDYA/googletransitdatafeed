@@ -1,3 +1,6 @@
+#summary Link to wiki of parent project, googletransitdatafeed.org
+
 The main wiki of GoogleTransitDataFeed is located here:
 
 http://www.googletransitdatafeed.org
+ 

@@ -32,6 +32,18 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.0 ====
+  * Schedule Viewer now displays shapes when available.
+  * FeedValidator now shows feed metadata at the top of its output and highlights the relevant column for problems.
+  * Added `--output` switch to set HTML output path and made `-n` switch disable loading of output in browser in FeedValidator.
+  * Validation changes:
+    * Duplicate schedule_id validation now works
+    * Error on stops that don't pick up, drop off, or act as a timepoint
+    * Error when day in service period isn't set to "1" or "0"
+    * More thorough checking of date values
+    * Error when a stop time departs before it arrives
+    * Error when a stop time specifies either arrival or departure time, but not both
+
 ==== v1.0.9 ====
 feedvalidator outputs html instead of plain text and loads it in a webbrowser. added a directory of example scripts using transitfeed. kmlparser converts kml line into GTFS shape.
 
@@ -58,3 +70,4 @@ Adds testing to identify stops that probably refer to the same location because 
 
 ==== v1.0b1 ====
 First standalone Windows version.
+ 

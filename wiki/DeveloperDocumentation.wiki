@@ -1,3 +1,5 @@
+#summary Transxchange2GoogleTransit developer information
+
 = Introduction =
 This page describes the developer edition of transformation programs. The project source code is maintained in [http://code.google.com/p/googletransitdatafeed Google Code]. Navigate to the [http://code.google.com/p/googletransitdatafeed/source Source tab] to access the project source code. Google Code uses [http://www.subversion.tigris.org Subversion] to manage source code.
 
@@ -56,3 +58,5 @@ The source code of GoogleTransitDataFeed software is managed in [http://code.goo
   * v1.0a - Add build.xml
   * v1.0  - Initial release. Binaries, validation tools, source files
 
+ 
+ 

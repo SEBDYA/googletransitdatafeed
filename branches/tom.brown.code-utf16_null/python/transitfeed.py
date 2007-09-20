@@ -2157,7 +2157,7 @@ class Loader:
     # Check for errors that will prevent csv.reader from working
     if len(contents) >= 2 and contents[0:2] in (codecs.BOM_UTF16_BE,
         codecs.BOM_UTF16_LE):
-      self._problems.FileFormat("looks like utf-16", (file_name, ))
+      self._problems.FileFormat("appears to be encoded in utf-16", (file_name, ))
       # Convert and continue, so we can find more errors
       contents = codecs.getdecoder('utf-16')(contents)[0].encode('utf-8')
 

@@ -188,7 +188,7 @@ class LoadUTF16TestCase(unittest.TestCase):
       self.fail('FileFormat exception expected')
     except transitfeed.FileFormat, e:
       # make sure these don't raise an exception
-      self.assertTrue(re.search(r'looks like utf-16', e.FormatProblem()))
+      self.assertTrue(re.search(r'encoded in utf-16', e.FormatProblem()))
       e.FormatContext()
 
 

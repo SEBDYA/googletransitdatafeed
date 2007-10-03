@@ -149,7 +149,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Given a route_id generate a list of patterns of the route. For each
     pattern include some basic information and a few sample trips."""
     schedule = self.server.schedule
-    route = schedule.GetRoute(params.get('route', None))
+    route = schedule.GetRoute(unicode(params.get('route', None), 'utf8'))
     if not route:
       self.send_error(404)
       return
@@ -216,13 +216,13 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     return result
 
   def handle_json_GET_routerow(self, params):
-    route = schedule.GetRoute(params.get('route', None))
+    route = schedule.GetRoute(unicode(params.get('route', None), 'utf8'))
     return [transitfeed.Route._FIELD_NAMES, route.GetFieldValuesTuple()]
 
   def handle_json_GET_triprows(self, params):
     """Return a list of rows from the feed file that are related to this
     trip."""
-    trip = schedule.GetTrip(params.get('trip', None))
+    trip = schedule.GetTrip(unicode(params.get('trip', None), 'utf8'))
     route = schedule.GetRoute(trip.route_id)
     trip_row = {}
     for column in transitfeed.Trip._FIELD_NAMES:
@@ -236,7 +236,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def handle_json_GET_tripstoptimes(self, params):
     schedule = self.server.schedule
-    trip = schedule.GetTrip(params.get('trip'))
+    trip = schedule.GetTrip(unicode(params.get('trip'), 'utf8'))
     time_stops = trip.GetTimeStops()
     stops = []
     times = []
@@ -247,7 +247,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def handle_json_GET_tripshape(self, params):
     schedule = self.server.schedule
-    trip = schedule.GetTrip(params.get('trip'))
+    trip = schedule.GetTrip(unicode(params.get('trip'), 'utf8'))
     points = []
     if trip.shape_id:
       shape = schedule.GetShape(trip.shape_id)
@@ -283,7 +283,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def handle_json_GET_stopsearch(self, params):
     schedule = self.server.schedule
-    query = params.get('q', None)
+    query = unicode(params.get('q', None), 'utf8').lower()
     matches = []
     for s in schedule.GetStopList():
       if s.stop_id.lower().find(query) != -1 or s.stop_name.lower().find(query) != -1:
@@ -294,7 +294,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Given a stop_id and time in seconds since midnight return the next
     trips to visit the stop."""
     schedule = self.server.schedule
-    stop = schedule.GetStop(params.get('stop', None))
+    stop = schedule.GetStop(unicode(params.get('stop', None), 'utf8'))
     time = int(params.get('time', 0))
     time_trips = stop.GetStopTimeTrips()
     time_trips.sort()  # OPT: use bisect.insort to make this O(N*ln(N)) -> O(N)
@@ -303,14 +303,31 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     time_trips = time_trips[bisect.bisect_left(time_trips, (time, 0)):]
     time_trips = time_trips[:5]
     # TODO: combine times for a route to show next 2 departure times
-    return [(time, trip.GetFieldValuesTuple()) for time, trip in time_trips]
+    result = []
+    for time, (trip, index), tp in time_trips:
+      headsign = None
+      # Find the most recent headsign from the StopTime objects
+      for stoptime in trip.GetStopTimes()[index::-1]:
+        if stoptime.stop_headsign:
+          headsign = stoptime.stop_headsign
+          break
+      # If stop_headsign isn't found, look for a trip_headsign
+      if not headsign:
+        headsign = trip.trip_headsign
+      route = schedule.GetRoute(trip.route_id)
+      trip_name = "%s - %s" % (route.route_short_name, route.route_long_name)
+      if headsign:
+        trip_name += " (Direction: %s)" % headsign
+
+      result.append((time, (trip.trip_id, trip_name), tp))
+    return result
 
   def handle_GET_ttablegraph(self,params):
     """Draw a Marey graph in SVG for a pattern (collection of trips in a route
     that visit the same sequence of stops)."""
     schedule = self.server.schedule
     marey = MareyGraph()
-    trip = schedule.GetTrip(params.get('trip', None))
+    trip = schedule.GetTrip(unicode(params.get('trip', None), 'utf8'))
     route = schedule.GetRoute(trip.route_id)
     height = int(params.get('height', 300))
 

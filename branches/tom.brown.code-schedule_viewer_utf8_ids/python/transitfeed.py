@@ -372,13 +372,13 @@ class Stop(object):
     return [getattr(self, fn) for fn in Stop._FIELD_NAMES]
 
   def GetStopTimeTrips(self):
-    """Returns an list of (time, (trip, index), timepoint), where time might be
-    interpolated, trip is a Trip object, index is this stop on the trip and
-    timepoint a bool"""
+    """Returns an list of (time, (trip, index), is_timepoint), where time might
+    be interpolated, trip is a Trip object, index is this stop on the trip and
+    is_timepoint a bool"""
     time_trips = []
     for trip, index in self.trip_index:
       timeinterpolated = trip.GetTimeInterpolatedStops()
-      time_trips.append((int(round(timeinterpolated[index][0])), (trip, index),
+      time_trips.append((timeinterpolated[index][0], (trip, index),
                          timeinterpolated[index][2]))
     return time_trips
 
@@ -816,11 +816,11 @@ class Trip(object):
     return [(st.arrival_secs, st.departure_secs, st.stop) for st in self._stoptimes]
 
   def GetTimeInterpolatedStops(self):
-    """Return a list of (secs, stoptime, timepoint) tuples.
+    """Return a list of (secs, stoptime, is_timepoint) tuples.
 
     secs will always be an int. If the StopTime object does not have explict
     times this method guesses using distance. stoptime is a StopTime object and
-    timepoint is a bool.
+    is_timepoint is a bool.
     """
     rv = []
 
@@ -845,7 +845,7 @@ class Trip(object):
         distance_percent = distance1 / (distance1 + distance2)
         total_time = next_timepoint.GetTimeSecs() - cur_timepoint.GetTimeSecs()
         time_estimate = distance_percent * total_time + cur_timepoint.GetTimeSecs()
-        rv.append( (time_estimate, st, False) )
+        rv.append( (int(round(time_estimate)), st, False) )
 
     return rv
 

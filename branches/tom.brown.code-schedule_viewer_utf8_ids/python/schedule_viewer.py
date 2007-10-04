@@ -67,7 +67,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
       k = urllib.unquote(k)
       if '=' in k:
         k, v = k.split('=', 1)
-        parsed_params[k] = v
+        parsed_params[k] = unicode(v, 'utf8')
       else:
         parsed_params[k] = ''
 
@@ -149,7 +149,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Given a route_id generate a list of patterns of the route. For each
     pattern include some basic information and a few sample trips."""
     schedule = self.server.schedule
-    route = schedule.GetRoute(unicode(params.get('route', None), 'utf8'))
+    route = schedule.GetRoute(params.get('route', None))
     if not route:
       self.send_error(404)
       return
@@ -216,13 +216,13 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     return result
 
   def handle_json_GET_routerow(self, params):
-    route = schedule.GetRoute(unicode(params.get('route', None), 'utf8'))
+    route = schedule.GetRoute(params.get('route', None))
     return [transitfeed.Route._FIELD_NAMES, route.GetFieldValuesTuple()]
 
   def handle_json_GET_triprows(self, params):
     """Return a list of rows from the feed file that are related to this
     trip."""
-    trip = schedule.GetTrip(unicode(params.get('trip', None), 'utf8'))
+    trip = schedule.GetTrip(params.get('trip', None))
     route = schedule.GetRoute(trip.route_id)
     trip_row = {}
     for column in transitfeed.Trip._FIELD_NAMES:
@@ -236,7 +236,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def handle_json_GET_tripstoptimes(self, params):
     schedule = self.server.schedule
-    trip = schedule.GetTrip(unicode(params.get('trip'), 'utf8'))
+    trip = schedule.GetTrip(params.get('trip'))
     time_stops = trip.GetTimeStops()
     stops = []
     times = []
@@ -247,7 +247,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def handle_json_GET_tripshape(self, params):
     schedule = self.server.schedule
-    trip = schedule.GetTrip(unicode(params.get('trip'), 'utf8'))
+    trip = schedule.GetTrip(params.get('trip'))
     points = []
     if trip.shape_id:
       shape = schedule.GetShape(trip.shape_id)
@@ -283,7 +283,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
   def handle_json_GET_stopsearch(self, params):
     schedule = self.server.schedule
-    query = unicode(params.get('q', None), 'utf8').lower()
+    query = params.get('q', None).lower()
     matches = []
     for s in schedule.GetStopList():
       if s.stop_id.lower().find(query) != -1 or s.stop_name.lower().find(query) != -1:
@@ -294,7 +294,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Given a stop_id and time in seconds since midnight return the next
     trips to visit the stop."""
     schedule = self.server.schedule
-    stop = schedule.GetStop(unicode(params.get('stop', None), 'utf8'))
+    stop = schedule.GetStop(params.get('stop', None))
     time = int(params.get('time', 0))
     time_trips = stop.GetStopTimeTrips()
     time_trips.sort()  # OPT: use bisect.insort to make this O(N*ln(N)) -> O(N)
@@ -315,7 +315,13 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
       if not headsign:
         headsign = trip.trip_headsign
       route = schedule.GetRoute(trip.route_id)
-      trip_name = "%s - %s" % (route.route_short_name, route.route_long_name)
+      trip_name = ''
+      if route.route_short_name:
+        trip_name += route.route_short_name
+      if route.route_long_name:
+        if len(trip_name):
+          trip_name += " - "
+        trip_name += route.route_long_name
       if headsign:
         trip_name += " (Direction: %s)" % headsign
 
@@ -327,7 +333,7 @@ class ScheduleRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     that visit the same sequence of stops)."""
     schedule = self.server.schedule
     marey = MareyGraph()
-    trip = schedule.GetTrip(unicode(params.get('trip', None), 'utf8'))
+    trip = schedule.GetTrip(params.get('trip', None))
     route = schedule.GetRoute(trip.route_id)
     height = int(params.get('height', 300))
 

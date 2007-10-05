@@ -4,7 +4,7 @@
 = Google Transit Feed Specification = 
 
 || *Agency* || *Area* || *Feed Location* || *Notes* ||
-|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/schedule/GTFS/ || Use is subject to the terms of their [http://trimet.org/dev/schedule/google_transit/TriMetWebDeveloperLicense.htm developer license] ||
+|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/schedule/GTFS/ || Use is subject to the terms of their [http://developer.trimet.org/terms_of_use.shtml developer license] ||
 || [http://www.bart.gov/ BART] || San Francisco Bay, CA || http://www.bart.gov/dev/schedules/ || Use is subject to the terms of their [http://www.bart.gov/dev/schedules/license.htm developer license]. Additional information at [http://www.bart.gov/open] ||
 || [http://www.dart.org DART] || Dallas, TX || http://www.dart.org/transitdata || Please read [http://www.dart.org/transitdata/legalnotices.asp legal notice] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||

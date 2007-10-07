@@ -19,6 +19,8 @@ schedule.AddAgency("Fly Agency", "http://iflyagency.com",
                    "America/Los_Angeles")
 
 service_period = schedule.GetDefaultServicePeriod()
+service_period.start_date = 20070101
+service_period.end_date = 20071001
 service_period.SetWeekdayService(True)
 service_period.SetDateHasService('20070704', False)
 
@@ -39,4 +41,3 @@ trip.AddStopTime(stop2, stop_time='17:45:00')
 schedule.Validate()
 schedule.WriteGoogleTransitFeed('google_transit.zip')
 }}}
-

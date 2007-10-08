@@ -4,7 +4,9 @@
 = Introduction =
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
-
+====October 5, 2007====
+  * Changed stop_sequence and shape_pt_sequence to allow for any increasing non-negative integers
+  * Clarified descriptions and fixed typos
 ==== May 31, 2007 ====
   * Updated page style, made HTML cleaner and more accessible
   * Added links to public feed examples and other useful sites
@@ -57,5 +59,3 @@ The raw HTML files for each version of the specification are available below for
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20061031.htm October 31, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060929.htm September 29, 2006]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20060925.htm September 25, 2006]||
-
-

@@ -19,8 +19,8 @@ schedule.AddAgency("Fly Agency", "http://iflyagency.com",
                    "America/Los_Angeles")
 
 service_period = schedule.GetDefaultServicePeriod()
-service_period.start_date = "20070101"
-service_period.end_date = "20071001"
+service_period.SetStartDate("20070101")
+service_period.SetEndDate"20071001")
 service_period.SetWeekdayService(True)
 service_period.SetDateHasService('20070704', False)
 

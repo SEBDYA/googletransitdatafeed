@@ -2362,7 +2362,7 @@ class Loader:
         seq = int(seq)
       except (TypeError, ValueError):
         self._problems.InvalidValue('shape_pt_sequence', seq,
-                                    'Value should be a number (1 or higher)')
+                                    'Value should be a number (0 or higher)')
         continue
 
       shapes.setdefault(shape_id, []).append((seq, lat, lon, dist, file_context))
@@ -2371,17 +2371,23 @@ class Loader:
     for shape_id, points in shapes.items():
       shape = Shape(shape_id)
       points.sort()
-      last_seq = 0
-      for (seq, lat, lon, dist, file_context) in points:
-        if (seq != last_seq + 1):
-          self._problems.SetFileContext(*file_context)
-          self._problems.InvalidValue('shape_pt_sequence', seq,
-                                      'In shape %s, sequence number %d found when '
-                                      '%d was expected' %
-                                      (shape_id, seq, last_seq + 1))
-        last_seq = seq
-        shape.AddPoint(lat, lon, dist, self._problems)
-        self._problems.ClearContext()
+      if points and points[0][0] < 0:
+        self._problems.InvalidValue('shape_pt_sequence', points[0][0],
+                                    'In shape %s, a negative sequence number '
+                                    '%d was found; sequence numbers should be '
+                                    '0 or higher.' % (shape_id, points[0][0]))
+      else:
+        last_seq = -1
+        for (seq, lat, lon, dist, file_context) in points:
+          if (seq == last_seq):
+            self._problems.SetFileContext(*file_context)
+            self._problems.InvalidValue('shape_pt_sequence', seq,
+                                        'The sequence number %d occurs more '
+                                        'than once in shape %s.' %
+                                        (seq, shape_id))
+          last_seq = seq
+          shape.AddPoint(lat, lon, dist, self._problems)
+          self._problems.ClearContext()
 
       self._schedule.AddShapeObject(shape, self._problems)
 
@@ -2491,14 +2497,22 @@ class Loader:
         self._problems.OtherProblem(
           'No time for end of trip_id "%s" at stop_sequence "%d"' %
           (trip_id, sequence[-1][0]))
-      # Check that the stop sequence is a one-based number.
-      expected_sequence = 1
-      for stop_sequence, stoptime, file_context in sequence:
-        if expected_sequence != stop_sequence:
-          self._problems.InvalidValue('stop_sequence', stop_sequence,
-            'Expected %i' % expected_sequence, file_context)
-        trip.AddStopTimeObject(stoptime, problems=self._problems)
-        expected_sequence = stop_sequence + 1
+      # Check that the stop sequence is non-negative.
+      if sequence and sequence[0][0] < 0:
+        self._problems.InvalidValue('stop_sequence', sequence[0][0],
+                                    'Sequence numbers should be 0 or higher.',
+                                    file_context)
+      else:
+        last_sequence = -1
+        for stop_sequence, stoptime, file_context in sequence:
+          if last_sequence == stop_sequence:
+            self._problems.InvalidValue('stop_sequence', stop_sequence,
+                                        'The sequence number %d occurs more '
+                                        'than once in trip %s.' %
+                                        (stop_sequence, trip.trip_id),
+                                        file_context)
+          trip.AddStopTimeObject(stoptime, problems=self._problems)
+          last_sequence = stop_sequence
 
   def Load(self):
     self._problems.ClearContext()

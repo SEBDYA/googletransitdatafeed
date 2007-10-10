@@ -833,7 +833,7 @@ class Trip(object):
     """Return a sorted list of StopTime objects for this trip."""
     return self._stoptimes
 
-  def GetStartTime(self):
+  def GetStartTime(self, problems=default_problem_reporter):
     """Return the first time of the trip. TODO: For trips defined by frequency
     return the first time of the first trip."""
     if self._stoptimes[0].arrival_secs is not None:
@@ -841,9 +841,11 @@ class Trip(object):
     elif self._stoptimes[0].departure_secs is not None:
       return self._stoptimes[0].departure_secs
     else:
-      raise Error("Trip without valid first time %s" % self.trip_id)
+      problems.InvalidValue('departure_time', '',
+                            'The first stop_time in trip %s is missing '
+                            'times.' % self.trip_id)
 
-  def GetEndTime(self):
+  def GetEndTime(self, problems=default_problem_reporter):
     """Return the last time of the trip. TODO: For trips defined by frequency
     return the last time of the last trip."""
     if self._stoptimes[-1].departure_secs is not None:
@@ -851,7 +853,9 @@ class Trip(object):
     elif self._stoptimes[-1].arrival_secs is not None:
       return self._stoptimes[-1].arrival_secs
     else:
-      raise Error("Trip without valid last time %s" % self.trip_id)
+      problems.InvalidValue('arrival_time', '',
+                            'The last stop_time in trip %s is missing '
+                            'times.' % self.trip_id)
 
   def _GenerateStopTimesTuples(self):
     """Generator for rows of the stop_times file"""
@@ -2126,16 +2130,10 @@ class Schedule:
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %
                               trip.trip_id)
-      elif (not trip.GetStopTimes()[0].arrival_secs and
-          not trip.GetStopTimes()[0].departure_secs):
-        problems.InvalidValue('departure_time', '',
-                              'The first stop_time in trip %s is missing '
-                              'times.' % trip.trip_id)
-      elif (not trip.GetStopTimes()[-1].arrival_secs and
-          not trip.GetStopTimes()[-1].departure_secs):
-        problems.InvalidValue('arrival_time', '',
-                              'The last stop_time in trip %s is missing '
-                              'times.' % trip.trip_id)
+      else:
+        # These methods yield InvalidValue if there's no first or last time
+        trip.GetStartTime(problems=problems)
+        trip.GetEndTime(problems=problems)
 
     # Check for unused shapes
     known_shape_ids = set(self._shapes.keys())

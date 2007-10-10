@@ -965,10 +965,10 @@ class TripHasStopTimeValidationTestCase(ValidationTestCase):
     # Last stop must always have a time
     trip.AddStopTime(stop, arrival_secs=None, departure_secs=None)
     try:
-      trip.GetEndTime()
+      trip.GetEndTime(problems=self.problems)
       self.fail('exception expected')
-    except transitfeed.Error, e:
-      pass
+    except transitfeed.InvalidValue, e:
+      self.assertEqual('arrival_time', e.column_name)
 
 
 class TripAddStopTimeObjectTestCase(ValidationTestCase):
@@ -1143,7 +1143,7 @@ class ExpirationDateTestCase(unittest.TestCase):
       self.fail('ExpirationDate exception expected')
     except transitfeed.ExpirationDate, e:
       # raises exception if not found
-      str(e).index('will soon expire')
+      e.FormatProblem().index('will soon expire')
 
     service_period.SetEndDate(time.strftime(date_format, two_weeks_ago))
 
@@ -1152,7 +1152,7 @@ class ExpirationDateTestCase(unittest.TestCase):
       self.fail('ExpirationDate exception expected')
     except transitfeed.ExpirationDate, e:
       # raises exception if not found
-      str(e).index('expired')
+      e.FormatProblem().index('expired')
 
 
 class DuplicateTripIDValidationTestCase(unittest.TestCase):

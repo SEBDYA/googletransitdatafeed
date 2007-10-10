@@ -2131,7 +2131,7 @@ class Schedule:
                               'stop so that the riders can leave!' %
                               trip.trip_id)
       else:
-        # These methods yield InvalidValue if there's no first or last time
+        # These methods report InvalidValue if there's no first or last time
         trip.GetStartTime(problems=problems)
         trip.GetEndTime(problems=problems)
 

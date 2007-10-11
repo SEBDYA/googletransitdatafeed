@@ -43,6 +43,11 @@ $ nosetests
 }}}
 from the `trunk/python` directory to run all the tests in the project.
 
+Note that in order to pass all the tests, you'll need some extra packages to support optional features of the code:
+  * [http://pytz.sourceforge.net/ pytz]
+  * [http://effbot.org/zone/element-index.htm elementtree]
+Both of these should be available through `easy_install`.
+
 If you've added new tests to your project, it's good to make sure that you've seen them fail (so that you know that they're being run at all).  If necessary, temporarily break the code that the tests check to ensure that they fail in that case.
 
 ==Request a review==

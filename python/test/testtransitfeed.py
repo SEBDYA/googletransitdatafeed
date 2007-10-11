@@ -617,6 +617,28 @@ class RouteValidationTestCase(ValidationTestCase):
     self.ExpectMissingValue(route, 'route_id')
     route.route_id = '054C'
 
+    # bad color contrast
+    route.route_text_color = None # black
+    route.route_color = None      # white
+    self.Validate(self.problems)
+    route.route_color = '0000FF'  # Bad
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_color = '00BF00'  # OK
+    self.Validate(self.problems)
+    route.route_color = '005F00'  # Bad
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_color = 'FF00FF'  # OK
+    self.Validate(self.problems)
+    route.route_text_color = 'FFFFFF' # OK too
+    self.Validate(self.problems)
+    route.route_text_color = '00FF00' # think of color-blind people!
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_text_color = '007F00'
+    route.route_color = 'FF0000'
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_color = '00FFFF'      # OK
+    self.Validate(self.problems)
+
 
 class ShapeValidationTestCase(ValidationTestCase):
   def ExpectFailedAdd(self, shape, lat, lon, dist, column_name, value):

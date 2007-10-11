@@ -50,7 +50,7 @@ When you want someone to review your code make sure all your changes are commite
 
 ==Commit change to the trunk==
 
-When you are ready to merge your branch into the trunk make sure you have a clean updated trunk:
+Once your reviewer has given you a "looks good", you're ready to land the code.  When you are ready to merge your branch into the trunk make sure you have a clean updated trunk:
 {{{
 $ ezswitch trunk
 $ svn revert -R .  # you _did_ commit all your changes into the branch, didn't you?
@@ -103,7 +103,5 @@ This will give you one FileMerge window for each changed file, showing the diffe
 == Mailing Feedback ==
 
 Respond to the review request email, being sure to cc `googletransitdatafeed@googlegroups.com` so that others can benefit from the feedback as well.  Once the change is close enough to be acceptable for submission, mention that the change "looks good to me" or is "OK to submit" so that it's clear that you approve.
-
-
 
 

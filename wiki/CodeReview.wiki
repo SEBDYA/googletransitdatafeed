@@ -34,6 +34,16 @@ Merge changes from the trunk into your working copy with:
 $ ezmerge ALL trunk
 }}}
 
+==Test==
+
+Before you request a review, you should ensure that all the unit tests pass.  You'll want a copy of the [http://somethingaboutorange.com/mrl/projects/nose/ nose] tool for Python.  Once you have that installed, you can just run
+{{{
+$ nosetests
+}}}
+from the `trunk/python` directory to run all the tests in the project.
+
+If you've added new tests to your project, it's good to make sure that you've seen them fail (so that you know that they're being run at all).  If necessary, temporarily break the code that the tests check to ensure that they fail in that case.
+
 ==Request a review==
 
 When you want someone to review your code make sure all your changes are commited in the branch and mail the branch name and revision to googletransitdatafeed@googlegroups.com. You may need to go back and make more changes to the branch.
@@ -93,8 +103,6 @@ This will give you one FileMerge window for each changed file, showing the diffe
 == Mailing Feedback ==
 
 Respond to the review request email, being sure to cc `googletransitdatafeed@googlegroups.com` so that others can benefit from the feedback as well.  Once the change is close enough to be acceptable for submission, mention that the change "looks good to me" or is "OK to submit" so that it's clear that you approve.
-
-
 
 
 

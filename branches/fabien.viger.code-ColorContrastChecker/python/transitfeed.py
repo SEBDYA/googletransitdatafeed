@@ -616,8 +616,7 @@ class Route(object):
                             'description, which consists of 6 hexadecimal'
                             'characters representing the RGB values.'
                             'Example: 44AA06')
-    # TODO: the 'bad contrast' treshold is based on a rather arbitratry measure
-    # this should get improved and tested more carefully (Fabien)
+
     txt_lum = 0      # black (default)
     bg_lum = 255 * 7 # white (default)
     if (self.route_text_color):

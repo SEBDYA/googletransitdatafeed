@@ -370,6 +370,18 @@ class DuplicateScheduleIDTestCase(unittest.TestCase):
     except transitfeed.DuplicateID:
       pass
 
+class ColorLuminanceTestCase(unittest.TestCase):
+  def runTest(self):
+    if transitfeed.ColorLuminance('000000') != 0:
+      self.fail("ColorLuminance('000000') should be zero")
+    if transitfeed.ColorLuminance('FFFFFF') != 255*7:
+      self.fail("ColorLuminance('FFFFFF') should be 255*7 = 1785")
+    if (transitfeed.ColorLuminance('800000') != 2*128 or
+        transitfeed.ColorLuminance('008000') != 4*128 or
+        transitfeed.ColorLuminance('000080') != 1*128 or
+        transitfeed.ColorLuminance('1171B3') != 17*2 + 113*4 + 179*1):
+      self.fail("ColorLuminance('RRGGBB') should be 2*<Red>+4*<Green>+<Blue>")
+    pass
 
 INVALID_VALUE = Exception()
 class ValidationTestCase(unittest.TestCase):
@@ -543,6 +555,7 @@ class StopTimeValidationTestCase(ValidationTestCase):
     transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
         departure_time="10:05:00", pickup_type='1', drop_off_type='1')
     transitfeed.StopTime(self.problems, stop)
+
 
 class RouteValidationTestCase(ValidationTestCase):
   def runTest(self):

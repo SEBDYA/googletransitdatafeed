@@ -19,6 +19,8 @@ schedule.AddAgency("Fly Agency", "http://iflyagency.com",
 
 service_period = schedule.GetDefaultServicePeriod()
 service_period.SetWeekdayService(True)
+# Changed the date from 2007 to 2019 to make sure we don't get
+# 'outdated/expired transit feed' error messages (at least until 2019)
 service_period.SetDateHasService('20190704')
 
 stop1 = schedule.AddStop(lng=-122, lat=37.2, name="Suburbia")

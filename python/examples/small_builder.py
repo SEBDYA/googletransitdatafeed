@@ -19,7 +19,7 @@ schedule.AddAgency("Fly Agency", "http://iflyagency.com",
 
 service_period = schedule.GetDefaultServicePeriod()
 service_period.SetWeekdayService(True)
-service_period.SetDateHasService('20070704')
+service_period.SetDateHasService('20190704')
 
 stop1 = schedule.AddStop(lng=-122, lat=37.2, name="Suburbia")
 stop2 = schedule.AddStop(lng=-122.001, lat=37.201, name="Civic Center")

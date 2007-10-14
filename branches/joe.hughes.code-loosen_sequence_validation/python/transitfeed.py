@@ -140,6 +140,11 @@ class ProblemReporterBase:
                    context=context, context2=self._context)
     self._Report(e)
 
+  def ExpirationDate(self, expiration, context=None):
+    e = ExpirationDate(expiration=expiration, context=context,
+                       context2=self._context)
+    self._Report(e)
+
   def OtherProblem(self, description, context=None):
     e = OtherProblem(description=description,
                     context=context, context2=self._context)
@@ -159,7 +164,7 @@ class ProblemReporter(ProblemReporterBase):
     A word-wrap function that preserves existing line breaks
     and most spaces in the text. Expects that existing line
     breaks are posix newlines (\n).
-    
+
     Taken from:
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
     """
@@ -263,6 +268,18 @@ class DuplicateID(ExceptionWithContext):
 
 class UnusedStop(ExceptionWithContext):
   ERROR_TEXT = "%(stop_name)s (ID %(stop_id)s) isn't used in any trips"
+
+class ExpirationDate(ExceptionWithContext):
+  def FormatProblem(self, d=None):
+    if not d:
+      d = self.__dict__
+    expiration = d['expiration']
+    formatted_date = time.strftime("%B %d, %Y",
+                                   time.localtime(expiration))
+    if (expiration < time.mktime(time.localtime())):
+      return "This feed expired on %s" % formatted_date
+    else:
+      return "This feed will soon expire, on %s" % formatted_date
 
 class OtherProblem(ExceptionWithContext):
   ERROR_TEXT = '%(description)s'
@@ -372,11 +389,14 @@ class Stop(object):
     return [getattr(self, fn) for fn in Stop._FIELD_NAMES]
 
   def GetStopTimeTrips(self):
-    """Returns an list of (time, trip), where time is some time.
-    TODO: handle stops between timed stops."""
+    """Returns an list of (time, (trip, index), is_timepoint), where time might
+    be interpolated, trip is a Trip object, index is this stop on the trip and
+    is_timepoint a bool"""
     time_trips = []
     for trip, index in self.trip_index:
-      time_trips.append((trip._stoptimes[index].GetTimeSecs(), trip))
+      timeinterpolated = trip.GetTimeInterpolatedStops()
+      time_trips.append((timeinterpolated[index][0], (trip, index),
+                         timeinterpolated[index][2]))
     return time_trips
 
   def _AddTripStop(self, trip, index):
@@ -812,11 +832,45 @@ class Trip(object):
     stop at midnight or None, a false value meaning the stop is untimed."""
     return [(st.arrival_secs, st.departure_secs, st.stop) for st in self._stoptimes]
 
+  def GetTimeInterpolatedStops(self):
+    """Return a list of (secs, stoptime, is_timepoint) tuples.
+
+    secs will always be an int. If the StopTime object does not have explict
+    times this method guesses using distance. stoptime is a StopTime object and
+    is_timepoint is a bool.
+    """
+    rv = []
+
+    assert self._stoptimes[0].GetTimeSecs() != None
+    assert self._stoptimes[-1].GetTimeSecs() != None
+
+    cur_timepoint = None
+    next_timepoint = None
+
+    for i, st in enumerate(self._stoptimes):
+      if st.GetTimeSecs() != None:
+        cur_timepoint = st
+        if i + 1 < len(self._stoptimes):
+          k = i + 1
+          while self._stoptimes[k].GetTimeSecs() == None:
+            k += 1
+          next_timepoint = self._stoptimes[k]
+        rv.append( (st.GetTimeSecs(), st, True) )
+      else:
+        distance1 = ApproximateDistanceBetweenStops(cur_timepoint.stop, st.stop)
+        distance2 = ApproximateDistanceBetweenStops(st.stop, next_timepoint.stop)
+        distance_percent = distance1 / (distance1 + distance2)
+        total_time = next_timepoint.GetTimeSecs() - cur_timepoint.GetTimeSecs()
+        time_estimate = distance_percent * total_time + cur_timepoint.GetTimeSecs()
+        rv.append( (int(round(time_estimate)), st, False) )
+
+    return rv
+
   def GetStopTimes(self):
     """Return a sorted list of StopTime objects for this trip."""
     return self._stoptimes
 
-  def GetStartTime(self):
+  def GetStartTime(self, problems=default_problem_reporter):
     """Return the first time of the trip. TODO: For trips defined by frequency
     return the first time of the first trip."""
     if self._stoptimes[0].arrival_secs is not None:
@@ -824,9 +878,11 @@ class Trip(object):
     elif self._stoptimes[0].departure_secs is not None:
       return self._stoptimes[0].departure_secs
     else:
-      raise Error("Trip without valid first time %s" % self.trip_id)
+      problems.InvalidValue('departure_time', '',
+                            'The first stop_time in trip %s is missing '
+                            'times.' % self.trip_id)
 
-  def GetEndTime(self):
+  def GetEndTime(self, problems=default_problem_reporter):
     """Return the last time of the trip. TODO: For trips defined by frequency
     return the last time of the last trip."""
     if self._stoptimes[-1].departure_secs is not None:
@@ -834,7 +890,9 @@ class Trip(object):
     elif self._stoptimes[-1].arrival_secs is not None:
       return self._stoptimes[-1].arrival_secs
     else:
-      raise Error("Trip without valid last time %s" % self.trip_id)
+      problems.InvalidValue('arrival_time', '',
+                            'The last stop_time in trip %s is missing '
+                            'times.' % self.trip_id)
 
   def _GenerateStopTimesTuples(self):
     """Generator for rows of the stop_times file"""
@@ -2023,6 +2081,19 @@ class Schedule:
     if not problems:
       problems = self.problem_reporter
 
+    (start_date, end_date) = self.GetDateRange()
+    if not end_date:
+      problems.OtherProblem('This feed has no effective service dates!')
+    else:
+      try:
+        expiration = time.mktime(time.strptime(end_date, "%Y%m%d"))
+        now = time.mktime(time.localtime())
+        warning_cutoff = now + 60 * 60 * 24 * 30  # one month from expiration
+        if expiration < warning_cutoff:
+          problems.ExpirationDate(expiration)
+      except ValueError:
+        problems.InvalidValue('end_date', end_date)
+
     # TODO: Check Trip fields against valid values
 
     # Check for stops that aren't referenced by any trips
@@ -2091,11 +2162,15 @@ class Schedule:
       if not trip.GetTimeStops():
         problems.OtherProblem('The trip with the trip_id "%s" doesn\'t have '
                               'any stop times defined.' % trip.trip_id)
-      if len(trip.GetTimeStops()) == 1:
+      elif len(trip.GetTimeStops()) == 1:
         problems.OtherProblem('The trip with the trip_id "%s" only has one '
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %
                               trip.trip_id)
+      else:
+        # These methods report InvalidValue if there's no first or last time
+        trip.GetStartTime(problems=problems)
+        trip.GetEndTime(problems=problems)
 
     # Check for unused shapes
     known_shape_ids = set(self._shapes.keys())
@@ -2308,7 +2383,7 @@ class Loader:
         if period.service_id in periods:
           self._problems.DuplicateID('service_id', period.service_id)
           continue
-        
+
         periods[period.service_id] = (period, context)
 
     # process calendar_dates.txt

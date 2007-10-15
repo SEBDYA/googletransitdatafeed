@@ -40,6 +40,10 @@ class ExceptionProblemReporterNoExpiration(
     transitfeed.ExceptionProblemReporter):
   """This version, used for most tests, ignores feed expiration problems,
      so that we don't need to keep updating the dates in our tests."""
+     
+  def __init__(self):
+    transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=True)
+    
   def ExpirationDate(self, expiration, context=None):
     pass  # We don't want to give errors about our test data
 
@@ -1120,7 +1124,8 @@ class AddStopTimeParametersTestCase(unittest.TestCase):
 class ExpirationDateTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(
-        problem_reporter=transitfeed.ExceptionProblemReporter())
+        problem_reporter=transitfeed.ExceptionProblemReporter(
+            raise_warnings=True))
 
     now = time.mktime(time.localtime())
     seconds_per_day = 60 * 60 * 24

@@ -76,10 +76,13 @@ class KMLWriter(object):
     root = ET.Element('kml')
     root.attrib['xmlns'] = 'http://earth.google.com/kml/2.1'
     doc = ET.SubElement(root, 'Document')
+    stop_folder = ET.SubElement(doc, 'Folder')
+    name = ET.SubElement(stop_folder, 'name')
+    name.text = 'Stops'
     stops = list(schedule.GetStopList())
     stops.sort(key=lambda x: x.stop_name)
     for stop in stops:
-      placemark = ET.SubElement(doc, 'Placemark')
+      placemark = ET.SubElement(stop_folder, 'Placemark')
       name = ET.SubElement(placemark, 'name')
       name.text = stop.stop_name
       if stop.stop_desc or stop.stop_url:
@@ -94,6 +97,31 @@ class KMLWriter(object):
       point = ET.SubElement(placemark, 'Point')
       coordinates = ET.SubElement(point, 'coordinates')
       coordinates.text = '%.6f,%.6f' % (stop.stop_lon, stop.stop_lat)
+    
+    if schedule.GetShapeList():
+      style = ET.SubElement(doc, 'Style')
+      style.attrib['id'] = 'shapeStyle'
+      line_style = ET.SubElement(style, 'LineStyle')
+      color = ET.SubElement(line_style, 'color')
+      color.text = '7fff0000'
+      width = ET.SubElement(line_style, 'width')
+      width.text = '3'
+      
+      shape_folder = ET.SubElement(doc, 'Folder')
+      name = ET.SubElement(shape_folder, 'name')
+      name.text = 'Shapes'
+      for shape in schedule.GetShapeList():
+        placemark = ET.SubElement(shape_folder, 'Placemark')
+        name = ET.SubElement(placemark, 'name')
+        name.text = shape.shape_id
+        style_url = ET.SubElement(placemark, 'styleUrl')
+        style_url.text = '#shapeStyle'
+        line_string = ET.SubElement(placemark, 'LineString')
+        coords = ET.SubElement(line_string, 'coordinates')
+        coord_list = []
+        for lat, lon, distance in shape.points:
+          coord_list.append("%.6f,%.6f" % (lon, lat))
+        coords.text = ' '.join(coord_list)
 
     # Make sure we pretty-print
     self._SetIndentation(root)

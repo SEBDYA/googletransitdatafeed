@@ -79,7 +79,7 @@ class ProblemReporterBase:
   """Base class for problem reporters. Tracks the current context and creates
   an exception object for each problem. Subclasses must implement
   _Report(self, e)"""
-  
+
   def __init__(self):
     self.ClearContext()
 
@@ -200,18 +200,18 @@ class ExceptionWithContext(Exception):
     elif context2:
       self.__dict__.update(self.ContextTupleToDict(context2))
     self.__dict__.update(kwargs)
-    
+
     if ('type' in kwargs) and (kwargs['type'] == TYPE_WARNING):
       self._type = TYPE_WARNING
     else:
       self._type = TYPE_ERROR
-    
+
   def GetType(self):
     return self._type
-    
+
   def IsError(self):
     return self._type == TYPE_ERROR
-    
+
   def IsWarning(self):
     return self._type == TYPE_WARNING
 
@@ -309,10 +309,10 @@ class OtherProblem(ExceptionWithContext):
 
 
 class ExceptionProblemReporter(ProblemReporter):
-  def __init__(self, raise_warnings = False):
+  def __init__(self, raise_warnings=False):
     ProblemReporterBase.__init__(self)
     self.raise_warnings = raise_warnings
-  
+
   def _Report(self, e):
     if self.raise_warnings or e.IsError():
       raise e
@@ -582,7 +582,7 @@ class Route(object):
                             self.route_short_name,
                             'Both route_short_name and '
                             'route_long name are blank.')
-                            
+
     if self.route_short_name and len(self.route_short_name) > 6:
       problems.InvalidValue('route_short_name',
                             self.route_short_name,
@@ -592,7 +592,7 @@ class Route(object):
                             'code that riders use to identify a route.  '
                             'If this route doesn\'t have such a code, it\'s '
                             'OK to leave this field empty.', type=TYPE_WARNING)
-                            
+
     if (self.route_short_name and
         (self.route_long_name.strip().lower().startswith(
             self.route_short_name.strip().lower() + ' ') or
@@ -2319,7 +2319,7 @@ class Loader:
                                     'the header (first line) does.' %
                                     (row_num, file_name), (file_name, row_num),
                                     type=TYPE_WARNING)
-        
+
       result = [None] * len(cols)
       for i in range(len(cols)):
         ci = col_index[i]

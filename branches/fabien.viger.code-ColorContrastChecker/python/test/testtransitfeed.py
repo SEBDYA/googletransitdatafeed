@@ -372,15 +372,16 @@ class DuplicateScheduleIDTestCase(unittest.TestCase):
 
 class ColorLuminanceTestCase(unittest.TestCase):
   def runTest(self):
-    if transitfeed.ColorLuminance('000000') != 0:
-      self.fail("ColorLuminance('000000') should be zero")
-    if transitfeed.ColorLuminance('FFFFFF') != 255*7:
-      self.fail("ColorLuminance('FFFFFF') should be 255*7 = 1785")
-    if (transitfeed.ColorLuminance('800000') != 2*128 or
-        transitfeed.ColorLuminance('008000') != 4*128 or
-        transitfeed.ColorLuminance('000080') != 1*128 or
-        transitfeed.ColorLuminance('1171B3') != 17*2 + 113*4 + 179*1):
-      self.fail("ColorLuminance('RRGGBB') should be 2*<Red>+4*<Green>+<Blue>")
+    self.assertEqual(transitfeed.ColorLuminance('000000'), 0,
+        "ColorLuminance('000000') should be zero")
+    self.assertEqual(transitfeed.ColorLuminance('FFFFFF'), 255*7,
+        "ColorLuminance('FFFFFF') should be 255*7 = 1785")
+    RGBmsg = "ColorLuminance('RRGGBB') should be 2*<Red>+4*<Green>+<Blue>"
+    self.assertEqual(transitfeed.ColorLuminance('800000'), 2*128, RGBmsg)
+    self.assertEqual(transitfeed.ColorLuminance('008000'), 4*128, RGBmsg)
+    self.assertEqual(transitfeed.ColorLuminance('000080'), 1*128, RGBmsg)
+    self.assertEqual(transitfeed.ColorLuminance('1171B3'), 17*2 + 113*4 + 179*1,
+        RGBmsg)
     pass
 
 INVALID_VALUE = Exception()

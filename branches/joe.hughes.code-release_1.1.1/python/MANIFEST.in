@@ -4,3 +4,5 @@ include gtfsscheduleviewer/files/*
 recursive-include test *
 recursive-include examples *
 recursive-exclude . *.pyc
+recursive-exclude test *.pyc
+exclude test/*.zip

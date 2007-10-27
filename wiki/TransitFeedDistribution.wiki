@@ -32,6 +32,19 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.1 ====
+  * Schedule Viewer changes:
+    * More accurate display of route names
+    * Better support for unicode IDs
+    * Stop time interpolation
+  * FeedValidator changes:
+    * FeedValidator now categorizes issues as either errors or warnings
+    * Checks for missing start & end times on trips
+    * Warning if the feed has expired or will in the next month
+    * Better handling of UTF-8/16 and other file encoding issues
+    * Allows more lenient sequence numbers now that the spec allows them
+    * Added warning for poor route color contrast
+
 ==== v1.1.0 ====
   * Schedule Viewer now displays shapes when available.
   * FeedValidator now shows feed metadata at the top of its output and highlights the relevant column for problems.

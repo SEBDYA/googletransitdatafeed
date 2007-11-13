@@ -32,6 +32,19 @@ class good_feed(util.TempDirTestCaseBase):
     self.assertTrue(re.search(r'feed validated successfully', htmlout))
     self.assertFalse(re.search(r'ERROR', htmlout))
 
+class bad_date(util.TempDirTestCaseBase):
+  def runTest(self):
+    (out, err) = self.CheckCallWithPath(
+        [self.GetPath('feedvalidator.py'), '-n',
+         self.GetPath('test', 'data', 'bad_calendar_date')],
+        expected_retcode=1)
+    self.assertTrue(re.search(r'ERROR', out))
+    self.assertFalse(re.search(r'Traceback', out))
+    htmlout = open('validation-results.html').read()
+    self.assertFalse(re.search(r'feed validated successfully', htmlout))
+    self.assertTrue(re.search(r'end_date', htmlout))
+    self.assertTrue(re.search(r'No valid service dates found', htmlout))
+
 class missing_stops(util.TempDirTestCaseBase):
   def runTest(self):
     (out, err) = self.CheckCallWithPath(

@@ -160,10 +160,15 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
     if start and end:
       src_format = "%Y%m%d"
       dst_format = "%B %d, %Y"
-      formatted_start = time.strftime(dst_format,
-                                      time.strptime(start, src_format))
-      formatted_end = time.strftime(dst_format, time.strptime(end, src_format))
-      dates = "%s to %s" % (formatted_start, formatted_end)
+      try:
+        formatted_start = time.strftime(dst_format,
+                                        time.strptime(start, src_format))
+        formatted_end = time.strftime(dst_format,
+                                      time.strptime(end, src_format))
+        dates = "%s to %s" % (formatted_start, formatted_end)
+
+      except ValueError:
+        pass
 
     output_prefix = """
 <html>

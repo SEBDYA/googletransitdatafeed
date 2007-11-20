@@ -4,6 +4,12 @@
 = Introduction =
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
+====November 20, 2007====
+  * Clarified block_id description
+  * Changed language to de-emphasize Google Transit (since non-Google applications are using GTFS, and transit routing is now an integrated feature of Google Maps), and to fix assorted typos
+  * Updated example screenshots to reflect current Google Maps UI
+  * Updated contact email addresses
+  * Updated formatting
 ====October 5, 2007====
   * Changed stop_sequence and shape_pt_sequence to allow for any increasing non-negative integers
   * Clarified descriptions and fixed typos

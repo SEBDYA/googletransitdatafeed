@@ -7,7 +7,7 @@ This page documents the revisions that the [http://code.google.com/transit/spec/
 ====November 20, 2007====
   * Clarified block_id description
   * Changed language to de-emphasize Google Transit (since non-Google applications are using GTFS, and transit routing is now an integrated feature of Google Maps), and to fix assorted typos
-  * Updated example screenshots to reflect current Google Maps UI
+  * Updated example screenshots to reflect the presentation of GTFS fields in the current Google Maps UI
   * Updated the Google contact email address for transit data providers
   * Updated formatting
 ====October 5, 2007====

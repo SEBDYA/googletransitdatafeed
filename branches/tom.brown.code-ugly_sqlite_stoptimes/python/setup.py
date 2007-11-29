@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4
+#!/usr/bin/python2.5
 
 # Copyright (C) 2007 Google Inc.
 #
@@ -37,7 +37,7 @@ except ImportError, e:
 
 
 # py2exe doesn't automatically include pytz dependency because it is optional
-options = {'py2exe': {'packages': ['pytz']}}
+options = {'py2exe': {'packages': ['pytz', 'pysqlite2.dbapi2']}}
 scripts = ['feedvalidator.py', 'schedule_viewer.py',
            'kmlparser.py', 'kmlwriter.py']
 kwargs = {}

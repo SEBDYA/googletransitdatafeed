@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4
+#!/usr/bin/python2.5
 
 # Copyright (C) 2007 Google Inc.
 #
@@ -53,7 +53,10 @@ import bisect
 import cStringIO as StringIO
 import codecs
 import csv
-from pysqlite2 import dbapi2 as sqlite
+try:
+  import sqlite3 as sqlite
+except ImportError:
+  from pysqlite2 import dbapi2 as sqlite
 import logging
 import math
 import os
@@ -150,6 +153,11 @@ class ProblemReporterBase:
                    context=context, context2=self._context)
     self._Report(e)
 
+  def ExpirationDate(self, expiration, context=None):
+    e = ExpirationDate(expiration=expiration, context=context,
+                       context2=self._context)
+    self._Report(e)
+
   def OtherProblem(self, description, context=None):
     e = OtherProblem(description=description,
                     context=context, context2=self._context)
@@ -169,7 +177,7 @@ class ProblemReporter(ProblemReporterBase):
     A word-wrap function that preserves existing line breaks
     and most spaces in the text. Expects that existing line
     breaks are posix newlines (\n).
-    
+
     Taken from:
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/148061
     """
@@ -273,6 +281,18 @@ class DuplicateID(ExceptionWithContext):
 
 class UnusedStop(ExceptionWithContext):
   ERROR_TEXT = "%(stop_name)s (ID %(stop_id)s) isn't used in any trips"
+
+class ExpirationDate(ExceptionWithContext):
+  def FormatProblem(self, d=None):
+    if not d:
+      d = self.__dict__
+    expiration = d['expiration']
+    formatted_date = time.strftime("%B %d, %Y",
+                                   time.localtime(expiration))
+    if (expiration < time.mktime(time.localtime())):
+      return "This feed expired on %s" % formatted_date
+    else:
+      return "This feed will soon expire, on %s" % formatted_date
 
 class OtherProblem(ExceptionWithContext):
   ERROR_TEXT = '%(description)s'
@@ -379,16 +399,25 @@ class Stop(object):
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) for fn in Stop._FIELD_NAMES]
 
-  def GetStopTimeTrips(self):
-    """Returns an list of (time, trip), where time is some time.
-    TODO: handle stops between timed stops.
-    TODO: handle a trip visiting the same stop more than once"""
+  def GetStopTimeTrips(self, schedule=None):
+    """Returns an list of (time, (trip, index), is_timepoint), where time might
+    be interpolated, trip is a Trip object, index is this stop on the trip and
+    is_timepoint a bool"""
     time_trips = []
-    self._cursor.execute('SELECT trip_id,arrival_secs FROM stop_times WHERE stop_id="%s" ORDER BY stop_sequence' % (
+    schedule._cursor.execute('SELECT trip_id FROM stop_times WHERE stop_id="%s"' % (
         self.stop_id))
-    for row in self._cursor.fetchall():
-      time_trips.append((int(row[0]), row[1]))
-      #XXX returning id instead of object
+    for row in schedule._cursor.fetchall():
+      trip = schedule.GetTrip(row[0])
+      timeinterpolated = trip.GetTimeInterpolatedStops()
+      index = None
+      for i, time_stoptime in enumerate(timeinterpolated):
+        if time_stoptime[1].stop_id == self.stop_id:
+          index = i
+          break
+      assert index != None
+      time_trips.append((timeinterpolated[index][0], (trip, index),
+                         timeinterpolated[index][2]))
+    return time_trips
 
   def __getitem__(self, name):
     return getattr(self, name)
@@ -763,7 +792,7 @@ class StopTime(object):
       if fn == 'trip_id':
         result.append(trip_id)
       elif fn == 'stop_sequence':
-        result.append(str(sequence))
+        result.append(sequence)
       else:
         v = getattr(self, fn)  # Why is this not needed in GetFieldValuesTuple?
         if v == None:
@@ -822,7 +851,7 @@ class Trip(object):
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) or '' for fn in Trip._FIELD_NAMES]
 
-  def AddStopTime(self, stop, problems=default_problem_reporter, **kwargs):
+  def AddStopTime(self, stop, problems=default_problem_reporter, schedule=None, **kwargs):
     """Add a stop to this trip. Stops must be added in the order visited.
 
     Args:
@@ -833,10 +862,9 @@ class Trip(object):
       None
     """
     stoptime = StopTime(problems=problems, stop=stop, **kwargs)
-    num_stops = int(self._schedule._cursor.execute('SELECT count(*) FROM stop_times WHERE trip_id="%s"' % self.trip_id).fetchall()[0][0]) 
-    self.AddStopTimeObject(stoptime, problems=problems, sequence=num_stops + 1)
+    self.AddStopTimeObject(stoptime, problems=problems, schedule=schedule)
 
-  def AddStopTimeObject(self, stoptime, problems=default_problem_reporter, sequence=None):
+  def AddStopTimeObject(self, stoptime, problems=default_problem_reporter, sequence=None, schedule=None):
     """Add a StopTime object to the end of this trip.
 
     Args:
@@ -845,25 +873,56 @@ class Trip(object):
     Returns:
       None
     """
+    if not schedule:
+      schedule = self._schedule
+
     if sequence == None:
-      raise Error("Not supported")
-      new_secs = stoptime.GetTimeSecs()
-      prev_secs = None
-      for st in reversed(self._stoptimes):
-        prev_secs = st.GetTimeSecs()
-        if prev_secs != None:
-          break
-      if new_secs != None and prev_secs != None and new_secs < prev_secs:
-        problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s %s < %s'
-                              % (stoptime.stop_id, self.trip_id,
-                                 FormatSecondsSinceMidnight(new_secs),
-                                 FormatSecondsSinceMidnight(prev_secs)))
-        return
-    else:
-      insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
-         ','.join(StopTime._SQL_FIELD_NAMES),
-         ','.join(['?'] * len(StopTime._SQL_FIELD_NAMES)))
-      self._schedule._cursor.execute(insert_query, stoptime.GetSqlValuesTuple(self.trip_id, sequence))
+      (prev_sequence, prev_time) = self.ValidateStopTimeSequence(problems=problems, schedule=schedule)
+
+      if prev_sequence == None:
+        sequence = 1
+      else:
+        sequence = prev_sequence + 1
+
+      if prev_time != None:
+        if stoptime.arrival_secs != None and stoptime.arrival_secs < prev_time:
+          problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s %s < %s')
+          return
+        if stoptime.departure_secs != None and stoptime.departure_secs < prev_time:
+          problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s %s < %s')
+          return
+
+    insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
+       ','.join(StopTime._SQL_FIELD_NAMES),
+       ','.join(['?'] * len(StopTime._SQL_FIELD_NAMES)))
+    print insert_query
+    print stoptime.GetSqlValuesTuple(self.trip_id, sequence)
+    schedule._cursor.execute(insert_query, stoptime.GetSqlValuesTuple(self.trip_id, sequence))
+
+  def ValidateStopTimeSequence(self, problems=default_problem_reporter, schedule=None):
+    """Validate that the stop_times of this trip are well formed. Return a tuple
+    (last_sequence, last_time) which can be used to append a new stop_time."""
+    if not schedule:
+      schedule = self._schedule
+    prev_sequence = 0
+    prev_time = None
+    print schedule._cursor.execute("SELECT stop_sequence,arrival_secs,departure_secs,stop_id FROM stop_times WHERE trip_id='%s'" % self.trip_id).fetchall()
+    for (sequence, arrival, departure, stop_id) in schedule._cursor.execute("SELECT stop_sequence,arrival_secs,departure_secs,stop_id FROM stop_times WHERE trip_id='%s'" % self.trip_id).fetchall():
+      print (sequence, arrival, departure, stop_id)
+      if sequence <= prev_sequence:
+        problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s' % (stop_id, self.trip_id))
+      prev_sequence = sequence
+      # sqlite returns '' for unset integers. Python says any string is > any integer so max would always return ''.
+      if arrival == '':
+        arrival = None
+      if departure == '':
+        departure = None
+      if arrival != None and prev_time != None and arrival < prev_time:
+        problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s' % (stop_id, self.trip_id))
+      if departure != None and prev_time != None and departure < prev_time:
+        problems.OtherProblem('out of order stop time for stop_id=%s trip_id=%s' % (stop_id, self.trip_id))
+      prev_time = max(prev_time, arrival, departure) # Largest non-None
+    return (prev_sequence, prev_time)
 
   def GetTimeStops(self):
     """Return a list of (arrival_secs, departure_secs, stop) tuples.
@@ -871,6 +930,41 @@ class Trip(object):
     Caution: arrival_secs and departure_secs may be 0, a false value meaning a
     stop at midnight or None, a false value meaning the stop is untimed."""
     return [(st.arrival_secs, st.departure_secs, st.stop) for st in self.GetStopTimes()]
+
+  def GetTimeInterpolatedStops(self):
+    """Return a list of (secs, stoptime, is_timepoint) tuples.
+
+    secs will always be an int. If the StopTime object does not have explict
+    times this method guesses using distance. stoptime is a StopTime object and
+    is_timepoint is a bool.
+    """
+    rv = []
+
+    stoptimes = self.GetStopTimes()
+    assert stoptimes[0].GetTimeSecs() != None
+    assert stoptimes[-1].GetTimeSecs() != None
+
+    cur_timepoint = None
+    next_timepoint = None
+
+    for i, st in enumerate(stoptimes):
+      if st.GetTimeSecs() != None:
+        cur_timepoint = st
+        if i + 1 < len(stoptimes):
+          k = i + 1
+          while stoptimes[k].GetTimeSecs() == None:
+            k += 1
+          next_timepoint = stoptimes[k]
+        rv.append( (st.GetTimeSecs(), st, True) )
+      else:
+        distance1 = ApproximateDistanceBetweenStops(cur_timepoint.stop, st.stop)
+        distance2 = ApproximateDistanceBetweenStops(st.stop, next_timepoint.stop)
+        distance_percent = distance1 / (distance1 + distance2)
+        total_time = next_timepoint.GetTimeSecs() - cur_timepoint.GetTimeSecs()
+        time_estimate = distance_percent * total_time + cur_timepoint.GetTimeSecs()
+        rv.append( (int(round(time_estimate)), st, False) )
+
+    return rv
 
   def GetStopTimes(self):
     """Return a sorted list of StopTime objects for this trip."""
@@ -882,7 +976,7 @@ class Trip(object):
       stop_times.append(StopTime(stop=stop, sql_values=row))
     return stop_times
 
-  def GetStartTime(self):
+  def GetStartTime(self, problems=default_problem_reporter):
     """Return the first time of the trip. TODO: For trips defined by frequency
     return the first time of the first trip."""
     stoptimes = self.GetStopTimes()
@@ -891,9 +985,11 @@ class Trip(object):
     elif stoptimes[0].departure_secs is not None:
       return stoptimes[0].departure_secs
     else:
-      raise Error("Trip without valid first time %s" % self.trip_id)
+      problems.InvalidValue('departure_time', '',
+                            'The first stop_time in trip %s is missing '
+                            'times.' % self.trip_id)
 
-  def GetEndTime(self):
+  def GetEndTime(self, problems=default_problem_reporter):
     """Return the last time of the trip. TODO: For trips defined by frequency
     return the last time of the last trip."""
     stoptimes = self.GetStopTimes()
@@ -902,7 +998,9 @@ class Trip(object):
     elif stoptimes[-1].arrival_secs is not None:
       return stoptimes[-1].arrival_secs
     else:
-      raise Error("Trip without valid last time %s" % self.trip_id)
+      problems.InvalidValue('arrival_time', '',
+                            'The last stop_time in trip %s is missing '
+                            'times.' % self.trip_id)
 
   def _GenerateStopTimesTuples(self):
     """Generator for rows of the stop_times file"""
@@ -1654,8 +1752,6 @@ class Schedule:
     try:
       self._temp_db_file = tempfile.NamedTemporaryFile()
       cursor = sqlite.connect(self._temp_db_file.name).cursor()
-      os.remove('/tmp/db')
-      cursor = sqlite.connect('/tmp/db').cursor()
     except sqlite.OperationalError:
       # Windows won't let a file be opened twice. mkstemp does not remove the
       # file when all handles to it are closed.
@@ -2124,6 +2220,19 @@ class Schedule:
     if not problems:
       problems = self.problem_reporter
 
+    (start_date, end_date) = self.GetDateRange()
+    if not end_date:
+      problems.OtherProblem('This feed has no effective service dates!')
+    else:
+      try:
+        expiration = time.mktime(time.strptime(end_date, "%Y%m%d"))
+        now = time.mktime(time.localtime())
+        warning_cutoff = now + 60 * 60 * 24 * 30  # one month from expiration
+        if expiration < warning_cutoff:
+          problems.ExpirationDate(expiration)
+      except ValueError:
+        problems.InvalidValue('end_date', end_date)
+
     # TODO: Check Trip fields against valid values
 
     # Check for stops that aren't referenced by any trips
@@ -2192,11 +2301,15 @@ class Schedule:
       if not trip.GetTimeStops():
         problems.OtherProblem('The trip with the trip_id "%s" doesn\'t have '
                               'any stop times defined.' % trip.trip_id)
-      if len(trip.GetTimeStops()) == 1:
+      elif len(trip.GetTimeStops()) == 1:
         problems.OtherProblem('The trip with the trip_id "%s" only has one '
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %
                               trip.trip_id)
+      else:
+        # These methods report InvalidValue if there's no first or last time
+        trip.GetStartTime(problems=problems)
+        trip.GetEndTime(problems=problems)
 
     # Check for unused shapes
     known_shape_ids = set(self._shapes.keys())
@@ -2410,7 +2523,7 @@ class Loader:
         if period.service_id in periods:
           self._problems.DuplicateID('service_id', period.service_id)
           continue
-        
+
         periods[period.service_id] = (period, context)
 
     # process calendar_dates.txt

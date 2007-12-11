@@ -121,6 +121,18 @@ class LoadFromZipTestCase(unittest.TestCase):
     schedule.Load(DataPath('good_feed.zip'), extra_validation=True)
 
 
+class LoadWithoutStopTimes(unittest.TestCase):
+  def runTest(self):
+    loader = transitfeed.Loader(
+      DataPath('good_feed.zip'),
+      problems = TestFailureProblemReporter(self),
+      extra_validation = False,
+      load_stop_times = False)
+    schedule = loader.Load()
+    self.assertTrue(len(schedule.GetRouteList()) > 0)
+    self.assertEqual(schedule.GetDateRange(), ('20070101', '20101231'))
+
+
 class LoadAndRewriteFromZipTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(

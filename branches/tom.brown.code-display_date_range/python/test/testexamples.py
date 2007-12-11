@@ -55,5 +55,13 @@ class small_builder(util.TempDirTestCaseBase):
       raise Exception('should have created output')
 
 
+class display_date_range(util.TempDirTestCaseBase):
+  def runTest(self):
+    (out, err) = self.CheckCallWithPath(
+        [self.GetExamplePath('display_date_range.py'),
+         self.GetPath('test', 'data', 'good_feed.zip')])
+    self.assertNotEqual(out.find('20101231'), -1)
+
+
 if __name__ == '__main__':
   unittest.main()

@@ -2265,7 +2265,8 @@ class Loader:
                feed_path,
                schedule=None,
                problems=default_problem_reporter,
-               extra_validation=False):
+               extra_validation=False,
+               load_stop_times=True):
     if not schedule:
       schedule = Schedule(problem_reporter=problems)
     self._extra_validation = extra_validation
@@ -2273,6 +2274,7 @@ class Loader:
     self._problems = problems
     self._path = feed_path
     self._zip = None
+    self._load_stop_times = load_stop_times
 
   def _DetermineFormat(self):
     """Determines whether the feed is in a form that we understand, and
@@ -2678,7 +2680,8 @@ class Loader:
     self._LoadShapes()
     self._LoadTrips()
     self._LoadHeadways()
-    self._LoadStopTimes()
+    if self._load_stop_times:
+      self._LoadStopTimes()
     self._LoadFares()
     self._LoadFareRules()
 

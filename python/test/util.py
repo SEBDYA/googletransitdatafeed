@@ -41,7 +41,8 @@ def check_call(cmd, expected_retcode=0, **kwargs):
     raise Exception("Child '%s' was terminated by signal %d" %
                     (cmd, -retcode))
   elif retcode != expected_retcode:
-    raise Exception("Child '%s' returned %d" % (cmd, retcode))
+    raise Exception("Child '%s' returned %d\n--stdout--\n%s\n--stderr--\n%s\n" %
+        (cmd, retcode, out, err))
   return (out, err)
 
 class TempDirTestCaseBase(unittest.TestCase):

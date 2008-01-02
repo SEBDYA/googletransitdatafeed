@@ -1,0 +1,32 @@
+#summary Instructions for kmlwriter.
+
+= Introduction =
+
+The kmlwriter is a command line tool that plots the stops defined in a Google Transit Feed as a KML file that can be viewed in Google Earth (or any other application that uses KML files).  Using it can help confirm that the stops within your Google Transit Feed are located in the right place.
+
+
+= Python source code version =
+
+Use this version if you're on Mac OS X or Linux.
+
+Before you run the kmlwriter you must install Python 2.4 or 2.5. You can download it from http://www.python.org/download/
+
+The kmlwriter also requires ElementTree, which can be installed using easy_install.
+
+Fetch the kmlwriter from our source code repository (see Source tab above) or by directly downloading http://googletransitdatafeed.googlecode.com/svn/trunk/python/kmlwriter.py and http://googletransitdatafeed.googlecode.com/svn/trunk/python/transitfeed.py to the same directory.
+
+== Running ==
+
+Run the feed validator as
+{{{
+kmlwriter.py <input GTFS filename> [<output KML filename>]
+}}}
+
+The warning "Timezone not checked (install pytz package for timezone validation)" is normal. kmlwriter can not check the spelling of the agency_timezone until you install the pytz package.
+
+== Viewing ==
+
+To view the resulting KML file, open Google Earth and choose the File > Open... command from the menu. Navigate to the save .kml file and Google Earth will plot the stops as place marks on the globe.
+
+== Revision History ==
+See the TransitFeedDistribution page.

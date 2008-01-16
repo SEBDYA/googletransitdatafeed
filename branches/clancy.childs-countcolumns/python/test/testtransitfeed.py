@@ -168,7 +168,7 @@ class LoadUnknownFormatTestCase(unittest.TestCase):
 
 
 class LoadExtraCellValidationTestCase(unittest.TestCase):
-  """Checks to see that the validation detects too many cells in a row."""
+  """Check that the validation detects too many cells in a row."""
   def runTest(self):
     feed_name = DataPath('extra_row_cells')
     loader = transitfeed.Loader(
@@ -182,7 +182,7 @@ class LoadExtraCellValidationTestCase(unittest.TestCase):
       pass
 
 class LoadMissingCellValidationTestCase(unittest.TestCase):
-  """Checks to see that the validation detects missing cells in a row."""
+  """Check that the validation detects missing cells in a row."""
   def runTest(self):
     feed_name = DataPath('missing_row_cells')
     loader = transitfeed.Loader(

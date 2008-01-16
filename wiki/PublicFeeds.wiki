@@ -8,3 +8,6 @@
 || [http://www.octa.net OCTA] || Orange County, CA || http://www.octa.net/google/ || ||
 || [http://www.sacrt.com Sacramento RT] || Sacramento, CA || http://iportal.sacrt.com/GTFS/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
+
+==How to add a feed to this page==
+If you work with a transit agency or other data provider, and would like to add your public feed to this list, please send an email to the group list at googletransitdatafeed@googlegroups.com telling us the name of your organization and the web address of the feed.  (And thanks for making your data available to interested developers!)

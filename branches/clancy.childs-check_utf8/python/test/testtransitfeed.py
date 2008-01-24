@@ -47,6 +47,19 @@ class ExceptionProblemReporterNoExpiration(
   def ExpirationDate(self, expiration, context=None):
     pass  # We don't want to give errors about our test data
 
+class ExceptionProblemReporterNoFileFormat(
+    ExceptionProblemReporterNoExpiration):
+  """This version, used for some character detections tests, ignores 
+     feed expiration problems and file format errors."""
+
+  def __init__(self):
+    transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=True)
+
+  def ExpirationDate(self, expiration, context=None):
+    pass  # We don't want to give errors about our test data
+
+  def FileFormat(self, problem, context=None):
+    pass  # We don't want to have the character detector announce errors
 
 class TestFailureProblemReporter(transitfeed.ProblemReporter):
   """Causes a test failure immediately on any problem."""
@@ -86,7 +99,7 @@ class NoExceptionTestCase(RedirectStdOutTestCaseBase):
 
 
 class LoadTestCase(unittest.TestCase):
-  problems = ExceptionProblemReporterNoExpiration()
+  problems = ExceptionProblemReporterNoFileFormat()
 
   def ExpectInvalidValue(self, feed_name, column_name):
     loader = transitfeed.Loader(
@@ -105,7 +118,6 @@ class LoadTestCase(unittest.TestCase):
       self.fail('MissingFile exception expected')
     except transitfeed.MissingFile, e:
       self.assertEqual(file_name, e.file_name)
-
 
 class LoadFromZipTestCase(unittest.TestCase):
   def runTest(self):

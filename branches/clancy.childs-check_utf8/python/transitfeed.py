@@ -2273,6 +2273,13 @@ class Loader:
     self._problems = problems
     self._path = feed_path
     self._zip = None
+    self._chardetector = None
+    try:
+      from chardet.universaldetector import UniversalDetector
+      self._chardetector = UniversalDetector()
+    except ImportError:  # no chardet
+      print ("Text encoding not checked "
+             "(install chardet for character detection)")
 
   def _DetermineFormat(self):
     """Determines whether the feed is in a form that we understand, and
@@ -2305,12 +2312,25 @@ class Loader:
     if not contents:  # Missing file
       return
 
-    # Check for errors that will prevent csv.reader from working
-    if len(contents) >= 2 and contents[0:2] in (codecs.BOM_UTF16_BE,
-        codecs.BOM_UTF16_LE):
-      self._problems.FileFormat("appears to be encoded in utf-16", (file_name, ))
-      # Convert and continue, so we can find more errors
-      contents = codecs.getdecoder('utf-16')(contents)[0].encode('utf-8')
+    # Check for non-UTF-8 encoding
+    if self._chardetector:
+      for line in contents:
+        self._chardetector.feed(line)
+        if self._chardetector.done: break
+      self._chardetector.close()
+      if not self._chardetector.result['encoding'] in set(['ascii','utf-8']):
+        self._problems.FileFormat("detected as %s with %f confidence" 
+                                   % (self._chardetector.result['encoding'], 
+                                      self._chardetector.result['confidence']),
+                                   (file_name, ))
+      self._chardetector.reset()
+    else:
+      # Check for errors that will prevent csv.reader from working
+      if len(contents) >= 2 and contents[0:2] in (codecs.BOM_UTF16_BE,
+                                                  codecs.BOM_UTF16_LE):
+        self._problems.FileFormat("appears to be encoded in utf-16", (file_name, ))
+        # Convert and continue, so we can find more errors
+        contents = codecs.getdecoder('utf-16')(contents)[0].encode('utf-8')
 
     null_index = contents.find('\0')
     if null_index != -1:
@@ -2354,7 +2374,7 @@ class Loader:
                                     'should have the same number of cells as '
                                     'the header (first line) does.' %
                                     (row_num, file_name), (file_name, row_num),
-                                    type=TYPE_WARNING)
+                                    type=TYPE_ERROR)
 
       if len(row) < len(header):
         self._problems.OtherProblem('Found missing cells (commas) in line '
@@ -2362,7 +2382,7 @@ class Loader:
 								    'should have the same number of cells as '
 								    'the header (first line) does.' %
 								    (row_num, file_name), (file_name, row_num),
-								    type=TYPE_WARNING)
+								    type=TYPE_ERROR)
 
       result = [None] * len(cols)
       for i in range(len(cols)):

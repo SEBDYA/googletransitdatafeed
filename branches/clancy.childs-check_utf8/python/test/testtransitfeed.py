@@ -41,8 +41,8 @@ class ExceptionProblemReporterNoExpiration(
   """This version, used for most tests, ignores feed expiration problems,
      so that we don't need to keep updating the dates in our tests."""
 
-  def __init__(self):
-    transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=True)
+  def __init__(self,raise_warnings=True):
+    transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=raise_warnings)
 
   def ExpirationDate(self, expiration, context=None):
     pass  # We don't want to give errors about our test data
@@ -58,7 +58,7 @@ class ExceptionProblemReporterNoFileFormat(
   def ExpirationDate(self, expiration, context=None):
     pass  # We don't want to give errors about our test data
 
-  def FileFormat(self, problem, context=None):
+  def FileFormat(self, problem, context=None, type=None):
     pass  # We don't want to have the character detector announce errors
 
 class TestFailureProblemReporter(transitfeed.ProblemReporter):
@@ -380,7 +380,7 @@ class DuplicateStopTestCase(unittest.TestCase):
 class MissingEndpointTimesTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(
-        problem_reporter=ExceptionProblemReporterNoExpiration())
+        problem_reporter=ExceptionProblemReporterNoExpiration(raise_warnings=False))
     try:
       schedule.Load(DataPath('missing_endpoint_times'), extra_validation=True)
       self.fail('InvalidValue exception expected')

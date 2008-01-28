@@ -108,9 +108,9 @@ class ProblemReporterBase:
                       context2=self._context)
     self._Report(e)
 
-  def FileFormat(self, problem, context=None):
+  def FileFormat(self, problem, context=None, type=TYPE_ERROR):
     e = FileFormat(problem=problem, context=context,
-                   context2=self._context)
+                   context2=self._context, type=type)
     self._Report(e)
 
   def MissingFile(self, file_name, context=None):
@@ -2312,26 +2312,41 @@ class Loader:
     if not contents:  # Missing file
       return
 
-    # Check for non-UTF-8 encoding
+    # Check for errors that will prevent csv.reader from working
+    if len(contents) >= 2 and contents[0:2] in (codecs.BOM_UTF16_BE,
+                                                codecs.BOM_UTF16_LE):
+      self._problems.FileFormat("appears to be encoded in utf-16", (file_name, ))
+      # Convert and continue, so we can find more errors
+      contents = codecs.getdecoder('utf-16')(contents)[0].encode('utf-8')
+    
+    # Check for non-UTF-8 encoding if the chardet package is installed
     if self._chardetector:
-      for line in contents:
-        self._chardetector.feed(line)
-        if self._chardetector.done: break
-      self._chardetector.close()
+      # due to a problem with chardet not correctly checking utf-n BOMs,
+      # the file is checked for BOMs here and then updates the chardet
+      bomdict = { codecs.BOM_UTF8 : 'utf-8', \
+                  codecs.BOM_UTF16_BE : 'utf-16BE', \
+                  codecs.BOM_UTF16_LE : 'utf-16LE' }
+
+      for bom, encoding in bomdict.items():
+        if contents.startswith(bom):
+          self._chardetector.result = {'encoding' : bomdict[bom],
+                                       'confidence' : 1.0}
+          self._chardetector.done = True
+          break
+
+      if not self._chardetector.done:
+        for line in contents:
+          self._chardetector.feed(line)
+          if self._chardetector.done: break
+        self._chardetector.close()
+      
       if not self._chardetector.result['encoding'] in set(['ascii','utf-8']):
         self._problems.FileFormat("detected as %s with %f confidence" 
                                    % (self._chardetector.result['encoding'], 
                                       self._chardetector.result['confidence']),
-                                   (file_name, ))
+                                   (file_name, ), type=TYPE_WARNING)
       self._chardetector.reset()
-    else:
-      # Check for errors that will prevent csv.reader from working
-      if len(contents) >= 2 and contents[0:2] in (codecs.BOM_UTF16_BE,
-                                                  codecs.BOM_UTF16_LE):
-        self._problems.FileFormat("appears to be encoded in utf-16", (file_name, ))
-        # Convert and continue, so we can find more errors
-        contents = codecs.getdecoder('utf-16')(contents)[0].encode('utf-8')
-
+    
     null_index = contents.find('\0')
     if null_index != -1:
       # It is easier to get some surrounding text than calculate the exact

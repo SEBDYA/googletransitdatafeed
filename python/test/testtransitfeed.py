@@ -232,6 +232,18 @@ class LoadUTF16TestCase(unittest.TestCase):
       self.assertTrue(re.search(r'encoded in utf-16', e.FormatProblem()))
       e.FormatContext()
 
+class LoadISO8859TestCase(unittest.TestCase):
+  def runTest(self):
+    loader = transitfeed.Loader(
+      DataPath('iso8859'),
+      problems = ExceptionProblemReporterNoExpiration(),
+      extra_validation = True)
+    try:
+      loader.Load()
+      # TODO: make sure processing proceeds beyond the problem
+      self.fail('FileFormat exception expected')
+    except transitfeed.FileFormat, e:
+      self.assertTrue(re.search(r'detected as ISO-8859', e.FormatProblem()))
 
 class LoadNullTestCase(unittest.TestCase):
   def runTest(self):
@@ -1552,6 +1564,9 @@ class MinimalUtf8Builder(TempFileTestCaseBase):
 
     schedule.Validate(problems)
     schedule.WriteGoogleTransitFeed(self.tempfilepath)
+    # Use a more leinent problem reporter for file read as
+    # TestFailureProblemReporter detects the chardet warning as a failure
+    problems = ExceptionProblemReporterNoExpiration(raise_warnings=False)
     read_schedule = \
         transitfeed.Loader(self.tempfilepath, problems=problems,
                            extra_validation=True).Load()

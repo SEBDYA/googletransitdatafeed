@@ -137,6 +137,7 @@ class ProblemReporterBase:
                    type=TYPE_ERROR):
     e = InvalidValue(column_name=column_name, value=value, reason=reason,
                      context=context, context2=self._context, type=type)
+
     self._Report(e)
 
   def DuplicateID(self, column_name, value, context=None):

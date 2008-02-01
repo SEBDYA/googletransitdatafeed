@@ -1,6 +1,10 @@
 #summary List of publicly-accessible transit data feeds
 #labels Featured
 
+This is a list of transit schedule data published by transit agencies and operators in [http://code.google.com/transit/spec/transit_feed_specification.html GTFS] format for developers to use.  They contain scheduled times, stop locations, route information and optionally fare information and detailed route shapes.
+
+For details on the feed format, see the [http://code.google.com/transit/spec/transit_feed_specification.html Google Transit Feed Specification] document.
+
 || *Agency* || *Area* || *Feed Location* || *Notes* ||
 || [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/schedule/GTFS/ || Use is subject to the terms of their [http://developer.trimet.org/terms_of_use.shtml developer license] ||
 || [http://www.bart.gov/ BART] || San Francisco Bay, CA || http://www.bart.gov/dev/schedules/ || Use is subject to the terms of their [http://www.bart.gov/dev/schedules/license.htm developer license]. Additional information at [http://www.bart.gov/open] ||

@@ -41,7 +41,7 @@ class ExceptionProblemReporterNoExpiration(
   """This version, used for most tests, ignores feed expiration problems,
      so that we don't need to keep updating the dates in our tests."""
 
-  def __init__(self,raise_warnings=True):
+  def __init__(self, raise_warnings=True):
     transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=raise_warnings)
 
   def ExpirationDate(self, expiration, context=None):
@@ -51,12 +51,6 @@ class ExceptionProblemReporterNoFileFormat(
     ExceptionProblemReporterNoExpiration):
   """This version, used for some character detections tests, ignores 
      feed expiration problems and file format errors."""
-
-  def __init__(self):
-    transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=True)
-
-  def ExpirationDate(self, expiration, context=None):
-    pass  # We don't want to give errors about our test data
 
   def FileFormat(self, problem, context=None, type=None):
     pass  # We don't want to have the character detector announce errors
@@ -99,7 +93,7 @@ class NoExceptionTestCase(RedirectStdOutTestCaseBase):
 
 
 class LoadTestCase(unittest.TestCase):
-  problems = ExceptionProblemReporterNoFileFormat()
+  problems = ExceptionProblemReporterNoExpiration()
 
   def ExpectInvalidValue(self, feed_name, column_name):
     loader = transitfeed.Loader(
@@ -109,6 +103,15 @@ class LoadTestCase(unittest.TestCase):
       self.fail('InvalidValue exception expected')
     except transitfeed.InvalidValue, e:
       self.assertEqual(column_name, e.column_name)
+
+  def ExpectFileFormatException(self, feed_name, file_name):
+    loader = transitfeed.Loader(
+      DataPath(feed_name), problems=self.problems, extra_validation=True)
+    try:
+      loader.Load()
+      self.fail('FileFormat exception expected')
+    except transitfeed.FileFormat, e:
+      self.assertEqual(file_name, e.file_name)
 
   def ExpectMissingFile(self, feed_name, file_name):
     loader = transitfeed.Loader(
@@ -313,7 +316,7 @@ class BadProblemReporterTestCase(RedirectStdOutTestCaseBase):
 
 class BadUtf8TestCase(LoadTestCase):
   def runTest(self):
-    self.ExpectInvalidValue('bad_utf8', 'agency_name')
+    self.ExpectFileFormatException('bad_utf8', 'agency.txt')
 
 
 class LoadMissingAgencyTestCase(LoadTestCase):
@@ -1564,9 +1567,7 @@ class MinimalUtf8Builder(TempFileTestCaseBase):
 
     schedule.Validate(problems)
     schedule.WriteGoogleTransitFeed(self.tempfilepath)
-    # Use a more leinent problem reporter for file read as
-    # TestFailureProblemReporter detects the chardet warning as a failure
-    problems = ExceptionProblemReporterNoExpiration(raise_warnings=False)
+    problems = ExceptionProblemReporterNoExpiration()
     read_schedule = \
         transitfeed.Loader(self.tempfilepath, problems=problems,
                            extra_validation=True).Load()

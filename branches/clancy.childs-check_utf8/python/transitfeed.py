@@ -137,7 +137,6 @@ class ProblemReporterBase:
                    type=TYPE_ERROR):
     e = InvalidValue(column_name=column_name, value=value, reason=reason,
                      context=context, context2=self._context, type=type)
-
     self._Report(e)
 
   def DuplicateID(self, column_name, value, context=None):
@@ -2323,29 +2322,27 @@ class Loader:
     # Check for non-UTF-8 encoding if the chardet package is installed
     if self._chardetector:
       # due to a problem with chardet not correctly checking utf-n BOMs,
-      # the file is checked for BOMs here and then updates the chardet
-      bomdict = { codecs.BOM_UTF8 : 'utf-8', \
-                  codecs.BOM_UTF16_BE : 'utf-16BE', \
-                  codecs.BOM_UTF16_LE : 'utf-16LE' }
-
-      for bom, encoding in bomdict.items():
-        if contents.startswith(bom):
-          self._chardetector.result = {'encoding' : bomdict[bom],
-                                       'confidence' : 1.0}
-          self._chardetector.done = True
-          break
+      # the file is checked for a BOM here and then updates the chardet
+      if contents.startswith(codecs.BOM_UTF8):
+        self._chardetector.result = {'encoding' : 'utf-8',
+                                     'confidence' : 1.0}
+        self._chardetector.done = True
 
       if not self._chardetector.done:
-        for line in contents:
+        content_lines = contents.splitlines(True)
+        for line in content_lines:
           self._chardetector.feed(line)
           if self._chardetector.done: break
         self._chardetector.close()
       
       if not self._chardetector.result['encoding'] in set(['ascii','utf-8']):
+        error_type = TYPE_ERROR
+        if self._chardetector.result['confidence'] < 1:
+          error_type = TYPE_WARNING
         self._problems.FileFormat("detected as %s with %f confidence" 
                                    % (self._chardetector.result['encoding'], 
                                       self._chardetector.result['confidence']),
-                                   (file_name, ), type=TYPE_WARNING)
+                                   (file_name, ), type=error_type)
       self._chardetector.reset()
     
     null_index = contents.find('\0')

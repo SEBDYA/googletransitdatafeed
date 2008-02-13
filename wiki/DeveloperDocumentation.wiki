@@ -34,6 +34,8 @@ The validate script envokes the diff tool to show differences in the resulting f
 The source code of GoogleTransitDataFeed software is managed in [http://code.google.com/p/googletransitdatafeed Google Code]. Google Code uses [http://www.subversion.tigris.org Subversion] to manage change.
 
 = TransXchange2GoogleTransit version release notes =
+  * v1.6.2 - Conformance with GTFS revision 20-Nov-2007: first and last stop of trip in stop_times with arrival respective departure time.
+  * v1.6.2 - tXCh2GT scripts run with increased maximum heap size of 256M to accommodate processing of input file sets in zip archive.
   * v1.6.1 - Consolidation of routes
   * v1.6 - A set of input files in a zip archive are now accepted. 
   Note: 1. The first service start date of the input file is no longer used to create a sub directory in <output-directory> hosting the feed files. Feed files are now directly saved to <output-directory> ---

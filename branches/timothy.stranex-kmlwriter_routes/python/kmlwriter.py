@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4
+#!/usr/bin/python2.5
 #
 # Copyright 2008 Google Inc. All Rights Reserved.
 #
@@ -22,20 +22,50 @@ python kmlwriter.py [options] <input GTFS filename> [<output KML filename>]
 If no output filename is specified, the output file will be given the same
 name as the feed file (with ".kml" appended) and will be placed in the same
 directory as the input feed.
-"""
 
-import optparse
-import os.path
-import sys
-import transitfeed
+The resulting KML file has a folder hierarchy which looks like this:
+
+    - Stops
+      * stop1
+      * stop2
+    - Routes
+      - route1
+        * Shapes flattened
+        * Trips flattened
+        - Trips
+          * trip1
+          * trip2
+    - Shapes
+      * shape1
+      * shape2
+
+where the hyphens represent folders and the asteriks represent placemarks.
+
+A trip is represented by a linestring connecting the stops it visits
+in order. The "Trips flattened" placemark is equivalent to showing all
+the trips in the route. The "Shapes flattened" placemark consists of
+all the shapes used by trips in the route.
+
+Since there can be many trips and trips for the same route are usually similar,
+they are not exported unless the --showtrips option is used. There is also
+another option --splitroutes that groups the routes by vehicle type resulting
+in a folder hierarchy which looks like this:
+
+    - Stops
+    - Routes - Bus
+    - Routes - Tram
+    - Routes - Rail
+    - Shapes
+"""
 
 try:
   import xml.etree.ElementTree as ET  # python 2.5
 except ImportError, e:
   import elementtree.ElementTree as ET  # older pythons
-
-
-KML_NAMESPACE = 'http://earth.google.com/kml/2.1'
+import optparse
+import os.path
+import sys
+import transitfeed
 
 
 class KMLWriter(object):
@@ -137,7 +167,7 @@ class KMLWriter(object):
 
     Args:
       parent: The parent ElementTree.Element instance.
-      name: The placemark name as as string.
+      name: The placemark name as a string.
       style_id: If not None, the id of a style to use for the placemark.
       visible: Whether the placemark is initially visible or not.
       description: A description string or None.
@@ -264,7 +294,7 @@ class KMLWriter(object):
         adjacent.setdefault(start_node, []).append(end_node)
         adjacent.setdefault(end_node, []).append(start_node)
 
-    visited = {}  # visited.has_key(n) if node n has been visited by the DFS
+    visited = set()  # contains nodes that have been visited by the DFS
 
     def DepthFirstSearch(pattern, current_node):
       """Depth-first search from current_node keeping track of the path taken.
@@ -273,7 +303,7 @@ class KMLWriter(object):
         pattern: A list onto which the stops of the path will be appended.
         current_node: The node to search from.
       """
-      visited[current_node] = True
+      visited.add(current_node)
       pattern.append(current_node)
       for adjacent_node in adjacent.get(current_node, []):
         if adjacent_node not in visited:
@@ -414,7 +444,12 @@ class KMLWriter(object):
       Returns:
         The name as a string.
       """
-      return '%s - %s' % (route.route_short_name, route.route_long_name)
+      name_parts = []
+      if route.route_short_name:
+        name_parts.append('<b>%s</b>' % route.route_short_name)
+      if route.route_long_name:
+        name_parts.append(route.route_long_name)
+      return ' - '.join(name_parts) or route.route_id
 
     def GetRouteDescription(route):
       """Return a placemark description for the route.

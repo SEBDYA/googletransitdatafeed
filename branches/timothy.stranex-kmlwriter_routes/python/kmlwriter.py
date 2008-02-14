@@ -291,10 +291,14 @@ class KMLWriter(object):
       stops = trip.GetPattern()
       nodes.update(stops)
       for (start_node, end_node) in zip(stops[:-1], stops[1:]):
-        adjacent.setdefault(start_node, []).append(end_node)
-        adjacent.setdefault(end_node, []).append(start_node)
+        adjacent.setdefault(start_node, set()).add(end_node)
+        adjacent.setdefault(end_node, set()).add(start_node)
 
-    visited = set()  # contains nodes that have been visited by the DFS
+    time = [0]
+    # time[0] is incremented whenever a new node is explored in the DFS
+    visited = {}
+    # If visited.has_key(n) then visited[n] is the time when node n was first
+    # visited in the DFS. Otherwise, n hasn't been visited yet.
 
     def DepthFirstSearch(pattern, current_node):
       """Depth-first search from current_node keeping track of the path taken.
@@ -303,11 +307,16 @@ class KMLWriter(object):
         pattern: A list onto which the stops of the path will be appended.
         current_node: The node to search from.
       """
-      visited.add(current_node)
+      current_time = time[0]
+      visited[current_node] = current_time
+      time[0] += 1
       pattern.append(current_node)
       for adjacent_node in adjacent.get(current_node, []):
         if adjacent_node not in visited:
           DepthFirstSearch(pattern, adjacent_node)
+          pattern.append(current_node)
+        elif visited[adjacent_node] > current_time:
+          pattern.append(adjacent_node)
           pattern.append(current_node)
 
     components = []

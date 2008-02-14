@@ -79,8 +79,8 @@ class TestGenerateFlattenedTripPattern(unittest.TestCase):
   def _ValidateComponents(self, components):
     """Validates components returned by _GenerateFlattenedPattern().
 
-    This checks that each component is disjoint and that each component
-    contains at least two nodes.
+    This checks that each component is disjoint, that each component
+    contains at least two nodes and that no edge is listed more than twice.
 
     Args:
       components: The result of a call to _GenerateFlattenedPattern.
@@ -91,9 +91,18 @@ class TestGenerateFlattenedTripPattern(unittest.TestCase):
         existing_component_num = stop_to_component_num.setdefault(
             stop, component_num)
         self.assertEqual(existing_component_num, component_num)
+
     for pattern in components:
       stops = set(pattern)
       self.assert_(len(stops) > 1)
+
+    edge_count = {}
+    for pattern in components:
+      for forward_edge in zip(pattern[:-1], pattern[1:]):
+        back_edge = (forward_edge[1], forward_edge[0])
+        edge_count[forward_edge] = edge_count.get(forward_edge, 0) + 1
+        edge_count[back_edge] = edge_count.get(back_edge, 0) + 1
+        self.assert_(edge_count[forward_edge] <= 2)
 
   def _GetEdgeSet(self, components):
     """Returns the set of edges in flattened graph.
@@ -191,6 +200,13 @@ class TestGenerateFlattenedTripPattern(unittest.TestCase):
     route = self.feed.GetRoute('route_6')
     components = self.kmlwriter._GenerateFlattenedPattern(route)
     self._TestComponents(components, 0, expected_graph)
+
+  def testLoop(self):
+    expected_graph = self._MakeUndirected(
+        [('stop1', 'stop2'), ('stop2', 'stop3'), ('stop3', 'stop1')])
+    route = self.feed.GetRoute('route_8')
+    components = self.kmlwriter._GenerateFlattenedPattern(route)
+    self._TestComponents(components, 1, expected_graph)
 
 
 class TestKMLGeneratorMethods(unittest.TestCase):

@@ -30,8 +30,12 @@ The resulting KML file has a folder hierarchy which looks like this:
       * stop2
     - Routes
       - route1
-        * Shapes flattened
-        * Trips flattened
+        - Shapes
+          * shape1
+          * shape2
+        - Patterns
+          - pattern1
+          - pattern2
         - Trips
           * trip1
           * trip2
@@ -41,15 +45,17 @@ The resulting KML file has a folder hierarchy which looks like this:
 
 where the hyphens represent folders and the asteriks represent placemarks.
 
-A trip is represented by a linestring connecting the stops it visits
-in order. The "Trips flattened" placemark is equivalent to showing all
-the trips in the route. The "Shapes flattened" placemark consists of
-all the shapes used by trips in the route.
+In a trip, a vehicle visits stops in a certain sequence. Such a sequence of
+stops is called a pattern. A pattern is represented by a linestring connecting
+the stops. The "Shapes" subfolder of a route folder contains placemarks for
+each shape used by a trip in the route. The "Patterns" subfolder contains a
+placemark for each unique pattern used by a trip in the route. The "Trips"
+subfolder contains a placemark for each trip in the route.
 
 Since there can be many trips and trips for the same route are usually similar,
 they are not exported unless the --showtrips option is used. There is also
 another option --splitroutes that groups the routes by vehicle type resulting
-in a folder hierarchy which looks like this:
+in a folder hierarchy which looks like this at the top level:
 
     - Stops
     - Routes - Bus
@@ -257,112 +263,49 @@ class KMLWriter(object):
       coordinates.text = '%.6f,%.6f' % (stop.stop_lon, stop.stop_lat)
     return stop_folder
 
-  def _GenerateFlattenedPattern(self, route):
-    """Generate a set of patterns representing all trips in the route.
+  def _CreateRoutePatternsFolder(self, parent, route,
+                                   style_id=None, visible=True):
+    """Create a KML Folder containing placemarks for each pattern in the route.
 
-    A pattern is a sequence of stops in the order that they are visited in
-    single trip. A pattern can be visualised as an undirected graph where the
-    nodes are the stops and there is an edge between two stops if and only if
-    they are adjacent in the pattern.
+    A pattern is a sequence of stops used by one of the trips in the route.
 
-    A route can have several trips and each trip has its own pattern. The union
-    of the graphs is called the flattened graph. This method returns a set of
-    patterns that when visualised as a graph is identical to the flattened
-    graph.
-
-    However, instead of merely returning the union of the patterns, this method
-    attempts to optomise by substantially reducing the number of duplicated
-    parts. In fact, no edge will be duplicated more than once.
-
-    The returned patterns are pairwise disjoint, each representing a connected
-    component of the flattened graph. We only care about the edges of the
-    flattened graph so if a component has only a single node, it will be
-    ignored.
-
-    Args:
-      route: The transitfeed.Route instance to flatten.
-
-    Returns:
-      The set of patterns as a list of lists of transitfeed.Stop instances.
-    """
-    nodes = set()  # The set of all stops in the flattened graph.
-    adjacent = {}  # The adjacency lists for the flattened graph.
-    for trip in route.trips:
-      stops = trip.GetPattern()
-      nodes.update(stops)
-      for (start_node, end_node) in zip(stops[:-1], stops[1:]):
-        adjacent.setdefault(start_node, set()).add(end_node)
-        adjacent.setdefault(end_node, set()).add(start_node)
-
-    time = [0]
-    # time[0] is incremented whenever a new node is explored in the DFS
-    visited = {}
-    # If visited.has_key(n) then visited[n] is the time when node n was first
-    # visited in the DFS. Otherwise, n hasn't been visited yet.
-
-    def DepthFirstSearch(pattern, current_node):
-      """Depth-first search from current_node keeping track of the path taken.
-
-      Args:
-        pattern: A list onto which the stops of the path will be appended.
-        current_node: The node to search from.
-      """
-      current_time = time[0]
-      visited[current_node] = current_time
-      time[0] += 1
-      pattern.append(current_node)
-      for adjacent_node in adjacent.get(current_node, []):
-        if adjacent_node not in visited:
-          DepthFirstSearch(pattern, adjacent_node)
-          pattern.append(current_node)
-        elif visited[adjacent_node] > current_time:
-          pattern.append(adjacent_node)
-          pattern.append(current_node)
-
-    components = []
-    for stop in nodes:
-      if stop not in visited:
-        pattern = []
-        DepthFirstSearch(pattern, stop)
-        if len(pattern) > 1:
-          components.append(pattern)
-    return components
-
-  def _CreateRouteFlattenedPlacemark(self, parent, route,
-                                     style_id=None, visible=True):
-    """Create a KML Placemark for the flattened graph of a route.
-
-    If there are no edges in the flattened graph, no placemark is created and
-    None is returned.
+    If there are not patterns for the route then no folder is created and None
+    is returned.
 
     Args:
       parent: The parent ElementTree.Element instance.
       route: The transitfeed.Route instance.
       style_id: The id of a style to use if not None.
-      visible: Whether the placemark is initially visible or not.
+      visible: Whether the folder is initially visible or not.
 
     Returns:
-      The Placemark ElementTree.Element instance or None.
+      The Folder ElementTree.Element instance or None if there are no patterns.
     """
-    components = self._GenerateFlattenedPattern(route)
-    if not components:
+    pattern_to_trips = {}
+    for trip in route.trips:
+      pattern_to_trips.setdefault(trip.GetPattern(), []).append(trip)
+    if not pattern_to_trips:
       return None
 
-    placemark = self._CreatePlacemark(parent, 'Trips flattened',
-                                      style_id, visible)
-    multi_geometry = ET.SubElement(placemark, 'MultiGeometry')
-    for pattern in components:
-      coordinates = [(stop.stop_lat, stop.stop_lon)
-                     for stop in pattern]
-      self._CreateLineString(multi_geometry, coordinates)
-    return placemark
+    folder = self._CreateFolder(parent, 'Patterns', visible)
+    n = 1
+    for pattern in pattern_to_trips:
+      trip_ids = [trip.trip_id for trip in pattern_to_trips[pattern]]
+      description = 'Trips using this pattern: %s' % ', '.join(trip_ids)
+      placemark = self._CreatePlacemark(folder, 'Pattern %d' % n,
+                                        style_id, visible, description)
+      coordinates = [(stop.stop_lat, stop.stop_lon) for stop in pattern]
+      self._CreateLineString(placemark, coordinates)
+      n += 1
+    return folder
 
-  def _CreateRouteShapePlacemark(self, schedule, parent, route,
-                                 style_id=None, visible=True):
-    """Create a KML Placemark for shapes of a route.
+  def _CreateRouteShapesFolder(self, schedule, parent, route,
+                               style_id=None, visible=True):
+    """Create a KML Folder for the shapes of a route.
 
-    The placemark contains all the shapes referenced by trips in the route. If
-    there are no such shapes, no placemark is created and None is returned.
+    The folder contains a placemark for each shape referenced by a trip in the
+    route. If there are no such shapes, no folder is created and None is
+    returned.
 
     Args:
       schedule: The transitfeed.Schedule instance.
@@ -372,24 +315,25 @@ class KMLWriter(object):
       visible: Whether the placemark is initially visible or not.
 
     Returns:
-      The Placemark ElementTree.Element instance or None.
+      The Folder ElementTree.Element instance or None.
     """
-    shape_ids = set()
+    shape_id_to_trips = {}
     for trip in route.trips:
       if trip.shape_id:
-        shape_ids.add(trip.shape_id)
-    if not shape_ids:
+        shape_id_to_trips.setdefault(trip.shape_id, []).append(trip)
+    if not shape_id_to_trips:
       return None
 
-    placemark = self._CreatePlacemark(parent, 'Shapes flattened',
-                                      style_id, visible)
-    multi_geometry = ET.SubElement(placemark, 'MultiGeometry')
-    for shape_id in shape_ids:
-      self._CreateLineStringForShape(multi_geometry,
-                                     schedule.GetShape(shape_id))
-    return placemark
+    folder = self._CreateFolder(parent, 'Shapes', visible)
+    for shape_id in shape_id_to_trips:
+      trip_ids = [trip.trip_id for trip in shape_id_to_trips[shape_id]]
+      description = 'Trips using this shape: %s' % ', '.join(trip_ids)
+      placemark = self._CreatePlacemark(folder, shape_id,
+                                        style_id, visible, description)
+      self._CreateLineStringForShape(placemark, schedule.GetShape(shape_id))
+    return folder
 
-  def _CreateTripsFolderForRoute(self, parent, route, style_id=None):
+  def _CreateRouteTripsFolder(self, parent, route, style_id=None):
     """Create a KML Folder containing all the trips in the route.
 
     The folder contains a placemark for each of these trips. If there are no
@@ -504,11 +448,11 @@ class KMLWriter(object):
       route_folder = self._CreateFolder(routes_folder,
                                         GetRouteName(route),
                                         description=GetRouteDescription(route))
-      self._CreateRouteShapePlacemark(schedule, route_folder,
-                                      route, style_id, False)
-      self._CreateRouteFlattenedPlacemark(route_folder, route, style_id, False)
+      self._CreateRouteShapesFolder(schedule, route_folder, route,
+                                    style_id, False)
+      self._CreateRoutePatternsFolder(route_folder, route, style_id, False)
       if self.show_trips:
-        self._CreateTripsFolderForRoute(route_folder, route, style_id)
+        self._CreateRouteTripsFolder(route_folder, route, style_id)
     return routes_folder
 
   def _CreateShapesFolder(self, schedule, doc):

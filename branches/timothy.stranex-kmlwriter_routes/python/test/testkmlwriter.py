@@ -69,146 +69,6 @@ class TestKMLStopsRoundtrip(unittest.TestCase):
     self.assertEqual(stops1, stops2)
 
 
-class TestGenerateFlattenedTripPattern(unittest.TestCase):
-  """Checks KMLWriter._GenerateFlattenedPattern() for various cases."""
-
-  def setUp(self):
-    self.feed = transitfeed.Loader(DataPath('flatten_feed.zip')).Load()
-    self.kmlwriter = kmlwriter.KMLWriter()
-
-  def _ValidateComponents(self, components):
-    """Validates components returned by _GenerateFlattenedPattern().
-
-    This checks that each component is disjoint, that each component
-    contains at least two nodes and that no edge is listed more than twice.
-
-    Args:
-      components: The result of a call to _GenerateFlattenedPattern.
-    """
-    stop_to_component_num = {}
-    for component_num in range(len(components)):
-      for stop in components[component_num]:
-        existing_component_num = stop_to_component_num.setdefault(
-            stop, component_num)
-        self.assertEqual(existing_component_num, component_num)
-
-    for pattern in components:
-      stops = set(pattern)
-      self.assert_(len(stops) > 1)
-
-    edge_count = {}
-    for pattern in components:
-      for forward_edge in zip(pattern[:-1], pattern[1:]):
-        back_edge = (forward_edge[1], forward_edge[0])
-        edge_count[forward_edge] = edge_count.get(forward_edge, 0) + 1
-        edge_count[back_edge] = edge_count.get(back_edge, 0) + 1
-        self.assert_(edge_count[forward_edge] <= 2)
-
-  def _GetEdgeSet(self, components):
-    """Returns the set of edges in flattened graph.
-
-    The edges are represented by tuples (from_stop_id, to_stop_id). The
-    flattened graph is undirected so for every edge (u, v) in the set, (v, u)
-    is also in the set.
-
-    Args:
-      components: The result of a call to _GenerateFlattenedPattern.
-
-    Returns:
-      The set of edges.
-    """
-    edges = set()
-    for pattern in components:
-      pattern_ids = [stop.stop_id for stop in pattern]
-      edges.update(zip(pattern_ids[:-1], pattern_ids[1:]))
-      pattern_ids.reverse()
-      edges.update(zip(pattern_ids[:-1], pattern_ids[1:]))
-    return edges
-
-  def _MakeUndirected(self, edges):
-    """Returns an undirected version of the edges.
-
-    The edges are represented by tuples (u, v). The set is extended so that if
-    (u, v) is in the set then so is (v, u).
-
-    Args:
-      edges: The set of edges. This is not modified.
-
-    Returns:
-      The new undirected set of edges.
-    """
-    new_edges = set(edges)
-    for from_node, to_node in edges:
-      new_edges.add((to_node, from_node))
-    return new_edges
-
-  def _TestComponents(self, components, expected_num_components,
-                      expected_graph):
-    """Checks that the flattened graph is the same as the expected graph.
-
-    This calls _ValidateComponents(), checks that the number of components
-    is equal to expected_num_components and checks that the flattened graph is
-    identical to the expected graph.
-
-    Args:
-      components: The result of a call to _GenerateFlattenedPattern.
-      expected_num_components: The expected number of graph components.
-      expected_graph: The expected set of graph edges.
-    """
-    self._ValidateComponents(components)
-    self.assertEquals(len(components), expected_num_components)
-    self.assertEquals(self._GetEdgeSet(components), expected_graph)
-
-  def testSingleTrip(self):
-    expected_graph = self._MakeUndirected(
-        [('stop1', 'stop2'), ('stop2', 'stop3')])
-    route = self.feed.GetRoute('route_1')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 1, expected_graph)
-
-  def testTwoTripsOneComponent(self):
-    expected_graph = self._MakeUndirected(
-        [('stop1', 'stop2'), ('stop2', 'stop3'),
-         ('stop2', 'stop4'), ('stop4', 'stop5')])
-    route = self.feed.GetRoute('route_2')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 1, expected_graph)
-
-  def testTwoTripsTwoComponents(self):
-    expected_graph = self._MakeUndirected(
-        [('stop1', 'stop2'), ('stop2', 'stop3'),
-         ('stop4', 'stop5'), ('stop5', 'stop6')])
-    route = self.feed.GetRoute('route_3')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 2, expected_graph)
-
-  def testTwoEqualTrips(self):
-    expected_graph = self._MakeUndirected(
-        [('stop1', 'stop2'), ('stop2', 'stop3')])
-    route = self.feed.GetRoute('route_4')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 1, expected_graph)
-
-  def testOneStop(self):
-    expected_graph = set()
-    route = self.feed.GetRoute('route_5')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 0, expected_graph)
-
-  def testNoStops(self):
-    expected_graph = set()
-    route = self.feed.GetRoute('route_6')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 0, expected_graph)
-
-  def testLoop(self):
-    expected_graph = self._MakeUndirected(
-        [('stop1', 'stop2'), ('stop2', 'stop3'), ('stop3', 'stop1')])
-    route = self.feed.GetRoute('route_8')
-    components = self.kmlwriter._GenerateFlattenedPattern(route)
-    self._TestComponents(components, 1, expected_graph)
-
-
 class TestKMLGeneratorMethods(unittest.TestCase):
   """Tests the various KML element creation methods of KMLWriter."""
 
@@ -302,46 +162,58 @@ class TestRouteKML(unittest.TestCase):
     self.kmlwriter = kmlwriter.KMLWriter()
     self.parent = ET.Element('parent')
 
-  def _CheckMultiGeometry(self, placemark, num_children):
-    """Checks a Placemark with geometry from multiple LineStrings.
+  def testCreateRoutePatternsFolderNoPatterns(self):
+    folder = self.kmlwriter._CreateRoutePatternsFolder(
+        self.parent, self.feed.GetRoute('route_7'))
+    self.assert_(folder is None)
 
-    This checks that the placemark has a MultiGeometry child and that
-    this contains num_children LineStrings as its children.
+  def testCreateRoutePatternsFolderOnePattern(self):
+    folder = self.kmlwriter._CreateRoutePatternsFolder(
+        self.parent, self.feed.GetRoute('route_1'))
+    placemarks = folder.findall('Placemark')
+    self.assertEquals(len(placemarks), 1)
 
-    Args:
-      placemark: The placemark ElementTree.Element instance.
-      num_children: The expected number of LineStrings.
-    """
-    multi_geometry = placemark.find('MultiGeometry')
-    self.assert_(multi_geometry is not None)
-    self.assertEquals(len(multi_geometry), num_children)
-    for element in multi_geometry:
-      self.assertEquals(element.tag, 'LineString')
-
-  def testCreateRouteFlattenedPlacemark(self):
-    placemark = self.kmlwriter._CreateRouteFlattenedPlacemark(
+  def testCreateRoutePatternsFolderTwoPatterns(self):
+    folder = self.kmlwriter._CreateRoutePatternsFolder(
         self.parent, self.feed.GetRoute('route_3'))
-    self._CheckMultiGeometry(placemark, 2)
+    placemarks = folder.findall('Placemark')
+    self.assertEquals(len(placemarks), 2)
 
-  def testCreateRouteShapePlacemarkOneTripOneShape(self):
-    placemark = self.kmlwriter._CreateRouteShapePlacemark(
+  def testCreateRoutePatternFolderTwoEqualPatterns(self):
+    folder = self.kmlwriter._CreateRoutePatternsFolder(
+        self.parent, self.feed.GetRoute('route_4'))
+    placemarks = folder.findall('Placemark')
+    self.assertEquals(len(placemarks), 1)
+
+  def testCreateRouteShapesFolderOneTripOneShape(self):
+    folder = self.kmlwriter._CreateRouteShapesFolder(
         self.feed, self.parent, self.feed.GetRoute('route_1'))
-    self._CheckMultiGeometry(placemark, 1)
+    self.assertEqual(len(folder.findall('Placemark')), 1)
 
-  def testCreateRouteShapePlacemarkTwoTripsTwoShapes(self):
-    placemark = self.kmlwriter._CreateRouteShapePlacemark(
+  def testCreateRouteShapesFolderTwoTripsTwoShapes(self):
+    folder = self.kmlwriter._CreateRouteShapesFolder(
         self.feed, self.parent, self.feed.GetRoute('route_2'))
-    self._CheckMultiGeometry(placemark, 2)
+    self.assertEqual(len(folder.findall('Placemark')), 2)
 
-  def testCreateRouteShapePlacemarkTwoTripsOneShape(self):
-    placemark = self.kmlwriter._CreateRouteShapePlacemark(
+  def testCreateRouteShapesFolderTwoTripsOneShape(self):
+    folder = self.kmlwriter._CreateRouteShapesFolder(
         self.feed, self.parent, self.feed.GetRoute('route_3'))
-    self._CheckMultiGeometry(placemark, 1)
+    self.assertEqual(len(folder.findall('Placemark')), 1)
 
-  def testCreateRouteShapePlacemarkTwoTripsNoShape(self):
-    placemark = self.kmlwriter._CreateRouteShapePlacemark(
+  def testCreateRouteShapesFolderTwoTripsNoShapes(self):
+    folder = self.kmlwriter._CreateRouteShapesFolder(
         self.feed, self.parent, self.feed.GetRoute('route_4'))
-    self.assertEquals(placemark, None)
+    self.assert_(folder is None)
+
+  def testCreateRouteTripsFolderTwoTrips(self):
+    folder = self.kmlwriter._CreateRouteTripsFolder(
+        self.parent, self.feed.GetRoute('route_4'))
+    self.assertEquals(len(folder.findall('Placemark')), 2)
+
+  def testCreateRouteTripsFolderNoTrips(self):
+    folder = self.kmlwriter._CreateRouteTripsFolder(
+        self.parent, self.feed.GetRoute('route_7'))
+    self.assert_(folder is None)
 
   def testCreateRoutesFolderNoRoutes(self):
     schedule = transitfeed.Schedule()
@@ -360,9 +232,6 @@ class TestRouteKML(unittest.TestCase):
     self.assertEquals(len(styles), len(self.feed.GetRouteList()))
     route_folders = folder.findall('Folder')
     self.assertEquals(len(route_folders), len(self.feed.GetRouteList()))
-    if not show_trips:
-      for route_folder in route_folders:
-        self.assert_(route_folder.find('Folder') is None)
 
   def testCreateRoutesFolder(self):
     self._TestCreateRoutesFolder(False)
@@ -426,12 +295,12 @@ class TestTripsKML(unittest.TestCase):
 
   def testCreateTripsFolderForRouteNoTrips(self):
     route = self.feed.GetRoute('route_7')
-    folder = self.kmlwriter._CreateTripsFolderForRoute(self.parent, route)
+    folder = self.kmlwriter._CreateRouteTripsFolder(self.parent, route)
     self.assert_(folder is None)
 
   def testCreateTripsFolderForRoute(self):
     route = self.feed.GetRoute('route_2')
-    folder = self.kmlwriter._CreateTripsFolderForRoute(self.parent, route)
+    folder = self.kmlwriter._CreateRouteTripsFolder(self.parent, route)
     placemarks = folder.findall('Placemark')
     trip_placemarks = set()
     for placemark in placemarks:

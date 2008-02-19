@@ -281,22 +281,25 @@ class KMLWriter(object):
     Returns:
       The Folder ElementTree.Element instance or None if there are no patterns.
     """
-    pattern_to_trips = {}
-    for trip in route.trips:
-      pattern_to_trips.setdefault(trip.GetPattern(), []).append(trip)
-    if not pattern_to_trips:
+    pattern_id_to_trips = route.GetPatternIdTripDict()
+    if not pattern_id_to_trips:
       return None
 
+    # sort by number of trips using the pattern
+    pattern_trips = pattern_id_to_trips.values()
+    pattern_trips.sort(lambda a, b: cmp(len(b), len(a)))
+
     folder = self._CreateFolder(parent, 'Patterns', visible)
-    n = 1
-    for pattern in pattern_to_trips:
-      trip_ids = [trip.trip_id for trip in pattern_to_trips[pattern]]
-      description = 'Trips using this pattern: %s' % ', '.join(trip_ids)
-      placemark = self._CreatePlacemark(folder, 'Pattern %d' % n,
-                                        style_id, visible, description)
-      coordinates = [(stop.stop_lat, stop.stop_lon) for stop in pattern]
+    for n, trips in enumerate(pattern_trips):
+      trip_ids = [trip.trip_id for trip in trips]
+      name = 'Pattern %d (trips: %d)' % (n+1, len(trips))
+      description = 'Trips using this pattern (%d in total): %s' % (
+          len(trips), ', '.join(trip_ids))
+      placemark = self._CreatePlacemark(folder, name, style_id, visible,
+                                        description)
+      coordinates = [(stop.stop_lat, stop.stop_lon)
+                     for stop in trips[0].GetPattern()]
       self._CreateLineString(placemark, coordinates)
-      n += 1
     return folder
 
   def _CreateRouteShapesFolder(self, schedule, parent, route,
@@ -324,12 +327,18 @@ class KMLWriter(object):
     if not shape_id_to_trips:
       return None
 
+    # sort by the number of trips using the shape
+    shape_id_to_trips_items = shape_id_to_trips.items()
+    shape_id_to_trips_items.sort(lambda a, b: cmp(len(b[1]), len(a[1])))
+
     folder = self._CreateFolder(parent, 'Shapes', visible)
-    for shape_id in shape_id_to_trips:
-      trip_ids = [trip.trip_id for trip in shape_id_to_trips[shape_id]]
-      description = 'Trips using this shape: %s' % ', '.join(trip_ids)
-      placemark = self._CreatePlacemark(folder, shape_id,
-                                        style_id, visible, description)
+    for shape_id, trips in shape_id_to_trips_items:
+      trip_ids = [trip.trip_id for trip in trips]
+      name = '%s (trips: %d)' % (shape_id, len(trips))
+      description = 'Trips using this shape (%d in total): %s' % (
+          len(trips), ', '.join(trip_ids))
+      placemark = self._CreatePlacemark(folder, name, style_id, visible,
+                                        description)
       self._CreateLineStringForShape(placemark, schedule.GetShape(shape_id))
     return folder
 

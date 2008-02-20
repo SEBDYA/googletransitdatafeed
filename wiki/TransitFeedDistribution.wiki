@@ -33,6 +33,12 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.2 ====
+  * Changed #! from python2.4 to python2.5
+  * Check for rows missing cells. Contributed by Clancy
+  * fixed typo in FareRule
+  * kmlwriter much enhanced by Timothy. For each route output the shapes, patterns of stops and optionally a line for each trip
+
 ==== v1.1.1 ====
   * Schedule Viewer changes:
     * More accurate display of route names

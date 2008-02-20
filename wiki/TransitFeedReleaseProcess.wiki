@@ -6,7 +6,7 @@ Make sure you have nose installed. Run the tests in trunk in Linux and Windows. 
 
 = Find changes since last release =
 
-Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk}}}.
+Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}.
 
 = Tag release =
 
@@ -15,7 +15,10 @@ Check that {{{transitfeed.__version__}}} is correct. Then
 
 = Build and upload files =
 
-See also BuildingPythonWindowsExecutables. Build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project and update PyPI with {{{python setup.py register sdist}}}.
+See also BuildingPythonWindowsExecutables. Build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project. Then update PyPI with {{{python setup.py register sdist}}}.
 
+= Update change log = 
+
+Edit the wiki page TransitFeedDistribution using information gathered from svn log.
 
  

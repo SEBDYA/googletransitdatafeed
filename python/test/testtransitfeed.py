@@ -408,7 +408,7 @@ class DuplicateStopTestCase(unittest.TestCase):
 class MissingEndpointTimesTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(
-        problem_reporter=ExceptionProblemReporterNoExpiration(raise_warnings=False))
+        problem_reporter=ExceptionProblemReporterNoExpiration())
     try:
       schedule.Load(DataPath('missing_endpoint_times'), extra_validation=True)
       self.fail('InvalidValue exception expected')

@@ -1458,8 +1458,9 @@ class Agency(object):
                               '"%s" isn\'t a recognized time zone')
         return False
     except ImportError:  # no pytz
-      print ("Timezone not checked "
-             "(install pytz package for timezone validation)")
+      problems.OtherProblem('pytz package not installed. '
+                            'Time zone is not checked.',
+                            type=TYPE_WARNING)
     return True
 
 
@@ -2282,8 +2283,9 @@ class Loader:
       from chardet.universaldetector import UniversalDetector
       self._chardetector = UniversalDetector()
     except ImportError:  # no chardet
-      print ("Text encoding not checked "
-             "(install chardet for character detection)")
+        self._problems.OtherProblem('chardet package not installed. '
+                                    'Character encoding is not checked.',
+                                    type=TYPE_WARNING)
 
   def _DetermineFormat(self):
     """Determines whether the feed is in a form that we understand, and

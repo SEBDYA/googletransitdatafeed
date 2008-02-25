@@ -259,6 +259,7 @@ class LoadISO8859WarningTestCase(unittest.TestCase):
       self.fail('FileFormat exception expected')
     except transitfeed.FileFormat, e:
       self.assertTrue(re.search(r'detected as ISO-8859', e.FormatProblem()))
+      self.assertTrue(e.IsWarning())
 
 class LoadNullTestCase(unittest.TestCase):
   def runTest(self):

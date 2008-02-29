@@ -4,6 +4,11 @@
 = Introduction =
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
+== February 29, 2008 ==
+  * Added the stop_code field in stops.txt to allow for the specification of rider-facing stop codes ([http://groups.google.com/group/gtfs-changes/browse_thread/thread/93d03de5f6197b17 original proposal])
+  * Clarified the descriptions of route_short_name and route_long_name in routes.txt
+  * Clarified the descriptions of arrival_time and departure_time in stop_times.txt
+  * Fixed typos in the Sample Data section
 ====November 20, 2007====
   * Clarified block_id description
   * Changed language to de-emphasize Google Transit (since non-Google applications are using GTFS, and transit routing is now an integrated feature of Google Maps), and to fix assorted typos

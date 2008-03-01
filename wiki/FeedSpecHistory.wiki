@@ -61,6 +61,9 @@ Initial version.
 == Original Files ==
 The raw HTML files for each version of the specification are available below for historical reference.
 
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20080229.htm February 29, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20071120.htm November 20, 2007]||
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20071005.htm October 5, 2007]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070531.htm May 31, 2007]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070409.htm April 9, 2007]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20070308.htm March 8, 2007]||

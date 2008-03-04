@@ -13,7 +13,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.sacrt.com Sacramento RT] || Sacramento, CA || http://iportal.sacrt.com/GTFS/ || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.capmetro.org Capital Metro] || Austin, TX || http://www.capmetro.org/gisdata/google_transit.zip || Disclaimer and additional files/formats available on [http://www.capmetro.org/gisdata/gisdata.asp their GIS Data page] ||
 || [http://www.hta.org/ Humbolt Transit Authority] || Humboldt County, CA || http://www.transitinfosolutions.com/transit_feeds/humboldt/ || ||
-|| [http://www.hta.org/ Humbolt Transit Authority] || Rio Vista, CA || http://www.trilliumtransit.com/transit_feeds/rio_vista/ || ||
+|| [http://www.rio-vista-ca.com/transit/ Rio Vista Delta Breeze] || Rio Vista, CA || http://www.trilliumtransit.com/transit_feeds/rio_vista/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

@@ -10,7 +10,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.bart.gov/ BART] || San Francisco Bay Area, CA || http://www.bart.gov/dev/schedules/ || Use is subject to the terms of their [http://www.bart.gov/dev/schedules/license.htm developer license]. Additional information at [http://www.bart.gov/open] ||
 || [http://www.dart.org DART] || Dallas, TX || http://www.dart.org/transitdata/ || Please read [http://www.dart.org/transitdata/legalnotices.asp legal notice] ||
 || [http://www.octa.net OCTA] || Orange County, CA || http://www.octa.net/google/ || ||
-|| [http://www.sacrt.com Sacramento RT] || Sacramento, CA || http://iportal.sacrt.com/GTFS/ || [http://www.sacrt.com/gtfs.stm License Agreement] ||
+|| [http://www.sacrt.com Sacramento RT] || Sacramento, CA || http://iportal.sacrt.com/GTFS/SRTD || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.capmetro.org Capital Metro] || Austin, TX || http://www.capmetro.org/gisdata/google_transit.zip || Disclaimer and additional files/formats available on [http://www.capmetro.org/gisdata/gisdata.asp their GIS Data page] ||
 || [http://www.hta.org/ Humbolt Transit Authority] || Humboldt County, CA || http://www.transitinfosolutions.com/transit_feeds/humboldt/ || ||
 || [http://www.rio-vista-ca.com/transit/ Rio Vista Delta Breeze] || Rio Vista, CA || http://www.trilliumtransit.com/transit_feeds/rio_vista/ || ||

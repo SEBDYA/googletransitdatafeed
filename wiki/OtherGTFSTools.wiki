@@ -6,5 +6,5 @@ The Google Transit Feed Specification is used by several non-Google applications
   * [http://graphserver.sourceforge.net/ Graphserver] is an open-source transit (and more) routing engine, with support for Google Transit Feed Spec feeds
   * GIRO's HASTUS transit scheduling software has a [http://www.giro.ca/en/press-room/press-releases/google-transit-200612.htm GTFS export option].
   * Trapeze [http://www.trapezegroup.com/solutions/pt_google.php offers a GTFS export tool] for their Trapeze FX schedule management software.
-
-
+  * Next Insight Transportation Software offers a [http://nextinsight.com/products/ Google Transit Feed Creator]
+  * Trillum offers custom-designed transit websites and a web-based schedule manager with [http://transitinfosolutions.com/services/ Google Transit export]

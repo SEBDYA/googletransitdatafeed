@@ -8,4 +8,4 @@ The Google Transit Feed Specification is used by several non-Google applications
   * Trapeze [http://www.trapezegroup.com/solutions/pt_google.php offers a GTFS export tool] for their Trapeze FX schedule management software.
   * Next Insight Transportation Software offers a [http://nextinsight.com/products/ Google Transit Feed Creator]
   * Trillum Solutions (formally Transit Info Solutions) offers custom-designed transit websites and a web-based schedule manager with [http://www.trilliumtransit.com/services/ Google Transit export]
-  * [http://www.merakas.lt Merakas] is a Lithuanian company whose transit software can read and write GTFS.
+  * [http://www.merakas.lt Merakas] is a Lithuanian company whose [http://www.merakas.lt/en/pikas/index.html PikasPHP] transit software can read and write GTFS.  (An example deployment for Vilnius, Lithuania can be seen [http://www.marsrutai.lt/vilnius/?a=p.routes&transport_id=bus&t=xhtml&l=en here].)

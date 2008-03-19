@@ -461,8 +461,8 @@ class TestServicePeriodMerger(unittest.TestCase):
     merged_schedule = self.fm.GetMergedSchedule()
     self.assertEquals(len(merged_schedule.GetServicePeriodList()), 2)
 
-    # set fields to contain all the service period attributes except service_id
-    fields = transitfeed.ServicePeriod._DAYS_OF_WEEK
+    # make fields a copy of the service period attributes except service_id
+    fields = list(transitfeed.ServicePeriod._DAYS_OF_WEEK)
     fields += ['start_date', 'end_date']
 
     # now check that these attributes are preserved in the merge

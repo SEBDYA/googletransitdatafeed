@@ -962,15 +962,17 @@ class RouteMerger(DataSetMerger):
     migrated_route = transitfeed.Route(field_list=entity.GetFieldValuesTuple())
     if newid:
       migrated_route.route_id = self.feed_merger.GenerateId(entity.route_id)
-    if entity.agency_id is not None:
+    if entity.agency_id:
       original_agency = schedule.GetAgency(entity.agency_id)
+    else:
+      original_agency = schedule.GetDefaultAgency()
 
-      # TODO: either use schedule to find the correct map or switch to
-      # a single map
-      migrated_agency = (self.feed_merger.a_merge_map.get(original_agency) or
-                         self.feed_merger.b_merge_map.get(original_agency))
+    # TODO: either use schedule to find the correct map or switch to
+    # a single map
+    migrated_agency = (self.feed_merger.a_merge_map.get(original_agency) or
+                       self.feed_merger.b_merge_map.get(original_agency))
 
-      migrated_route.agency_id = migrated_agency.agency_id
+    migrated_route.agency_id = migrated_agency.agency_id
     return migrated_route
 
   def _Add(self, a, b, migrated_route):

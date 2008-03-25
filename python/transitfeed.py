@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4
+#!/usr/bin/python2.5
 
 # Copyright (C) 2007 Google Inc.
 #
@@ -56,7 +56,7 @@ import zipfile
 OUTPUT_ENCODING = 'utf-8'
 
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 
 def EncodeUnicode(text):
@@ -1215,7 +1215,11 @@ class Fare(object):
     if self.GetFieldValuesTuple() != other.GetFieldValuesTuple():
       return False
 
-    return self.GetFareRuleList() == other.GetFareRuleList()
+    self_rules = [r.GetFieldValuesTuple() for r in self.GetFareRuleList()]
+    self_rules.sort()
+    other_rules = [r.GetFieldValuesTuple() for r in other.GetFareRuleList()]
+    other_rules.sort()
+    return self_rules == other_rules
 
   def __ne__(self, other):
     return not self.__eq__(other)
@@ -1274,7 +1278,7 @@ class FareRule(object):
      self.contains_id) = \
      (fare_id, route_id, origin_id, destination_id, contains_id)
     if field_list:
-      (self.fare_id, self.route_id, self.origin_id, self.destionation_id,
+      (self.fare_id, self.route_id, self.origin_id, self.destination_id,
        self.contains_id) = field_list
 
     # canonicalize non-content values as None
@@ -2355,6 +2359,14 @@ class Loader:
                                     'the header (first line) does.' %
                                     (row_num, file_name), (file_name, row_num),
                                     type=TYPE_WARNING)
+
+      if len(row) < len(header):
+        self._problems.OtherProblem('Found missing cells (commas) in line '
+								    '%d of file "%s".  Every row in the file '
+								    'should have the same number of cells as '
+								    'the header (first line) does.' %
+								    (row_num, file_name), (file_name, row_num),
+								    type=TYPE_WARNING)
 
       result = [None] * len(cols)
       for i in range(len(cols)):

@@ -225,11 +225,14 @@ FeedValidator</a> version %s on %s.
 
     f.write(transitfeed.EncodeUnicode(output_prefix))
     if self._error_output:
+      if self._warning_output:
+        f.write('<a href="#warnings">jump to warnings</a>')
       f.write('<h3 class="issueHeader">Errors:</h3><ol>')
       f.writelines(self._error_output)
       f.write('</ol>')
     if self._warning_output:
-      f.write('<h3 class="issueHeader">Warnings:</h3><ol>')
+      f.write('<a name="warnings">'
+              '<h3 class="issueHeader">Warnings:</h3></a><ol>')
       f.writelines(self._warning_output)
       f.write('</ol>')
     f.write(transitfeed.EncodeUnicode(output_suffix))

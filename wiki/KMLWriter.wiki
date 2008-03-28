@@ -4,7 +4,7 @@
 
 The kmlwriter is a command line tool that plots the stops, trips and shapes defined in a Google Transit Feed as a KML file that can be viewed in Google Earth or any other application that uses KML files.  Using it can help confirm that the stops and shapes are located in the right place. It also provides a 3d visualization of your trips that can help you find certain types of errors in your stop_times file.
 
-http://googletransitdatafeed.googlecode.com/svn/wiki/images/kmlwriter-bart-trips.jpeg
+[http://googletransitdatafeed.googlecode.com/svn/wiki/images/kmlwriter-bart-trips.jpeg http://googletransitdatafeed.googlecode.com/svn/wiki/images/kmlwriter-bart-trips-small.jpeg]
   Bart trips displayed with the --showtrips option
 
 = Installing =

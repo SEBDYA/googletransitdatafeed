@@ -227,7 +227,7 @@ class TestRouteKML(unittest.TestCase):
         return trip_placemark
 
   def testCreateRouteTripsFolderAltitude0(self):
-    self.kmlwriter.altitude_per_s = 0.0
+    self.kmlwriter.altitude_per_sec = 0.0
     folder = self.kmlwriter._CreateRouteTripsFolder(
         self.parent, self.feed.GetRoute('route_4'))
     trip_placemark = self._GetTripPlacemark(folder, 'route_4_1')
@@ -238,16 +238,16 @@ class TestRouteKML(unittest.TestCase):
                      '-116.817970,36.881080</coordinates></LineString>')
 
   def testCreateRouteTripsFolderAltitude1(self):
-    self.kmlwriter.altitude_per_s = 1.0
+    self.kmlwriter.altitude_per_sec = 0.5
     folder = self.kmlwriter._CreateRouteTripsFolder(
         self.parent, self.feed.GetRoute('route_4'))
     trip_placemark = self._GetTripPlacemark(folder, 'route_4_1')
     self.assertEqual(_ElementToString(trip_placemark.find('LineString')),
                      '<LineString><tessellate>1</tessellate>'
                      '<altitudeMode>absolute</altitudeMode>'
-                     '<coordinates>-117.133162,36.425288,7200.000000 '
-                     '-116.784582,36.868446,10800.000000 '
-                     '-116.817970,36.881080,14400.000000</coordinates>'
+                     '<coordinates>-117.133162,36.425288,3600.000000 '
+                     '-116.784582,36.868446,5400.000000 '
+                     '-116.817970,36.881080,7200.000000</coordinates>'
                      '</LineString>')
 
   def testCreateRouteTripsFolderNoTrips(self):
@@ -289,7 +289,6 @@ class TestShapesKML(unittest.TestCase):
   """Tests the shapes folder KML generation methods of KMLWriter."""
 
   def setUp(self):
-    print transitfeed.__file__
     self.flatten_feed = transitfeed.Loader(DataPath('flatten_feed')).Load()
     self.good_feed = transitfeed.Loader(DataPath('good_feed.zip')).Load()
     self.kmlwriter = kmlwriter.KMLWriter()

@@ -90,7 +90,7 @@ class KMLWriter(object):
     """Initialise."""
     self.show_trips = False
     self.split_routes = False
-    self.altitude_per_s = 0.0
+    self.altitude_per_sec = 0.0
 
   def _SetIndentation(self, elem, level=0):
     """Indented the ElementTree DOM.
@@ -381,9 +381,9 @@ class KMLWriter(object):
 
       coordinate_list = []
       for secs, stoptime, tp in trip.GetTimeInterpolatedStops():
-        if self.altitude_per_s > 0:
+        if self.altitude_per_sec > 0:
           coordinate_list.append((stoptime.stop.stop_lon, stoptime.stop.stop_lat,
-                                  (secs - 3600 * 4) * self.altitude_per_s))
+                                  (secs - 3600 * 4) * self.altitude_per_sec))
         else:
           coordinate_list.append((stoptime.stop.stop_lon,
                                   stoptime.stop.stop_lat))
@@ -552,9 +552,9 @@ def main():
   parser.add_option('-t', '--showtrips', action='store_true',
                     dest='show_trips',
                     help='include the individual trips for each route')
-  parser.add_option('-a', '--altitude_per_s', action='store', type='float',
+  parser.add_option('-a', '--altitude_per_sec', action='store', type='float',
                     default=1.0,
-                    dest='altitude_per_s',
+                    dest='altitude_per_sec',
                     help='if greater than 0 trips are drawn with time axis '
                     'set to this many meters high for each second of time')
   parser.add_option('-s', '--splitroutes', action='store_true',
@@ -583,7 +583,7 @@ def main():
   print "Writing %s" % output_path
   writer = KMLWriter()
   writer.show_trips = options.show_trips
-  writer.altitude_per_s = options.altitude_per_s
+  writer.altitude_per_sec = options.altitude_per_sec
   writer.split_routes = options.split_routes
   writer.Write(feed, output_path)
 

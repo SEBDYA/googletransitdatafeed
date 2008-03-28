@@ -1418,7 +1418,7 @@ class Shape(object):
 class Agency(object):
   """Represents an agency in a schedule"""
   _REQUIRED_FIELD_NAMES = ['agency_name', 'agency_url', 'agency_timezone']
-  _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['agency_id', 'agency_lang']
+  _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['agency_id']
 
   def __init__(self, name=None, url=None, timezone=None, id=None,
                field_list=None, agency_url=None, agency_name=None,

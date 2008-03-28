@@ -2,24 +2,31 @@
 
 = Introduction =
 
-The kmlwriter is a command line tool that plots the stops defined in a Google Transit Feed as a KML file that can be viewed in Google Earth (or any other application that uses KML files).  Using it can help confirm that the stops within your Google Transit Feed are located in the right place.
+The kmlwriter is a command line tool that plots the stops, trips and shapes defined in a Google Transit Feed as a KML file that can be viewed in Google Earth or any other application that uses KML files.  Using it can help confirm that the stops and shapes are located in the right place. It also provides a 3d visualization of your trips that can help you find certain types of errors in your stop_times file.
 
+http://googletransitdatafeed.googlecode.com/svn/wiki/images/kmlwriter-bart-trips.jpeg
+  Bart trips displayed with the --showtrips option
 
-= Python source code version =
+= Installing =
 
-Use this version if you're on Mac OS X or Linux.
+kmlwriter is part of the transitfeed distribution. Installation instructions for all operating systems can be found on the TransitFeedDistribution page. kmlwriter depends on !ElementTree, which you might need to install manually.
 
-Before you run the kmlwriter you must install Python 2.4 or 2.5. You can download it from http://www.python.org/download/
-
-The kmlwriter also requires ElementTree, which can be installed using easy_install.
-
-Fetch the kmlwriter from our source code repository (see Source tab above) or by directly downloading http://googletransitdatafeed.googlecode.com/svn/trunk/python/kmlwriter.py and http://googletransitdatafeed.googlecode.com/svn/trunk/python/transitfeed.py to the same directory.
+Instead of installing the transitfeed distribution you may download http://googletransitdatafeed.googlecode.com/svn/trunk/python/kmlwriter.py and http://googletransitdatafeed.googlecode.com/svn/trunk/python/transitfeed.py to the same directory.
 
 == Running ==
 
 Run the feed validator as
 {{{
-kmlwriter.py <input GTFS filename> [<output KML filename>]
+kmlwriter.py [options] <input GTFS filename> [<output KML filename>]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -t, --showtrips       include the individual trips for each route
+  -a ALTITUDE_PER_SEC, --altitude_per_sec=ALTITUDE_PER_SEC
+                        if greater than 0 trips are drawn with time axis set
+                        to this many meters high for each second of time
+  -s, --splitroutes     split the routes by type
 }}}
 
 The warning "Timezone not checked (install pytz package for timezone validation)" is normal. kmlwriter can not check the spelling of the agency_timezone until you install the pytz package.

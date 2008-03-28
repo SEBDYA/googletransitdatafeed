@@ -291,7 +291,8 @@ class UnrecognizedColumn(ExceptionWithContext):
                'This might be a misspelled column name (capitalization ' \
                'matters!). Or it could be extra information (such as a ' \
                'proposed feed extension) that the validator doesn\'t know ' \
-               'about yet.'
+               'about yet. Extra information is fine; this warning is here ' \
+               'to catch misspelled optional column names.'
 
 class MissingValue(ExceptionWithContext):
   ERROR_TEXT = 'Missing value for column %(column_name)s'
@@ -1417,7 +1418,7 @@ class Shape(object):
 class Agency(object):
   """Represents an agency in a schedule"""
   _REQUIRED_FIELD_NAMES = ['agency_name', 'agency_url', 'agency_timezone']
-  _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['agency_id']
+  _FIELD_NAMES = _REQUIRED_FIELD_NAMES + ['agency_id', 'agency_lang']
 
   def __init__(self, name=None, url=None, timezone=None, id=None,
                field_list=None, agency_url=None, agency_name=None,
@@ -2354,13 +2355,11 @@ class Loader:
     
     # check for unrecognized columns, which are often misspellings
     unknown_cols = set(header).difference(set(cols))
-    if unknown_cols:
-      for col in unknown_cols:
-        # this is provided in order to create a nice colored list of
-        # columns in the validator output
-        self._problems.SetFileContext(file_name, 1, [''] * len(header), header)
-        self._problems.UnrecognizedColumn(file_name, col)
-        self._problems.ClearContext()
+    for col in unknown_cols:
+      # this is provided in order to create a nice colored list of
+      # columns in the validator output
+      context = (file_name, 1, [''] * len(header), header)
+      self._problems.UnrecognizedColumn(file_name, col, context)
 
     col_index = [-1] * len(cols)
     for i in range(len(cols)):

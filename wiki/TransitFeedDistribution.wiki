@@ -19,6 +19,8 @@ If you just want to run the tools you may download prebuilt Windows programs fro
 
 == Install source distribution ==
 
+Some features of the distribution depend on !ElementTree (added to Python's standard library in version 2.5) and pytz. You may need to install these manually.
+
 `easy_install transitfeed` will download and install transitfeed and the scripts that come with it.
 
 If you don't have easy_install on your computer you may download `transitfeed-<version>.tar.gz` from [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section]. Expand with `tar -xzf transitfeed-<version>.tar.gz`. You may run the tools directly from the expanded directory or run `python2.4 setup.py install`.

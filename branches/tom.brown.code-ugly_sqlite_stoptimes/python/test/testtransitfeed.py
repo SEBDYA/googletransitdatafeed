@@ -40,6 +40,10 @@ class ExceptionProblemReporterNoExpiration(
     transitfeed.ExceptionProblemReporter):
   """This version, used for most tests, ignores feed expiration problems,
      so that we don't need to keep updating the dates in our tests."""
+
+  def __init__(self):
+    transitfeed.ExceptionProblemReporter.__init__(self, raise_warnings=True)
+
   def ExpirationDate(self, expiration, context=None):
     pass  # We don't want to give errors about our test data
 
@@ -56,6 +60,21 @@ class TestFailureProblemReporter(transitfeed.ProblemReporter):
   def _Report(self, problem_text):
     self.test_case.fail(problem_text)
 
+class UnrecognizedColumnRecorder(transitfeed.ProblemReporter):
+  """Keeps track of unrecognized column errors."""
+  def __init__(self, test_case):
+    transitfeed.ProblemReporter.__init__(self)
+    self.test_case = test_case
+    self.column_errors = []
+    
+  def UnrecognizedColumn(self, file_name, column_name, context=None):
+    self.column_errors.append((file_name, column_name))
+    
+  def ExpirationDate(self, expiration, context=None):
+    pass  # We don't want to give errors about our test data
+
+  def _Report(self, problem_text):
+    self.test_case.fail(problem_text)
 
 class RedirectStdOutTestCaseBase(unittest.TestCase):
   """Save stdout to the StringIO buffer self.this_stdout"""
@@ -162,9 +181,35 @@ class LoadUnknownFormatTestCase(unittest.TestCase):
     except transitfeed.UnknownFormat, e:
       self.assertEqual(feed_name, e.feed_name)
 
+class LoadUnrecognizedColumnsTestCase(unittest.TestCase):
+  def runTest(self):
+    problems = UnrecognizedColumnRecorder(self)
+    loader = transitfeed.Loader(DataPath('unrecognized_columns'),
+                                problems=problems)
+    loader.Load()
+    found_errors = set(problems.column_errors)
+    expected_errors = set([
+      ('agency.txt', 'agency_lange'),
+      ('stops.txt', 'stop_uri'),
+      ('routes.txt', 'Route_Text_Color'),
+      ('calendar.txt', 'leap_day'),
+      ('calendar_dates.txt', 'leap_day'),
+      ('trips.txt', 'sharpe_id'),
+      ('stop_times.txt', 'shapedisttraveled'),
+      ('stop_times.txt', 'drop_off_time'),
+      ('fare_attributes.txt', 'transfer_time'),
+      ('fare_rules.txt', 'source_id'),
+      ('frequencies.txt', 'superfluous')
+    ])
+    
+    # Now make sure we got the unrecognized column errors that we expected.
+    not_expected = found_errors.difference(expected_errors)
+    self.failIf(not_expected, 'unexpected errors: %s' % str(not_expected))
+    not_found = expected_errors.difference(found_errors)
+    self.failIf(not_found, 'expected but not found: %s' % str(not_found))
 
 class LoadExtraCellValidationTestCase(unittest.TestCase):
-  """Checks to see that the validation detects too many cells in a row."""
+  """Check that the validation detects too many cells in a row."""
   def runTest(self):
     feed_name = DataPath('extra_row_cells')
     loader = transitfeed.Loader(
@@ -177,6 +222,19 @@ class LoadExtraCellValidationTestCase(unittest.TestCase):
     except transitfeed.OtherProblem:
       pass
 
+class LoadMissingCellValidationTestCase(unittest.TestCase):
+  """Check that the validation detects missing cells in a row."""
+  def runTest(self):
+    feed_name = DataPath('missing_row_cells')
+    loader = transitfeed.Loader(
+      feed_name,
+      problems = ExceptionProblemReporterNoExpiration(),
+      extra_validation = True)
+    try:
+      loader.Load()
+      self.fail('OtherProblem exception expected')
+    except transitfeed.OtherProblem:
+      pass
 
 class LoadUTF8BOMTestCase(unittest.TestCase):
   def runTest(self):
@@ -332,6 +390,11 @@ class MissingColumnTestCase(unittest.TestCase):
       self.assertEqual('agency_name', e.column_name)
 
 
+class ZeroBasedStopSequenceTestCase(LoadTestCase):
+  def runTest(self):
+    self.ExpectInvalidValue('negative_stop_sequence', 'stop_sequence')
+
+
 class DuplicateStopTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(
@@ -365,6 +428,19 @@ class DuplicateScheduleIDTestCase(unittest.TestCase):
     except transitfeed.DuplicateID:
       pass
 
+class ColorLuminanceTestCase(unittest.TestCase):
+  def runTest(self):
+    self.assertEqual(transitfeed.ColorLuminance('000000'), 0,
+        "ColorLuminance('000000') should be zero")
+    self.assertEqual(transitfeed.ColorLuminance('FFFFFF'), 255*7,
+        "ColorLuminance('FFFFFF') should be 255*7 = 1785")
+    RGBmsg = "ColorLuminance('RRGGBB') should be 2*<Red>+4*<Green>+<Blue>"
+    self.assertEqual(transitfeed.ColorLuminance('800000'), 2*128, RGBmsg)
+    self.assertEqual(transitfeed.ColorLuminance('008000'), 4*128, RGBmsg)
+    self.assertEqual(transitfeed.ColorLuminance('000080'), 1*128, RGBmsg)
+    self.assertEqual(transitfeed.ColorLuminance('1171B3'), 17*2 + 113*4 + 179*1,
+        RGBmsg)
+    pass
 
 INVALID_VALUE = Exception()
 class ValidationTestCase(unittest.TestCase):
@@ -539,6 +615,7 @@ class StopTimeValidationTestCase(ValidationTestCase):
         departure_time="10:05:00", pickup_type='1', drop_off_type='1')
     transitfeed.StopTime(self.problems, stop)
 
+
 class RouteValidationTestCase(ValidationTestCase):
   def runTest(self):
     # success case
@@ -611,6 +688,29 @@ class RouteValidationTestCase(ValidationTestCase):
     route.route_id = None
     self.ExpectMissingValue(route, 'route_id')
     route.route_id = '054C'
+
+    # bad color contrast
+    route.route_text_color = None # black
+    route.route_color = '0000FF'  # Bad
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_color = '00BF00'  # OK
+    route.Validate(self.problems)
+    route.route_color = '005F00'  # Bad
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_color = 'FF00FF'  # OK
+    route.Validate(self.problems)
+    route.route_text_color = 'FFFFFF' # OK too
+    route.Validate(self.problems)
+    route.route_text_color = '00FF00' # think of color-blind people!
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_text_color = '007F00'
+    route.route_color = 'FF0000'
+    self.ExpectInvalidValue(route, 'route_color')
+    route.route_color = '00FFFF'      # OK
+    route.Validate(self.problems)
+    route.route_text_color = None # black
+    route.route_color = None      # white
+    route.Validate(self.problems)
 
 
 class ShapeValidationTestCase(ValidationTestCase):
@@ -888,7 +988,7 @@ class TripValidationTestCase(ValidationTestCase):
     self.ExpectOtherProblem(trip)
     trip.ClearHeadwayPeriods()
 
-    
+
 class TripServiceIDValidationTestCase(ValidationTestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(self.problems)
@@ -899,7 +999,7 @@ class TripServiceIDValidationTestCase(ValidationTestCase):
     service_period.SetEndDate("20071231")
     service_period.SetWeekdayService(True)
     schedule.AddServicePeriodObject(service_period)
-    
+
     schedule.AddRouteObject(
         transitfeed.Route("54C", "Polish Hill", 3, "054C"))
 
@@ -913,7 +1013,7 @@ class TripServiceIDValidationTestCase(ValidationTestCase):
     except transitfeed.InvalidValue, e:
       self.assertEqual("service_id", e.column_name)
       self.assertEqual("WEEKDAY", e.value)
-    
+
 
 class TripHasStopTimeValidationTestCase(ValidationTestCase):
   def runTest(self):
@@ -1117,7 +1217,8 @@ class AddStopTimeParametersTestCase(unittest.TestCase):
 class ExpirationDateTestCase(unittest.TestCase):
   def runTest(self):
     schedule = transitfeed.Schedule(
-        problem_reporter=transitfeed.ExceptionProblemReporter())
+        problem_reporter=transitfeed.ExceptionProblemReporter(
+            raise_warnings=True))
 
     now = time.mktime(time.localtime())
     seconds_per_day = 60 * 60 * 24
@@ -1266,7 +1367,7 @@ class MinimalWriteTestCase(TempFileTestCaseBase):
   """
   This test case simply constructs an incomplete feed with very few
   fields set and ensures that there are no exceptions when writing it out.
-  
+
   This is very similar to TransitFeedSampleCodeTestCase below, but that one
   will no doubt change as the sample code is altered.
   """
@@ -1311,8 +1412,8 @@ class MinimalWriteTestCase(TempFileTestCaseBase):
 
     schedule.Validate()
     schedule.WriteGoogleTransitFeed(self.tempfilepath)
-    
-    
+
+
 class TransitFeedSampleCodeTestCase(unittest.TestCase):
   """
   This test should simply contain the sample code printed on the page:
@@ -1614,21 +1715,22 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     stops = []
     stop_data = [
         ("FUR_CREEK_RES", "Furnace Creek Resort (Demo)",
-         36.425288, -117.133162),
+         36.425288, -117.133162, "zone-a"),
         ("BEATTY_AIRPORT", "Nye County Airport (Demo)",
-         36.868446, -116.784682),
-        ("BULLFROG", "Bullfrog (Demo)", 36.88108, -116.81797),
+         36.868446, -116.784682, "zone-a"),
+        ("BULLFROG", "Bullfrog (Demo)", 36.88108, -116.81797, "zone-b"),
         ("STAGECOACH", "Stagecoach Hotel & Casino (Demo)",
-         36.915682, -116.751677),
-        ("NADAV", "North Ave / D Ave N (Demo)", 36.914893, -116.76821),
-        ("NANAA", "North Ave / N A Ave (Demo)", 36.914944, -116.761472),
-        ("DADAN", "Doing AVe / D Ave N (Demo)", 36.909489, -116.768242),
-        ("EMSI", "E Main St / S Irving St (Demo)", 36.905697, -116.76218),
-        ("AMV", "Amargosa Valley (Demo)", 36.641496, -116.40094),
+         36.915682, -116.751677, "zone-c"),
+        ("NADAV", "North Ave / D Ave N (Demo)", 36.914893, -116.76821, ""),
+        ("NANAA", "North Ave / N A Ave (Demo)", 36.914944, -116.761472, ""),
+        ("DADAN", "Doing AVe / D Ave N (Demo)", 36.909489, -116.768242, ""),
+        ("EMSI", "E Main St / S Irving St (Demo)", 36.905697, -116.76218, ""),
+        ("AMV", "Amargosa Valley (Demo)", 36.641496, -116.40094, ""),
       ]
     for stop_entry in stop_data:
       stop = transitfeed.Stop()
-      (stop.stop_id, stop.stop_name, stop.stop_lat, stop.stop_lon) = stop_entry
+      (stop.stop_id, stop.stop_name, stop.stop_lat, stop.stop_lon,
+          stop.zone_id) = stop_entry
       schedule.AddStopObject(stop)
       stops.append(stop)
 
@@ -1737,14 +1839,16 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
       schedule.AddFareObject(fare)
 
     fare_rule_data = [
-        ("p", "AB"),
-        ("p", "STBA"),
-        ("p", "BFC"),
-        ("a", "AAMV"),
+        ("p", "AB", "zone-a", "zone-b", None),
+        ("p", "STBA", "zone-a", None, "zone-c"),
+        ("p", "BFC", None, "zone-b", "zone-a"),
+        ("a", "AAMV", None, None, None),
       ]
 
-    for fare_rule_entry in fare_rule_data:
-      rule = transitfeed.FareRule(fare_rule_entry[0], fare_rule_entry[1])
+    for fare_id, route_id, orig_id, dest_id, contains_id in fare_rule_data:
+      rule = transitfeed.FareRule(
+          fare_id=fare_id, route_id=route_id, origin_id=orig_id,
+          destination_id=dest_id, contains_id=contains_id)
       schedule.AddFareRuleObject(rule, problems)
 
     schedule.Validate(problems)
@@ -1798,6 +1902,20 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     self.assertEqual(len(fares), len(read_schedule.GetFareList()))
     for fare in fares:
       self.assertEqual(fare, read_schedule.GetFare(fare.fare_id))
+
+    read_fare_rules_data = []
+    for fare in read_schedule.GetFareList():
+      for rule in fare.GetFareRuleList():
+        self.assertEqual(fare.fare_id, rule.fare_id)
+        read_fare_rules_data.append((fare.fare_id, rule.route_id,
+                                     rule.origin_id, rule.destination_id,
+                                     rule.contains_id))
+    fare_rule_data.sort()
+    read_fare_rules_data.sort()
+    self.assertEqual(len(read_fare_rules_data), len(fare_rule_data))
+    for rf, f in zip(read_fare_rules_data, fare_rule_data):
+      self.assertEqual(rf, f)
+
 
     self.assertEqual(1, len(read_schedule.GetShapeList()))
     self.assertEqual(shape, read_schedule.GetShape(shape.shape_id))
@@ -1946,7 +2064,6 @@ class DefaultServicePeriodTestCase(unittest.TestCase):
     schedule.AddServicePeriodObject(service2)
     service_d = schedule.GetDefaultServicePeriod()
     self.assertEqual(service_d, None)
-
 
 class GetTripTimeTestCase(unittest.TestCase):
   """Test for GetStopTimeTrips and GetTimeInterpolatedStops"""

@@ -69,7 +69,7 @@ OUTPUT_ENCODING = 'utf-8'
 
 sqlite.paramstyle = 'qmark'
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 
 def EncodeUnicode(text):
@@ -81,10 +81,18 @@ def EncodeUnicode(text):
   else:
     return text
 
+
+# These are used to distinguish between errors (not allowed by the spec)
+# and warnings (not recommended) when reporting issues.
+TYPE_ERROR = 0
+TYPE_WARNING = 1
+
+
 class ProblemReporterBase:
   """Base class for problem reporters. Tracks the current context and creates
   an exception object for each problem. Subclasses must implement
   _Report(self, e)"""
+
   def __init__(self):
     self.ClearContext()
 
@@ -132,15 +140,22 @@ class ProblemReporterBase:
     e = MissingColumn(file_name=file_name, column_name=column_name,
                       context=context, context2=self._context)
     self._Report(e)
+    
+  def UnrecognizedColumn(self, file_name, column_name, context=None):
+    e = UnrecognizedColumn(file_name=file_name, column_name=column_name,
+                           context=context, context2=self._context,
+                           type=TYPE_WARNING)
+    self._Report(e)
 
   def MissingValue(self, column_name, reason=None, context=None):
     e = MissingValue(column_name=column_name, reason=reason, context=context,
                      context2=self._context)
     self._Report(e)
 
-  def InvalidValue(self, column_name, value, reason=None, context=None):
+  def InvalidValue(self, column_name, value, reason=None, context=None,
+                   type=TYPE_ERROR):
     e = InvalidValue(column_name=column_name, value=value, reason=reason,
-                     context=context, context2=self._context)
+                     context=context, context2=self._context, type=type)
     self._Report(e)
 
   def DuplicateID(self, column_name, value, context=None):
@@ -150,17 +165,17 @@ class ProblemReporterBase:
 
   def UnusedStop(self, stop_id, stop_name, context=None):
     e = UnusedStop(stop_id=stop_id, stop_name=stop_name,
-                   context=context, context2=self._context)
+                   context=context, context2=self._context, type=TYPE_WARNING)
     self._Report(e)
 
   def ExpirationDate(self, expiration, context=None):
     e = ExpirationDate(expiration=expiration, context=context,
-                       context2=self._context)
+                       context2=self._context, type=TYPE_WARNING)
     self._Report(e)
 
-  def OtherProblem(self, description, context=None):
+  def OtherProblem(self, description, context=None, type=TYPE_ERROR):
     e = OtherProblem(description=description,
-                    context=context, context2=self._context)
+                    context=context, context2=self._context, type=type)
     self._Report(e)
 
 class ProblemReporter(ProblemReporterBase):
@@ -205,6 +220,20 @@ class ExceptionWithContext(Exception):
       self.__dict__.update(self.ContextTupleToDict(context2))
     self.__dict__.update(kwargs)
 
+    if ('type' in kwargs) and (kwargs['type'] == TYPE_WARNING):
+      self._type = TYPE_WARNING
+    else:
+      self._type = TYPE_ERROR
+
+  def GetType(self):
+    return self._type
+
+  def IsError(self):
+    return self._type == TYPE_ERROR
+
+  def IsWarning(self):
+    return self._type == TYPE_WARNING
+
   CONTEXT_PARTS = ['file_name', 'row_num', 'row', 'headers']
   @staticmethod
   def ContextTupleToDict(context):
@@ -232,7 +261,7 @@ class ExceptionWithContext(Exception):
     if not d:
       d = self.__dict__
     output_error_text = self.__class__.ERROR_TEXT % d
-    if 'reason' in d:
+    if ('reason' in d) and d['reason']:
       return '%s\n%s' % (output_error_text, d['reason'])
     else:
       return output_error_text
@@ -270,6 +299,14 @@ class FileFormat(ExceptionWithContext):
 class MissingColumn(ExceptionWithContext):
   ERROR_TEXT = 'Missing column %(column_name)s in file %(file_name)s'
 
+class UnrecognizedColumn(ExceptionWithContext):
+  ERROR_TEXT = 'Unrecognized column %(column_name)s in file %(file_name)s. ' \
+               'This might be a misspelled column name (capitalization ' \
+               'matters!). Or it could be extra information (such as a ' \
+               'proposed feed extension) that the validator doesn\'t know ' \
+               'about yet. Extra information is fine; this warning is here ' \
+               'to catch misspelled optional column names.'
+
 class MissingValue(ExceptionWithContext):
   ERROR_TEXT = 'Missing value for column %(column_name)s'
 
@@ -298,9 +335,16 @@ class OtherProblem(ExceptionWithContext):
   ERROR_TEXT = '%(description)s'
 
 
-class ExceptionProblemReporter(ProblemReporterBase):
+class ExceptionProblemReporter(ProblemReporter):
+  def __init__(self, raise_warnings=False):
+    ProblemReporterBase.__init__(self)
+    self.raise_warnings = raise_warnings
+
   def _Report(self, e):
-    raise e
+    if self.raise_warnings or e.IsError():
+      raise e
+    else:
+      ProblemReporter._Report(self, e)
 
 
 default_problem_reporter = ExceptionProblemReporter()
@@ -325,6 +369,18 @@ def IsValidURL(url):
 def IsValidColor(color):
   """Checks the validity of a hex color value."""
   return not re.match('^[0-9a-fA-F]{6}$', color) == None
+
+
+# Compute Luminance of a RGB color. Output ranges from 0 to 255*7 = 1785
+# The formula used here is a compromise between on-paper and on-screen
+def ColorLuminance(color):
+  """Returns the luminance = (2*R+4*G+B) of a RGB color.
+  We assume that the color is in the correct format,
+  i.e. that IsValidColor( ) returned true"""
+  r = int(color[0:2], 16)
+  g = int(color[2:4], 16)
+  b = int(color[4:6], 16)
+  return 4*g + 2*r + b
 
 
 def IsEmpty(value):
@@ -399,13 +455,21 @@ class Stop(object):
   def GetFieldValuesTuple(self):
     return [getattr(self, fn) for fn in Stop._FIELD_NAMES]
 
+<<<<<<< .working
   def GetStopTimeTrips(self, schedule=None):
     """Returns an list of (time, (trip, index), is_timepoint), where time might
     be interpolated, trip is a Trip object, index is this stop on the trip and
     is_timepoint a bool"""
+=======
+  def GetStopTimeTrips(self):
+    """Returns an list of (time, (trip, index), is_timepoint), where time might
+    be interpolated, trip is a Trip object, index is this stop on the trip and
+    is_timepoint a bool"""
+>>>>>>> .merge-right.r664
     time_trips = []
-    schedule._cursor.execute('SELECT trip_id FROM stop_times WHERE stop_id="%s"' % (
-        self.stop_id))
+<<<<<<< .working
+    self._cursor.execute('SELECT trip_id,arrival_secs FROM stop_times WHERE '
+        'stop_id="%s" ORDER BY stop_sequence' % self.stop_id)
     for row in schedule._cursor.fetchall():
       trip = schedule.GetTrip(row[0])
       timeinterpolated = trip.GetTimeInterpolatedStops()
@@ -417,6 +481,12 @@ class Stop(object):
       assert index != None
       time_trips.append((timeinterpolated[index][0], (trip, index),
                          timeinterpolated[index][2]))
+=======
+    for trip, index in self.trip_index:
+      timeinterpolated = trip.GetTimeInterpolatedStops()
+      time_trips.append((timeinterpolated[index][0], (trip, index),
+                         timeinterpolated[index][2]))
+>>>>>>> .merge-right.r664
     return time_trips
 
   def __getitem__(self, name):
@@ -451,14 +521,15 @@ class Stop(object):
       problems.InvalidValue('stop_lon', self.stop_lon)
     if (abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,
-                            'Stop location too close to 0, 0')
-    if hasattr(self, 'stop_url') and self.stop_url and not IsValidURL(self.stop_url):
+                            'Stop location too close to 0, 0',
+                            type=TYPE_WARNING)
+    if (hasattr(self, 'stop_url') and self.stop_url and
+        not IsValidURL(self.stop_url)):
       problems.InvalidValue('stop_url', self.stop_url)
     if hasattr(self, 'stop_desc') and (not IsEmpty(self.stop_desc) and
         self.stop_name.strip().lower() == self.stop_desc.strip().lower()):
       problems.InvalidValue('stop_desc', self.stop_desc,
                             'stop_desc should not be the same as stop_name')
-
 
 
 class Route(object):
@@ -568,7 +639,7 @@ class Route(object):
                             self.route_short_name,
                             'Both route_short_name and '
                             'route_long name are blank.')
-                            
+
     if self.route_short_name and len(self.route_short_name) > 6:
       problems.InvalidValue('route_short_name',
                             self.route_short_name,
@@ -577,8 +648,8 @@ class Route(object):
                             'You should only use this field to hold a short '
                             'code that riders use to identify a route.  '
                             'If this route doesn\'t have such a code, it\'s '
-                            'OK to leave this field empty.')
-                            
+                            'OK to leave this field empty.', type=TYPE_WARNING)
+
     if (self.route_short_name and
         (self.route_long_name.strip().lower().startswith(
             self.route_short_name.strip().lower() + ' ') or
@@ -589,7 +660,7 @@ class Route(object):
                             'route_long_name shouldn\'t contain '
                             'the route_short_name value, as both '
                             'fields are often displayed '
-                            'side-by-side.')
+                            'side-by-side.', type=TYPE_WARNING)
     if (self.route_short_name and
         (self.route_long_name.strip().lower() ==
          self.route_short_name.strip().lower())):
@@ -599,7 +670,8 @@ class Route(object):
                             'the route_short_name value, as both '
                             'fields are often displayed '
                             'side-by-side.  It\'s OK to omit either the '
-                            'short or long name (but not both).')
+                            'short or long name (but not both).',
+                            type=TYPE_WARNING)
     if (self.route_desc and
         ((self.route_desc == self.route_short_name) or
          (self.route_desc == self.route_long_name))):
@@ -613,10 +685,37 @@ class Route(object):
     if self.route_url and not IsValidURL(self.route_url):
       problems.InvalidValue('route_url', self.route_url)
     if self.route_color and not IsValidColor(self.route_color):
-      problems.InvalidValue('route_color', self.route_color)
+      problems.InvalidValue('route_color', self.route_color,
+                            'route_color should be a valid color description '
+                            'which consists of 6 hexadecimal characters '
+                            'representing the RGB values. Example: 44AA06')
     if (self.route_text_color and not IsValidColor(self.route_text_color)):
-      problems.InvalidValue('route_text_color',
-                            self.route_text_color)
+      problems.InvalidValue('route_text_color', self.route_text_color,
+                            'route_text_color should be a valid color '
+                            'description, which consists of 6 hexadecimal '
+                            'characters representing the RGB values. '
+                            'Example: 44AA06')
+
+    txt_lum = 0      # black (default)
+    bg_lum = 255 * 7 # white (default)
+    if (self.route_text_color):
+      txt_lum = ColorLuminance(self.route_text_color)
+    if (self.route_color):
+      bg_lum  = ColorLuminance(self.route_color)
+    if(abs(txt_lum - bg_lum) < 510):
+      problems.InvalidValue('route_color', self.route_color,
+                            'The route_text_color and route_color should '
+                            'be set to contrasting colors, as they are used '
+                            'as the text and background color (respectively) '
+                            'for displaying route names.  When left blank, '
+                            'route_text_color defaults to 000000 (black) and '
+                            'route_color defaults to FFFFFF (white).  A common '
+                            'source of issues here is setting route_color to '
+                            'a dark color, while leaving route_text_color set '
+                            'to black.  In this case, route_text_color should '
+                            'be set to a lighter color like FFFFFF to ensure '
+                            'a legible contrast between the two.',
+                            type=TYPE_WARNING)
 
 
 def SortListOfTripByTime(trips):
@@ -744,7 +843,8 @@ class StopTime(object):
                             'drop_off_type of 1, indicating that riders '
                             'can\'t get on or off here.  Since it doesn\'t '
                             'define a timepoint either, this entry serves no '
-                            'purpose and should be excluded from the trip.')
+                            'purpose and should be excluded from the trip.',
+                            type=TYPE_WARNING)
 
     if ((self.arrival_secs != None) and (self.departure_secs != None) and
         (self.departure_secs < self.arrival_secs)):
@@ -1256,7 +1356,11 @@ class Fare(object):
     if self.GetFieldValuesTuple() != other.GetFieldValuesTuple():
       return False
 
-    return self.GetFareRuleList() == other.GetFareRuleList()
+    self_rules = [r.GetFieldValuesTuple() for r in self.GetFareRuleList()]
+    self_rules.sort()
+    other_rules = [r.GetFieldValuesTuple() for r in other.GetFareRuleList()]
+    other_rules.sort()
+    return self_rules == other_rules
 
   def __ne__(self, other):
     return not self.__eq__(other)
@@ -1315,7 +1419,7 @@ class FareRule(object):
      self.contains_id) = \
      (fare_id, route_id, origin_id, destination_id, contains_id)
     if field_list:
-      (self.fare_id, self.route_id, self.origin_id, self.destionation_id,
+      (self.fare_id, self.route_id, self.origin_id, self.destination_id,
        self.contains_id) = field_list
 
     # canonicalize non-content values as None
@@ -1382,7 +1486,8 @@ class Shape(object):
     if (abs(lat) < 1.0) and (abs(lon) < 1.0):
       problems.InvalidValue('shape_pt_lat', lat,
                             'Point location too close to 0, 0, which means '
-                            'that it\'s probably an incorrect location.')
+                            'that it\'s probably an incorrect location.',
+                            type=TYPE_WARNING)
       return
 
     if distance == '':  # canonicalizing empty string to None for comparison
@@ -1432,7 +1537,7 @@ class Shape(object):
 
     if not self.points:
       problems.OtherProblem('The shape with shape_id "%s" contains no points.' %
-                            self.shape_id)
+                            self.shape_id, type=TYPE_WARNING)
 
 class Agency(object):
   """Represents an agency in a schedule"""
@@ -1690,7 +1795,8 @@ class ServicePeriod(object):
         1 not in self.date_exceptions.values()):
       problems.OtherProblem('Service period with service_id "%s" '
                             'doesn\'t have service on any days '
-                            'of the week.' % self.service_id)
+                            'of the week.' % self.service_id,
+                            type=TYPE_WARNING)
     for date in self.date_exceptions:
       if not self._IsValidDate(date):
         problems.InvalidValue('date', date)
@@ -2222,7 +2328,8 @@ class Schedule:
 
     (start_date, end_date) = self.GetDateRange()
     if not end_date:
-      problems.OtherProblem('This feed has no effective service dates!')
+      problems.OtherProblem('This feed has no effective service dates!',
+                            type=TYPE_WARNING)
     else:
       try:
         expiration = time.mktime(time.strptime(end_date, "%Y%m%d"))
@@ -2239,8 +2346,8 @@ class Schedule:
     for stop in self.stops.values():
       if validate_children:
         stop.Validate(problems)
-      if int(self._cursor.execute('SELECT count(*) FROM stop_times WHERE stop_id="%s"' % stop.stop_id).fetchall()[0][0]) == 0:
-        problems.UnusedStop(stop.stop_id, stop.stop_name)
+      #XXX if int(self._cursor.execute('SELECT count(*) FROM stop_times WHERE stop_id="%s"' % stop.stop_id).fetchall()[0][0]) == 0:
+      #XXX  problems.UnusedStop(stop.stop_id, stop.stop_name)
 
     # Check for stops that might represent the same location
     # (specifically, stops that are less that 2 meters apart)
@@ -2257,7 +2364,8 @@ class Schedule:
                                 'they probably represent the same location.' %
                                 (stop.stop_name, stop.stop_id,
                                  sorted_stops[index].stop_name,
-                                 sorted_stops[index].stop_id))
+                                 sorted_stops[index].stop_id),
+                                type=TYPE_WARNING)
         index += 1
 
     # Check for multiple routes using same short + long name
@@ -2280,7 +2388,8 @@ class Schedule:
                               'shouldn\'t be used for more than one '
                               'route, as it is for the for the two routes '
                               'with IDs "%s" and "%s".' %
-                              (route.route_id, route_names[name].route_id))
+                              (route.route_id, route_names[name].route_id),
+                              type=TYPE_WARNING)
       else:
         route_names[name] = route
 
@@ -2300,12 +2409,13 @@ class Schedule:
     for trip in self.trips.values():
       if not trip.GetTimeStops():
         problems.OtherProblem('The trip with the trip_id "%s" doesn\'t have '
-                              'any stop times defined.' % trip.trip_id)
+                              'any stop times defined.' % trip.trip_id,
+                              type=TYPE_WARNING)
       elif len(trip.GetTimeStops()) == 1:
         problems.OtherProblem('The trip with the trip_id "%s" only has one '
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %
-                              trip.trip_id)
+                              trip.trip_id, type=TYPE_WARNING)
       else:
         # These methods report InvalidValue if there's no first or last time
         trip.GetStartTime(problems=problems)
@@ -2320,7 +2430,8 @@ class Schedule:
     if unused_shape_ids:
       problems.OtherProblem('The shapes with the following shape_ids aren\'t '
                             'used by any trips: %s' %
-                            ', '.join(unused_shape_ids))
+                            ', '.join(unused_shape_ids),
+                            type=TYPE_WARNING)
 
 
 class Loader:
@@ -2395,9 +2506,14 @@ class Loader:
 
     header = reader.next()
     header = map(lambda x: x.strip(), header)  # trim any whitespace
-    header_dict = {}
-    for column_name in header:
-      header_dict[column_name] = len(header_dict)
+    
+    # check for unrecognized columns, which are often misspellings
+    unknown_cols = set(header).difference(set(cols))
+    for col in unknown_cols:
+      # this is provided in order to create a nice colored list of
+      # columns in the validator output
+      context = (file_name, 1, [''] * len(header), header)
+      self._problems.UnrecognizedColumn(file_name, col, context)
 
     col_index = [-1] * len(cols)
     for i in range(len(cols)):
@@ -2417,8 +2533,17 @@ class Loader:
                                     '%d of file "%s".  Every row in the file '
                                     'should have the same number of cells as '
                                     'the header (first line) does.' %
-                                    (row_num, file_name), (file_name, row_num))
-        
+                                    (row_num, file_name), (file_name, row_num),
+                                    type=TYPE_WARNING)
+
+      if len(row) < len(header):
+        self._problems.OtherProblem('Found missing cells (commas) in line '
+								    '%d of file "%s".  Every row in the file '
+								    'should have the same number of cells as '
+								    'the header (first line) does.' %
+								    (row_num, file_name), (file_name, row_num),
+								    type=TYPE_WARNING)
+
       result = [None] * len(cols)
       for i in range(len(cols)):
         ci = col_index[i]
@@ -2577,7 +2702,7 @@ class Loader:
         seq = int(seq)
       except (TypeError, ValueError):
         self._problems.InvalidValue('shape_pt_sequence', seq,
-                                    'Value should be a number (1 or higher)')
+                                    'Value should be a number (0 or higher)')
         continue
 
       shapes.setdefault(shape_id, []).append((seq, lat, lon, dist, file_context))
@@ -2586,14 +2711,20 @@ class Loader:
     for shape_id, points in shapes.items():
       shape = Shape(shape_id)
       points.sort()
-      last_seq = 0
+      if points and points[0][0] < 0:
+        self._problems.InvalidValue('shape_pt_sequence', points[0][0],
+                                    'In shape %s, a negative sequence number '
+                                    '%d was found; sequence numbers should be '
+                                    '0 or higher.' % (shape_id, points[0][0]))
+
+      last_seq = None
       for (seq, lat, lon, dist, file_context) in points:
-        if (seq != last_seq + 1):
+        if (seq == last_seq):
           self._problems.SetFileContext(*file_context)
           self._problems.InvalidValue('shape_pt_sequence', seq,
-                                      'In shape %s, sequence number %d found when '
-                                      '%d was expected' %
-                                      (shape_id, seq, last_seq + 1))
+                                      'The sequence number %d occurs more '
+                                      'than once in shape %s.' %
+                                      (seq, shape_id))
         last_seq = seq
         shape.AddPoint(lat, lon, dist, self._problems)
         self._problems.ClearContext()
@@ -2721,6 +2852,39 @@ class Loader:
 #        trip.AddStopTimeObject(stoptime, problems=self._problems)
 #        expected_sequence = stop_sequence + 1
 
+    for trip_id, sequence in stoptimes.iteritems():
+      sequence.sort()
+      try:
+        trip = self._schedule.GetTrip(trip_id)
+      except KeyError:
+        self._problems.InvalidValue('trip_id', trip_id, 'Trip not found',
+                                    sequence[0][2])
+        continue
+      if sequence[0][1] is None and sequence[0][2] is None:
+        self._problems.OtherProblem(
+          'No time for start of trip_id "%s" at stop_sequence "%d"' %
+          (trip_id, sequence[0][0]))
+      if sequence[-1][1] is None and sequence[-1][2] is None:
+        self._problems.OtherProblem(
+          'No time for end of trip_id "%s" at stop_sequence "%d"' %
+          (trip_id, sequence[-1][0]))
+      # Check that the stop sequence is non-negative.
+      if sequence and sequence[0][0] < 0:
+        self._problems.InvalidValue('stop_sequence', sequence[0][0],
+                                    'Sequence numbers should be 0 or higher.',
+                                    file_context)
+
+      last_sequence = None
+      for stop_sequence, stoptime, file_context in sequence:
+        if stop_sequence == last_sequence:
+          self._problems.InvalidValue('stop_sequence', stop_sequence,
+                                      'The sequence number %d occurs more '
+                                      'than once in trip %s.' %
+                                      (stop_sequence, trip.trip_id),
+                                      file_context)
+        trip.AddStopTimeObject(stoptime, problems=self._problems)
+        last_sequence = stop_sequence
+
   def Load(self):
     self._problems.ClearContext()
     if not self._DetermineFormat():
@@ -2744,5 +2908,4 @@ class Loader:
     if self._extra_validation:
       self._schedule.Validate(self._problems, validate_children=False)
 
-    print self._schedule._cursor.execute('select * from stop_times').fetchall()
     return self._schedule

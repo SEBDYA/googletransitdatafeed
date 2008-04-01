@@ -50,6 +50,10 @@ def ProblemCountText(error_count, warning_count):
     warning_text = '%d warnings' % warning_count
   elif warning_count == 1:
     warning_text = 'one warning'
+  
+  # Add a way to jump to the warning section when it's useful  
+  if error_count and warning_count:
+    warning_text = '<a href="#warnings">%s</a>' % warning_text
     
   results = []
   if error_text:
@@ -225,8 +229,6 @@ FeedValidator</a> version %s on %s.
 
     f.write(transitfeed.EncodeUnicode(output_prefix))
     if self._error_output:
-      if self._warning_output:
-        f.write('<a href="#warnings">jump to warnings</a>')
       f.write('<h3 class="issueHeader">Errors:</h3><ol>')
       f.writelines(self._error_output)
       f.write('</ol>')

@@ -945,22 +945,23 @@ class Trip(object):
         sequence = row[0] + 1
       else:
         sequence = 1
-    if enforce_order or sequence is None:
-      cursor = schedule._connection.cursor()
-      cursor.execute("SELECT max(stop_sequence), max(arrival_time), "
-                     "max(departure_time) FROM stop_times WHERE trip_id=?",
-                     (self.trip_id,))
-      row = cursor.fetchone()
-      if row[0] is None:
-        # First entry for trip
-        sequence = 1
-        # if enforce_order then we could check that stoptime has an time here
-      else:
-        if enforce_order:
-          if stoptime.arrival_time is not None:
+    if enforce_order:
+      pass
+      # XXX Do it!
+      #cursor = schedule._connection.cursor()
+      #cursor.execute("SELECT max(stop_sequence), max(arrival_time), "
+      #               "max(departure_time) FROM stop_times WHERE trip_id=?",
+      #               (self.trip_id,))
+      #row = cursor.fetchone()
+      #if row[0] is None:
+      #  # First entry for trip
+      #  sequence = 1
+      #  # if enforce_order then we could check that stoptime has an time here
+      #else:
+      #  if enforce_order:
+      #    if stoptime.arrival_time is not None:
 
-        if sequence is None
-
+      #  if sequence is None
 
     cursor = schedule._connection.cursor()
     cursor.execute("SELECT count(*) FROM stop_times WHERE trip_id=? AND "

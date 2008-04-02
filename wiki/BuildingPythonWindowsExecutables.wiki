@@ -12,7 +12,7 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 
 = Steps =
 
-First make sure the scripts work. Run them directly. Install nose ({{{\\filer\home\thecap\src\transitfeed-1.1.0\python\dist}}}) and run the automated tests ({{{\Python25\Scripts\nosetests.exe}}}). There should be at least 79 of them. Note also issue 37.
+First make sure the scripts work. Run them directly. Install nose ({{{\\filer\home\thecap\src\transitfeed-1.1.0\python\dist}}}) and run the automated tests ({{{\Python25\Scripts\nosetests.exe}}}). Make sure the same number of tests ran in linux. Note also issue 37.
 
 Assuming you have python installed in the default location on your Windows machine change into the python directory of your subversion working copy and run:
 {{{\Python25\python.exe setup.py py2exe}}}

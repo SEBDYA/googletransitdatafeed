@@ -35,6 +35,14 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.3 ====
+  * added a new tool, merge.py that merges two feed files
+  * fix for issue 46, "Color contrast issue in FeedValidator should be a warning, not an error."
+  * FeedValidator outputs a warning for unknown columns
+  * KMLWriter optionally draws trips with altitude for time
+  * small changes to validator html output. fix some html, add internal link to warnings 
+  * recognize the stop_code field
+
 ==== v1.1.2 ====
   * Changed #! from python2.4 to python2.5
   * Check for rows missing cells. Contributed by Clancy

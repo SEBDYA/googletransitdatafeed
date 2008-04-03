@@ -1,6 +1,6 @@
 #summary Demo of KMLWriter and ScheduleViewer
 
-= Introduction =
+= http://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Lightning_Bolt_on_Circle.svg/40px-Lightning_Bolt_on_Circle.svg.png Lightning Demo =
 
 2008-04-02 at the Silicon Valley Google Technology User Group and Google Geo Developer Series
 

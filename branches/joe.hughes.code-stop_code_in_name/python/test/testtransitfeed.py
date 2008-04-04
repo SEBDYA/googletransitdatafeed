@@ -1365,6 +1365,73 @@ class DuplicateStopValidationTestCase(ValidationTestCase):
     self.ExpectOtherProblem(schedule)
 
 
+class StopCodeInNameValidationTestCase(ValidationTestCase):
+  def runTest(self):
+    schedule = transitfeed.Schedule(problem_reporter=self.problems)
+    schedule.AddAgency("Sample Agency", "http://example.com",
+                       "America/Los_Angeles")
+    route = transitfeed.Route()
+    route.route_id = "SAMPLE_ID"
+    route.route_type = 3
+    route.route_long_name = "Sample Route"
+    schedule.AddRouteObject(route)
+
+    service_period = transitfeed.ServicePeriod("WEEK")
+    service_period.SetStartDate("20070101")
+    service_period.SetEndDate("20071231")
+    service_period.SetWeekdayService(True)
+    schedule.AddServicePeriodObject(service_period)
+
+    trip = transitfeed.Trip()
+    trip.route_id = "SAMPLE_ID"
+    trip.service_id = "WEEK"
+    trip.trip_id = "SAMPLE_TRIP"
+    schedule.AddTripObject(trip)
+
+    stop1 = transitfeed.Stop()
+    stop1.stop_id = "STOP1"
+    stop1.stop_name = "Stop 1"
+    stop1.stop_lat = 78.243587
+    stop1.stop_lon = 32.258937
+    stop1.stop_code = "2344"
+    schedule.AddStopObject(stop1)
+    trip.AddStopTime(stop1, arrival_time="12:00:00", departure_time="12:00:00")
+
+    stop2 = transitfeed.Stop()
+    stop2.stop_id = "STOP2"
+    stop2.stop_name = "2345 West Something Street"  # spurious stop code match
+    stop2.stop_lat = 78.253587
+    stop2.stop_lon = 32.258937
+    stop2.stop_code = "2345"
+    schedule.AddStopObject(stop2)
+    trip.AddStopTime(stop2, arrival_time="12:05:00", departure_time="12:05:00")
+
+    stop3 = transitfeed.Stop()
+    stop3.stop_id = "STOP3"
+    stop3.stop_name = "Stop 3"
+    stop3.stop_lat = 78.243587
+    stop3.stop_lon = 32.268937
+    stop3.stop_code = "2346"
+    schedule.AddStopObject(stop3)
+    trip.AddStopTime(stop3, arrival_time="12:10:00", departure_time="12:10:00")
+ 
+    stop4 = transitfeed.Stop()
+    stop4.stop_id = "STOP4"
+    stop4.stop_name = "Stop 4"
+    stop4.stop_lat = 78.248588
+    stop4.stop_lon = 32.260936
+    stop4.stop_code = "9999"
+    schedule.AddStopObject(stop4)
+    trip.AddStopTime(stop4, arrival_time="12:15:00", departure_time="12:15:00")
+    # 1/4 is OK
+    schedule.Validate()
+    
+    # Now trigger the validation problem
+    stop1.stop_name = "Stop 1 (Stop ID 2344)"
+    stop3.stop_name = "Stop 3 (Stop ID 2346)"
+    self.ExpectOtherProblem(schedule)
+
+
 class TempFileTestCaseBase(unittest.TestCase):
   """
   Subclass of TestCase which sets self.tempfilepath to a valid temporary zip

@@ -2227,6 +2227,29 @@ class Schedule:
       if not stop.trip_index:
         problems.UnusedStop(stop.stop_id, stop.stop_name)
 
+    # Check that the stop codes aren't duplicated into the stop names.
+    # There's a percentage threshold to cut down on false positives.    
+    example_stop_name = ""
+    example_stop_code = ""
+    stops_with_code = 0
+    stops_with_code_in_name = 0
+    for stop in self.stops.values():
+      if stop.stop_code:
+        stops_with_code += 1
+      if stop.stop_code and stop.stop_code.lower() in stop.stop_name.lower():
+        stops_with_code_in_name += 1
+        if not example_stop_code:
+          example_stop_name = stop.stop_name
+          example_stop_code = stop.stop_code
+    
+    if (stops_with_code and
+        float(stops_with_code_in_name)/float(stops_with_code) > 0.3):
+      problems.OtherProblem('Found several stops where the stop_code was '
+                            'copied into the stop_name.  For example, there '
+                            'was a stop called "%s" whose code was "%s". ' %
+                            (example_stop_name, example_stop_code),
+                            type=TYPE_WARNING)
+
     # Check for stops that might represent the same location
     # (specifically, stops that are less that 2 meters apart)
     sorted_stops = self.GetStopList()

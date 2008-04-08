@@ -930,38 +930,36 @@ class Trip(object):
       home
       enforce_order: By default StopTime objects must be passed in time order
 
-
     Returns:
       None
     """
     if schedule is None:
       schedule = self._schedule
-    if sequence is None:
+    if enforce_order or sequence is None:
+      new_secs = stoptime.GetTimeSecs()
       cursor = schedule._connection.cursor()
-      cursor.execute("SELECT max(stop_sequence) FROM stop_times WHERE "
-                     "trip_id=?", (self.trip_id,))
+      cursor.execute("SELECT max(stop_sequence), max(arrival_time), "
+                     "max(departure_time) FROM stop_times WHERE trip_id=?",
+                     (self.trip_id,))
       row = cursor.fetchone()
-      if row[0]:
-        sequence = row[0] + 1
+      if row[0] is None:
+        if sequence is None:
+          sequence = 1
+        # TODO: if enforce_order complain if new_secs is None
       else:
-        sequence = 1
-    if enforce_order:
-      pass
-      # XXX Do it!
-      #cursor = schedule._connection.cursor()
-      #cursor.execute("SELECT max(stop_sequence), max(arrival_time), "
-      #               "max(departure_time) FROM stop_times WHERE trip_id=?",
-      #               (self.trip_id,))
-      #row = cursor.fetchone()
-      #if row[0] is None:
-      #  # First entry for trip
-      #  sequence = 1
-      #  # if enforce_order then we could check that stoptime has an time here
-      #else:
-      #  if enforce_order:
-      #    if stoptime.arrival_time is not None:
-
-      #  if sequence is None
+        if sequence is None:
+          sequence = row[0] + 1
+        if enforce_order:
+          # TODO: make sure sequence > max(stop_sequence)
+          current_max_time = max(row[1], row[2])
+          if new_secs and current_max_time:
+            new_time = FormatSecondsSinceMidnight(new_secs)
+            if new_time < current_max_time:
+              problems.OtherProblem("Trying to add stop_time "
+                                    "trip_id=%s stop_id=%s at time %s but it "
+                                    "is before an existing stop_time at %s" %
+                                    (self.trip_id, stoptime.stop_id, new_time,
+                                     current_max_time))
 
     cursor = schedule._connection.cursor()
     cursor.execute("SELECT count(*) FROM stop_times WHERE trip_id=? AND "

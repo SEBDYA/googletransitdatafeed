@@ -109,7 +109,7 @@ def LatLngsToGoogleUrl(source, destination, dt):
 def LatLngsToGoogleLink(source, destination):
   """Return a string "<a ..." for a trip at a random time."""
   dt = GetRandomDatetime()
-  return "<a href='%s'>from:%s to:%s on %s %s</a>" % (
+  return "<a href='%s'>from:%s to:%s on %s</a>" % (
       LatLngsToGoogleUrl(source, destination, dt),
       FormatLatLng(source), FormatLatLng(destination),
       dt.ctime())

@@ -55,5 +55,16 @@ class small_builder(util.TempDirTestCaseBase):
       raise Exception('should have created output')
 
 
+class google_random_queries(util.TempDirTestCaseBase):
+  def runTest(self):
+    self.CheckCallWithPath(
+        [self.GetExamplePath('google_random_queries.py'),
+         '--output', 'queries.html',
+         '--limit', '5',
+         self.GetPath('test', 'data', 'good_feed')])
+    if not os.path.exists('queries.html'):
+      raise Exception('should have created output')
+
+
 if __name__ == '__main__':
   unittest.main()

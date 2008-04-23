@@ -56,7 +56,7 @@ class small_builder(util.TempDirTestCaseBase):
 
 
 class google_random_queries(util.TempDirTestCaseBase):
-  def runTest(self):
+  def testNormalRun(self):
     self.CheckCallWithPath(
         [self.GetExamplePath('google_random_queries.py'),
          '--output', 'queries.html',
@@ -64,6 +64,15 @@ class google_random_queries(util.TempDirTestCaseBase):
          self.GetPath('test', 'data', 'good_feed')])
     if not os.path.exists('queries.html'):
       raise Exception('should have created output')
+
+  def testBadArgs(self):
+    self.CheckCallWithPath(
+        [self.GetExamplePath('google_random_queries.py'),
+         '--output', 'queries.html',
+         '--limit', '5'],
+        expected_retcode=2)
+    if os.path.exists('queries.html'):
+      raise Exception('should not have created output')
 
 
 if __name__ == '__main__':

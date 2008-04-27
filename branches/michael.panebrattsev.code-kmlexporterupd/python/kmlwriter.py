@@ -82,7 +82,6 @@ class KMLWriter(object):
 
   Attributes:
     show_trips: True if the individual trips should be included in the routes.
-    show_trips: True if the individual trips should be placed on ground.
     split_routes: True if the routes should be split by type.
   """
 
@@ -90,7 +89,6 @@ class KMLWriter(object):
     """Initialise."""
     self.show_trips = False
     self.split_routes = False
-    self.altitude_per_sec = 0.0
 
   def _SetIndentation(self, elem, level=0):
     """Indented the ElementTree DOM.
@@ -200,33 +198,26 @@ class KMLWriter(object):
   def _CreateLineString(self, parent, coordinate_list):
     """Create a KML LineString element.
 
-    The points of the string are given in coordinate_list. Every element of
-    coordinate_list should be one of a tuple (longitude, latitude) or a tuple
-    (longitude, latitude, altitude).
+    The points of the string are given in coordinate_list. Each element of
+    coordinate_list should be a tuple (latitude, longitude).
 
     Args:
       parent: The parent ElementTree.Element instance.
       coordinate_list: The list of coordinates.
 
     Returns:
-      The LineString ElementTree.Element instance or None if coordinate_list is
-      empty.
+      The LineString ElementTree.Element instance.
     """
-    if not coordinate_list:
-      return None
     linestring = ET.SubElement(parent, 'LineString')
     tessellate = ET.SubElement(linestring, 'tessellate')
     tessellate.text = '1'
-    if len(coordinate_list[0]) == 3:
-      altitude_mode = ET.SubElement(linestring, 'altitudeMode')
-      altitude_mode.text = 'absolute'
     coordinates = ET.SubElement(linestring, 'coordinates')
-    if len(coordinate_list[0]) == 3:
-      coordinate_str_list = ['%f,%f,%f' % t for t in coordinate_list]
-    else:
-      coordinate_str_list = ['%f,%f' % t for t in coordinate_list]
+    coordinate_str_list = ['%f,%f' % (lon, lat)
+                           for (lat, lon) in coordinate_list]
     coordinates.text = ' '.join(coordinate_str_list)
     return linestring
+
+
 
   def _CreateLineStringForShape(self, parent, shape):
     """Create a KML LineString using coordinates from a shape.
@@ -236,12 +227,30 @@ class KMLWriter(object):
       shape: The transitfeed.Shape instance.
 
     Returns:
-      The LineString ElementTree.Element instance or None if coordinate_list is
-      empty.
+      The LineString ElementTree.Element instance.
     """
-    coordinate_list = [(longitude, latitude) for
+    coordinate_list = [(latitude, longitude) for
                        (latitude, longitude, distance) in shape.points]
     return self._CreateLineString(parent, coordinate_list)
+
+#18apr2008change
+  def _ListAllRoutesThroughStops(self,schedule):
+    stops = list(schedule.GetStopList())
+    routes = [route for route in schedule.GetRouteList()]
+    for route in routes:
+        pattern_id_to_trips = route.GetPatternIdTripDict()
+        pattern_trips = pattern_id_to_trips.values()
+        for n, trips in enumerate(pattern_trips):
+          for stop in trips[0].GetPattern():
+
+#            stop.used_by_routes.append('<td align="center" bgcolor="#'+route.route_color+'"><font size="+1" color="#000000"><b>'+route.route_short_name+'</b></font></td>')
+
+             stop.used_by_routes.append(route.route_short_name+','+route.route_color)
+#        stop.used_by_routes.append.sort(cmp=numeric_compare)
+
+    return self
+#18apr2008change
+
 
   def _CreateStopsFolder(self, schedule, doc):
     """Create a KML Folder containing placemarks for each stop in the schedule.
@@ -255,13 +264,28 @@ class KMLWriter(object):
     Returns:
       The Folder ElementTree.Element instance or None if there are no stops.
     """
+
+
     if not schedule.GetStopList():
       return None
     stop_folder = self._CreateFolder(doc, 'Stops')
     stops = list(schedule.GetStopList())
     stops.sort(key=lambda x: x.stop_name)
     for stop in stops:
-      desc_items = []
+#18apr2008change
+      stop_routes_items = stop.used_by_routes
+      stop_routes_items.sort()
+      desc_items = ['<table cellspacing="6" cellpadding="4"><tr>']
+      iii = -1
+      for stop_routes_item in stop_routes_items:
+        iii = iii + 1
+        if (iii == 8):
+          iii = 0
+          desc_items.append('</tr><tr>')
+        s1 = stop_routes_item.split(',')
+        desc_items.append('<td align="center" bgcolor="#'+s1[1]+'"><font size="+1" color="#000000"><b>'+s1[0]+'</b></font></td>')
+      desc_items.append('</tr></table>')
+#18apr2008change
       if stop.stop_desc:
         desc_items.append(stop.stop_desc)
       if stop.stop_url:
@@ -309,7 +333,7 @@ class KMLWriter(object):
           len(trips), ', '.join(trip_ids))
       placemark = self._CreatePlacemark(folder, name, style_id, visible,
                                         description)
-      coordinates = [(stop.stop_lon, stop.stop_lat)
+      coordinates = [(stop.stop_lat, stop.stop_lon)
                      for stop in trips[0].GetPattern()]
       self._CreateLineString(placemark, coordinates)
     return folder
@@ -378,15 +402,8 @@ class KMLWriter(object):
         description = 'Headsign: %s' % trip.trip_headsign
       else:
         description = None
-
-      coordinate_list = []
-      for secs, stoptime, tp in trip.GetTimeInterpolatedStops():
-        if self.altitude_per_sec > 0:
-          coordinate_list.append((stoptime.stop.stop_lon, stoptime.stop.stop_lat,
-                                  (secs - 3600 * 4) * self.altitude_per_sec))
-        else:
-          coordinate_list.append((stoptime.stop.stop_lon,
-                                  stoptime.stop.stop_lat))
+      coordinate_list = [(stop.stop_lat, stop.stop_lon)
+                         for stop in trip.GetPattern()]
       placemark = self._CreatePlacemark(trips_folder,
                                         trip.trip_id,
                                         style_id=style_id,
@@ -470,12 +487,22 @@ class KMLWriter(object):
     else:
       folder_name = 'Routes'
     routes_folder = self._CreateFolder(doc, folder_name, visible=False)
-
+#18apr2008change
     for route in routes:
+
+      route_type_names = {0: 'Tram',
+                          1: 'Subway',
+                          2: 'Rail',
+                          3: 'Bus',
+                          4: 'Ferry',
+                          5: 'Cable car',
+                          6: 'Gondola',
+                          7: 'Funicular'}
+      current_route_type_name = route_type_names.get(route.route_type, str(route.route_type))
       style_id = self._CreateStyleForRoute(doc, route)
       route_folder = self._CreateFolder(routes_folder,
-                                        GetRouteName(route),
-                                        description=GetRouteDescription(route))
+                                        current_route_type_name+' '+GetRouteName(route),description=GetRouteDescription(route))
+#18apr2008change
       self._CreateRouteShapesFolder(schedule, route_folder, route,
                                     style_id, False)
       self._CreateRoutePatternsFolder(route_folder, route, style_id, False)
@@ -552,11 +579,6 @@ def main():
   parser.add_option('-t', '--showtrips', action='store_true',
                     dest='show_trips',
                     help='include the individual trips for each route')
-  parser.add_option('-a', '--altitude_per_sec', action='store', type='float',
-                    default=1.0,
-                    dest='altitude_per_sec',
-                    help='if greater than 0 trips are drawn with time axis '
-                    'set to this many meters high for each second of time')
   parser.add_option('-s', '--splitroutes', action='store_true',
                     dest='split_routes',
                     help='split the routes by type')
@@ -582,8 +604,10 @@ def main():
   feed = loader.Load()
   print "Writing %s" % output_path
   writer = KMLWriter()
+#18apr2008change
+  writer._ListAllRoutesThroughStops(feed)
+#18apr2008change
   writer.show_trips = options.show_trips
-  writer.altitude_per_sec = options.altitude_per_sec
   writer.split_routes = options.split_routes
   writer.Write(feed, output_path)
 

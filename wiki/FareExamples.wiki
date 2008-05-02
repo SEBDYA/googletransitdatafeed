@@ -83,9 +83,9 @@ Since some trips cost more than others, Demo Transit must include fare_rules.txt
 
 ====fare_rules.txt====
 || *fare_id* || *route_id* ||
-|| local_fare || R1 ||
-|| express_fare || R2 ||
-|| express_fare || R3 ||
+|| local_fare || !R1 ||
+|| express_fare || !R2 ||
+|| express_fare || !R3 ||
 
  
 
@@ -122,19 +122,19 @@ To define this fare structure for the feed, fare_attributes.txt and fare_rules.t
 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||
-|| S1_to_S2 || 1.75 || USD || 0 || ||
-|| S1_to_S3 || 3.25 || USD || 0 || ||
-|| S1_to_S4 || 4.55 || USD || 0 || ||
+|| !S1_to_S2 || 1.75 || USD || 0 || ||
+|| !S1_to_S3 || 3.25 || USD || 0 || ||
+|| !S1_to_S4 || 4.55 || USD || 0 || ||
 || ... || || || || ||
-|| S10_to_S1 || 5.65 || USD || 0 || ||
+|| !S10_to_S1 || 5.65 || USD || 0 || ||
 
 ====fare_rules.txt====
 || *fare_id* || *origin_id* || *destination_id* ||
-|| S1_to_S2 || S1 || S2 ||
-|| S1_to_S3 || S1 || S3 ||
-|| S1_to_S4 || S1 || S4 ||
+|| !S1_to_S2 || S1 || S2 ||
+|| !S1_to_S3 || S1 || S3 ||
+|| !S1_to_S4 || S1 || S4 ||
 || ... || || ||
-|| S10_to_S1 || S10 || S1 ||
+|| !S10_to_S1 || S10 || S1 ||
 
  
 

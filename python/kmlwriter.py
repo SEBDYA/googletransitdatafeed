@@ -243,6 +243,28 @@ class KMLWriter(object):
                        (latitude, longitude, distance) in shape.points]
     return self._CreateLineString(parent, coordinate_list)
 
+
+  def _ListAllRoutesThroughStops(self,schedule):
+    """Appends all routes going through stops into stop.used_by_route['route_short_name,route_color']
+    To show lists of routes passing through stop into Placemark description stop.desc_items
+
+    Args:
+      schedule: The Schedule instance.
+
+    Returns:
+      self
+    """
+    stops = list(schedule.GetStopList())
+    routes = [route for route in schedule.GetRouteList()]
+    for route in routes:
+        pattern_id_to_trips = route.GetPatternIdTripDict()
+        pattern_trips = pattern_id_to_trips.values()
+        for n, trips in enumerate(pattern_trips):
+          for stop in trips[0].GetPattern():
+             stop.used_by_routes.append(route.route_short_name+','+route.route_color)
+    return self
+
+
   def _CreateStopsFolder(self, schedule, doc):
     """Create a KML Folder containing placemarks for each stop in the schedule.
 
@@ -261,7 +283,20 @@ class KMLWriter(object):
     stops = list(schedule.GetStopList())
     stops.sort(key=lambda x: x.stop_name)
     for stop in stops:
-      desc_items = []
+      #adding table with list of routes to stop description
+      stop_routes_items = stop.used_by_routes
+      stop_routes_items.sort()
+      desc_items = ['<table cellspacing="6" cellpadding="4"><tr>']
+      iii = -1
+      for stop_routes_item in stop_routes_items:
+        iii = iii + 1
+        if (iii == 8):
+          iii = 0
+          desc_items.append('</tr><tr>')
+        s1 = stop_routes_item.split(',')
+        desc_items.append('<td align="center" bgcolor="#'+s1[1]+'"><font size="+1" color="#000000"><b>'+s1[0]+'</b></font></td>')
+      desc_items.append('</tr></table>')
+      #added table with list of routes to stop description
       if stop.stop_desc:
         desc_items.append(stop.stop_desc)
       if stop.stop_url:
@@ -472,10 +507,19 @@ class KMLWriter(object):
     routes_folder = self._CreateFolder(doc, folder_name, visible=False)
 
     for route in routes:
+      route_type_names = {0: 'Tram',
+                          1: 'Subway',
+                          2: 'Rail',
+                          3: 'Bus',
+                          4: 'Ferry',
+                          5: 'Cable car',
+                          6: 'Gondola',
+                          7: 'Funicular'}
+      current_route_type_name = route_type_names.get(route.route_type, str(route.route_type))
       style_id = self._CreateStyleForRoute(doc, route)
       route_folder = self._CreateFolder(routes_folder,
-                                        GetRouteName(route),
-                                        description=GetRouteDescription(route))
+                                        current_route_type_name+' '+GetRouteName(route),description=GetRouteDescription(route))
+      #added types to route name
       self._CreateRouteShapesFolder(schedule, route_folder, route,
                                     style_id, False)
       self._CreateRoutePatternsFolder(route_folder, route, style_id, False)
@@ -582,6 +626,7 @@ def main():
   feed = loader.Load()
   print "Writing %s" % output_path
   writer = KMLWriter()
+  writer._ListAllRoutesThroughStops(feed)
   writer.show_trips = options.show_trips
   writer.altitude_per_sec = options.altitude_per_sec
   writer.split_routes = options.split_routes

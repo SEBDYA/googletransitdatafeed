@@ -427,6 +427,7 @@ class Stop(object):
     self.zone_id = ''
     self.stop_url = ''
     self.stop_code = ''
+    self.used_by_routes = []
     if field_list:
       (stop_id, name, lat, lng, self.stop_desc, self.zone_id, self.stop_url,
        stop_code) = field_list

@@ -12,11 +12,13 @@ Suppose Demo Transit agency has the following fare structure:
   * passengers can ride as long as they like. (transfer_duration is omitted) 
 
 Since all trips have the same fare, Demo Transit can omit fare_rules.txt. 
-===fare_attributes.txt===
+
+====fare_attributes.txt====
 || *fare_id* || *price* || *currency_type* || *payment_method* || *transfers* ||
 || only_fare || 1.00 || USD || 0 ||||
 
-===How fares are calculated in Google Transit===
+
+===Calculating the adult fare===
 The trip planner calculates a fare of 1$ for each leg of the itinerary that includes a change of vehicle. However, unlimited transfers are permitted, so the trip planner only displays the lowest charge. Adult fare: 1$
 
 == Example 2: All trips have the same fare, no transfers == 

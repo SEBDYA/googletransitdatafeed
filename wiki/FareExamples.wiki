@@ -82,10 +82,10 @@ Since some trips cost more than others, Demo Transit must include fare_rules.txt
 
 
 ====fare_rules.txt====
-|| *fare_id* || *contains_id* || *origin_id* || *destination_id* || *route_id* ||
-|| local_fare ||  ||  ||  || R1 ||
-|| express_fare ||  ||  ||  || R2 ||
-|| express_fare ||  ||  ||  || R3 ||
+|| *fare_id* || *route_id* ||
+|| local_fare || R1 ||
+|| express_fare || R2 ||
+|| express_fare || R3 ||
 
  
 

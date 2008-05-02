@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The fare_attributes.txt and fare_rules.txt files in the Google Transit Feed Specification can be confusing. The following examples work through different kinds of fare structures and show how to represent them in a Google transit feed.
+The [http://code.google.com/transit/spec/transit_feed_specification.html#fare_attributes_txt___Field_Definitions fare_attributes.txt] and [http://code.google.com/transit/spec/transit_feed_specification.html#fare_rules_txt___Field_Definitions fare_rules.txt] files in the [http://code.google.com/transit/spec/transit_feed_specification.html Google Transit Feed Specification] can be confusing. The following examples work through different kinds of fare structures and show how to represent them in a Google transit feed.
 
 == Example 1: All trips have the same fare, unlimited transfers == 
 

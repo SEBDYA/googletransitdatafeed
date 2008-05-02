@@ -70,8 +70,8 @@ The trip planner calculates a fare of 1$ for each leg of the itinerary that incl
 == Example 4: Different pricing for local and express routes == 
 
 Suppose Demo Transit agency has the following fare structure:
-  * riders pay 1.75$ on boarding local buses (route R1)
-  * riders pay 5$ on boarding express buses (routes R2 and R3)
+  * riders pay 1.75$ on boarding local buses (route 1)
+  * riders pay 5$ on boarding express buses (routes 2 and 3)
   * transfers aren't allowed.
 
 Since some trips cost more than others, Demo Transit must include fare_rules.txt. 
@@ -83,9 +83,9 @@ Since some trips cost more than others, Demo Transit must include fare_rules.txt
 
 ====fare_rules.txt====
 || *fare_id* || *route_id* ||
-|| local_fare || !R1 ||
-|| express_fare || !R2 ||
-|| express_fare || !R3 ||
+|| local_fare || Route_1 ||
+|| express_fare || Route_2 ||
+|| express_fare || Route_3 ||
 
  
 
@@ -152,13 +152,13 @@ To define this fare structure for the feed, fare_attributes.txt and fare_rules.t
 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||
-|| F1 || $1.75 || USD || 0 ||  || 
-|| F2 || $5.00 || USD || 0 ||  || 
-|| F3 || $5.00 || USD || 0 ||  || 
-|| F4 || $5.00 || USD || 0 ||  || 
-|| F5 || $5.00 || USD || 0 ||  || 
-|| F6 || $5.00 || USD || 0 ||  || 
-|| F7 || $5.00 || USD || 0 ||  || 
+|| F1 || $4.15 || USD || 0 ||  || 
+|| F2 || $2.20 || USD || 0 ||  || 
+|| F3 || $2.20 || USD || 0 ||  || 
+|| F4 || $2.95 || USD || 0 ||  || 
+|| F5 || $1.25 || USD || 0 ||  || 
+|| F6 || $1.95 || USD || 0 ||  || 
+|| F7 || $1.95 || USD || 0 ||  || 
 
 ===fare_rules.txt===
 || *fare_id* || *contains_id* ||
@@ -178,6 +178,20 @@ To define this fare structure for the feed, fare_attributes.txt and fare_rules.t
  
 
 ===Calculating an adult fare===
-The trip planner calculates an itinerary, and then looks up the fare rules until it finds a matching origin/destination station pair.
+
+Let's look more closely at the definitions in fare_rules.txt. 
+  * F1 applies to any trip that passes through zones (1,2,3). 
+  * F2 applies to any trip that passes through zones (1,2). 
+  * F3 applies to any trip that passes through zones (1,3). 
+  * F4 applies to any trip that passes through zones (2,3).
+  * F5 applies to any trip that passes through zone 1 only.  
+  * F6 applies to any trip that passes through zone 2 only.
+  * F7 applies to any trip that passes through zone 3 only.
+
+The trip planner calculates an itinerary, and then looks up the fare rules to determine the fares that apply based on zone. So, for example, if the itinerary goes from zone 2 to zone 3:
+  * for zone 2 the possible fares are: F1,F4,F6.
+  * for zone 3 the possible fares are: F1,F3,F4,F7.
+
+So F4 ($2.95) and F1 ($4.15) are the only fares that intersect both zones. Of these, F4 is the least expensive, so the trip planner reports $2.95 as the adult fare. 
 
 The public feed from [http://developer.trimet.org/schedule/GTFS/ Portland TriMet] provides a real-world illustration of this type of fare structure.

@@ -21,6 +21,8 @@ only_fare,1.00,USD,0,,
 ===How fares are calculated in Google Transit===
 The trip planner calculates a fare of 1$ for each leg of the itinerary that includes a change of vehicle. However, unlimited transfers are permitted, so the trip planner only displays the lowest charge. Adult fare: 1$
 
+<a name="example2">
+
 == Example 2: All trips have the same fare, no transfers == 
 
 Suppose Demo Transit agency has the following fare structure:

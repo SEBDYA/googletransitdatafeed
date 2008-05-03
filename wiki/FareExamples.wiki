@@ -118,7 +118,7 @@ Technically, both fares apply on both routes. However, the trip planner always c
 
 In this example only the entry and exit points from the system matter.
 
-To define this fare structure for the feed, fare_attributes.txt and fare_rules.txt must contain a line for each station-staion pair. In fare_attributes.txt, use the origin_id and destination_id fields to identify station pairs.
+To define this fare structure for the feed, fare_attributes.txt and fare_rules.txt must contain a line for each station-staion pair. In fare_attributes.txt, use the origin_id and destination_id fields to identify station pairs. In this case, the zone_ID defined in stops.txt is simply a station identifier; each station is considered a zone.
 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||

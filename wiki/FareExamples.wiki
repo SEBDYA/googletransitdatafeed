@@ -160,7 +160,7 @@ To define this fare structure for the feed, fare_attributes.txt and fare_rules.t
 || F6 || $1.95 || USD || 0 ||  || 
 || F7 || $1.95 || USD || 0 ||  || 
 
-===fare_rules.txt===
+====fare_rules.txt====
 || *fare_id* || *contains_id* ||
 || F1 || 1 ||
 || F1 || 2 ||

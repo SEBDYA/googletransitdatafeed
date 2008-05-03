@@ -59,7 +59,7 @@ Suppose Demo Transit agency has the following fare structure:
 Since all trips have the same fare, Demo Transit can omit fare_rules.txt. 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* || *transfer_duration* ||
-|| only_fare || 1.00 || USD || 0 || 0 || 5400 ||
+|| only_fare || 1.00 || USD || 0 |||| 5400 ||
 
  
 
@@ -98,18 +98,18 @@ The 5.00$ fare is only applicable if you ride routes 2 or 3. The 1.75$ fare only
 Suppose Demo Transit agency has the following fare structure:
   * riders pay 1.75$ on boarding local buses
   * riders can pay an extra 0.25$ on boarding to purchase a transfer
-  * transfers aren't allowed.
+  * transfers purchased are valid for 90 minutes
 
 Since these rules apply to all trips, Demo Transit can omit fare_rules.txt. 
 ====fare_attributes.txt====
-|| *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||
+|| *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* || *transfer_duration* ||
 || simple_fare || 1.75 || USD || 0 || 0 ||
-|| plustransfer_fare || 2.00 || USD || 0 || 5400 ||
+|| plustransfer_fare || 2.00 || USD || 0 |||| 5400 ||
 
  
 
 ===Calculating an adult fare===
-Technically, both fares apply on both routes. However, the trip planner always chooses the least expensive applicable fare: 
+Technically, both fares apply on itinerary that has no transfers. However, the trip planner always chooses the least expensive applicable fare: 
   * For an itinerary with one transfer, simple_fare is 3.50$ vs. 2.00$ when a transfer is purchased. So the trip planner will report 2.00$ fare on all itineraries that require a change of vehicle. 
   * For an itinerary with no transfers, 1.75$ fare is less than plustransfer_fare of 2.00$. So if an itinerary doesn't require a change of vehicle, the fare is 1.75$. 
 
@@ -118,7 +118,7 @@ Technically, both fares apply on both routes. However, the trip planner always c
 
 In this example only the entry and exit points from the system matter.
 
-To define this fare structure for the feed, fare_attributes.txt and fare_rules.txt must contain a line for each station-staion pair. In fare_attributes.txt, use the origin_id and destination_id fields to identify station pairs. In this case, the zone_ID defined in stops.txt is simply a station identifier; each station is considered a zone.
+To define this fare structure for the feed, fare_attributes.txt and fare_rules.txt must contain a line for each station zone-station zone pair, and each station must have its own unique zone id defined in stops.txt. In fare_attributes.txt, use the origin_id and destination_id fields to identify station pairs. In this case, the zone_ID defined in stops.txt is simply a station identifier; each station is considered a zone.
 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||
@@ -146,7 +146,7 @@ The public feed from [http://bart.gov/stations/schedules/openformat.asp SF Bay A
 --------
 == Example 7: Fare depends on zones == 
 
-Suppose Demo Transit Agency has a concentric three-zone system, where fares depend on which zones a rider passes through.
+Suppose Demo Transit Agency has a concentric three-zone system, where fares depend on which zones a rider passes through during an itinerary.
 
 To define this fare structure for the feed, fare_attributes.txt and fare_rules.txt must contain a line for each possible combination of zones. For very complex cross-zone fare structures, it may be simpler to programmatically output fare_rules.txt using origin and destination to define fares.
 

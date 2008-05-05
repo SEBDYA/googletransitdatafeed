@@ -104,7 +104,7 @@ Since these rules apply to all trips, Demo Transit can omit fare_rules.txt.
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* || *transfer_duration* ||
 || simple_fare || 1.75 || USD || 0 || 0 ||||
-|| plustransfer_fare || 2.00 || USD || 0 |||| 5400 ||
+|| plustransfer_fare || 2.00 || USD || 0 |||||| 5400 ||
 
  
 

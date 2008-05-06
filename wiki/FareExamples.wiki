@@ -17,7 +17,7 @@ The [http://code.google.com/transit/spec/transit_feed_specification.html#fare_at
 
 == Example 1: All trips have the same fare, unlimited transfers == 
 
-Suppose Demo Transit agency has the following fare structure:
+Suppose Demo Transit Agency has the following fare structure:
   * riders pay $1 on boarding (price='1.00', currency='USD', payment_method='0')
   * a ticket is good for all vehicles and doesn't expire (transfers='')
   * passengers can ride as long as they like. (transfer_duration is omitted) 
@@ -35,7 +35,7 @@ The trip planner calculates a fare of $1 for each leg of the itinerary that incl
 -----
 == Example 2: All trips have the same fare, no transfers == 
 
-Suppose Demo Transit agency has the following fare structure:
+Suppose Demo Transit Agency has the following fare structure:
   * riders pay $1 on boarding (price='1.00', currency='USD', payment_method='0')
   * passengers can ride as long as they like. (transfer_duration is omitted)
   * any change in vehicles requires a new fare. (transfers='0')
@@ -52,7 +52,7 @@ The trip planner calculates a fare of $1 for each leg of the itinerary that incl
 -----
 == Example 3: All trips have the same fare, transfers allowed == 
 
-Suppose Demo Transit agency has the following fare structure:
+Suppose Demo Transit Agency has the following fare structure:
   * riders pay $1 on boarding (price='1.00', currency='USD', payment_method='0')
   * unlimited transfers are allowed within 90 minutes (transfers='',transfer_duration='5400')
 
@@ -69,7 +69,7 @@ The trip planner calculates a fare of $1 for each leg of the itinerary that incl
 ------
 == Example 4: Different pricing for local and express routes == 
 
-Suppose Demo Transit agency has the following fare structure:
+Suppose Demo Transit Agency has the following fare structure:
   * riders pay $1.75 on boarding local buses (route 1)
   * riders pay $5 on boarding express buses (routes 2 and 3)
   * transfers aren't allowed.
@@ -95,7 +95,7 @@ The $5.00 fare is only applicable if you ride routes 2 or 3. The $1.75 fare only
 --------
 == Example 5: Buying a transfer increases the fare  == 
 
-Suppose Demo Transit agency has the following fare structure:
+Suppose Demo Transit Agency has the following fare structure:
   * riders pay $1.75 on boarding local buses
   * riders can pay an extra $0.25 on boarding to purchase a transfer
   * transfers purchased are valid for 90 minutes

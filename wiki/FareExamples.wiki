@@ -74,7 +74,7 @@ Suppose Demo Transit Agency has the following fare structure:
   * riders pay $5 on boarding express buses (routes 2 and 3)
   * transfers aren't allowed.
 
-Since some trips cost more than others, Demo Transit must include fare_rules.txt. 
+Since some trips cost more than others, Demo Transit must include fare_rules.txt, and each route must have an entry to associate it with a fare. 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||
 || local_fare || 1.75 || USD || 0 || 0 ||

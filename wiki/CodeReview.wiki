@@ -10,6 +10,11 @@ To make working with branches easier you should install http://mg.pov.lt/eazysvn
 
 = If you're writing the code =
 
+==New option==
+
+Instead of following the process below you can use the new code review service, http://code.google.com/p/rietveld/wiki/CodeReviewHelp
+If this works well we will stop making a branch for most changes.
+
 ==Setup your branch==
 
 Make sure you are in the directory `trunk` and it is up to date. It is okay if you have already started making changes:

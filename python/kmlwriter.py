@@ -261,7 +261,24 @@ class KMLWriter(object):
     stops = list(schedule.GetStopList())
     stops.sort(key=lambda x: x.stop_name)
     for stop in stops:
-      desc_items = []
+      #add all routes going through stop to stop.description.
+      time_trips =  stop.GetStopTimeTrips()
+      stop_routes_items = []
+      for time_trip in time_trips:
+        route = schedule.GetRoute(time_trip[1][0].route_id)
+        stop_routes_items.append((route.route_short_name,route.route_color))
+      stop_routes_items.sort()
+      desc_items = [
+        'stop_id = %s <br><br><b>Routes visiting this stop</b><br><table cellspacing="6" cellpadding="4"><tr>'
+        %(stop.stop_id)]
+      for i in range(0, len(stop_routes_items), 8):
+        for route_short_name, route_color in stop_routes_items[i:i+8]:
+          desc_items.append(
+             '<td align="center" bgcolor="#%s"><font size="+1"color="#000000"><b>%s</b></font></td>'
+             %(route_color,route_short_name))
+        if i + 8 < len(stop_routes_items):
+          desc_items.append('</tr><tr>')
+      desc_items.append('</tr></table>')
       if stop.stop_desc:
         desc_items.append(stop.stop_desc)
       if stop.stop_url:
@@ -472,9 +489,18 @@ class KMLWriter(object):
     routes_folder = self._CreateFolder(doc, folder_name, visible=False)
 
     for route in routes:
+      route_short_type_names = {0: 'Tram',
+                          1: 'Subway',
+                          2: 'Rail',
+                          3: 'Bus',
+                          4: 'Ferry',
+                          5: 'Cable car',
+                          6: 'Gondola',
+                          7: 'Funicular'}
+      current_route_type_name = route_short_type_names.get(route.route_type, str(route.route_type))
       style_id = self._CreateStyleForRoute(doc, route)
-      route_folder = self._CreateFolder(routes_folder,
-                                        GetRouteName(route),
+      route_folder = self._CreateFolder(routes_folder,'%s %s'%
+                                        (current_route_type_name,GetRouteName(route)),
                                         description=GetRouteDescription(route))
       self._CreateRouteShapesFolder(schedule, route_folder, route,
                                     style_id, False)

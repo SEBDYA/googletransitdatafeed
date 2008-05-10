@@ -18,7 +18,7 @@ The [http://code.google.com/transit/spec/transit_feed_specification.html#fare_at
 == Example 1: All trips have the same fare, unlimited transfers == 
 
 Suppose Demo Transit Agency has the following fare structure:
-  * riders pay $1 on boarding (price='1.00', currency='USD', payment_method='0')
+  * riders pay $1.00 on boarding (price='1.00', currency='USD', payment_method='0')
   * a ticket is good for all vehicles and doesn't expire (transfers='')
   * passengers can ride as long as they like. (transfer_duration is omitted) 
 
@@ -118,7 +118,10 @@ Technically, both fares apply on itinerary that has no transfers. However, the t
 
 In this example only the entry and exit points from the system matter.
 
-To define this fare structure for the feed, fare_attributes.txt and fare_rules.txt must contain a line for each station zone-station zone pair, and each station must have its own unique zone id defined in stops.txt. In fare_attributes.txt, use the origin_id and destination_id fields to identify station pairs. In this case, the zone_ID defined in stops.txt is simply a station identifier; each station is considered a zone.
+To define this fare structure for the feed, each station must have its own unique zone ID defined in stops.txt. Each station is considered a single zone.
+
+  * The fare_attributes.txt and fare_rules.txt files define one row for each pair of stations. 
+  * In fare_attributes.txt, the origin_id and destination_id fields identify station pairs by zone ID. 
 
 ====fare_attributes.txt====
 || *fare_id*  || *price* || *currency_type* || *payment_method* || *transfers* ||

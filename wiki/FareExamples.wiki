@@ -191,10 +191,8 @@ Let's look more closely at the definitions in fare_rules.txt.
   * F6 applies to any trip that passes through zone 2 only.
   * F7 applies to any trip that passes through zone 3 only.
 
-The trip planner calculates an itinerary, and then looks up the fare rules to determine the fares that apply based on zone. So, for example, if the itinerary goes from zone 2 to zone 3:
-  * for zone 2 the possible fares are: F1,F4,F6.
-  * for zone 3 the possible fares are: F1,F3,F4,F7.
+The trip planner calculates an itinerary, and then looks up the fare rules to determine the fares that apply based on zone. Since F1 also includes travel in zone 1, only F4 ($2.95) applies to a trip from zone 2 to zone 3. 
 
-So F4 ($2.95) and F1 ($4.15) are the only fares that intersect both zones. Of these, F4 is the least expensive, so the trip planner reports $2.95 as the adult fare. 
+A fare rule only applies when the set of zones passed through in an itinerary exactly matches the set specified by the fare rule. For a trip between zones 2 and 3, the trip planner reports $2.95 as the adult fare.
 
 The public feed from [http://developer.trimet.org/schedule/GTFS/ Portland TriMet] provides a real-world illustration of this type of fare structure.

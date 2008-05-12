@@ -225,8 +225,7 @@ FeedValidator</a> version %s on %s.
 </body>
 </html>""" % (self._UnusedStopSection(),
               transitfeed.__version__,
-              time.strftime('%B %d, %Y at %I:%M %p
-                            %Z').decode(sys.getfilesystemencoding()))
+              time.strftime('%B %d, %Y at %I:%M %p %Z').decode(sys.getfilesystemencoding()))
 
     f.write(transitfeed.EncodeUnicode(output_prefix))
     if self._error_output:

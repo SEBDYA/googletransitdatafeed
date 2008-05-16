@@ -1,4 +1,5 @@
 #summary Illustrates how to implement different fare structures with the GTFS
+#labels Featured
 
 = Introduction =
 

@@ -35,6 +35,14 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.4 ====
+  * add merge.py as a script; merge.exe is now part of windows binary distribution
+  * add examples/google_random_queries.py: outputs a list of random query urls, using stop lat,lng
+  * add a crash handler to feedvalidator. this provides a friendly message to users and should make it much easier for us to debug problems
+  * unicode names in a feed could make merge.py crash
+  * new method Stop.GetTrips
+  * fix for some things that could make feedvalidator crash, including issue 40
+
 ==== v1.1.3 ====
   * added a new tool, merge.py that merges two feed files
   * fix for issue 46, "Color contrast issue in FeedValidator should be a warning, not an error."

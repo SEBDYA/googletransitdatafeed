@@ -90,7 +90,7 @@ class TempDirTestCaseBase(unittest.TestCase):
     # <parent>/transitfeed/__init__.py
     transitfeed_parent = tf_path[:tf_path.rfind("transitfeed")]
     transitfeed_parent = transitfeed_parent.replace("\\", "/").rstrip("/")
-    script_path = cmd[0]
+    script_path = cmd[0].replace("\\", "/")
     script_args = cmd[1:]
 
     cmd = [sys.executable,

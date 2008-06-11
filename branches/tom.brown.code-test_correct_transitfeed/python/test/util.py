@@ -98,8 +98,18 @@ class TempDirTestCaseBase(unittest.TestCase):
     if not tf_realpath.startswith(cwd_realpath):
       raise Exception("Expected %s to be child of %s" %
                       (tf_realpath, cwd_realpath))
-
-    env = {'PYTHONPATH': transitfeed_parent}
-    cmd = [sys.executable] + cmd
+    #cmd[0] = re.sub(r"C:\\Documents and Settings\\thecap\\Desktop\\transitdatafeed-trunk\\test\\..\\", "", cmd[0])
+    cmd[0] = re.sub(r"\\", "/", cmd[0])
+    transitfeed_parent = re.sub(r"\\", "/", transitfeed_parent)
+    transitfeed_parent = re.sub(r"/$", "", transitfeed_parent)
+  
+    #transitfeed_parent = 'c:/Documents and Settings/thecap/Desktop/transitdatafeed-trunk'
+    #env = {'PYTHONPATH': '%s;/Documents and Settings/thecap/Desktop/transitdatafeed-trunk/local.pth' % transitfeed_parent}
+    env = {}
+    print "Running with env=%s" % env
+    #cmd = [sys.executable, "-c", 'import sys; sys.path.insert(0,"%s");exec(open("%s"))' % ('/Documents and Settings/thecap/Desktop/transitdatafeed-trunk', cmd[0])] + cmd[1:]
+    cmd = [sys.executable, "-c", 'import sys; sys.path.insert(0,"%s");exec(open("%s"))' % (transitfeed_parent, cmd[0])] + cmd[1:]
+    print "Running with env=%s" % env
+    print "Running with cmd=%s" % cmd
     return check_call(cmd, expected_retcode=expected_retcode, shell=False,
                       env=env)

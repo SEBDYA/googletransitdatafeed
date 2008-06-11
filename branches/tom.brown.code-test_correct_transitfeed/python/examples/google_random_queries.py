@@ -179,10 +179,6 @@ def ParentAndBaseName(path):
 
 
 def main():
-  import sys
-  print 'path=%s' % sys.path
-  print 'argv=%s' % sys.argv
-
   parser = optparse.OptionParser(
       usage="usage: %prog [options] feed_filename output_filename",
       version="%prog "+transitfeed.__version__)

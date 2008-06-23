@@ -2,45 +2,17 @@
 
 = Introduction =
 
-To help us coordinate our work we would like at least one person other than the writer to review each change before it is added to the trunk.
+To help us coordinate our work we would like at least one person other than the writer to review each change before it is added to the trunk. The [http://codereview.appspot.com/ Rietveld Code Review Tool] has [http://code.google.com/p/rietveld/wiki/CodeReviewHelp its own instructions]. This page describes things specific to the transitfeed project.
 
-See the Source tab above for instructions on downloading the source. If you are not a member of this project please send the output of `svn diff` and a statement that you license the code to this project under the terms of the [http://www.apache.org/licenses/ Apache License 2.0] to googletransitdatafeed@googlegroups.com. If you are a member please use the following process to modify our code.
+== Get source ==
 
-To make working with branches easier you should install http://mg.pov.lt/eazysvn/. Running `easy_install eazysvn` as root should do the trick.
+See the Source tab above for instructions on downloading the source. Please checkout and modify the trunk to make it as easy as possible to merge your changes into the main distribution.
 
-= If you're writing the code =
+== Legal stuff ==
 
-==New option==
+Our project uses the [http://www.apache.org/licenses/ Apache License 2.0]. To ease distribution your contributions must be released under the same terms. You may release each change explicitly under the license or mail googletransitdatafeed@googlegroups.com saying that all your modifications to the transitfeed distribution may be released under the same terms as transitfeed itself.
 
-Instead of following the process below you can use the new code review service, http://code.google.com/p/rietveld/wiki/CodeReviewHelp
-If this works well we will stop making a branch for most changes.
-
-==Setup your branch==
-
-Make sure you are in the directory `trunk` and it is up to date. It is okay if you have already started making changes:
-{{{
-$ svn update
-}}}
-
-Create a branch for your change:
-{{{
-$ ezswitch --create -m '* Make new branch <username>-<change_name>' <username>-<change_name>
-}}}
-Note: it's best to run `ezswitch` from the `trunk` directory.
-
-==Edit in your branch==
-
-Make some changes and commit them to the branch. Repeat this step as many times as you like:
-{{{
-$ svn commit -m '* Fixed some typo'
-}}}
-
-Merge changes from the trunk into your working copy with:
-{{{
-$ ezmerge ALL trunk
-}}}
-
-==Test==
+== Make and test changes ==
 
 Before you request a review, you should ensure that all the unit tests pass.  You'll want a copy of the [http://somethingaboutorange.com/mrl/projects/nose/ nose] tool for Python.  Once you have that installed, you can just run
 {{{
@@ -50,67 +22,22 @@ from the `trunk/python` directory to run all the tests in the project.
 
 Note that in order to pass all the tests, you'll need to install some extra Python packages to support optional features of the code:
   * [http://pytz.sourceforge.net/ pytz]
-  * [http://effbot.org/zone/element-index.htm elementtree]
+  * [http://effbot.org/zone/element-index.htm elementtree] (if running Python 2.4)
 Both of these should be available through `easy_install`.
 
 If you've added new tests to your project, it's good to make sure that you've seen them fail (so that you know that they're being run at all).  If necessary, temporarily break the code that the tests check to ensure that they fail in that case.
 
 ==Request a review==
 
-When you want someone to review your code make sure all your changes are commited in the branch and mail the branch name and revision to googletransitdatafeed@googlegroups.com. You may need to go back and make more changes to the branch.
+When you want someone to review your code make a new issue with your changes, add googletransitdatafeed@googlegroups.com to the list of reviewers and use the code review interface to mail a request for a review.
 
 ==Commit change to the trunk==
 
-Once your reviewer has given you a "looks good", you're ready to land the code.  When you are ready to merge your branch into the trunk make sure you have a clean updated trunk.  (As before, it's best to run `ezswitch` and `ezmerge` from the `trunk` directory.)
+Once your reviewer has given you a "looks good", you're ready to land the code.  When you are ready to merge your branch into the trunk check that you are only submitting the expected changes.
 {{{
-$ ezswitch trunk
-$ svn revert -R .  # you _did_ commit all your changes into the branch, didn't you?
-$ svn update
+svn update
+svn status  # Lists files modified and added to the working copy
+svn diff  # Dump all changes
+$EDITOR F  # Make a file describing the changes
+svn commit -F F
 }}}
-
-Merge and commit the changes in your branch, then delete the branch:
-{{{
-$ ezmerge ALL <username>-<change_name>
-$ svn commit
-$ svn rm https://googletransitdatafeed.googlecode.com/svn/branches/<username>-<change_name>
-}}}
-
-= If you're reviewing the code =
-
-To review a change that was made as described above, you can run:
-{{{
-$ svn diff https://googletransitdatafeed.googlecode.com/svn/trunk \
-https://googletransitdatafeed.googlecode.com/svn/branches/(branch_name)
-}}}
-
-to see what the change modifies.
-
-== Diff viewing tools ==
-
-By default svn outputs a unified diff of changed files. Here are some other options for viewing the diff between the trunk and branch you are reviewing.
-
-=== Subcommander ===
-
-Browse a subversion repository in Windows/Linux/OS X - http://subcommander.tigris.org
-
-After you have started subcommander, add the repository http://googletransitdatafeed.googlecode.com, browse to branches/(branch_name), Ctrl + click on trunk, right click and select diff. Make sure "recursive" is selected and press summary to get a list of changed files. Select a file and chose Diff to see what changed.
-
-=== Mac OS X ===
-
-If you are on Mac OS X, you can use the [http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-viewdiff svn-viewdiff] script to see the differences in the change graphically (it wraps the FileMerge tool that comes with the Mac OS X developer tools).  Once you've installed the script somewhere on your path, run:
-
-{{{
-$ svn diff --diff-cmd=svn-viewdiff https://googletransitdatafeed.googlecode.com/svn/trunk
-https://googletransitdatafeed.googlecode.com/svn/branches/(branch_name)
-}}}
-
-This will give you one FileMerge window for each changed file, showing the differences.
-
-=== Pick your own diff tool ===
-
-  * Official documentation - http://svnbook.red-bean.com/en/1.0/re09.html
-  * List of some tools for Linux - http://www.yolinux.com/TUTORIALS/Subversion.html#GDIFF
-
-== Mailing Feedback ==
-
-Respond to the review request email, being sure to cc `googletransitdatafeed@googlegroups.com` so that others can benefit from the feedback as well.  Once the change is close enough to be acceptable for submission, mention that the change "looks good to me" or is "OK to submit" so that it's clear that you approve.

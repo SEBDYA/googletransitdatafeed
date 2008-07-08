@@ -17,11 +17,14 @@
 # Code shared between tests.
 
 import os
-import subprocess
-import tempfile
-import unittest
-import sys
+import os.path
+import re
 import cStringIO as StringIO
+import subprocess
+import sys
+import tempfile
+import transitfeed
+import unittest
 
 
 def check_call(cmd, expected_retcode=0, **kwargs):
@@ -38,10 +41,13 @@ def check_call(cmd, expected_retcode=0, **kwargs):
   except Exception, e:
     raise Exception("When running %s: %s" % (cmd, e))
   if retcode < 0:
-    raise Exception("Child '%s' was terminated by signal %d" %
-                    (cmd, -retcode))
+    raise Exception(
+        "Child '%s' was terminated by signal %d. Output:\n%s\n%s\n" %
+        (cmd, -retcode, out, err))
   elif retcode != expected_retcode:
-    raise Exception("Child '%s' returned %d" % (cmd, retcode))
+    raise Exception(
+        "Child '%s' returned %d. Output:\n%s\n%s\n" %
+        (cmd, retcode, out, err))
   return (out, err)
 
 class TempDirTestCaseBase(unittest.TestCase):
@@ -73,10 +79,22 @@ class TempDirTestCaseBase(unittest.TestCase):
     return os.path.join(self._oldcwd, here, '..', *path)
 
   def CheckCallWithPath(self, cmd, expected_retcode=0):
-    """Run cmd[0] with args cmd[1:], pointing PYTHONPATH to the root
-    of this source tree. Raises an Exception if the return code is not
-    expected_retcode. Returns a tuple of strings, (stdout, stderr)."""
-    env = {'PYTHONPATH': self.GetPath()}
-    cmd = [sys.executable] + cmd
-    return check_call(cmd, expected_retcode=expected_retcode, shell=False,
-                      env=env)
+    """Run python script cmd[0] with args cmd[1:], making sure 'import
+    transitfeed' will use the module in this source tree. Raises an Exception
+    if the return code is not expected_retcode. Returns a tuple of strings,
+    (stdout, stderr)."""
+    tf_path = transitfeed.__file__
+    # Path of the directory containing transitfeed. When this is added to
+    # sys.path importing transitfeed should work independent of if
+    # transitfeed.__file__ is <parent>/transitfeed.py or
+    # <parent>/transitfeed/__init__.py
+    transitfeed_parent = tf_path[:tf_path.rfind("transitfeed")]
+    transitfeed_parent = transitfeed_parent.replace("\\", "/").rstrip("/")
+    script_path = cmd[0].replace("\\", "/")
+    script_args = cmd[1:]
+
+    cmd = [sys.executable,
+           "-c",
+           "import sys; sys.path.insert(0,'%s');exec(open('%s'))" %
+           (transitfeed_parent, script_path)] + script_args
+    return check_call(cmd, expected_retcode=expected_retcode, shell=False)

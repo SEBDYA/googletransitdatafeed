@@ -50,6 +50,10 @@ def ProblemCountText(error_count, warning_count):
     warning_text = '%d warnings' % warning_count
   elif warning_count == 1:
     warning_text = 'one warning'
+  
+  # Add a way to jump to the warning section when it's useful  
+  if error_count and warning_count:
+    warning_text = '<a href="#warnings">%s</a>' % warning_text
     
   results = []
   if error_text:
@@ -139,7 +143,7 @@ class HTMLCountingProblemReporter(transitfeed.ProblemReporter):
       unused.append('</div>')
     return ''.join(unused)
 
-  def WriteOutput(self, feed_location, f, schedule):
+  def WriteOutput(self, feed_location, f, schedule, problems):
     """Write the html output to f."""
     if problems.HasIssues():
       summary = ('<span class="fail">%s found</span>' %
@@ -212,6 +216,14 @@ GTFS validation results for feed:<br>
             "dates": dates,
             "summary": summary }
 
+# In output_suffix string
+# time.strftime() returns a regular local time string (not a Unicode one) with
+# default system encoding. And decode() will then convert this time string back
+# into a Unicode string. We use decode() here because we don't want the operating
+# system to do any system encoding (which may cause some problem if the string
+# contains some non-English characters) for the string. Therefore we decode it
+# back to its original Unicode code print.
+
     output_suffix = """
 %s
 <div class="footer">
@@ -221,7 +233,7 @@ FeedValidator</a> version %s on %s.
 </body>
 </html>""" % (self._UnusedStopSection(),
               transitfeed.__version__,
-              time.strftime('%B %d, %Y at %I:%M %p %Z'))
+              time.strftime('%B %d, %Y at %I:%M %p %Z').decode(sys.getfilesystemencoding()))
 
     f.write(transitfeed.EncodeUnicode(output_prefix))
     if self._error_output:
@@ -229,12 +241,13 @@ FeedValidator</a> version %s on %s.
       f.writelines(self._error_output)
       f.write('</ol>')
     if self._warning_output:
-      f.write('<h3 class="issueHeader">Warnings:</h3><ol>')
+      f.write('<a name="warnings">'
+              '<h3 class="issueHeader">Warnings:</h3></a><ol>')
       f.writelines(self._warning_output)
       f.write('</ol>')
     f.write(transitfeed.EncodeUnicode(output_suffix))
 
-if __name__ == '__main__':
+def main():
   parser = optparse.OptionParser(usage='usage: %prog [options] feed_filename',
                                  version='%prog '+transitfeed.__version__)
   parser.add_option('-n', '--noprompt', action='store_false',
@@ -261,6 +274,10 @@ if __name__ == '__main__':
   loader = transitfeed.Loader(feed, problems=problems, extra_validation=True)
   schedule = loader.Load()
 
+  if feed == 'IWantMyvalidation-crash.txt':
+    # See test/testfeedvalidator.py
+    raise Exception('For testing the feed validator crash handler.')
+
   exit_code = 0
   if problems.HasIssues():
     print 'ERROR: %s found' % ProblemCountText(problems.error_count,
@@ -271,9 +288,62 @@ if __name__ == '__main__':
 
   output_filename = options.output
   output_file = open(output_filename, 'w')
-  problems.WriteOutput(os.path.abspath(feed), output_file, schedule)
+  problems.WriteOutput(os.path.abspath(feed), output_file, schedule, problems)
   output_file.close()
   if manual_entry:
     webbrowser.open('file://%s' % os.path.abspath(output_filename))
 
   sys.exit(exit_code)
+
+if __name__ == '__main__':
+  try:
+    main()
+  except (SystemExit, KeyboardInterrupt):
+    raise
+  except:
+    import inspect
+    import sys
+    import traceback
+
+    apology = """Yikes, the validator threw an unexpected exception!
+
+Hopefully a complete report has been saved to validation-crash.txt,
+though if you are seeing this message we've already disappointed you once
+today. Please include the report in a new issue at
+http://code.google.com/p/googletransitdatafeed/issues/entry
+or an email to tom.brown.code@gmail.com. Sorry!
+
+"""
+    dashes = '%s\n' % ('-' * 60)
+    dump = []
+    dump.append(apology)
+    dump.append(dashes)
+
+    for (frame_obj, filename, line_num, fun_name, context_lines,
+         context_index) in inspect.trace(3)[1:]:
+      dump.append('File "%s", line %d, in %s\n' % (filename, line_num,
+                                                   fun_name))
+      for (i, line) in enumerate(context_lines):
+        if i == context_index:
+          dump.append(' --> %s' % line)
+        else:
+          dump.append('     %s' % line)
+      for local_name, local_val in frame_obj.f_locals.items():
+        truncated_val = str(local_val)[0:500]
+        if len(truncated_val) == 500:
+          truncated_val = '%s...' % truncated_val[0:499]
+        dump.append('    %s = %s\n' % (local_name, truncated_val))
+      dump.append('\n')
+
+    formatted_exception = traceback.format_exception_only(*(sys.exc_info()[:2]))
+    dump.append(''.join(formatted_exception))
+
+    open('validation-crash.txt', 'w').write(''.join(dump))
+
+    print ''.join(dump)
+    print
+    print dashes
+    print apology
+    if '-n' not in sys.argv and '--noprompt' not in sys.argv:
+      raw_input('Press enter to continue')
+    sys.exit(127)

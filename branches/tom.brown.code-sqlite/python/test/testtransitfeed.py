@@ -24,7 +24,7 @@ import tempfile
 import time
 import transitfeed
 import unittest
-import StringIO
+from StringIO import StringIO
 
 
 def DataPath(path):
@@ -60,16 +60,45 @@ class TestFailureProblemReporter(transitfeed.ProblemReporter):
   def _Report(self, problem_text):
     self.test_case.fail(problem_text)
 
+
+class RecordingProblemReporter(transitfeed.ProblemReporterBase):
+  """Save all problems for later inspection.
+
+  Args:
+    test_case: a unittest.TestCase object on which to report problems
+    ignore_types: sequence of string type names that will be ignored by the
+    ProblemReporter"""
+  def __init__(self, test_case, ignore_types=None):
+    transitfeed.ProblemReporterBase.__init__(self)
+    self.exceptions = []
+    self._test_case = test_case
+    self._ignore_types = ignore_types or set()
+
+  def _Report(self, e):
+    if e.__class__.__name__ in self._ignore_types:
+      return
+    self.exceptions.append(e)
+
+  def PopException(self, type_name):
+    """Return the first exception, which must be a type_name."""
+    e = self.exceptions.pop(0)
+    self._test_case.assertEqual(e.__class__.__name__, type_name)
+    return e
+
+  def AssertNoMoreExceptions(self):
+    self._test_case.assertFalse(self.exceptions, self.exceptions)
+
+
 class UnrecognizedColumnRecorder(transitfeed.ProblemReporter):
   """Keeps track of unrecognized column errors."""
   def __init__(self, test_case):
     transitfeed.ProblemReporter.__init__(self)
     self.test_case = test_case
     self.column_errors = []
-    
+
   def UnrecognizedColumn(self, file_name, column_name, context=None):
     self.column_errors.append((file_name, column_name))
-    
+
   def ExpirationDate(self, expiration, context=None):
     pass  # We don't want to give errors about our test data
 
@@ -80,7 +109,7 @@ class RedirectStdOutTestCaseBase(unittest.TestCase):
   """Save stdout to the StringIO buffer self.this_stdout"""
   def setUp(self):
     self.saved_stdout = sys.stdout
-    self.this_stdout = StringIO.StringIO()
+    self.this_stdout = StringIO()
     sys.stdout = self.this_stdout
 
   def tearDown(self):
@@ -98,6 +127,116 @@ class NoExceptionTestCase(RedirectStdOutTestCaseBase):
                                   extra_validation=True)
       schedule = loader.Load()
       schedule.Validate()
+
+
+class EndOfLineCheckerTestCase(unittest.TestCase):
+  def setUp(self):
+    self.problems = RecordingProblemReporter(self)
+
+  def RunEndOfLineChecker(self, end_of_line_checker):
+    # Iterating using for calls end_of_line_checker.next() until a
+    # StopIteration is raised. EndOfLineChecker does the final check for a mix
+    # of CR LF and LF ends just before raising StopIteration.
+    for line in end_of_line_checker:
+      pass
+
+  def testInvalidLineEnd(self):
+    f = transitfeed.EndOfLineChecker(StringIO("line1\r\r\nline2"),
+                                     "<StringIO>",
+                                     self.problems)
+    self.RunEndOfLineChecker(f)
+    e = self.problems.PopException("InvalidLineEnd")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertEqual(e.row_num, 1)
+    self.assertEqual(e.bad_line_end, r"\r\r\n")
+    self.problems.AssertNoMoreExceptions()
+
+  def testInvalidLineEndToo(self):
+    f = transitfeed.EndOfLineChecker(
+        StringIO("line1\nline2\r\nline3\r\r\r\n"),
+        "<StringIO>", self.problems)
+    self.RunEndOfLineChecker(f)
+    e = self.problems.PopException("InvalidLineEnd")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertEqual(e.row_num, 3)
+    self.assertEqual(e.bad_line_end, r"\r\r\r\n")
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertTrue(e.description.find("consistent line end") != -1)
+    self.problems.AssertNoMoreExceptions()
+
+  def testEmbeddedCr(self):
+    f = transitfeed.EndOfLineChecker(
+        StringIO("line1\rline1b"),
+        "<StringIO>", self.problems)
+    self.RunEndOfLineChecker(f)
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertEqual(e.row_num, 1)
+    self.assertEqual(e.FormatProblem(),
+                     "Line contains ASCII Carriage Return 0x0D, \\r")
+    self.problems.AssertNoMoreExceptions()
+
+  def testEmbeddedUtf8NextLine(self):
+    f = transitfeed.EndOfLineChecker(
+        StringIO("line1b\xc2\x85"),
+        "<StringIO>", self.problems)
+    self.RunEndOfLineChecker(f)
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertEqual(e.row_num, 1)
+    self.assertEqual(e.FormatProblem(),
+                     "Line contains Unicode NEXT LINE SEPARATOR U+0085")
+    self.problems.AssertNoMoreExceptions()
+
+  def testEndOfLineMix(self):
+    f = transitfeed.EndOfLineChecker(
+        StringIO("line1\nline2\r\nline3\nline4"),
+        "<StringIO>", self.problems)
+    self.RunEndOfLineChecker(f)
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertEqual(e.FormatProblem(),
+                     "Found 1 CR LF \"\\r\\n\" line end (line 2) and "
+                     "2 LF \"\\n\" line ends (lines 1, 3). A file must use a "
+                     "consistent line end.")
+    self.problems.AssertNoMoreExceptions()
+
+  def testEndOfLineManyMix(self):
+    f = transitfeed.EndOfLineChecker(
+        StringIO("1\n2\n3\n4\n5\n6\n7\r\n8\r\n9\r\n10\r\n11\r\n"),
+        "<StringIO>", self.problems)
+    self.RunEndOfLineChecker(f)
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "<StringIO>")
+    self.assertEqual(e.FormatProblem(),
+                     "Found 5 CR LF \"\\r\\n\" line ends (lines 7, 8, 9, 10, "
+                     "11) and 6 LF \"\\n\" line ends (lines 1, 2, 3, 4, 5, "
+                     "...). A file must use a consistent line end.")
+    self.problems.AssertNoMoreExceptions()
+
+  def testLoad(self):
+    loader = transitfeed.Loader(
+      DataPath("bad_eol.zip"), problems=self.problems, extra_validation=True)
+    loader.Load()
+
+    e = self.problems.PopException("InvalidLineEnd")
+    self.assertEqual(e.file_name, "routes.txt")
+    self.assertEqual(e.row_num, 5)
+    self.assertTrue(e.FormatProblem().find(r"\r\r\n") != -1)
+
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "calendar.txt")
+    self.assertTrue(re.search(
+      r"Found 1 CR LF.* \(line 2\) and 2 LF .*\(lines 1, 3\)",
+      e.FormatProblem()))
+
+    e = self.problems.PopException("OtherProblem")
+    self.assertEqual(e.file_name, "trips.txt")
+    self.assertTrue(re.search(
+      r"contains ASCII Form Feed",
+      e.FormatProblem()))
+    self.problems.AssertNoMoreExceptions()
 
 
 class LoadTestCase(unittest.TestCase):
@@ -201,7 +340,7 @@ class LoadUnrecognizedColumnsTestCase(unittest.TestCase):
       ('fare_rules.txt', 'source_id'),
       ('frequencies.txt', 'superfluous')
     ])
-    
+
     # Now make sure we got the unrecognized column errors that we expected.
     not_expected = found_errors.difference(expected_errors)
     self.failIf(not_expected, 'unexpected errors: %s' % str(not_expected))
@@ -444,58 +583,59 @@ class ColorLuminanceTestCase(unittest.TestCase):
 
 INVALID_VALUE = Exception()
 class ValidationTestCase(unittest.TestCase):
-  problems = ExceptionProblemReporterNoExpiration()
+  def setUp(self):
+    self.problems = RecordingProblemReporter(self, ("ExpirationDate",))
 
   def ExpectMissingValue(self, object, column_name):
     self.ExpectMissingValueInClosure(column_name,
                                      lambda: object.Validate(self.problems))
 
   def ExpectMissingValueInClosure(self, column_name, c):
-    try:
-      c()
-      self.fail('MissingValue exception expected')
-    except transitfeed.MissingValue, e:
-      self.assertEqual(column_name, e.column_name)
-      # these should not throw any exceptions
-      e.FormatProblem()
-      e.FormatContext()
+    self.problems.AssertNoMoreExceptions()
+    c()
+    e = self.problems.PopException('MissingValue')
+    self.assertEqual(column_name, e.column_name)
+    # these should not throw any exceptions
+    e.FormatProblem()
+    e.FormatContext()
+    self.problems.AssertNoMoreExceptions()
 
   def ExpectInvalidValue(self, object, column_name, value=INVALID_VALUE):
-    if value==INVALID_VALUE:
-      value = object.__getattribute__(column_name)
     self.ExpectInvalidValueInClosure(column_name, value,
         lambda: object.Validate(self.problems))
 
-  def ExpectInvalidValueInClosure(self, column_name, value, c):
-    try:
-      c()
-      self.fail('InvalidValue exception expected')
-    except transitfeed.InvalidValue, e:
-      self.assertEqual(column_name, e.column_name)
+  def ExpectInvalidValueInClosure(self, column_name, value=INVALID_VALUE,
+                                  c=None):
+    self.problems.AssertNoMoreExceptions()
+    c()
+    e = self.problems.PopException('InvalidValue')
+    self.assertEqual(column_name, e.column_name)
+    if value != INVALID_VALUE:
       self.assertEqual(value, e.value)
-      # these should not throw any exceptions
-      e.FormatProblem()
-      e.FormatContext()
+    # these should not throw any exceptions
+    e.FormatProblem()
+    e.FormatContext()
+    self.problems.AssertNoMoreExceptions()
 
   def ExpectOtherProblem(self, object):
     self.ExpectOtherProblemInClosure(lambda: object.Validate(self.problems))
 
   def ExpectOtherProblemInClosure(self, c):
-    try:
-      c()
-      self.fail('OtherProblem exception expected')
-    except transitfeed.OtherProblem, e:
-      # these should not throw any exceptions
-      e.FormatProblem()
-      e.FormatContext()
-      pass
+    self.problems.AssertNoMoreExceptions()
+    c()
+    e = self.problems.PopException('OtherProblem')
+    # these should not throw any exceptions
+    e.FormatProblem()
+    e.FormatContext()
+    self.problems.AssertNoMoreExceptions()
 
 
 class AgencyValidationTestCase(ValidationTestCase):
   def runTest(self):
     # success case
     agency = transitfeed.Agency(name='Test Agency', url='http://example.com',
-                                timezone='America/Los_Angeles', id='TA')
+                                timezone='America/Los_Angeles', id='TA',
+                                lang='xh')
     agency.Validate(self.problems)
 
     # bad agency
@@ -517,6 +657,24 @@ class AgencyValidationTestCase(ValidationTestCase):
     agency = transitfeed.Agency(name='Test Agency', url='http://example.com',
                                 timezone='America/Alviso', id='TA')
     self.ExpectInvalidValue(agency, 'agency_timezone')
+    
+    # bad language code
+    agency = transitfeed.Agency(name='Test Agency', url='http://example.com',
+                                timezone='America/Los_Angeles', id='TA',
+                                lang='English')
+    self.ExpectInvalidValue(agency, 'agency_lang')
+
+    # bad 2-letter lanugage code
+    agency = transitfeed.Agency(name='Test Agency', url='http://example.com',
+                                timezone='America/Los_Angeles', id='TA',
+                                lang='xx')
+    self.ExpectInvalidValue(agency, 'agency_lang')
+
+    # capitalized language code is OK
+    agency = transitfeed.Agency(name='Test Agency', url='http://example.com',
+                                timezone='America/Los_Angeles', id='TA',
+                                lang='EN')
+    agency.Validate(self.problems)
 
 
 class StopValidationTestCase(ValidationTestCase):
@@ -558,7 +716,7 @@ class StopValidationTestCase(ValidationTestCase):
     self.ExpectMissingValue(stop, 'stop_id')
     stop.stop_id = '45'
 
-    stop.stop_name = None
+    stop.stop_name = ''
     self.ExpectMissingValue(stop, 'stop_name')
     stop.stop_name = 'Couch AT End Table'
 
@@ -566,6 +724,7 @@ class StopValidationTestCase(ValidationTestCase):
     stop.stop_desc = 'Couch AT End Table'
     self.ExpectInvalidValue(stop, 'stop_desc')
     stop.stop_desc = 'Edge of the Couch'
+    self.problems.AssertNoMoreExceptions()
 
 
 class StopTimeValidationTestCase(ValidationTestCase):
@@ -614,6 +773,43 @@ class StopTimeValidationTestCase(ValidationTestCase):
     transitfeed.StopTime(self.problems, stop, arrival_time="10:00:00",
         departure_time="10:05:00", pickup_type='1', drop_off_type='1')
     transitfeed.StopTime(self.problems, stop)
+    self.problems.AssertNoMoreExceptions()
+
+
+class RouteConstructorTestCase(unittest.TestCase):
+  def setUp(self):
+    self.problems = RecordingProblemReporter(self)
+
+  def testDefault(self):
+    route = transitfeed.Route()
+    route.Validate(self.problems)
+
+    e = self.problems.PopException('MissingValue')
+    self.assertEqual('route_id', e.column_name)
+    e = self.problems.PopException('InvalidValue')
+    self.assertEqual('route_short_name', e.column_name)
+    e = self.problems.PopException('InvalidValue')
+    self.assertEqual('route_type', e.column_name)
+    self.problems.AssertNoMoreExceptions()
+
+  def testMinimal(self):
+    route = transitfeed.Route(route_id='id1', short_name='22', route_type='Bus')
+    route.Validate(self.problems)
+    self.problems.AssertNoMoreExceptions()
+
+    route = transitfeed.Route(route_id='id1', short_name='22', route_type=1)
+    route.Validate(self.problems)
+    self.problems.AssertNoMoreExceptions()
+
+    route = transitfeed.Route(route_id='id1', short_name='22', route_type='1')
+    route.Validate(self.problems)
+    self.problems.AssertNoMoreExceptions()
+
+    route = transitfeed.Route(route_id='id1', short_name='22', route_type='1foo')
+    route.Validate(self.problems)
+    e = self.problems.PopException('InvalidValue')
+    self.assertEqual('route_type', e.column_name)
+    self.problems.AssertNoMoreExceptions()
 
 
 class RouteValidationTestCase(ValidationTestCase):
@@ -630,35 +826,36 @@ class RouteValidationTestCase(ValidationTestCase):
     route.route_short_name = ''
     route.route_long_name = '    '
     self.ExpectInvalidValue(route, 'route_short_name')
-    route.route_short_name = '54C'
-    route.route_long_name = 'South Side - North Side'
 
     # short name too long
     route.route_short_name = 'South Side'
+    route.route_long_name = ''
     self.ExpectInvalidValue(route, 'route_short_name')
     route.route_short_name = 'M7bis'  # 5 is OK
     route.Validate(self.problems)
-    route.route_short_name = '54C'
 
     # long name contains short name
+    route.route_short_name = '54C'
     route.route_long_name = '54C South Side - North Side'
     self.ExpectInvalidValue(route, 'route_long_name')
     route.route_long_name = '54C-South Side - North Side'
     self.ExpectInvalidValue(route, 'route_long_name')
-    route.route_long_name = 'South Side - North Side'
 
     # long name is same as short name
+    route.route_short_name = '54C'
     route.route_long_name = '54C'
     self.ExpectInvalidValue(route, 'route_long_name')
-    route.route_long_name = 'South Side - North Side'
 
     # route description is same as short name
     route.route_desc = '54C'
+    route.route_short_name = '54C'
+    route.route_long_name = ''
     self.ExpectInvalidValue(route, 'route_desc')
     route.route_desc = None
 
     # route description is same as long name
     route.route_desc = 'South Side - North Side'
+    route.route_long_name = 'South Side - North Side'
     self.ExpectInvalidValue(route, 'route_desc')
     route.route_desc = None
 
@@ -711,16 +908,14 @@ class RouteValidationTestCase(ValidationTestCase):
     route.route_text_color = None # black
     route.route_color = None      # white
     route.Validate(self.problems)
+    self.problems.AssertNoMoreExceptions()
 
 
 class ShapeValidationTestCase(ValidationTestCase):
   def ExpectFailedAdd(self, shape, lat, lon, dist, column_name, value):
-    try:
-      shape.AddPoint(lat, lon, dist, self.problems)
-      self.fail('Expected validation exception!')
-    except transitfeed.InvalidValue, e:
-      self.assertEqual(column_name, e.column_name)
-      self.assertEqual(value, e.value)
+    self.ExpectInvalidValueInClosure(
+        column_name, value,
+        lambda: shape.AddPoint(lat, lon, dist, self.problems))
 
   def runTest(self):
     shape = transitfeed.Shape('TEST')
@@ -750,6 +945,7 @@ class ShapeValidationTestCase(ValidationTestCase):
     self.ExpectFailedAdd(shape, 36.905019, -116.763206, 4,
                          'shape_dist_traveled', 4)
     shape.AddPoint(36.905019, -116.763206, 5, self.problems)
+    self.problems.AssertNoMoreExceptions()
 
 class FareValidationTestCase(ValidationTestCase):
   def runTest(self):
@@ -829,6 +1025,7 @@ class FareValidationTestCase(ValidationTestCase):
     fare.transfer_duration = "3600"
     self.ExpectInvalidValue(fare, "transfer_duration")
     fare.transfer_duration = 7200
+    self.problems.AssertNoMoreExceptions()
 
 
 class ServicePeriodValidationTestCase(ValidationTestCase):
@@ -928,6 +1125,7 @@ class ServicePeriodDateRangeTestCase(ValidationTestCase):
     self.assertEqual(('20070101', '20080101'), schedule.GetDateRange())
     schedule.AddServicePeriodObject(period4)
     self.assertEqual(('20051031', '20080101'), schedule.GetDateRange())
+    self.problems.AssertNoMoreExceptions()
 
 
 class TripValidationTestCase(ValidationTestCase):
@@ -988,6 +1186,7 @@ class TripValidationTestCase(ValidationTestCase):
     trip.AddHeadwayPeriod("06:00:00", "18:00:00", 1200)
     self.ExpectOtherProblem(trip)
     trip.ClearHeadwayPeriods()
+    self.problems.AssertNoMoreExceptions()
 
 
 class TripServiceIDValidationTestCase(ValidationTestCase):
@@ -1008,12 +1207,9 @@ class TripServiceIDValidationTestCase(ValidationTestCase):
     trip1.route_id = "054C"
     trip1.service_id = "WEEKDAY"
     trip1.trip_id = "054C_WEEK"
-    try:
-      schedule.AddTripObject(trip1)
-      self.fail("Expected an InvalidValue for the service_id")
-    except transitfeed.InvalidValue, e:
-      self.assertEqual("service_id", e.column_name)
-      self.assertEqual("WEEKDAY", e.value)
+    self.ExpectInvalidValueInClosure(column_name="service_id",
+                                     value="WEEKDAY",
+                                     c=lambda: schedule.AddTripObject(trip1))
 
 
 class TripHasStopTimeValidationTestCase(ValidationTestCase):
@@ -1060,11 +1256,8 @@ class TripHasStopTimeValidationTestCase(ValidationTestCase):
 
     # Last stop must always have a time
     trip.AddStopTime(stop, arrival_secs=None, departure_secs=None)
-    try:
-      trip.GetEndTime(problems=self.problems)
-      self.fail('exception expected')
-    except transitfeed.InvalidValue, e:
-      self.assertEqual('arrival_time', e.column_name)
+    self.ExpectInvalidValueInClosure(
+        'arrival_time', c=lambda: trip.GetEndTime(problems=self.problems))
 
 
 class TripAddStopTimeObjectTestCase(ValidationTestCase):
@@ -1086,28 +1279,23 @@ class TripAddStopTimeObjectTestCase(ValidationTestCase):
                                                 departure_secs=20),
                            schedule=schedule, problems=self.problems)
     # TODO: Factor out checks or use mock problems object
-    try:
+    self.ExpectOtherProblemInClosure(lambda:
       trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1,
                                                   arrival_secs=15,
                                                   departure_secs=15),
-                             schedule=schedule, problems=self.problems)
-      self.fail('OtherProblem exception expected')
-    except transitfeed.OtherProblem:
-      pass
+                             schedule=schedule, problems=self.problems))
     trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1),
                            schedule=schedule, problems=self.problems)
-    try:
-      trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1,
-                                                  arrival_secs=15,
-                                                  departure_secs=15),
-                             schedule=schedule, problems=self.problems)
-      self.fail('OtherProblem exception expected')
-    except transitfeed.OtherProblem:
-      pass
+    self.ExpectOtherProblemInClosure(lambda:
+        trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1,
+                                                    arrival_secs=15,
+                                                    departure_secs=15),
+                               schedule=schedule, problems=self.problems))
     trip.AddStopTimeObject(transitfeed.StopTime(self.problems, stop1,
                                                 arrival_secs=30,
                                                 departure_secs=30),
                            schedule=schedule, problems=self.problems)
+    self.problems.AssertNoMoreExceptions()
 
 
 class TripStopTimeAccessorsTestCase(unittest.TestCase):
@@ -1356,6 +1544,7 @@ class DuplicateStopValidationTestCase(ValidationTestCase):
     schedule.AddStopObject(stop3)
     trip.AddStopTime(stop3, arrival_time="12:10:00", departure_time="12:10:00")
     schedule.Validate()
+    self.problems.AssertNoMoreExceptions()
 
     stop4 = transitfeed.Stop()
     stop4.stop_id = "STOP4"
@@ -1680,6 +1869,7 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     agency.agency_name = "Demo Transit Authority"
     agency.agency_url = "http://google.com"
     agency.agency_timezone = "America/Los_Angeles"
+    agency.agency_lang = 'en'
     schedule.AddAgencyObject(agency)
 
     routes = []
@@ -1734,22 +1924,23 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     stops = []
     stop_data = [
         ("FUR_CREEK_RES", "Furnace Creek Resort (Demo)",
-         36.425288, -117.133162, "zone-a"),
+         36.425288, -117.133162, "zone-a", "1234"),
         ("BEATTY_AIRPORT", "Nye County Airport (Demo)",
-         36.868446, -116.784682, "zone-a"),
-        ("BULLFROG", "Bullfrog (Demo)", 36.88108, -116.81797, "zone-b"),
+         36.868446, -116.784682, "zone-a", "1235"),
+        ("BULLFROG", "Bullfrog (Demo)", 36.88108, -116.81797, "zone-b", "1236"),
         ("STAGECOACH", "Stagecoach Hotel & Casino (Demo)",
-         36.915682, -116.751677, "zone-c"),
-        ("NADAV", "North Ave / D Ave N (Demo)", 36.914893, -116.76821, ""),
-        ("NANAA", "North Ave / N A Ave (Demo)", 36.914944, -116.761472, ""),
-        ("DADAN", "Doing AVe / D Ave N (Demo)", 36.909489, -116.768242, ""),
-        ("EMSI", "E Main St / S Irving St (Demo)", 36.905697, -116.76218, ""),
-        ("AMV", "Amargosa Valley (Demo)", 36.641496, -116.40094, ""),
+         36.915682, -116.751677, "zone-c", "1237"),
+        ("NADAV", "North Ave / D Ave N (Demo)", 36.914893, -116.76821, "", ""),
+        ("NANAA", "North Ave / N A Ave (Demo)", 36.914944, -116.761472, "", ""),
+        ("DADAN", "Doing AVe / D Ave N (Demo)", 36.909489, -116.768242, "", ""),
+        ("EMSI", "E Main St / S Irving St (Demo)",
+         36.905697, -116.76218, "", ""),
+        ("AMV", "Amargosa Valley (Demo)", 36.641496, -116.40094, "", ""),
       ]
     for stop_entry in stop_data:
       stop = transitfeed.Stop()
       (stop.stop_id, stop.stop_name, stop.stop_lat, stop.stop_lon,
-          stop.zone_id) = stop_entry
+          stop.zone_id, stop.stop_code) = stop_entry
       schedule.AddStopObject(stop)
       stops.append(stop)
 
@@ -2095,22 +2286,25 @@ class GetTripTimeTestCase(unittest.TestCase):
                        "America/Los_Angeles")
     service_period = schedule.GetDefaultServicePeriod()
     service_period.SetDateHasService('20070101')
-    stop1 = schedule.AddStop(lng=140.01, lat=0, name="140.01,0")
-    stop2 = schedule.AddStop(lng=140.02, lat=0, name="140.02,0")
-    stop3 = schedule.AddStop(lng=140.03, lat=0, name="140.03,0")
-    stop4 = schedule.AddStop(lng=140.04, lat=0, name="140.04,0")
-    route1 = schedule.AddRoute("1", "One", "Bus")
+    self.stop1 = schedule.AddStop(lng=140.01, lat=0, name="140.01,0")
+    self.stop2 = schedule.AddStop(lng=140.02, lat=0, name="140.02,0")
+    self.stop3 = schedule.AddStop(lng=140.03, lat=0, name="140.03,0")
+    self.stop4 = schedule.AddStop(lng=140.04, lat=0, name="140.04,0")
+    self.stop5 = schedule.AddStop(lng=140.05, lat=0, name="140.05,0")
+    self.route1 = schedule.AddRoute("1", "One", "Bus")
 
-    trip1 = route1.AddTrip(schedule, "trip 1", trip_id='trip1')
-    trip1.AddStopTime(stop1, schedule=schedule, departure_secs=100, arrival_secs=100)
-    trip1.AddStopTime(stop2, schedule=schedule)
-    trip1.AddStopTime(stop3, schedule=schedule)
-    trip1.AddStopTime(stop4, schedule=schedule, departure_secs=400, arrival_secs=400)
+    self.trip1 = self.route1.AddTrip(schedule, "trip 1", trip_id='trip1')
+    self.trip1.AddStopTime(self.stop1, schedule=schedule, departure_secs=100, arrival_secs=100)
+    self.trip1.AddStopTime(self.stop2, schedule=schedule)
+    self.trip1.AddStopTime(self.stop3, schedule=schedule)
+    self.trip1.AddStopTime(self.stop4, schedule=schedule, departure_secs=400, arrival_secs=400)
 
-    trip2 = route1.AddTrip(schedule, "trip 2", trip_id='trip2')
-    trip2.AddStopTime(stop2, schedule=schedule, departure_secs=500, arrival_secs=500)
-    trip2.AddStopTime(stop3, schedule=schedule, departure_secs=600, arrival_secs=600)
-    trip2.AddStopTime(stop4, schedule=schedule, departure_secs=700, arrival_secs=700)
+    self.trip2 = self.route1.AddTrip(schedule, "trip 2", trip_id='trip2')
+    self.trip2.AddStopTime(self.stop2, schedule=schedule, departure_secs=500, arrival_secs=500)
+    self.trip2.AddStopTime(self.stop3, schedule=schedule, departure_secs=600, arrival_secs=600)
+    self.trip2.AddStopTime(self.stop4, schedule=schedule, departure_secs=700, arrival_secs=700)
+
+    self.trip3 = self.route1.AddTrip(schedule, "trip 3", trip_id='trip3')
 
   def testGetTimeInterpolatedStops(self):
     rv = self.schedule.GetTrip('trip1').GetTimeInterpolatedStops()
@@ -2132,6 +2326,18 @@ class GetTripTimeTestCase(unittest.TestCase):
     self.assertEqual(("trip1", "trip2"), tuple([ti[0].trip_id for ti in trip_index]))
     self.assertEqual((2, 1), tuple([ti[1] for ti in trip_index]))
     self.assertEqual((False, True), istimepoints)
+
+  def testGetTrips(self):
+    self.assertEqual(set([t.trip_id for t in self.stop1.GetTrips(self.schedule)]),
+                     set([self.trip1.trip_id]))
+    self.assertEqual(set([t.trip_id for t in self.stop2.GetTrips(self.schedule)]),
+                     set([self.trip1.trip_id, self.trip2.trip_id]))
+    self.assertEqual(set([t.trip_id for t in self.stop3.GetTrips(self.schedule)]),
+                     set([self.trip1.trip_id, self.trip2.trip_id]))
+    self.assertEqual(set([t.trip_id for t in self.stop4.GetTrips(self.schedule)]),
+                     set([self.trip1.trip_id, self.trip2.trip_id]))
+    self.assertEqual(set([t.trip_id for t in self.stop5.GetTrips(self.schedule)]),
+                     set())
 
 
 class ApproximateDistanceBetweenStopsTestCase(unittest.TestCase):

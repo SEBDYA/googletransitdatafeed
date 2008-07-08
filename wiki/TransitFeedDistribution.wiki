@@ -35,6 +35,14 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.5 ====
+  * Add examples/filter_unused_stops.py that loads a gtfs file, modifies some things and saves the changes to a new file
+  * Fix for
+    * Issue 27: feed validator should check line endings
+    * Issue 37: transitfeed installed as an egg can interfere with tests
+    * Issue 54: `AttributeError: 'NoneType' object has no attribute 'strip'`
+    * Issue 55: feedvalidator.exe error: `TypeError: 'NoneType' object is not iterable` (crash handler in py2exe)
+
 ==== v1.1.4 ====
   * add merge.py as a script; merge.exe is now part of windows binary distribution
   * add examples/google_random_queries.py: outputs a list of random query urls, using stop lat,lng

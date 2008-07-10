@@ -337,7 +337,12 @@ def main():
 
 if __name__ == '__main__':
   try:
-    main()
+    #main()
+    import cProfile
+    import pstats
+    cProfile.run('main()', 'validate-stats')
+    p = pstats.Stats('validate-stats')
+    p.sort_stats('cumulative').print_stats(30)
   except (SystemExit, KeyboardInterrupt):
     raise
   except:

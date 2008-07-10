@@ -752,6 +752,9 @@ class StopTime(object):
   _OPTIONAL_FIELD_NAMES = ['stop_headsign', 'pickup_type',
                            'drop_off_type', 'shape_dist_traveled']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + _OPTIONAL_FIELD_NAMES
+  _SQL_FIELD_NAMES = ['trip_id', 'arrival_secs', 'departure_secs',
+                      'stop_id', 'stop_sequence', 'stop_headsign',
+                      'pickup_type', 'drop_off_type', 'shape_dist_traveled']
 
   __slots__ = ('arrival_secs', 'departure_secs', 'stop_headsign', 'stop',
                'stop_headsign', 'pickup_type', 'drop_off_type',
@@ -876,17 +879,14 @@ class StopTime(object):
 
   def GetSqlValuesTuple(self, trip_id, stop_sequence):
     result = []
-    for fn in StopTime._FIELD_NAMES:
+    for fn in StopTime._SQL_FIELD_NAMES:
       if fn == 'trip_id':
         result.append(trip_id)
       elif fn == 'stop_sequence':
         result.append(stop_sequence)
       else:
-        v = getattr(self, fn)  # Why is this not needed in GetFieldValuesTuple?
-        if v == None:
-          result.append('')
-        else:
-          result.append(v)
+        # This might append None, which will be inserted into SQLite as NULL
+        result.append(getattr(self, fn))
     return tuple(result)
 
   def GetTimeSecs(self):
@@ -973,8 +973,8 @@ class Trip(object):
     if enforce_order or sequence is None:
       new_secs = stoptime.GetTimeSecs()
       cursor = schedule._connection.cursor()
-      cursor.execute("SELECT max(stop_sequence), max(arrival_time), "
-                     "max(departure_time) FROM stop_times WHERE trip_id=?",
+      cursor.execute("SELECT max(stop_sequence), max(arrival_secs), "
+                     "max(departure_secs) FROM stop_times WHERE trip_id=?",
                      (self.trip_id,))
       row = cursor.fetchone()
       if row[0] is None:
@@ -986,28 +986,29 @@ class Trip(object):
           sequence = row[0] + 1
         if enforce_order:
           # TODO: make sure sequence > max(stop_sequence)
-          current_max_time = max(row[1], row[2])
-          if new_secs and current_max_time:
-            new_time = FormatSecondsSinceMidnight(new_secs)
-            if new_time < current_max_time:
+          current_max_secs = max(row[1], row[2])
+          if new_secs and current_max_secs:
+            if new_secs < current_max_secs:
               problems.OtherProblem("Trying to add stop_time "
                                     "trip_id=%s stop_id=%s at time %s but it "
                                     "is before an existing stop_time at %s" %
-                                    (self.trip_id, stoptime.stop_id, new_time,
-                                     current_max_time))
+                                    (self.trip_id, stoptime.stop_id,
+                                    FormatSecondsSinceMidnight(new_secs),
+                                    FormatSecondsSinceMidnight(current_max_secs)))
 
     cursor = schedule._connection.cursor()
-    cursor.execute("SELECT count(*) FROM stop_times WHERE trip_id=? AND "
-                   "stop_sequence=?", (self.trip_id, sequence))
-    if cursor.fetchone()[0] > 0:
-       problems.InvalidValue('stop_sequence', sequence,
-                             'The sequence number %d occurs more '
-                             'than once in trip %s.' %
-                             (sequence, self.trip_id))
+    #XXX Loose and fast
+    #cursor.execute("SELECT count(*) FROM stop_times WHERE trip_id=? AND "
+    #               "stop_sequence=?", (self.trip_id, sequence))
+    #if cursor.fetchone()[0] > 0:
+    #   problems.InvalidValue('stop_sequence', sequence,
+    #                         'The sequence number %d occurs more '
+    #                         'than once in trip %s.' %
+    #                         (sequence, self.trip_id))
 
     insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
-       ','.join(StopTime._FIELD_NAMES),
-       ','.join(['?'] * len(StopTime._FIELD_NAMES)))
+       ','.join(StopTime._SQL_FIELD_NAMES),
+       ','.join(['?'] * len(StopTime._SQL_FIELD_NAMES)))
     cursor = schedule._connection.cursor()
     cursor.execute(
         insert_query, stoptime.GetSqlValuesTuple(self.trip_id, sequence))
@@ -1059,7 +1060,7 @@ class Trip(object):
     """Return a sorted list of StopTime objects for this trip."""
     cursor = self._schedule._connection.cursor()
     cursor.execute(
-        'SELECT arrival_time,departure_time,stop_headsign,pickup_type,'
+        'SELECT arrival_secs,departure_secs,stop_headsign,pickup_type,'
         'drop_off_type,shape_dist_traveled,stop_id FROM stop_times WHERE '
         'trip_id=? ORDER BY stop_sequence', (self.trip_id,))
     stop_times = []
@@ -1067,8 +1068,8 @@ class Trip(object):
       stop = self._schedule.GetStop(row[6])
       # problems=None should be safe because data from database has been
       # validated. If a problem is found an exception will be raised.
-      stop_times.append(StopTime(problems=None, stop=stop, arrival_time=row[0],
-                                 departure_time=row[1],
+      stop_times.append(StopTime(problems=None, stop=stop, arrival_secs=row[0],
+                                 departure_secs=row[1],
                                  stop_headsign=row[2],
                                  pickup_type=row[3],
                                  drop_off_type=row[4],
@@ -1078,11 +1079,15 @@ class Trip(object):
   def GetStartTime(self, problems=default_problem_reporter):
     """Return the first time of the trip. TODO: For trips defined by frequency
     return the first time of the first trip."""
-    stoptimes = self.GetStopTimes()
-    if stoptimes[0].arrival_secs is not None:
-      return stoptimes[0].arrival_secs
-    elif stoptimes[0].departure_secs is not None:
-      return stoptimes[0].departure_secs
+    cursor = self._schedule._connection.cursor()
+    cursor.execute(
+        'SELECT arrival_secs,departure_secs FROM stop_times WHERE '
+        'trip_id=? ORDER BY stop_sequence LIMIT 1', (self.trip_id,))
+    (arrival_secs, departure_secs) = cursor.fetchone()
+    if arrival_secs != None:
+      return arrival_secs
+    elif departure_secs != None:
+      return departure_secs
     else:
       problems.InvalidValue('departure_time', '',
                             'The first stop_time in trip %s is missing '
@@ -1091,11 +1096,15 @@ class Trip(object):
   def GetEndTime(self, problems=default_problem_reporter):
     """Return the last time of the trip. TODO: For trips defined by frequency
     return the last time of the last trip."""
-    stoptimes = self.GetStopTimes()
-    if stoptimes[-1].departure_secs is not None:
-      return stoptimes[-1].departure_secs
-    elif stoptimes[-1].arrival_secs is not None:
-      return stoptimes[-1].arrival_secs
+    cursor = self._schedule._connection.cursor()
+    cursor.execute(
+        'SELECT arrival_secs,departure_secs FROM stop_times WHERE '
+        'trip_id=? ORDER BY stop_sequence DESC LIMIT 1', (self.trip_id,))
+    (arrival_secs, departure_secs) = cursor.fetchone()
+    if departure_secs != None:
+      return departure_secs
+    elif arrival_secs != None:
+      return arrival_secs
     else:
       problems.InvalidValue('arrival_time', '',
                             'The last stop_time in trip %s is missing '
@@ -1911,8 +1920,8 @@ class Schedule:
     cursor = self._connection.cursor()
     cursor.execute("""CREATE TABLE stop_times (
                                            trip_id CHAR(50),
-                                           arrival_time CHAR(8),
-                                           departure_time CHAR(8),
+                                           arrival_secs INTEGER,
+                                           departure_secs INTEGER,
                                            stop_id CHAR(50),
                                            stop_sequence INTEGER,
                                            stop_headsign VAR CHAR(100),

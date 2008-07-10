@@ -592,7 +592,7 @@ class ValidationTestCase(unittest.TestCase):
 
   def ExpectMissingValueInClosure(self, column_name, c):
     self.problems.AssertNoMoreExceptions()
-    c()
+    rv = c()
     e = self.problems.PopException('MissingValue')
     self.assertEqual(column_name, e.column_name)
     # these should not throw any exceptions
@@ -607,7 +607,7 @@ class ValidationTestCase(unittest.TestCase):
   def ExpectInvalidValueInClosure(self, column_name, value=INVALID_VALUE,
                                   c=None):
     self.problems.AssertNoMoreExceptions()
-    c()
+    rv = c()
     e = self.problems.PopException('InvalidValue')
     self.assertEqual(column_name, e.column_name)
     if value != INVALID_VALUE:
@@ -622,7 +622,7 @@ class ValidationTestCase(unittest.TestCase):
 
   def ExpectOtherProblemInClosure(self, c):
     self.problems.AssertNoMoreExceptions()
-    c()
+    rv = c()
     e = self.problems.PopException('OtherProblem')
     # these should not throw any exceptions
     e.FormatProblem()

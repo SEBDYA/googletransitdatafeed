@@ -38,7 +38,7 @@ Once schedule_viewer has finished loading the feed file it prints a URL. Ignore 
 
 == Exploring stops ==
 
-After you drag the map to a new location with your mouse it will display stops in the current area a transparent blue markers. If there are lots of stops in the map area only a sample will be displayed. To see all the stops you need to zoom in. The map zooms in when double clicked. If you click on a marker it opens a window listing the "stop_name (stop_id)" and the next trips to visit the stop after "Time:" (HH:MM at top left of screen). Click on a trip to display it.
+After you drag the map to a new location with your mouse it will display stops in the current area as transparent blue markers. If there are lots of stops in the map area only a sample will be displayed. To see all the stops you need to zoom in. The map zooms in when double clicked. If you click on a marker it opens a window listing the "stop_name (stop_id)" and the next trips to visit the stop after "Time:" (HH:MM at top left of screen). Click on a trip to display it.
 
 The Find Station field (top left, below "Time:") will search for all stops that have a name or stop_id containing the string you enter.
 
@@ -52,6 +52,8 @@ After you click on a trip in a stop marker's window or on a start time in the ro
 
 
 = Inspecting for problems =
+
+When you first load the schedule viewer the map is zoomed out to contain all stops. If this is much larger than your service area there is probably a stop in the wrong place. Move the service are out of displayed map area and the distant stop will probably appear.
 
 Zoom in on a few stops, open the window and make sure the marker is in the correct location.
 

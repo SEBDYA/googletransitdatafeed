@@ -40,6 +40,8 @@ Once schedule_viewer has finished loading the feed file it prints a URL. Ignore 
 
 After you drag the map to a new location with your mouse it will display stops in the current area as transparent blue markers. If there are lots of stops in the map area only a sample will be displayed. To see all the stops you need to zoom in. The map zooms in when double clicked. If you click on a marker it opens a window listing the "stop_name (stop_id)" and the next trips to visit the stop after "Time:" (HH:MM at top left of screen). Click on a trip to display it.
 
+http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-stop-window-75p.PNG
+
 The Find Station field (top left, below "Time:") will search for all stops that have a name or stop_id containing the string you enter.
 
 == Exploring routes ==

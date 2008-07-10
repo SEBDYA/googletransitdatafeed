@@ -55,7 +55,7 @@ After you click on a trip in a stop marker's window or on a start time in the ro
 
 When you first load the schedule viewer the map is zoomed out to contain all stops. If this is much larger than your service area there is probably a stop in the wrong place. Move the service are out of displayed map area and the distant stop will probably appear.
 
-Check the location of a stop by zooming in until you can see the street names. Click on the stop marker to open the window and make sure the marker is in the correct location. Repeat this for stops in different parts of the service area.
+Check the location of a stop by zooming in until you can see the street names. Click on the stop marker to open the window and make sure the marker is in the correct location. For rail stations you may see the real location more easily with satellite view. Repeat this for stops in different parts of the service area.
 
 Click through all the routes. In each route look at one trip of each pattern. Watch out for unreasonably fast or slow legs. If the polyline has any jumps there may be a stop with the incorrect geo location or incorrect information in the stop_times table. If the agency has published a route map it can help you confirm that the trip in GTFS is correct.
 

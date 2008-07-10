@@ -32,7 +32,7 @@ schedule_viewer.exe --key <google_maps_api_key> --feed_filename <feed_file_or_di
 If you run it from Start -> Run include the full path of schedule_viewer.exe and if you are in a command prompt change into the directory containing schedule_viewer.exe.
 
 
-= Instructions =
+= Explore your data =
 
 Once schedule_viewer has finished loading the feed file it prints a URL. Ignore that URL because it won't work with your Google Maps API key. Instead go to http://localhost:8765/ in your web browser and a page similar to the screen shot above should load.
 
@@ -40,13 +40,22 @@ Once schedule_viewer has finished loading the feed file it prints a URL. Ignore 
 
 After you drag the map to a new location with your mouse it will display stops in the current area a transparent blue markers. If there are lots of stops in the map area only a sample will be displayed. To see all the stops you need to zoom in. The map zooms in when double clicked. If you click on a marker it opens a window listing the "stop_name (stop_id)" and the next trips to visit the stop after "Time:" (HH:MM at top left of screen). Click on a trip to display it.
 
+The Find Station field (top left, below "Time:") will search for all stops that have a name or stop_id containing the string you enter.
+
 == Exploring routes ==
 
-The left pane lists all the routes in the feed. Click on one of the route names to see the trip patterns (a group of trips that visit the same stops in the same order) for that route. The first trip will automatically be selected, and shown on the map. For each trip pattern the number of stops, number of trips and start times are displayed. For patterns that have many trips only a few start times are displayed. Edit the Time field at the top to look at other start times. To see another trip on the map, click its start time.  When a trip is selected, some of the source data for that route will be displayed at the bottom of the window. Below the source data is a graph that lists every trip of the selected pattern. A steeper line represents faster travel. These lines shouldn't cross unless two buses on the same pattern pass.
+The left pane lists all the routes in the feed. Click on one of the route names to see the trip patterns (a group of trips that visit the same stops in the same order) for that route. The first trip will automatically be selected, and shown on the map. For each trip pattern the number of stops, number of trips and start times are displayed. For patterns that have many trips only a few start times are displayed. To see the start times of more trips edit "Time:" (HH:MM at top left of screen) and click on the route name again.
 
-The yellow icons on the map belong to the currently-selected route/trip; the blue icons are other nearby stops.  You can click on an icon to see the `stop_name` and `stop_id` of a stop, along with the next few stop times for it. If you click on a stop time to see the entire trip.
+== Viewing a trip ==
 
-The Find Station field will search for all stops that have a name or stop_id containing the string you enter.
+After you click on a trip in a stop marker's window or on a start time in the route list it is displayed in the map. Every stop of the trip is shown as a yellow marker. Timepoints have the time displayed on the map. Some of the source data for that trip and route will be displayed at the bottom of the window. Below the source data is a graph that lists every trip of the selected pattern. A steeper line represents faster travel. These lines shouldn't cross unless two buses on the same pattern pass.
+
+
+= Inspecting for problems =
+
+Zoom in on a few stops, open the window and make sure the marker is in the correct location.
+
+Look at one trip of each pattern. Check that the time points are reasonable. If the polyline has any jumps there may be a stop with the incorrect geo location or an incorrect stop_times row.
 
 = Bugs and feature requests =
 

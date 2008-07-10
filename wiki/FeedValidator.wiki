@@ -3,7 +3,10 @@
 
 = Introduction =
 
-The feedvalidator is a command line tool that checks a Google Transit Feed for problems.  Running it on your transit data feed and fixing the issues that it finds can save you from display and routing problems down the road.
+The feedvalidator is a command line tool that checks a Google Transit Feed for problems and generates a HTML report.  Running it on your transit data feed and fixing the issues that it finds can save you from display and routing problems down the road.
+
+You may run the validator on an uncompressed directory of GTFS txt files. I recommend you validate your final google_transit.zip just before publishing it to catch any mistakes creating the zip. If you have an script that generates your GTFS file consider making validation a final step and aborting if it exits with an error.
+
 
 = Windows standalone version =
 

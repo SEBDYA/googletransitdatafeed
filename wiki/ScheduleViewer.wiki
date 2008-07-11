@@ -61,6 +61,20 @@ Check the location of a stop by zooming in until you can see the street names. C
 
 Click through all the routes. In each route look at one trip of each pattern. Watch out for unreasonably fast or slow legs. If the polyline has any jumps there may be a stop with the incorrect geo location or incorrect information in the stop_times table. If the agency has published a route map it can help you confirm that the trip in GTFS is correct.
 
+Here are some examples of buggy data:
+
+ http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-jump.PNG
+ 
+ A stop with a bad geo location in stops.txt or using the wrong stop_id in stop_times.txt can cause a big jump.
+
+ http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-ooo.PNG
+ 
+ A zig-zag can be caused by bad geo locations in stops.txt or an incorrect sequence of stop_id values in stop_times.txt.
+
+ http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-skips.PNG
+ 
+ Someone familiar with BART may notice that this skips two stops.
+
 = Bugs and feature requests =
 
 [http://code.google.com/p/googletransitdatafeed/issues/list?q=label:App-ScheduleViewer Vote for known ScheduleViewer issues] so the developers know what is important.

@@ -13,12 +13,12 @@ Schedule Viewer is a Python program for viewing the contents of a Google Transit
 The Schedule Viewer is part of the Transit Feed Distribution. See the [TransitFeedDistribution page about the transit feed distribution] for instructions on installing either the Windows executable or python source.
 
 To run you need:
-  * {{{<google_maps_api_key>}}} a Google Maps API key for the address `http://localhost:8765`, available from the [http://www.google.com/apis/maps/signup.html Google Maps API signup page]
+  * (Optional) If you want to access the schedule viewer from another machine you need {{{<google_maps_api_key>}}}, a Google Maps API key for your machine `http://my-hostname:8765`, available from the [http://www.google.com/apis/maps/signup.html Google Maps API signup page]
   * {{{<feed_file_or_directory>}}} a transit feed file or a directory containing an expanded feed file. If you don't have a feed download one from the PublicFeeds page or read the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] to create your own.
 
 == Running from source ==
 {{{
-python schedule_viewer.py --key <google_maps_api_key> --feed_filename <feed_file_or_directory>
+python schedule_viewer.py [--key <google_maps_api_key>] --feed_filename <feed_file_or_directory>
 }}}
 
 On Windows the python executable is normally installed as `C:\Python25\python`
@@ -27,7 +27,7 @@ On Windows the python executable is normally installed as `C:\Python25\python`
 
 If you installed the Windows exe run the following command
 {{{
-schedule_viewer.exe --key <google_maps_api_key> --feed_filename <feed_file_or_directory>
+schedule_viewer.exe [--key <google_maps_api_key>] --feed_filename <feed_file_or_directory>
 }}}
 If you run it from Start -> Run include the full path of schedule_viewer.exe and if you are in a command prompt change into the directory containing schedule_viewer.exe.
 

@@ -342,7 +342,9 @@ if __name__ == '__main__':
     import pstats
     cProfile.run('exit_code = main()', 'validate-stats')
     p = pstats.Stats('validate-stats')
+    p.strip_dirs()
     p.sort_stats('cumulative').print_stats(30)
+    p.sort_stats('cumulative').print_callers(30)
     sys.exit(exit_code)
   except (SystemExit, KeyboardInterrupt):
     raise

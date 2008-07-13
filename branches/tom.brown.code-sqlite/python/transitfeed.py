@@ -1021,6 +1021,13 @@ class Trip(object):
     return [(st.arrival_secs, st.departure_secs, st.stop) for st in
             self.GetStopTimes()]
 
+  def GetCountStopTimes(self):
+    """Return the number of stops made by this trip."""
+    cursor = self._schedule._connection.cursor()
+    cursor.execute(
+        'SELECT count(*) FROM stop_times WHERE trip_id=?', (self.trip_id,))
+    return cursor.fetchone()[0]
+
   def GetTimeInterpolatedStops(self):
     """Return a list of (secs, stoptime, is_timepoint) tuples.
 
@@ -1928,6 +1935,7 @@ class Schedule:
                                            pickup_type INTEGER,
                                            drop_off_type INTEGER,
                                            shape_dist_traveled FLOAT);""")
+    cursor.execute("""CREATE INDEX trip_index ON stop_times (trip_id);""")
 
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),
@@ -2460,11 +2468,12 @@ class Schedule:
     # We're doing this here instead of in Trip.Validate() so that
     # Trips can be validated without error during the reading of trips.txt
     for trip in self.trips.values():
-      if not trip.GetTimeStops():
+      count_stop_times = trip.GetCountStopTimes()
+      if not count_stop_times:
         problems.OtherProblem('The trip with the trip_id "%s" doesn\'t have '
                               'any stop times defined.' % trip.trip_id,
                               type=TYPE_WARNING)
-      elif len(trip.GetTimeStops()) == 1:
+      elif count_stop_times == 1:
         problems.OtherProblem('The trip with the trip_id "%s" only has one '
                               'stop on it; it should have at least one more '
                               'stop so that the riders can leave!' %

@@ -1936,6 +1936,7 @@ class Schedule:
                                            drop_off_type INTEGER,
                                            shape_dist_traveled FLOAT);""")
     cursor.execute("""CREATE INDEX trip_index ON stop_times (trip_id);""")
+    cursor.execute("""CREATE INDEX stop_index ON stop_times (stop_id);""")
 
   def GetStopBoundingBox(self):
     return (min(s.stop_lat for s in self.stops.values()),
@@ -2404,8 +2405,8 @@ class Schedule:
       if validate_children:
         stop.Validate(problems)
       cursor = self._connection.cursor()
-      cursor.execute("SELECT count(*) FROM stop_times WHERE stop_id=?",
-                         (stop.stop_id, ))
+      cursor.execute("SELECT count(*) FROM stop_times WHERE stop_id=? LIMIT 1",
+                     (stop.stop_id,))
       count = cursor.fetchone()[0]
       if count == 0:
         problems.UnusedStop(stop.stop_id, stop.stop_name)

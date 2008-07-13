@@ -2970,11 +2970,6 @@ class Loader:
                                     'This value wasn\'t defined in stops.txt')
         continue
       stop = self._schedule.stops[stop_id]
-      stoptimes.setdefault(trip_id, []).append(
-          (sequence, StopTime(self._problems, stop, arrival_time,
-                                   departure_time, stop_headsign,
-                                   pickup_type, drop_off_type,
-                                   shape_dist_traveled), file_context))
       if trip_id not in self._schedule.trips:
         self._problems.InvalidValue('trip_id', trip_id,
                                     'This value wasn\'t defined in trips.txt')

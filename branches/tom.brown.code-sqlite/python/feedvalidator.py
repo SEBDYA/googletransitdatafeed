@@ -333,16 +333,17 @@ def main():
     print "VmSize: %d" % _VmB('VmSize:')
     print "VmRSS: %d" % _VmB('VmRSS:')
 
-  sys.exit(exit_code)
+  return exit_code
 
 if __name__ == '__main__':
   try:
     #main()
     import cProfile
     import pstats
-    cProfile.run('main()', 'validate-stats')
+    cProfile.run('exit_code = main()', 'validate-stats')
     p = pstats.Stats('validate-stats')
     p.sort_stats('cumulative').print_stats(30)
+    sys.exit(exit_code)
   except (SystemExit, KeyboardInterrupt):
     raise
   except:

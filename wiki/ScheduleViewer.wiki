@@ -50,8 +50,11 @@ The left pane lists all the routes in the feed. Click on one of the route names 
 
 == Viewing a trip ==
 
-After you click on a trip in a stop marker's window or on a start time in the route list it is displayed in the map. Every stop of the trip is shown as a yellow marker. Timepoints have the time displayed on the map. Some of the source data for that trip and route will be displayed at the bottom of the window. Below the source data is a graph that lists every trip of the selected pattern. A steeper line represents faster travel. These lines shouldn't cross unless two buses on the same pattern pass.
+After you click on a trip in a stop marker's window or on a start time in the route list it is displayed in the map. Every stop of the trip is shown as a yellow marker. Timepoints have the time displayed on the map. Some of the source data for that trip and route will be displayed at the bottom of the window. Below the source data is a Marey Graph ([http://www.communication.org.au/publications/case-histories/Timetables-people-and-Tufte/61,0 CRI, Timetables people and Tufte] and [http://www.drones.com/bart.html Graphical Timetables for BART]).
 
+http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-marey.png
+
+In the Marey Graph time increases to the right and distance between stops is on the Y axis. The numbers above the graph are hours. All trips of a pattern are plotted on the same graph disregarding service periods. A steeper line represents faster movement. In the screen shot above you can see fairly fast service with stops far apart in the East Bay, followed by a big gap without stops in the tunnel under the bay, followed by frequent stops in the city of San Francisco. If you place your mouse over a trip the trip_id appears below the graph. You see the headway for this pattern is regular until about 9am.
 
 = Inspecting for problems =
 
@@ -66,6 +69,10 @@ Here are some examples of buggy data:
  http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-jump.PNG
  
  A stop with a bad geo location in stops.txt or using the wrong stop_id in stop_times.txt can cause a big jump.
+
+ http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-teleportation.png
+
+ Big jumps also stick out as a very fast (almost vertical) line in the Marey Graph. Note that a route with a long express section may look similar in the Marey Graph. 
 
  http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-ooo.PNG
  

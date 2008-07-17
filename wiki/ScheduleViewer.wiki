@@ -3,6 +3,10 @@
 
 http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer.png
 
+  * [#Introduction]
+  * [#Installation]
+  * [#Explore_your_data Explore your data]
+  * [#Inspecting_for_problems Inspecting for problems]
 
 = Introduction =
 

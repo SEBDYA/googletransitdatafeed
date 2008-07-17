@@ -1,12 +1,12 @@
 #summary The schedule_viewer application for exploring a feed on a map
 #labels Featured
 
-http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer.png
-
   * [#Introduction Introduction]
   * [#Installation Installation]
   * [#Explore_your_data Explore your data]
   * [#Inspecting_for_problems Inspecting for problems]
+
+http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer.png
 
 = Introduction =
 

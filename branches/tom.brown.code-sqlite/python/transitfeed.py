@@ -47,14 +47,14 @@ import codecs
 import csv
 import logging
 import math
-import tempfile
 import os
+import random
 try:
   import sqlite3 as sqlite
 except ImportError:
   from pysqlite2 import dbapi2 as sqlite
-import random
 import re
+import tempfile
 import time
 import zipfile
 
@@ -952,7 +952,21 @@ class Trip(object):
     stoptime = StopTime(problems=problems, stop=stop, **kwargs)
     self.AddStopTimeObject(stoptime, schedule, problems=problems)
 
-  def AddStopTimeObject(self, stoptime, schedule=None, sequence=None,
+  def _AddStopTimeObjectUnordered(self, stoptime, sequence, schedule,
+                                  problems=default_problem_reporter):
+    """Add StopTime object to this trip, at position sequence.
+
+    The trip isn't checked for duplicate sequence numbers so it must be
+    validated later."""
+    cursor = schedule._connection.cursor()
+    insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
+       ','.join(StopTime._SQL_FIELD_NAMES),
+       ','.join(['?'] * len(StopTime._SQL_FIELD_NAMES)))
+    cursor = schedule._connection.cursor()
+    cursor.execute(
+        insert_query, stoptime.GetSqlValuesTuple(self.trip_id, sequence))
+
+  def AddStopTimeObject(self, stoptime, schedule=None,
                         problems=default_problem_reporter, enforce_order=True):
     """Add a StopTime object to the end of this trip.
 
@@ -960,7 +974,6 @@ class Trip(object):
       stoptime: A StopTime object. Should not be reused in multiple trips.
       schedule: Schedule object containing this trip which must be
       passed to Trip.__init__ or here
-      sequence: optional stop_sequence integer
       problems: ProblemReporter object for validating the StopTime in its new
       home
       enforce_order: By default StopTime objects must be passed in time order
@@ -970,48 +983,29 @@ class Trip(object):
     """
     if schedule is None:
       schedule = self._schedule
-    if enforce_order or sequence is None:
-      new_secs = stoptime.GetTimeSecs()
-      cursor = schedule._connection.cursor()
-      cursor.execute("SELECT max(stop_sequence), max(arrival_secs), "
-                     "max(departure_secs) FROM stop_times WHERE trip_id=?",
-                     (self.trip_id,))
-      row = cursor.fetchone()
-      if row[0] is None:
-        if sequence is None:
-          sequence = 1
-        # TODO: if enforce_order complain if new_secs is None
-      else:
-        if sequence is None:
-          sequence = row[0] + 1
-        if enforce_order:
-          # TODO: make sure sequence > max(stop_sequence)
-          current_max_secs = max(row[1], row[2])
-          if new_secs and current_max_secs:
-            if new_secs < current_max_secs:
-              problems.OtherProblem("Trying to add stop_time "
-                                    "trip_id=%s stop_id=%s at time %s but it "
-                                    "is before an existing stop_time at %s" %
-                                    (self.trip_id, stoptime.stop_id,
-                                    FormatSecondsSinceMidnight(new_secs),
-                                    FormatSecondsSinceMidnight(current_max_secs)))
 
+    new_secs = stoptime.GetTimeSecs()
     cursor = schedule._connection.cursor()
-    #XXX Loose and fast
-    #cursor.execute("SELECT count(*) FROM stop_times WHERE trip_id=? AND "
-    #               "stop_sequence=?", (self.trip_id, sequence))
-    #if cursor.fetchone()[0] > 0:
-    #   problems.InvalidValue('stop_sequence', sequence,
-    #                         'The sequence number %d occurs more '
-    #                         'than once in trip %s.' %
-    #                         (sequence, self.trip_id))
-
-    insert_query = "INSERT INTO stop_times (%s) VALUES (%s);" % (
-       ','.join(StopTime._SQL_FIELD_NAMES),
-       ','.join(['?'] * len(StopTime._SQL_FIELD_NAMES)))
-    cursor = schedule._connection.cursor()
-    cursor.execute(
-        insert_query, stoptime.GetSqlValuesTuple(self.trip_id, sequence))
+    cursor.execute("SELECT max(stop_sequence), max(arrival_secs), "
+                   "max(departure_secs) FROM stop_times WHERE trip_id=?",
+                   (self.trip_id,))
+    row = cursor.fetchone()
+    if row[0] is None:
+      # This is the first stop_time of the trip
+      sequence = 1
+      if new_secs == None:
+        problems.OtherProblem(
+            'No time for first StopTime of trip_id "%s"' % (self.trip_id,))
+    else:
+      sequence = row[0] + 1
+      prev_secs = max(row[1], row[2])
+      if new_secs != None and new_secs < prev_secs:
+        problems.OtherProblem(
+            'out of order stop time for stop_id=%s trip_id=%s %s < %s' %
+            (stoptime.stop_id, self.trip_id,
+             FormatSecondsSinceMidnight(new_secs),
+             FormatSecondsSinceMidnight(prev_secs)))
+    self._AddStopTimeObjectUnordered(stoptime, sequence, schedule, problems)
 
   def GetTimeStops(self):
     """Return a list of (arrival_secs, departure_secs, stop) tuples.
@@ -1260,6 +1254,11 @@ class Trip(object):
         (self.direction_id != '0') and (self.direction_id != '1'):
       problems.InvalidValue('direction_id', self.direction_id,
                             'direction_id must be "0" or "1"')
+    #XXXcursor.execute("SELECTstop_sequence WHERE trip_id=? and stop_sequence=?",
+    #XXX               (stoptime.trip_id, sequence))
+    #XXXif cursor.fetchone() != None:
+    #XXX  problems.
+                 
     stoptimes = self.GetStopTimes()
     if stoptimes:
       if stoptimes[0].arrival_time is None and stoptimes[0].departure_time is None:
@@ -2987,10 +2986,11 @@ class Loader:
       trip = self._schedule.trips[trip_id]
 
       stop_time = StopTime(self._problems, stop, arrival_time,
-                                   departure_time, stop_headsign,
-                                   pickup_type, drop_off_type,
-                                   shape_dist_traveled)
-      trip.AddStopTimeObject(stop_time, self._schedule, problems=self._problems, sequence=sequence, enforce_order=False)
+                           departure_time, stop_headsign,
+                           pickup_type, drop_off_type,
+                           shape_dist_traveled)
+      trip._AddStopTimeObjectUnordered(stop_time, sequence, self._schedule,
+                                       self._problems)
       self._problems.ClearContext()
 
     for trip in self._schedule.trips.values():

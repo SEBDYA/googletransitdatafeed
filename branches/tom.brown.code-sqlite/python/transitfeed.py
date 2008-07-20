@@ -56,6 +56,11 @@ except ImportError:
 import re
 import tempfile
 import time
+# Objects in a schedule (Route, Trip, etc) should not keep a strong reference
+# to the Schedule object to avoid a reference cycle. Schedule needs to use
+# __del__ to cleanup its temporary file. The garbage collector can't handle
+# reference cycles containing objects with custom cleanup code.
+import weakref
 import zipfile
 
 OUTPUT_ENCODING = 'utf-8'
@@ -472,7 +477,7 @@ class Stop(object):
                   "stop_times table")
     cursor = schedule._connection.cursor()
     cursor.execute("SELECT trip_id FROM stop_times WHERE stop_id=?",
-                         (self.stop_id, ))
+                   (self.stop_id, ))
     return [schedule.GetTrip(row[0]) for row in cursor]
 
   def GetStopTimeTrips(self, schedule=None):
@@ -570,7 +575,8 @@ class Route(object):
     self.route_short_name = short_name
     self.route_long_name = long_name
     self.agency_id = agency_id
-    self._schedule = schedule
+    if schedule is not None:
+      self._schedule = weakref.proxy(schedule)  # See weakref comment at top
 
     if route_type in Route._ROUTE_TYPE_IDS:
       self.route_type = Route._ROUTE_TYPE_IDS[route_type]
@@ -931,7 +937,8 @@ class Trip(object):
     self.service_period = service_period
     self.direction_id = None
     self.block_id = None
-    self._schedule = schedule
+    if schedule is not None:
+      self._schedule = weakref.proxy(schedule)  # See weakref comment at top
     if field_list:
       (self.route_id, self.service_id, self.trip_id, self.trip_headsign,
        self.direction_id, self.block_id, self.shape_id) = field_list
@@ -1254,10 +1261,14 @@ class Trip(object):
         (self.direction_id != '0') and (self.direction_id != '1'):
       problems.InvalidValue('direction_id', self.direction_id,
                             'direction_id must be "0" or "1"')
-    #XXXcursor.execute("SELECTstop_sequence WHERE trip_id=? and stop_sequence=?",
-    #XXX               (stoptime.trip_id, sequence))
-    #XXXif cursor.fetchone() != None:
-    #XXX  problems.
+    cursor = self._schedule._connection.cursor()
+    cursor.execute("SELECT COUNT(stop_sequence) AS a FROM stop_times "
+                   "WHERE trip_id=? GROUP BY stop_sequence HAVING a > 1",
+                   (self.trip_id,))
+    for row in cursor:
+      problems.InvalidValue('stop_sequence', row[0],
+                            'Duplicate stop_sequence in trip_id %s' %
+                            self.trip_id)
                  
     stoptimes = self.GetStopTimes()
     if stoptimes:
@@ -1897,7 +1908,8 @@ class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
 
-  def __init__(self, problem_reporter=default_problem_reporter):
+  def __init__(self, problem_reporter=default_problem_reporter,
+               memory_db=True):
     self._agencies = {}
     self.stops = {}
     self.routes = {}
@@ -1909,19 +1921,26 @@ class Schedule:
     self._default_service_period = None
     self._default_agency = None
     self.problem_reporter = problem_reporter
-    self.ConnectDb()
+    self.ConnectDb(memory_db)
 
-  def ConnectDb(self):
-    try:
-      self._temp_db_file = tempfile.NamedTemporaryFile()
-      self._connection = sqlite.connect(self._temp_db_file.name)
-    except sqlite.OperationalError:
-      # Windows won't let a file be opened twice. mkstemp does not remove the
-      # file when all handles to it are closed.
-      self._temp_db_file = None
-      (fd, self._temp_db_filename) = tempfile.mkstemp(".db")
-      os.close(fd)
-      self._connection = sqlite.connect(self._temp_db_filename)
+  def __del__(self):
+    if hasattr(self, '_temp_db_filename'):
+      os.remove(self._temp_db_filename)
+
+  def ConnectDb(self, memory_db):
+    if memory_db:
+      self._connection = sqlite.connect(":memory:")
+    else:
+      try:
+        self._temp_db_file = tempfile.NamedTemporaryFile()
+        self._connection = sqlite.connect(self._temp_db_file.name)
+      except sqlite.OperationalError:
+        # Windows won't let a file be opened twice. mkstemp does not remove the
+        # file when all handles to it are closed.
+        self._temp_db_file = None
+        (fd, self._temp_db_filename) = tempfile.mkstemp(".db")
+        os.close(fd)
+        self._connection = sqlite.connect(self._temp_db_filename)
 
     cursor = self._connection.cursor()
     cursor.execute("""CREATE TABLE stop_times (
@@ -2147,7 +2166,7 @@ class Schedule:
     return self._shapes[shape_id]
 
   def AddTripObject(self, trip, problem_reporter=None):
-    trip._schedule = self
+    trip._schedule = weakref.proxy(self)  # See weakref comment at top
     # Validate trip object before adding
     if not problem_reporter:
       problem_reporter = self.problem_reporter
@@ -2600,9 +2619,10 @@ class Loader:
                feed_path,
                schedule=None,
                problems=default_problem_reporter,
-               extra_validation=False):
+               extra_validation=False,
+               memory_db=True):
     if not schedule:
-      schedule = Schedule(problem_reporter=problems)
+      schedule = Schedule(problem_reporter=problems, memory_db=memory_db)
     self._extra_validation = extra_validation
     self._schedule = schedule
     self._problems = problems

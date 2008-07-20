@@ -544,6 +544,15 @@ class DuplicateStopTestCase(unittest.TestCase):
     except transitfeed.OtherProblem:
       pass
 
+class DuplicateStopSequenceTestCase(unittest.TestCase):
+  def runTest(self):
+    problems = RecordingProblemReporter(self, ("ExpirationDate",))
+    schedule = transitfeed.Schedule(problem_reporter=problems)
+    schedule.Load(DataPath('duplicate_stop_sequence'), extra_validation=True)
+    e = problems.PopException('InvalidValue')
+    self.assertEqual('stop_sequence', e.column_name)
+    problems.AssertNoMoreExceptions()
+
 
 class MissingEndpointTimesTestCase(unittest.TestCase):
   def runTest(self):
@@ -1342,12 +1351,8 @@ class TripStopTimeAccessorsTestCase(unittest.TestCase):
 
 class BasicParsingTestCase(unittest.TestCase):
   """Checks that we're getting the number of child objects that we expect."""
-  def runTest(self):
-    loader = transitfeed.Loader(
-      DataPath('good_feed.zip'),
-      problems = ExceptionProblemReporterNoExpiration(),
-      extra_validation = True)
-    schedule = loader.Load()
+  def assertLoadedCorrectly(self, schedule):
+    """Check that the good_feed looks correct"""
     self.assertEqual(1, len(schedule._agencies))
     self.assertEqual(5, len(schedule.routes))
     self.assertEqual(2, len(schedule.service_periods))
@@ -1357,6 +1362,24 @@ class BasicParsingTestCase(unittest.TestCase):
     self.assertEqual('to airport', schedule.GetTrip('STBA').GetStopTimes()[0].stop_headsign)
     self.assertEqual(2, schedule.GetTrip('CITY1').GetStopTimes()[1].pickup_type)
     self.assertEqual(3, schedule.GetTrip('CITY1').GetStopTimes()[1].drop_off_type)
+
+  def test_MemoryDb(self):
+    loader = transitfeed.Loader(
+      DataPath('good_feed.zip'),
+      problems=ExceptionProblemReporterNoExpiration(),
+      extra_validation=True,
+      memory_db=True)
+    schedule = loader.Load()
+    self.assertLoadedCorrectly(schedule)
+
+  def test_TemporaryFile(self):
+    loader = transitfeed.Loader(
+      DataPath('good_feed.zip'),
+      problems=ExceptionProblemReporterNoExpiration(),
+      extra_validation=True,
+      memory_db=False)
+    schedule = loader.Load()
+    self.assertLoadedCorrectly(schedule)
 
 
 class RepeatedRouteNameTestCase(LoadTestCase):
@@ -1415,8 +1438,9 @@ class AddStopTimeParametersTestCase(unittest.TestCase):
     trip.service_id = "WEEK"
     trip.trip_id = "SAMPLE_TRIP"
 
-    trip.AddStopTime(stop)
+    # First stop must have time
     trip.AddStopTime(stop, arrival_secs=300, departure_secs=360)
+    trip.AddStopTime(stop)
     trip.AddStopTime(stop, arrival_time="00:07:00", departure_time="00:07:30")
     trip.Validate(problem_reporter)
 

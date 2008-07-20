@@ -904,7 +904,7 @@ class TestTripMerger(unittest.TestCase):
     self.t1.shape_id = 'shape1'
 
     self.stop = transitfeed.Stop(30.0, 30.0, stop_id='stop1')
-    self.t1.AddStopTime(self.stop)
+    self.t1.AddStopTime(self.stop, arrival_secs=0, departure_secs=0)
 
     a_schedule.AddAgencyObject(self.a1)
     a_schedule.AddStopObject(self.stop)

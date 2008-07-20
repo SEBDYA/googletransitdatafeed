@@ -261,7 +261,10 @@ def main():
                     dest='performance',
                     help='output memory and time performance (Availability: '
                     'Unix')
-  parser.set_defaults(manual_entry=True, output='validation-results.html')
+  parser.add_option('-m', '--memory_db', dest='memory_db',  action='store_true',
+                    help='Force use of in-memory sqlite db')
+  parser.set_defaults(manual_entry=True, output='validation-results.html',
+                      memory_db=False)
   (options, args) = parser.parse_args()
   manual_entry = options.manual_entry
   if not len(args) == 1:
@@ -275,9 +278,11 @@ def main():
     feed = args[0]
 
   feed = feed.strip('"')
+
   print 'validating %s' % feed
   problems = HTMLCountingProblemReporter()
-  loader = transitfeed.Loader(feed, problems=problems, extra_validation=True)
+  loader = transitfeed.Loader(feed, problems=problems, extra_validation=True,
+                              memory_db=options.memory_db)
   schedule = loader.Load()
 
   if feed == 'IWantMyvalidation-crash.txt':

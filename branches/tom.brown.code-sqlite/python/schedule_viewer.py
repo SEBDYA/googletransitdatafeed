@@ -66,10 +66,10 @@ class StoppableHTTPServer(BaseHTTPServer.HTTPServer):
   def server_bind(self):
     BaseHTTPServer.HTTPServer.server_bind(self)
     self.socket.settimeout(1)
-    self.run = True
+    self._run = True
 
   def get_request(self):
-    while self.run:
+    while self._run:
       try:
         sock, addr = self.socket.accept()
         sock.settimeout(None)
@@ -78,10 +78,10 @@ class StoppableHTTPServer(BaseHTTPServer.HTTPServer):
         pass
 
   def stop(self):
-    self.run = False
+    self._run = False
 
   def serve(self):
-    while self.run:
+    while self._run:
       self.handle_request()
 
 
@@ -416,7 +416,7 @@ def FindDefaultFileDir():
     return os.path.join(base, 'schedule_viewer_files')
   else:
     # For all other distributions 'files' is in the gtfsscheduleviewer
-    # directory. 
+    # directory.
     base = os.path.dirname(gtfsscheduleviewer.__file__)  # Strip __init__.py
     return os.path.join(base, 'files')
 
@@ -432,7 +432,8 @@ def GetDefaultKeyFilePath():
 
 
 def main():
-  parser = OptionParser()
+  parser = OptionParser(usage='usage: %prog [options] feed_filename',
+                        version='%prog '+transitfeed.__version__)
   parser.add_option('--feed_filename', '--feed', dest='feed_filename',
                     help='file name of feed to load')
   parser.add_option('--key', dest='key',
@@ -454,16 +455,15 @@ def main():
     print "Can't find index.html with --file_dir=%s" % options.file_dir
     exit(1)
 
+  if not options.feed_filename and len(args) == 1:
+    options.feed_filename = args[0]
+
   if not options.feed_filename and options.manual_entry:
     options.feed_filename = raw_input('Enter Feed Location: ').strip('"')
 
   default_key_file = GetDefaultKeyFilePath()
   if not options.key and os.path.isfile(default_key_file):
     options.key = open(default_key_file).read().strip()
-
-  if not options.key and options.manual_entry:
-    options.key = raw_input('Enter Google Maps API key or file '
-                            'containing it: ').strip('"')
 
   if options.key and os.path.isfile(options.key):
     options.key = open(options.key).read().strip()
@@ -479,10 +479,9 @@ def main():
   server.schedule = schedule
   server.file_dir = options.file_dir
 
-  print "To view, point your browser at http://%s:%d/" \
-    % (server.server_name, server.server_port)
+  print ("To view, point your browser at http://localhost:%d/" %
+         (server.server_port))
   server.serve_forever()
 
 if __name__ == '__main__':
   main()
-

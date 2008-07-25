@@ -342,16 +342,24 @@ def main():
 
   return exit_code
 
+
+def ProfileMain():
+  import cProfile
+  import pstats
+  cProfile.run('exit_code = main()', 'validate-stats')
+  p = pstats.Stats('validate-stats')
+  p.strip_dirs()
+  p.sort_stats('cumulative').print_stats(30)
+  p.sort_stats('cumulative').print_callers(30)
+  return exit_code
+
+
 if __name__ == '__main__':
   try:
-    #main()
-    import cProfile
-    import pstats
-    cProfile.run('exit_code = main()', 'validate-stats')
-    p = pstats.Stats('validate-stats')
-    p.strip_dirs()
-    p.sort_stats('cumulative').print_stats(30)
-    p.sort_stats('cumulative').print_callers(30)
+    if '-p' in sys.argv or '--performance' in sys.argv:
+      exit_code = ProfileMain()
+    else:
+      exit_code = main()
     sys.exit(exit_code)
   except (SystemExit, KeyboardInterrupt):
     raise

@@ -974,7 +974,7 @@ class Trip(object):
         insert_query, stoptime.GetSqlValuesTuple(self.trip_id, sequence))
 
   def AddStopTimeObject(self, stoptime, schedule=None,
-                        problems=default_problem_reporter, enforce_order=True):
+                        problems=default_problem_reporter):
     """Add a StopTime object to the end of this trip.
 
     Args:
@@ -983,7 +983,6 @@ class Trip(object):
       passed to Trip.__init__ or here
       problems: ProblemReporter object for validating the StopTime in its new
       home
-      enforce_order: By default StopTime objects must be passed in time order
 
     Returns:
       None

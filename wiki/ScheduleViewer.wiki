@@ -46,7 +46,7 @@ After you drag the map to a new location with your mouse it will display stops i
 
 http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-stop-window-75p.PNG
 
-The Find Station field (top left, below "Time:") will search for all stops that have a name or stop_id containing the string you enter.
+The "Find Station:" field (top left of window) will search for all stops that have a name or stop_id containing the string you enter. The stops will be displayed in yellow. If there is a single match the station's info window will open. If there are multiple matches you may need to zoom out to see them all.
 
 == Exploring routes ==
 

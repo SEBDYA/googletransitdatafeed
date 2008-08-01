@@ -42,7 +42,7 @@ Once schedule_viewer has finished loading the feed file it prints a URL. Ignore 
 
 == Exploring stops ==
 
-After you drag the map to a new location with your mouse it will display stops in the current area as semi-transparent blue markers. Multiple stops at the same location will stack up making a darker blue marker. Note that the FeedValidator warns that stops within 2m of each other should be merged. If there are lots of stops in the map area only a sample will be displayed. To see all the stops you need to zoom in. The map zooms in when double clicked. If you click on a marker it opens a window listing the "stop_name (stop_id)" and the next trips to visit the stop after "Time:" (HH:MM at top left of screen). Click on a trip to display it.
+After you drag the map to a new location with your mouse it will display stops in the current area as semi-transparent blue markers. Multiple stops at the same location will stack up making a darker blue marker. Note that the FeedValidator warns that stops within 2m of each other should be merged. If there are lots of stops in the map area only a sample will be displayed. To see all the stops you need to zoom in. The map zooms in when double clicked. If you click on a marker it opens a window listing the "stop_name (stop_id)" and the next trips to visit the stop after "Time:" (HH:MM at top left of screen). If the stop_times table doesn't contain an exact time for a trip the viewer interpolates a time and displays it with a ~. Click on a trip to display it (See "Viewing a trip").
 
 http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-stop-window-75p.PNG
 
@@ -58,7 +58,7 @@ After you click on a trip in a stop marker's window or on a start time in the ro
 
 http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-marey.png
 
-In the Marey Graph time increases to the right and distance between stops is on the Y axis. The numbers above the graph are hours. All trips of a pattern are plotted on the same graph with different colors representing different service periods (See issue 79). A steeper line represents faster movement. In the screen shot above you can see fairly fast service with stops far apart in the East Bay, followed by a big gap without stops in the tunnel under the bay, followed by frequent stops in the city of San Francisco. If you place your mouse over a trip the trip_id appears below the graph. You see the headway for this pattern is regular until about 9am.
+The Marey Graph shows all the trips with the same pattern as the selected trip. Different colors representing different service periods (See issue 79). Time increases to the right with a scale in hours since midnight at the top. The distance between stops is on the Y axis but not labeled. A steeper line represents faster movement. In the screen shot above you can see fairly fast service with stops far apart in the East Bay, followed by a big gap without stops in the tunnel under the bay, followed by frequent stops in the city of San Francisco. If you place your mouse over a trip the trip_id appears below the graph. You see a single service id provides the only service, at a constant headway, until about 9am.
 
 = Inspecting for problems =
 

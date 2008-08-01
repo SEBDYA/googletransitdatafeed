@@ -22,3 +22,5 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 
 ==How to add a feed to this page==
 If you work with a transit agency or other data provider, and would like to add your public feed to this list, please send an email to the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed.  (Thanks for making your data available to interested developers!)
+
+Is your local transit agency missing from this page? Please contact them directly and ask that they make their data available to their riders. See also http://groups.google.com/group/googletransit/msg/ea4d039fd646440c

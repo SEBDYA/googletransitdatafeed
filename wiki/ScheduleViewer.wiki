@@ -58,7 +58,7 @@ After you click on a trip in a stop marker's window or on a start time in the ro
 
 http://googletransitdatafeed.googlecode.com/svn/wiki/images/scheduleviewer-bart-marey.png
 
-The Marey Graph shows all the trips with the same pattern as the selected trip. Different colors representing different service periods (See issue 79). Time increases to the right with a scale in hours since midnight at the top. The distance between stops is on the Y axis but not labeled. A steeper line represents faster movement. In the screen shot above you can see fairly fast service with stops far apart in the East Bay, followed by a big gap without stops in the tunnel under the bay, followed by frequent stops in the city of San Francisco. If you place your mouse over a trip the trip_id appears below the graph. You see a single service id provides the only service, at a constant headway, until about 9am.
+The Marey Graph shows all the trips with the same pattern as the selected trip. Different colors representing different service periods (See issue 79). Time increases to the right with a scale in hours since midnight at the top. The distance between stops is on the Y axis but not labeled. A steeper line represents faster movement. In the screen shot above you can see fairly fast service with stops far apart in the East Bay, followed by a big gap without stops in the tunnel under the bay, followed by frequent stops in the city of San Francisco. If you place your mouse over a trip it is selected in white and the trip_id appears below the graph. You see a single service id provides the only service, at a constant headway, until about 9am.
 
 = Inspecting for problems =
 

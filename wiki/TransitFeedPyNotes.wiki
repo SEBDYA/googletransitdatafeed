@@ -27,7 +27,27 @@ These can be checked when parsing a row from a table or when assigning a value t
 == Consistent row/object ==
 
 These could be checked during __init__ if it is given all values which happens in the common case of loading from a file. Checking in __setattr__ doesn't seem like a great idea because the order that attributes are set may determine if a problem is reported. For example location_type and parent_id would need to be changed atomically.
+
   * arr and dep time both present or absent
   * stop not near 0,0
   * parent_id only set with correct location_type
   * route_short_name not in route_long_name
+
+== Good ids ==
+
+Many tables refer to ids found elsewhere in a GTFS feed. If everything was in a SQL DB it might make sense to check using SQL instead of in each objects Validate method. Here is a subset of things to check:
+
+   * No duplicate stop_id in stops, trip_id in trips etc
+   * No duplicate (trip_id, stop_sequence) tuples in stop_times
+   * trips: route_id, shape_id, service_id
+   * stops: parent_id is the id of another stop
+   * stop_times: the current sqlite branch does not check that all stop_times entries contain a valid stop_id and trip_id and there is no test
+
+== Other multirow checks ==
+
+  * For a trip
+    * first and last stop_time have a time
+    * speeding legs, a sign of teleportation
+    * frequency periods, if present, are disjoint
+  * warn about stops within 2m that are not related in stop hierarchy
+  * illogical fares

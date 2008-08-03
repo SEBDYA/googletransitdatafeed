@@ -1,0 +1,33 @@
+#summary Brain dump while thinking about the structure of transitfeed.py
+#labels Phase-Design
+
+= Things to validate =
+
+In sections that could be checked at the same time, starting with low level byte things, working towards high level where relations between multiple rows or objects matter.
+
+== File format ==
+  * correct eol
+  * valid utf-8
+  * correct csv format
+  * same number of columns on each line
+
+== GTFS tables ==
+  * all required tables present
+  * in each present table the required columns are present
+  * warn about unknown tables
+  * warn about unknown columns
+
+== Individual values ==
+
+These can be checked when parsing a row from a table or when assigning a value to an attribute, for example `stop.stop_lat = 45.832`. When are strings converted to other types? IE do we allow `stop = Stop(lat="45.832")` or `stop.stop_lat = "45.832"`?
+
+  * correct format for type. Is it a valid time, date, float etc?
+  * in valid range, abs(latitude) < 90, abs(longitude) < 180
+
+== Consistent row/object ==
+
+These could be checked during __init__ if it is given all values which happens in the common case of loading from a file. Checking in __setattr__ doesn't seem like a great idea because the order that attributes are set may determine if a problem is reported. For example location_type and parent_id would need to be changed atomically.
+  * arr and dep time both present or absent
+  * stop not near 0,0
+  * parent_id only set with correct location_type
+  * route_short_name not in route_long_name

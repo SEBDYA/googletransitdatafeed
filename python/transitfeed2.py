@@ -578,6 +578,7 @@ class Stop(object):
         if name[0] == "_":
           continue
         columns.add(name)
+      return columns
 
   def __ne__(self, other):
     return not self.__eq__(other)
@@ -595,7 +596,13 @@ class Stop(object):
       self._CheckAndSetAttr(name, value, problems)
 
   def Validate(self, problems=default_problem_reporter):
+    # It should be possible to guarantee that all attributes have been
+    # parsed if _schedule is true but required attributes may still be None.
     self.ParseAttributes(problems)
+    for required in Stop._REQUIRED_FIELD_NAMES:
+      if getattr(self, required, None) is None:
+        problems.InvalidValue(required, '', '%s is required' % required)
+
     if (abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,
                             'Stop location too close to 0, 0',
@@ -2035,16 +2042,16 @@ class Schedule:
 
   def AddStopObject(self, stop):
     assert not stop._schedule
-    stop._schedule = weakref.proxy(self)
+    # _ColumnNames uses stop._schedule if it is set so we'll set it later
+    table_columns = self._table_columns.setdefault('stops', [])
+    for attr in stop._ColumnNames():
+      if attr not in table_columns:
+        table_columns.append(attr)
+    stop.ParseAttributes(self.problem_reporter)
     self.stops[stop.stop_id] = stop
     if hasattr(stop, 'zone_id') and stop.zone_id:
       self.fare_zones[stop.zone_id] = True
-    table_columns = self._table_columns.setdefault('stops', [])
-    for attr in stop.__dict__:
-      if attr[0] == "_":
-        continue
-      if attr not in table_columns:
-        table_columns.append(attr)
+    stop._schedule = weakref.proxy(self)
 
   def GetStopList(self):
     return self.stops.values()

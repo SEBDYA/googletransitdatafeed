@@ -433,6 +433,8 @@ def ApproximateDistanceBetweenStops(stop1, stop2):
 class Stop(object):
   """Represents a single stop. A stop must have a latitude, longitude and name."""
   _REQUIRED_FIELD_NAMES = ['stop_id', 'stop_name', 'stop_lat', 'stop_lon']
+  _FIELD_NAMES = _REQUIRED_FIELD_NAMES + \
+                 ['stop_desc', 'zone_id', 'stop_url', 'stop_code']
 
   def __init__(self, lat=None, lng=None, name=None, stop_id=None,
                field_dict=None, stop_code=None, schedule=None):
@@ -445,21 +447,24 @@ class Stop(object):
       schedule: Schedule object that owns this stop
     """
 
-    self._schedule = schedule
+    # Stop.__setattr__ accesses self._schedule
+    object.__setattr__(self, "_schedule", schedule)
+
     self._trip_index = []  # list of (trip, index) for each Trip object.
                            # index is offset into Trip _stoptimes
     if field_dict:
-      self.__dict__ = field_dict
+      for name, value in field_dict.iteritems():
+        self.__setattr__(name, value)
     else:
-      if lat:
+      if lat is not None:
         self.stop_lat = lat
-      if lng:
+      if lng is not None:
         self.stop_lon = lng
-      if name:
+      if name is not None:
         self.stop_name = name
-      if stop_id:
+      if stop_id is not None:
         self.stop_id = stop_id
-      if stop_code:
+      if stop_code is not None:
         self.stop_code = stop_code
 
   def GetTrips(self):
@@ -480,13 +485,15 @@ class Stop(object):
   def _AddTripStop(self, trip, index):
     self._trip_index.append((trip, index))
 
-  def CheckAttr(self, name, value, problems=None):
-    if not problems:
-      try:
-        schedule = object.__getattribute__(self, '_schedule')
-        problems = schedule.problem_reporter
-      except AttributeError:
-        problems = default_problem_reporter
+  def _CheckAndSetAttr(self, name, value, problems):
+    safe_value = self._CheckAttr(name, value, problems)
+    if safe_value is not None:
+      object.__setattr__(self, name, safe_value)
+    else:
+      if hasattr(self, name):
+        object.__delattr__(self, name)
+
+  def _CheckAttr(self, name, value, problems):
     if name == 'stop_lat':
       try:
         # TODO: http://code.google.com/p/googletransitdatafeed/issues/detail?id=75
@@ -510,7 +517,9 @@ class Stop(object):
           problems.InvalidValue('stop_lon', value)
           value = 0
     elif name == 'stop_url':
-      if not IsValidURL(value):
+      if value is None or value == "":
+        value = None
+      elif not IsValidURL(value):
         problems.InvalidValue('stop_url', value)
         value = None
     elif name == 'stop_id':
@@ -521,52 +530,54 @@ class Stop(object):
       if IsEmpty(value):
         problems.MissingValue('stop_name')
         value = None
+      # Don't force conversion to unicode. If a file is loaded with bad utf8
+      # it is passed to __init__ as a byte string which we'll preserve here.
     return value
 
-  def __getattribute__(self, name):
-    """Return name, using a native type if possible.
-
-    If this object was initalized with a dict of strings getting an attribute
-    will check some columns, calling a problem_reporter if there is a
-    problem."""
-    try:
-      value = object.__getattribute__(self, name)
-    except KeyError:
-      raise AttributeError()
-    if name[0] == "_":
-      return value
-    else:
-      safe_value = Stop.CheckAttr(self, name, value)
-      if id(safe_value) != id(value):
-        object.__setattr__(self, name, safe_value)
-      return safe_value
-
   def __getitem__(self, name):
-    """Return a string representation of name or '' if not set."""
+    """Return a unicode or str representation of name or "" if not set."""
     if name in self.__dict__ and self.__dict__[name] is not None:
-      return unicode(self.__dict__[name])
+      return self.__dict__[name]
     else:
-      return ''
+      return ""
 
   def __setattr__(self, name, value):
-    if name[0] == "_":
+    if not self._schedule:
+      # Delay validation until stop is added to a schedule
+      object.__setattr__(self, name, value)
+    elif name[0] == "_":
+      # No special handling of private attributes
       object.__setattr__(self, name, value)
     else:
-      safe_value = self.CheckAttr(name, value)
-      if safe_value is not None:
-        object.__setattr__(self, name, safe_value)
-      else:
-        if hasattr(self, name):
-          object.__delattr__(self, name)
+      try:
+        schedule = object.__getattribute__(self, '_schedule')
+        problems = schedule.problem_reporter
+      except AttributeError:
+        problems = default_problem_reporter
+      self._CheckAndSetAttr(name, value, problems)
 
   def __eq__(self, other):
     if not other:
       return False
 
-    if id(self) == id(other):
+    if self is other:
       return True
 
-    return self.__dict__ == other.__dict__
+    for name in self._ColumnNames() + other._ColumnNames():
+      if getattr(self, name, None) != getattr(other, name, None):
+        return False
+    return True
+
+  def _ColumnNames(self):
+    """Return iterable of columns used by this object."""
+    if self._schedule:
+      return self._schedule._table_columns['stops']
+    else:
+      columns = set()
+      for name in vars(self):
+        if name[0] == "_":
+          continue
+        columns.add(name)
 
   def __ne__(self, other):
     return not self.__eq__(other)
@@ -574,13 +585,17 @@ class Stop(object):
   def __repr__(self):
     return unicode(self.__dict__)
 
-  def Validate(self, problems=default_problem_reporter):
-    # Can't use __dict__.iteritems() because validating 
-    for name, value in self.__dict__.iteritems():
+  def ParseAttributes(self, problems):
+    """Parse any string attributes, calling problems as needed."""
+    # Need to use items instead of iteritems because _CheckAndSetAttr deletes
+    # invalid attributes, resizing self.__dict__.
+    for name, value in vars(self).items():
       if name[0] == "_":
         continue
-      self.CheckAttr(name, value, problems)
-     
+      self._CheckAndSetAttr(name, value, problems)
+
+  def Validate(self, problems=default_problem_reporter):
+    self.ParseAttributes(problems)
     if (abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,
                             'Stop location too close to 0, 0',
@@ -2024,6 +2039,12 @@ class Schedule:
     self.stops[stop.stop_id] = stop
     if hasattr(stop, 'zone_id') and stop.zone_id:
       self.fare_zones[stop.zone_id] = True
+    table_columns = self._table_columns.setdefault('stops', [])
+    for attr in stop.__dict__:
+      if attr[0] == "_":
+        continue
+      if attr not in table_columns:
+        table_columns.append(attr)
 
   def GetStopList(self):
     return self.stops.values()
@@ -2251,7 +2272,7 @@ class Schedule:
     writer = CsvUnicodeWriter(stop_string)
     columns = self.GetTableColumns('stops')
     writer.writerow(columns)
-    writer.writerows([s[c] for c in columns] for s in self.stops.values())
+    writer.writerows([EncodeUnicode(s[c]) for c in columns] for s in self.stops.values())
     archive.writestr('stops.txt', stop_string.getvalue())
 
     route_string = StringIO.StringIO()
@@ -2600,9 +2621,11 @@ class Loader:
     return contents
 
   # TODO: Add testing for this specific function
-  def _ReadCsvDict(self, table_name, cols, required):
+  def _ReadCsvDict(self, table_name, all_cols, required):
     """Reads lines from file_name, yielding a dict of unicode values."""
     contents = self._GetUtf8Contents("%s.txt" % table_name)
+    if not contents:
+      return
 
     eol_checker = EndOfLineChecker(StringIO.StringIO(contents),
                                    table_name, self._problems)
@@ -2613,7 +2636,7 @@ class Loader:
     self._schedule._table_columns[table_name] = header
 
     # check for unrecognized columns, which are often misspellings
-    unknown_cols = set(cols) - set(header)
+    unknown_cols = set(header) - set(all_cols)
     for col in unknown_cols:
       # this is provided in order to create a nice colored list of
       # columns in the validator output
@@ -2636,8 +2659,8 @@ class Loader:
                                     '%d of file "%s".  Every row in the file '
                                     'should have the same number of cells as '
                                     'the header (first line) does.' %
-                                    (reader.line_num, file_name),
-                                    (file_name, reader.line_num),
+                                    (reader.line_num, table_name),
+                                    (table_name, reader.line_num),
                                     type=TYPE_WARNING)
 
       if len(row) < len(header):
@@ -2645,8 +2668,8 @@ class Loader:
                                     '%d of file "%s".  Every row in the file '
                                     'should have the same number of cells as '
                                     'the header (first line) does.' %
-                                    (reader.line_num, file_name),
-                                    (file_name, reader.line_num),
+                                    (reader.line_num, table_name),
+                                    (table_name, reader.line_num),
                                     type=TYPE_WARNING)
 
       for i in xrange(len(row)):
@@ -2655,7 +2678,7 @@ class Loader:
         except UnicodeDecodeError:
           self._problems.InvalidValue(header[i], row[i],
                                       'Unicode error',
-                                      (file_name, reader.line_num, row, header))
+                                      (table_name, reader.line_num, row, header))
 
       d = dict(zip(header, row))
       yield (d, reader.line_num, header, row)
@@ -2665,6 +2688,8 @@ class Loader:
     """Reads lines from file_name, yielding a list of unicode values
     corresponding to the column names in cols."""
     contents = self._GetUtf8Contents(file_name)
+    if not contents:
+      return
 
     eol_checker = EndOfLineChecker(StringIO.StringIO(contents),
                                    file_name, self._problems)
@@ -2765,7 +2790,7 @@ class Loader:
 
   def _LoadStops(self):
     for (d, row_num, header, row) in self._ReadCsvDict('stops',
-                                              Stop._REQUIRED_FIELD_NAMES,
+                                              Stop._FIELD_NAMES,
                                               Stop._REQUIRED_FIELD_NAMES):
       self._problems.SetFileContext('stops.txt', row_num, row, header)
 
@@ -3017,8 +3042,14 @@ class Loader:
                                       'than once in trip %s.' %
                                       (stop_sequence, trip.trip_id),
                                       file_context)
-        trip.AddStopTimeObject(stoptime, problems=self._problems)
-        last_sequence = stop_sequence
+          # We don't know what order the stop_time rows should be in. It might
+          # be possible to guess if both are timepoints but the implementation
+          # could be complicated. A skipped stop is less likely to cause more
+          # errors than a zig zag so skip potentially duplicate StopTime
+          # objects.
+        else:
+          trip.AddStopTimeObject(stoptime, problems=self._problems)
+          last_sequence = stop_sequence
 
   def Load(self):
     self._problems.ClearContext()

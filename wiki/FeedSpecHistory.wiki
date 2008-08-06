@@ -4,6 +4,15 @@
 = Introduction =
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
+== August 6, 2008 ==
+  * Added transfers.txt file, allowing the feed publishers to provide hints on preferred transfer behavior
+  * Added location_type and parent_station fields to stops.txt, allowing stop points to be grouped into stations
+  * Added agency_phone field for providing voice telephone number for an agency
+  * Added "Testing Your Feeds" section mentioning open-source testing tools
+  * Added clarifications about CSV format, agency_timezone, agency_lang, route_color, route_text_color, arrival_time, departure_time, calendar.txt vs. calendar_dates.txt, fare tables, and frequencies.txt
+  * Fixed minor problems in sample data
+  * Added link to feed history document, and corrected some public feed links
+  * Updated example images to depict the current Google Maps UI
 == February 29, 2008 ==
   * Added the stop_code field in stops.txt to allow for the specification of rider-facing stop codes ([http://groups.google.com/group/gtfs-changes/browse_thread/thread/93d03de5f6197b17 original proposal])
   * Clarified the descriptions of route_short_name and route_long_name in routes.txt

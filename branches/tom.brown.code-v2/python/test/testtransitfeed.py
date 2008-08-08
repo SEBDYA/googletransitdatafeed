@@ -22,7 +22,8 @@ import re
 import sys
 import tempfile
 import time
-import transitfeed
+import traceback
+import transitfeed2 as transitfeed
 import unittest
 from StringIO import StringIO
 
@@ -71,19 +72,21 @@ class RecordingProblemReporter(transitfeed.ProblemReporterBase):
   def __init__(self, test_case, ignore_types=None):
     transitfeed.ProblemReporterBase.__init__(self)
     self.exceptions = []
+    #self.stacks = []
     self._test_case = test_case
     self._ignore_types = ignore_types or set()
 
   def _Report(self, e):
     if e.__class__.__name__ in self._ignore_types:
       return
-    self.exceptions.append(e)
+    traceback_string = ''.join(traceback.format_list(traceback.extract_stack()[-4:]))
+    self.exceptions.append((e, traceback_string))
 
   def PopException(self, type_name):
     """Return the first exception, which must be a type_name."""
     e = self.exceptions.pop(0)
-    self._test_case.assertEqual(e.__class__.__name__, type_name)
-    return e
+    self._test_case.assertEqual(e[0].__class__.__name__, type_name)
+    return e[0]
 
   def AssertNoMoreExceptions(self):
     self._test_case.assertFalse(self.exceptions, self.exceptions)
@@ -329,7 +332,7 @@ class LoadUnrecognizedColumnsTestCase(unittest.TestCase):
     found_errors = set(problems.column_errors)
     expected_errors = set([
       ('agency.txt', 'agency_lange'),
-      ('stops.txt', 'stop_uri'),
+      ('stops', 'stop_uri'),
       ('routes.txt', 'Route_Text_Color'),
       ('calendar.txt', 'leap_day'),
       ('calendar_dates.txt', 'leap_day'),
@@ -546,7 +549,7 @@ class DuplicateStopTestCase(unittest.TestCase):
 
 class DuplicateStopSequenceTestCase(unittest.TestCase):
   def runTest(self):
-    problems = RecordingProblemReporter(self, ("ExpirationDate",))
+    problems = RecordingProblemReporter(self, ("ExpirationDate", "UnusedStop"))
     schedule = transitfeed.Schedule(problem_reporter=problems)
     schedule.Load(DataPath('duplicate_stop_sequence'), extra_validation=True)
     e = problems.PopException('InvalidValue')
@@ -734,6 +737,27 @@ class StopValidationTestCase(ValidationTestCase):
     self.ExpectInvalidValue(stop, 'stop_desc')
     stop.stop_desc = 'Edge of the Couch'
     self.problems.AssertNoMoreExceptions()
+
+
+class StopWithUnknownColumns(ValidationTestCase):
+  def testInitWithString(self):
+    schedule = transitfeed.Schedule()
+
+    stop = transitfeed.Stop(field_dict={})
+    try:
+      schedule.AddStopObject(stop)
+      self.fail("Expecting AttributeError")
+    except AttributeError:
+      pass # Expected
+
+    stop = transitfeed.Stop(field_dict={"stop_id": "S1"})
+    schedule.AddStopObject(stop)
+
+    stop = transitfeed.Stop(field_dict={"stop_id": "S1",
+                                        "stop_lat": "34.45",
+                                        "stop_lon": "-128.32",
+                                        "stop_name": "My Stop"})
+    schedule.AddStopObject(stop)
 
 
 class StopTimeValidationTestCase(ValidationTestCase):
@@ -1775,7 +1799,7 @@ class MinimalUtf8Builder(TempFileTestCaseBase):
     service_period = schedule.GetDefaultServicePeriod()
     service_period.SetDateHasService('20070101')
     # "u020b i with inverted accent breve" encoded in utf-8
-    stop1 = schedule.AddStop(lng=140, lat=48.2, name="\xc8\x8b hub")
+    stop1 = schedule.AddStop(lng=140, lat=48.2, name=unicode("\xc8\x8b hub", "utf8"))
     # "u020b i with inverted accent breve" as unicode string
     stop2 = schedule.AddStop(lng=140.001, lat=48.201, name=u"remote \u020b station")
     route = schedule.AddRoute(u"\u03b2", "Beta", "Bus")

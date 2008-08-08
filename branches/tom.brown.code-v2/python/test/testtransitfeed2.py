@@ -72,21 +72,21 @@ class RecordingProblemReporter(transitfeed.ProblemReporterBase):
   def __init__(self, test_case, ignore_types=None):
     transitfeed.ProblemReporterBase.__init__(self)
     self.exceptions = []
-    self.stacks = []
+    #self.stacks = []
     self._test_case = test_case
     self._ignore_types = ignore_types or set()
 
   def _Report(self, e):
     if e.__class__.__name__ in self._ignore_types:
       return
-    self.exceptions.append(e)
-    self.stacks.append(''.join(traceback.format_list(traceback.extract_stack())))
+    traceback_string = ''.join(traceback.format_list(traceback.extract_stack()[-4:]))
+    self.exceptions.append((e, traceback_string))
 
   def PopException(self, type_name):
     """Return the first exception, which must be a type_name."""
     e = self.exceptions.pop(0)
-    self._test_case.assertEqual(e.__class__.__name__, type_name)
-    return e
+    self._test_case.assertEqual(e[0].__class__.__name__, type_name)
+    return e[0]
 
   def AssertNoMoreExceptions(self):
     self._test_case.assertFalse(self.exceptions, self.exceptions)

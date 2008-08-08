@@ -594,14 +594,15 @@ class Stop(object):
       if name[0] == "_":
         continue
       self._CheckAndSetAttr(name, value, problems)
+    if not self._schedule:
+      for required in Stop._REQUIRED_FIELD_NAMES:
+        if getattr(self, required, None) is None:
+          problems.MissingValue(required)
 
   def Validate(self, problems=default_problem_reporter):
     # It should be possible to guarantee that all attributes have been
     # parsed if _schedule is true but required attributes may still be None.
     self.ParseAttributes(problems)
-    for required in Stop._REQUIRED_FIELD_NAMES:
-      if getattr(self, required, None) is None:
-        problems.InvalidValue(required, '', '%s is required' % required)
 
     if (abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,
@@ -2042,8 +2043,9 @@ class Schedule:
 
   def AddStopObject(self, stop):
     assert not stop._schedule
-    # _ColumnNames uses stop._schedule if it is set so we'll set it later
     table_columns = self._table_columns.setdefault('stops', [])
+    # stop._ColumnNames() returns the stop's attributes if stop._schedule
+    # isn't set
     for attr in stop._ColumnNames():
       if attr not in table_columns:
         table_columns.append(attr)

@@ -20,16 +20,18 @@ In sections that could be checked at the same time, starting with low level byte
 == Individual values ==
 
 These can be checked when parsing a row from a table or when assigning a value to an attribute.
-  * correct format for type. Is it a valid time, date, float etc?
+  * correct format for type (time, date, float etc)
   * in valid range, abs(latitude) < 90, abs(longitude) < 180
 
 Instances of classes such as `Stop` can be in many states:
   * Initialized from a list of unicode strings in a file
-  * No attributes set
+  * No attributes set, for example after calling `Stop()`
   * Attribute assigned in the normal python manner, `stop.stop_lat = 45.832`
-  * Attribute assigned as a string (probably doesn't need to be supported
+  * Attribute assigned as a string (probably doesn't need to be supported)
 
-The advantage of storing a string for each value and lazily converting to a native type later is that __init__ is fast and doesn't fail. Also if __getitem__ always returns a string one can treat the object as a dict, which feels clean. But if the strings are saved in __dict__ I need to use __getattribute__ to intercept requests so that, for example, stop.stop_lat returns a float instead of unicode. __getattribute__ is slow because it is called a lot, even for self.__dict__ and self.Validate(). Strings could be saved in a separate dict which could be consulted by __getattr__.
+The advantage of storing a string for each value and lazily converting to a native type later is that __init__ is fast and doesn't fail. Also if __getitem__ always returns a string one can treat the object as a dict, which feels clean. But if the strings are saved in __dict__ I need to use __getattribute__ to intercept requests so that, for example, stop.stop_lat returns a float instead of unicode. __getattribute__ is slow because it is called a lot, even for self.__dict__ and self.Validate(). Strings could be saved in a separate dict which could be consulted by __getattr__ but then I'd need to make sure the string and attribute stay in sync.
+
+When an invalid value is assigned to an attribute what happens? It should probably be saved anyway to improve forwards compatibility.
 
 == Consistent row/object ==
 
@@ -39,6 +41,8 @@ These could be checked during __init__, if it is given all values which happens 
   * stop not near 0,0
   * parent_id only set with correct location_type
   * route_short_name not in route_long_name
+  * All required fields are set
+  * warn about fields that are not in spec?
 
 == Good ids ==
 

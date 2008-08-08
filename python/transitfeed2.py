@@ -431,30 +431,34 @@ def ApproximateDistanceBetweenStops(stop1, stop2):
       math.sqrt(max(0.0, 1.0 - x))))
 
 class Stop(object):
-  """Represents a single stop. A stop must have a latitude, longitude and name."""
+  """Represents a single stop. A stop must have a latitude, longitude and name.
+
+  Instance attributes:
+    Callers may assign arbitrary values to instance attributes.
+    Stop.ParseAttributes validates known attributes and converts some
+    (listed below) into native types.
+    stop[attribute_name] always returns a unicode string. It returns "" if
+    attribute_name is not set.
+
+    stop_lat: a float representing the latitude of the stop
+    stop_lon: a float representing the longitude of the stop
+    All other attributes are strings.
+  """
   _REQUIRED_FIELD_NAMES = ['stop_id', 'stop_name', 'stop_lat', 'stop_lon']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + \
                  ['stop_desc', 'zone_id', 'stop_url', 'stop_code']
 
   def __init__(self, lat=None, lng=None, name=None, stop_id=None,
-               field_dict=None, stop_code=None, schedule=None):
+               field_dict=None, stop_code=None):
     """Initalize a new Stop object.
 
     Args:
       field_dict: A dictionary mapping column name to unicode string
       lat: a float, ignored when field_dict is present
       name, stop_id, stop_code: similar to lat
-      schedule: Schedule object that owns this stop
     """
-
-    # Stop.__setattr__ accesses self._schedule
-    object.__setattr__(self, "_schedule", schedule)
-
-    self._trip_index = []  # list of (trip, index) for each Trip object.
-                           # index is offset into Trip _stoptimes
     if field_dict:
-      for name, value in field_dict.iteritems():
-        self.__setattr__(name, value)
+      object.__setattr__(self, '__dict__', field_dict)
     else:
       if lat is not None:
         self.stop_lat = lat
@@ -466,6 +470,10 @@ class Stop(object):
         self.stop_id = stop_id
       if stop_code is not None:
         self.stop_code = stop_code
+
+    self._schedule = None
+    self._trip_index = []  # list of (trip, index) for each Trip object.
+                           # index is offset into Trip _stoptimes
 
   def GetTrips(self):
     """Return iterable containing trips that visit this stop."""
@@ -494,6 +502,7 @@ class Stop(object):
         object.__delattr__(self, name)
 
   def _CheckAttr(self, name, value, problems):
+    """Call problems and return None if value is not valid for name."""
     if name == 'stop_lat':
       try:
         # TODO: http://code.google.com/p/googletransitdatafeed/issues/detail?id=75
@@ -505,7 +514,6 @@ class Stop(object):
       else:
         if value > 90 or value < -90:
           problems.InvalidValue('stop_lat', value)
-          value = 0
     elif name == 'stop_lon':
       try:
         value = float(value)
@@ -515,21 +523,17 @@ class Stop(object):
       else:
         if value > 180 or value < -180:
           problems.InvalidValue('stop_lon', value)
-          value = 0
     elif name == 'stop_url':
       if value is None or value == "":
         value = None
       elif not IsValidURL(value):
         problems.InvalidValue('stop_url', value)
-        value = None
     elif name == 'stop_id':
       if IsEmpty(value):
         problems.MissingValue('stop_id')
-        value = None
     elif name == 'stop_name':
       if IsEmpty(value):
         problems.MissingValue('stop_name')
-        value = None
       # Don't force conversion to unicode. If a file is loaded with bad utf8
       # it is passed to __init__ as a byte string which we'll preserve here.
     return value
@@ -540,21 +544,6 @@ class Stop(object):
       return self.__dict__[name]
     else:
       return ""
-
-  def __setattr__(self, name, value):
-    if not self._schedule:
-      # Delay validation until stop is added to a schedule
-      object.__setattr__(self, name, value)
-    elif name[0] == "_":
-      # No special handling of private attributes
-      object.__setattr__(self, name, value)
-    else:
-      try:
-        schedule = object.__getattribute__(self, '_schedule')
-        problems = schedule.problem_reporter
-      except AttributeError:
-        problems = default_problem_reporter
-      self._CheckAndSetAttr(name, value, problems)
 
   def __eq__(self, other):
     if not other:
@@ -588,21 +577,19 @@ class Stop(object):
 
   def ParseAttributes(self, problems):
     """Parse any string attributes, calling problems as needed."""
-    # Need to use items instead of iteritems because _CheckAndSetAttr deletes
-    # invalid attributes, resizing self.__dict__.
+    # Need to use items() instead of iteritems() because _CheckAndSetAttr may
+    # modify self.__dict__
     for name, value in vars(self).items():
       if name[0] == "_":
         continue
       self._CheckAndSetAttr(name, value, problems)
-    if not self._schedule:
-      for required in Stop._REQUIRED_FIELD_NAMES:
-        if getattr(self, required, None) is None:
-          problems.MissingValue(required)
 
   def Validate(self, problems=default_problem_reporter):
-    # It should be possible to guarantee that all attributes have been
-    # parsed if _schedule is true but required attributes may still be None.
     self.ParseAttributes(problems)
+
+    for required in Stop._REQUIRED_FIELD_NAMES:
+      if getattr(self, required, None) is None:
+        problems.MissingValue(required)
 
     if (abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,
@@ -2042,14 +2029,13 @@ class Schedule:
     return stop
 
   def AddStopObject(self, stop):
-    assert not stop._schedule
+    assert stop._schedule is None
     table_columns = self._table_columns.setdefault('stops', [])
     # stop._ColumnNames() returns the stop's attributes if stop._schedule
     # isn't set
     for attr in stop._ColumnNames():
       if attr not in table_columns:
         table_columns.append(attr)
-    stop.ParseAttributes(self.problem_reporter)
     self.stops[stop.stop_id] = stop
     if hasattr(stop, 'zone_id') and stop.zone_id:
       self.fare_zones[stop.zone_id] = True

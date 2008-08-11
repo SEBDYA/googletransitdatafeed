@@ -462,6 +462,7 @@ class Stop(object):
       lat: a float, ignored when field_dict is present
       name, stop_id, stop_code: similar to lat
     """
+    self._schedule = None
     if field_dict:
       for name, value in field_dict.iteritems():
         object.__setattr__(self, name, value)
@@ -480,9 +481,6 @@ class Stop(object):
       if stop_code is not None:
         self.stop_code = stop_code
 
-    self._schedule = None
-    self._trip_index = []  # list of (trip, index) for each Trip object.
-                           # index is offset into Trip _stoptimes
 
   def GetTrips(self, schedule=None):
     """Return iterable containing trips that visit this stop."""
@@ -566,6 +564,11 @@ class Stop(object):
       return None
     else:
       raise AttributeError()
+
+  def __setattr__(self, name, value):
+     object.__setattr__(self, name, value)
+     if name[0] != '_' and self._schedule:
+       self._schedule.AddTableColumn('stops', name)
   
   def iteritems(self):
     for name, value in self.__dict__.iteritems():
@@ -619,11 +622,13 @@ class Stop(object):
       if getattr(self, required, None) is None:
         problems.MissingValue(required)
 
-    if (abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
+    if (self.stop_lat is not None and self.stop_lon is not None and
+        abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,
                             'Stop location too close to 0, 0',
                             type=TYPE_WARNING)
-    if (self.stop_desc and self.stop_name and
+    if (self.stop_desc is not None and self.stop_name is not None and
+        self.stop_desc and self.stop_name and
         not IsEmpty(self.stop_desc) and
         self.stop_name.strip().lower() == self.stop_desc.strip().lower()):
       problems.InvalidValue('stop_desc', self.stop_desc,

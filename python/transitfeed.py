@@ -446,10 +446,10 @@ class Stop(object):
   """
   _REQUIRED_FIELD_NAMES = ['stop_id', 'stop_name', 'stop_lat', 'stop_lon']
   _FIELD_NAMES = _REQUIRED_FIELD_NAMES + \
-                 ['stop_desc', 'zone_id', 'stop_url', 'stop_code']
+                 ['stop_desc', 'zone_id', 'stop_url', 'stop_code', 'location_type', 'parent_station']
 
   def __init__(self, lat=None, lng=None, name=None, stop_id=None,
-               field_dict=None, stop_code=None):
+               field_list=None, field_dict=None, stop_code=None):
     """Initalize a new Stop object.
 
     Args:
@@ -458,7 +458,11 @@ class Stop(object):
       name, stop_id, stop_code: similar to lat
     """
     if field_dict:
-      object.__setattr__(self, '__dict__', field_dict)
+      for name, value in field_dict.iteritems():
+        object.__setattr__(self, name, value)
+    elif field_dict:
+      for name, value in zip(_FIELD_NAMES, field_list):
+        object.__setattr__(self, name, value)
     else:
       if lat is not None:
         self.stop_lat = lat
@@ -524,16 +528,11 @@ class Stop(object):
         if value > 180 or value < -180:
           problems.InvalidValue('stop_lon', value)
     elif name == 'stop_url':
-      if value is None or value == "":
-        value = None
-      elif not IsValidURL(value):
+      if value and not IsValidURL(value):
         problems.InvalidValue('stop_url', value)
-    elif name == 'stop_id':
+    else:
       if IsEmpty(value):
-        problems.MissingValue('stop_id')
-    elif name == 'stop_name':
-      if IsEmpty(value):
-        problems.MissingValue('stop_name')
+        value = None
       # Don't force conversion to unicode. If a file is loaded with bad utf8
       # it is passed to __init__ as a byte string which we'll preserve here.
     return value
@@ -541,9 +540,25 @@ class Stop(object):
   def __getitem__(self, name):
     """Return a unicode or str representation of name or "" if not set."""
     if name in self.__dict__ and self.__dict__[name] is not None:
-      return self.__dict__[name]
+      return "%s" % self.__dict__[name]
     else:
       return ""
+
+  def __getattr__(self, name):
+    """Return None if name is a known attribute"""
+    # This method is only called if name is not found in __dict__
+    if name == "location_type":
+      return 0
+    elif name in Stop._FIELD_NAMES:
+      return None
+    else:
+      raise AttributeError()
+  
+  def iteritems(self):
+    for name, value in self.__dict__.iteritems():
+      if name[0] == "_":
+        continue
+      yield name, value
 
   def __eq__(self, other):
     if not other:
@@ -576,7 +591,7 @@ class Stop(object):
     return unicode(self.__dict__)
 
   def ParseAttributes(self, problems):
-    """Parse any string attributes, calling problems as needed."""
+    """Parse all attributes, calling problems as needed."""
     # Need to use items() instead of iteritems() because _CheckAndSetAttr may
     # modify self.__dict__
     for name, value in vars(self).items():
@@ -595,7 +610,7 @@ class Stop(object):
       problems.InvalidValue('stop_lat', self.stop_lat,
                             'Stop location too close to 0, 0',
                             type=TYPE_WARNING)
-    if (hasattr(self, 'stop_desc') and hasattr(self, 'stop_name') and
+    if (self.stop_desc and self.stop_name and
         not IsEmpty(self.stop_desc) and
         self.stop_name.strip().lower() == self.stop_desc.strip().lower()):
       problems.InvalidValue('stop_desc', self.stop_desc,
@@ -2030,6 +2045,7 @@ class Schedule:
 
   def AddStopObject(self, stop):
     assert stop._schedule is None
+    assert stop.stop_id
     table_columns = self._table_columns.setdefault('stops', [])
     # stop._ColumnNames() returns the stop's attributes if stop._schedule
     # isn't set

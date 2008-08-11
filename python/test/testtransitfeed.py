@@ -23,7 +23,7 @@ import sys
 import tempfile
 import time
 import traceback
-import transitfeed2 as transitfeed
+import transitfeed
 import unittest
 from StringIO import StringIO
 
@@ -72,14 +72,13 @@ class RecordingProblemReporter(transitfeed.ProblemReporterBase):
   def __init__(self, test_case, ignore_types=None):
     transitfeed.ProblemReporterBase.__init__(self)
     self.exceptions = []
-    #self.stacks = []
     self._test_case = test_case
     self._ignore_types = ignore_types or set()
 
   def _Report(self, e):
     if e.__class__.__name__ in self._ignore_types:
       return
-    traceback_string = ''.join(traceback.format_list(traceback.extract_stack()[-4:]))
+    traceback_string = ''.join(traceback.format_list(traceback.extract_stack()[-7:-1]))
     self.exceptions.append((e, traceback_string))
 
   def PopException(self, type_name):
@@ -89,7 +88,9 @@ class RecordingProblemReporter(transitfeed.ProblemReporterBase):
     return e[0]
 
   def AssertNoMoreExceptions(self):
-    self._test_case.assertFalse(self.exceptions, self.exceptions)
+    self._test_case.assertFalse(
+        self.exceptions,
+        "\n".join("%s at\n%s" % x for x in self.exceptions))
 
 
 class UnrecognizedColumnRecorder(transitfeed.ProblemReporter):
@@ -702,8 +703,16 @@ class StopValidationTestCase(ValidationTestCase):
     stop.stop_url = 'http://example.com'
     stop.Validate(self.problems)
 
-    # latitute too large
+    # latitude too large
     stop.stop_lat = 100.0
+    self.ExpectInvalidValue(stop, 'stop_lat')
+    stop.stop_lat = 50.0
+
+    # latitude as a string works when it is valid
+    stop.stop_lat = '50.0'
+    stop.Validate(self.problems)
+    self.problems.AssertNoMoreExceptions()
+    stop.stop_lat = '10f'
     self.ExpectInvalidValue(stop, 'stop_lat')
     stop.stop_lat = 50.0
 
@@ -724,11 +733,11 @@ class StopValidationTestCase(ValidationTestCase):
     self.ExpectInvalidValue(stop, 'stop_url')
     stop.stop_url = 'http://example.com'
 
-    stop.stop_id = '   '
+    stop.stop_id = '  '
     self.ExpectMissingValue(stop, 'stop_id')
     stop.stop_id = '45'
 
-    stop.stop_name = ''
+    stop.stop_name = '  '
     self.ExpectMissingValue(stop, 'stop_name')
     stop.stop_name = 'Couch AT End Table'
 
@@ -739,15 +748,35 @@ class StopValidationTestCase(ValidationTestCase):
     self.problems.AssertNoMoreExceptions()
 
 
-class StopWithUnknownColumns(ValidationTestCase):
-  def testInitWithString(self):
+class StopAttributes(ValidationTestCase):
+  def testWithoutSchedule(self):
+    stop = transitfeed.Stop()
+    stop.stop_id = 'a'
+    stop.stop_name = 'my stop'
+    stop.new_column = 'val'
+    stop.stop_lat = 5.909
+    stop.stop_lon = '40.02'
+    self.assertEquals(stop['new_column'], 'val')
+    self.assertTrue(isinstance(stop['stop_lat'], basestring))
+    self.assertAlmostEqual(float(stop['stop_lat']), 5.909)
+    self.assertTrue(isinstance(stop['stop_lon'], basestring))
+    self.assertAlmostEqual(float(stop['stop_lon']), 40.02)
+    self.assertEquals(stop['location_type'], '')
+    self.assertEquals(stop.location_type, 0)
+    stop.Validate(self.problems)
+    self.problems.AssertNoMoreExceptions()
+    self.assertAlmostEqual(stop.stop_lat, 5.909)
+    self.assertAlmostEqual(stop.stop_lon, 40.02)
+    self.assertEquals(stop['location_type'], '')
+    self.assertEquals(stop.location_type, 0)
+    
     schedule = transitfeed.Schedule()
 
     stop = transitfeed.Stop(field_dict={})
     try:
       schedule.AddStopObject(stop)
-      self.fail("Expecting AttributeError")
-    except AttributeError:
+      self.fail("Expecting AssertionError")
+    except AssertionError:
       pass # Expected
 
     stop = transitfeed.Stop(field_dict={"stop_id": "S1"})
@@ -759,6 +788,11 @@ class StopWithUnknownColumns(ValidationTestCase):
                                         "stop_name": "My Stop"})
     schedule.AddStopObject(stop)
 
+    stop = transitfeed.Stop(field_dict={"stop_id": "S1",
+                                        "stop_lat": "34.45",
+                                        "stop_lon": "-128.32",
+                                        "stop_name": "My Stop"})
+    schedule.AddStopObject(stop)
 
 class StopTimeValidationTestCase(ValidationTestCase):
   def runTest(self):

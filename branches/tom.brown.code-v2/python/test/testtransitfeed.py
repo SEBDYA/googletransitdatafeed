@@ -751,11 +751,26 @@ class StopValidationTestCase(ValidationTestCase):
 class StopAttributes(ValidationTestCase):
   def testWithoutSchedule(self):
     stop = transitfeed.Stop()
+    stop.Validate(self.problems)
+    for name in "stop_id stop_name stop_lat stop_lon".split():
+      e = self.problems.PopException('MissingValue')
+      self.assertEquals(name, e.column_name)
+    self.problems.AssertNoMoreExceptions()
+    
+    stop = transitfeed.Stop()
+    # Test behaviour for unset and unknown attribute
+    self.assertEquals(stop['new_column'], '')
+    try:
+      t = stop.new_column
+      self.fail('Expecting AttributeError')
+    except AttributeError, e:
+      pass  # Expected
     stop.stop_id = 'a'
     stop.stop_name = 'my stop'
     stop.new_column = 'val'
     stop.stop_lat = 5.909
     stop.stop_lon = '40.02'
+    self.assertEquals(stop.new_column, 'val')
     self.assertEquals(stop['new_column'], 'val')
     self.assertTrue(isinstance(stop['stop_lat'], basestring))
     self.assertAlmostEqual(float(stop['stop_lat']), 5.909)
@@ -765,34 +780,37 @@ class StopAttributes(ValidationTestCase):
     self.assertEquals(stop.location_type, 0)
     stop.Validate(self.problems)
     self.problems.AssertNoMoreExceptions()
+    # After validation stop.stop_lon has been converted to a float
     self.assertAlmostEqual(stop.stop_lat, 5.909)
     self.assertAlmostEqual(stop.stop_lon, 40.02)
-    self.assertEquals(stop['location_type'], '')
+    self.assertEquals(stop.new_column, 'val')
+    self.assertEquals(stop['new_column'], 'val')
     self.assertEquals(stop.location_type, 0)
-    
+    self.assertEquals(stop['location_type'], '')
+
+  def testWithSchedule(self):
     schedule = transitfeed.Schedule()
 
     stop = transitfeed.Stop(field_dict={})
     try:
       schedule.AddStopObject(stop)
-      self.fail("Expecting AssertionError")
+      self.fail("Expecting AssertionError for stop_id")
     except AssertionError:
-      pass # Expected
+      pass  # Expected
+    self.assertFalse(stop._schedule)
 
-    stop = transitfeed.Stop(field_dict={"stop_id": "S1"})
+    # Okay to add a stop with only stop_id
+    stop = transitfeed.Stop(field_dict={"stop_id": "b"})
     schedule.AddStopObject(stop)
+    stop.Validate(self.problems)
+    for name in "stop_name stop_lat stop_lon".split():
+      e = self.problems.PopException("MissingValue")
+      self.assertEquals(name, e.column_name)
+    self.problems.AssertNoMoreExceptions()
 
-    stop = transitfeed.Stop(field_dict={"stop_id": "S1",
-                                        "stop_lat": "34.45",
-                                        "stop_lon": "-128.32",
-                                        "stop_name": "My Stop"})
-    schedule.AddStopObject(stop)
+    stop.new_column = "val"
+    self.assertTrue("new_column" in schedule.GetTableColumns("stops"))
 
-    stop = transitfeed.Stop(field_dict={"stop_id": "S1",
-                                        "stop_lat": "34.45",
-                                        "stop_lon": "-128.32",
-                                        "stop_name": "My Stop"})
-    schedule.AddStopObject(stop)
 
 class StopTimeValidationTestCase(ValidationTestCase):
   def runTest(self):
@@ -1944,7 +1962,7 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     self.assertTrue(False, "a=%s b=%s" % (a, b))
 
   def runTest(self):
-    problems = TestFailureProblemReporter(self)
+    problems = RecordingProblemReporter(self, ignore_types=("ExpirationDate",))
     schedule = transitfeed.Schedule(problem_reporter=problems)
     agency = transitfeed.Agency()
     agency.agency_id = "DTA"
@@ -2025,6 +2043,7 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
           stop.zone_id, stop.stop_code) = stop_entry
       schedule.AddStopObject(stop)
       stops.append(stop)
+    schedule.GetStop("BULLFROG").stop_sound = "croak!"
 
     trip_data = [
         ("AB", "FULLW", "AB1", "to Bullfrog", "0", "1", None),
@@ -2149,6 +2168,9 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     read_schedule = \
         transitfeed.Loader(self.tempfilepath, problems=problems,
                            extra_validation=True).Load()
+    e = problems.PopException("UnrecognizedColumn")
+    self.assertEqual(e.column_name, "stop_sound")
+    problems.AssertNoMoreExceptions()
 
     self.assertEqual(1, len(read_schedule.GetAgencyList()))
     self.assertEqual(agency, read_schedule.GetAgency(agency.agency_id))
@@ -2166,6 +2188,7 @@ class WriteSampleFeedTestCase(TempFileTestCaseBase):
     self.assertEqual(len(stops), len(read_schedule.GetStopList()))
     for stop in stops:
       self.assertEqual(stop, read_schedule.GetStop(stop.stop_id))
+    self.assertEqual("croak!", read_schedule.GetStop("BULLFROG").stop_sound)
 
     self.assertEqual(len(trips), len(read_schedule.GetTripList()))
     for trip in trips:

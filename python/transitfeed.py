@@ -2835,7 +2835,9 @@ class Loader:
       context = (table_name, 1, [''] * len(header), header)
       self._problems.MissingColumn(table_name, col, context)
 
-    for row in reader:
+    for line_number, row in enumerate(reader):
+      # reader has already returned one row so actual line_number is + 1.
+      # python2.5 adds reader.line_num
       if len(row) == 0:  # skip extra empty lines in file
         continue
 
@@ -2844,8 +2846,8 @@ class Loader:
                                     '%d of file "%s".  Every row in the file '
                                     'should have the same number of cells as '
                                     'the header (first line) does.' %
-                                    (reader.line_num, table_name),
-                                    (table_name, reader.line_num),
+                                    (line_number + 1, table_name),
+                                    (table_name, line_number + 1),
                                     type=TYPE_WARNING)
 
       if len(row) < len(header):
@@ -2853,8 +2855,8 @@ class Loader:
                                     '%d of file "%s".  Every row in the file '
                                     'should have the same number of cells as '
                                     'the header (first line) does.' %
-                                    (reader.line_num, table_name),
-                                    (table_name, reader.line_num),
+                                    (line_number + 1, table_name),
+                                    (table_name, line_number + 1),
                                     type=TYPE_WARNING)
 
       for i in xrange(len(row)):
@@ -2863,10 +2865,10 @@ class Loader:
         except UnicodeDecodeError:
           self._problems.InvalidValue(header[i], row[i],
                                       'Unicode error',
-                                      (table_name, reader.line_num, row, header))
+                                      (table_name, line_number + 1, row, header))
 
       d = dict(zip(header, row))
-      yield (d, reader.line_num, header, row)
+      yield (d, line_number + 1, header, row)
 
   # TODO: Add testing for this specific function
   def _ReadCSV(self, file_name, cols, required):

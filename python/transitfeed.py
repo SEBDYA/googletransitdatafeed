@@ -391,7 +391,7 @@ def ColorLuminance(color):
 
 
 def IsEmpty(value):
-  return not value or (isinstance(value, basestring) and not value.strip())
+  return value is None or (isinstance(value, basestring) and not value.strip())
 
 
 def FindUniqueId(dic):
@@ -441,7 +441,8 @@ class Stop(object):
   Instance attributes:
     Callers may assign arbitrary values to instance attributes.
     Stop.ParseAttributes validates known attributes and converts some
-    (listed below) into native types.
+    (listed below) into native types. ParseAttributes may delete invalid
+    attributes.
     stop[attribute_name] always returns a unicode string. It returns "" if
     attribute_name is not set.
 
@@ -508,16 +509,30 @@ class Stop(object):
                     (trip.trip_id, self.stop_id))
     return time_trips
 
+  def ParseAttributes(self, problems):
+    """Parse all attributes, calling problems as needed."""
+    # Need to use items() instead of iteritems() because _CheckAndSetAttr may
+    # modify self.__dict__
+    for name, value in vars(self).items():
+      if name[0] == "_":
+        continue
+      self._CheckAndSetAttr(name, value, problems)
+
   def _CheckAndSetAttr(self, name, value, problems):
     safe_value = self._CheckAttr(name, value, problems)
     if safe_value is not None:
-      object.__setattr__(self, name, safe_value)
+      if safe_value is not value:
+        object.__setattr__(self, name, safe_value)
     else:
       if hasattr(self, name):
         object.__delattr__(self, name)
 
   def _CheckAttr(self, name, value, problems):
-    """Call problems and return None if value is not valid for name."""
+    """Check if value is valid for attribute name.
+
+    If value is not valid call problems. Return a new value of the correct type
+    or None if value couldn't be converted.
+    """
     if name == 'stop_lat':
       try:
         # TODO: http://code.google.com/p/googletransitdatafeed/issues/detail?id=75
@@ -525,7 +540,7 @@ class Stop(object):
         value = float(value)
       except (ValueError, TypeError):
         problems.InvalidValue('stop_lat', value)
-        value = 0
+        value = None
       else:
         if value > 90 or value < -90:
           problems.InvalidValue('stop_lat', value)
@@ -534,18 +549,13 @@ class Stop(object):
         value = float(value)
       except (ValueError, TypeError):
         problems.InvalidValue('stop_lon', value)
-        value = 0
+        value = None
       else:
         if value > 180 or value < -180:
           problems.InvalidValue('stop_lon', value)
     elif name == 'stop_url':
       if value and not IsValidURL(value):
         problems.InvalidValue('stop_url', value)
-    else:
-      if IsEmpty(value):
-        value = None
-      # Don't force conversion to unicode. If a file is loaded with bad utf8
-      # it is passed to __init__ as a byte string which we'll preserve here.
     return value
 
   def __getitem__(self, name):
@@ -556,8 +566,10 @@ class Stop(object):
       return ""
 
   def __getattr__(self, name):
-    """Return None if name is a known attribute"""
-    # This method is only called if name is not found in __dict__
+    """Return None or the default value if name is a known attribute.
+
+    This method is only called when name is not found in __dict__.
+    """
     if name == "location_type":
       return 0
     elif name in Stop._FIELD_NAMES:
@@ -569,14 +581,16 @@ class Stop(object):
      object.__setattr__(self, name, value)
      if name[0] != '_' and self._schedule:
        self._schedule.AddTableColumn('stops', name)
-  
+
   def iteritems(self):
+    """Return a iterable for (name, value) pairs of public attributes."""
     for name, value in self.__dict__.iteritems():
       if name[0] == "_":
         continue
       yield name, value
 
   def __eq__(self, other):
+    """Return True if two Stops are identical."""
     if not other:
       return False
 
@@ -584,7 +598,7 @@ class Stop(object):
       return True
 
     for name in self._ColumnNames() + other._ColumnNames():
-      if getattr(self, name, None) != getattr(other, name, None):
+      if self[name] != other[name]:
         return False
     return True
 
@@ -606,22 +620,17 @@ class Stop(object):
   def __repr__(self):
     return unicode(self.__dict__)
 
-  def ParseAttributes(self, problems):
-    """Parse all attributes, calling problems as needed."""
-    # Need to use items() instead of iteritems() because _CheckAndSetAttr may
-    # modify self.__dict__
-    for name, value in vars(self).items():
-      if name[0] == "_":
-        continue
-      self._CheckAndSetAttr(name, value, problems)
-
   def Validate(self, problems=default_problem_reporter):
-    self.ParseAttributes(problems)
-
+    # First check that all required fields are present because ParseAttributes
+    # may remove invalid attributes.
     for required in Stop._REQUIRED_FIELD_NAMES:
-      if getattr(self, required, None) is None:
+      if IsEmpty(getattr(self, required, None)):
         problems.MissingValue(required)
 
+    # Check individual values and convert to native types
+    self.ParseAttributes(problems)
+
+    # Check that this object is consistent with itself
     if (self.stop_lat is not None and self.stop_lon is not None and
         abs(self.stop_lat) < 1.0) and (abs(self.stop_lon) < 1.0):
       problems.InvalidValue('stop_lat', self.stop_lat,

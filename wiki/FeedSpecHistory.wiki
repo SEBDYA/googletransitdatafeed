@@ -4,6 +4,10 @@
 = Introduction =
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
+==== August 7, 2008 ====
+  * Restored the stop_url field, which was accidentally omitted in the August 6 version
+  * Added agency_phone to sample data
+  * Added a mention of the data use agreement when submitting a feed to Google
 == August 6, 2008 ==
   * Added transfers.txt file, allowing the feed publishers to provide hints on preferred transfer behavior ([http://groups.google.com/group/gtfs-changes/browse_thread/thread/d2090e9e2f37697b original proposal])
   * Added location_type and parent_station fields to stops.txt, allowing stop points to be grouped into stations ([http://groups.google.com/group/gtfs-changes/browse_frm/thread/49c180c99f5aff2c/f46db59beec6bdba original proposal])

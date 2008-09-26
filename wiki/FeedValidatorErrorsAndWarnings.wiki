@@ -1,0 +1,33 @@
+#summary This page serves as a catalog of the errors and warnings returned by the FeedValidator utility.
+
+= Errors =
+
+==== File _file name_ is not found (E1) ====
+==== File _file name_ is empty (E2) ====
+==== Couldn't find a feed named _feed name_ (E3) ====
+==== The feed named _feed name_ had an unknown format: feeds should be either .zip files or directories. (E4) ====
+==== Files must be encoded in utf-8 and may not contain any null bytes (0x00). (E5) ====
+==== Missing column _column name_ in file _file name_ (E6) ====
+==== Missing value for column _column name_ (E7) ====
+==== Invalid value _value_ in field _column name_ (E8) ====
+==== Duplicate ID _value_ in column _column name_ (E9) ====
+==== Invalid value _value_ in field stop_desc.  stop_desc should not be the same as stop_name (E10) ====
+==== Invalid value _value_ in field route_short_name. Both route_short_name and route_long name are blank. (E10) ====
+
+= Warnings =
+
+==== Unrecognized column _column name_ in file _file name_.  This might be a misspelled column name (capitalization matters!). Or it could be extra information (such as a proposed feed extension) that the validator doesn't know about yet. Extra information is fine; this warning is here to catch misspelled optional column names. (W1) ====
+==== _stop name_ (ID _stop id_) isn't used in any trips (W2) ====
+==== This feed expired on _date_ (W3) ====
+==== This feed will soon expire, on _date_ (W4) ====
+==== Each line must end with CR LF or LF except for the last line of the file. This line ends with _line ending example_. (W5) ====
+==== Invalid value _value_ in field stop_lat.  Stop location too close to 0, 0 (W6) ====
+==== Invalid value _value_ in field route_short_name.  This route_short_name is relatively long, which probably means that it contains a place name.  You should only use this field to hold a short code that riders use to identify a route.  If this route doesn't have such a code, it's OK to leave this field empty. (W7) ====
+==== Invalid value _value_ in field route_short_name.  route_long_name shouldn't contain the route_short_name value, as both fields are often displayed side-by-side. (W8) ====
+
+long name same as short name
+route color contrast
+can't get on or drop off
+shape with no points
+no days of week
+no service dates

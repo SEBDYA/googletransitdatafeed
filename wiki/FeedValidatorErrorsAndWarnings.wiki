@@ -12,7 +12,12 @@
 ==== Invalid value _value_ in field _column name_ (E8) ====
 ==== Duplicate ID _value_ in column _column name_ (E9) ====
 ==== Invalid value _value_ in field stop_desc.  stop_desc should not be the same as stop_name (E10) ====
-==== Invalid value _value_ in field route_short_name. Both route_short_name and route_long name are blank. (E10) ====
+==== Invalid value _value_ in field route_short_name.  Both route_short_name and route_long name are blank. (E10) ====
+==== Invalid value _value_ in field route_desc.  route_desc shouldn't be the same as route_short_name or route_long_name (E11) ====
+==== Invalid value _value_ in field route_color.  route_color should be a valid color description which consists of 6 hexadecimal characters representing the RGB values. Example: 44AA06 (E12) ====
+==== Invalid value _value_ in field route_text_color.  route_text_color should be a valid color description, which consists of 6 hexadecimal characters representing the RGB values. Example: 44AA06 (E13) ====
+
+
 
 = Warnings =
 
@@ -24,10 +29,11 @@
 ==== Invalid value _value_ in field stop_lat.  Stop location too close to 0, 0 (W6) ====
 ==== Invalid value _value_ in field route_short_name.  This route_short_name is relatively long, which probably means that it contains a place name.  You should only use this field to hold a short code that riders use to identify a route.  If this route doesn't have such a code, it's OK to leave this field empty. (W7) ====
 ==== Invalid value _value_ in field route_short_name.  route_long_name shouldn't contain the route_short_name value, as both fields are often displayed side-by-side. (W8) ====
+==== Invalid value _value_ in field route_short_name.  route_long_name shouldn't be the same the route_short_name value, as both fields are often displayed side-by-side.  It's OK to omit either the short or long name (but not both). (W9) ====
+==== Invalid value _value_ in field route_color.  The route_text_color and route_color should be set to contrasting colors, as they are used as the text and background color (respectively) for displaying route names.  When left blank, route_text_color defaults to 000000 (black) and route_color defaults to FFFFFF (white).  A common source of issues here is setting route_color to a dark color, while leaving route_text_color set to black.  In this case, route_text_color should be set to a lighter color like FFFFFF to ensure a legible contrast between the two. (W10) ====
 
-long name same as short name
-route color contrast
-can't get on or drop off
+
+an't get on or drop off
 shape with no points
 no days of week
 no service dates

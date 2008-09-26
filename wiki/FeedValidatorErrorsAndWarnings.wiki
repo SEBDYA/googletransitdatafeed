@@ -16,8 +16,9 @@
 ==== Invalid value _value_ in field route_desc.  route_desc shouldn't be the same as route_short_name or route_long_name (E11) ====
 ==== Invalid value _value_ in field route_color.  route_color should be a valid color description which consists of 6 hexadecimal characters representing the RGB values. Example: 44AA06 (E12) ====
 ==== Invalid value _value_ in field route_text_color.  route_text_color should be a valid color description, which consists of 6 hexadecimal characters representing the RGB values. Example: 44AA06 (E13) ====
-
-
+==== Invalid value _value_ in field departure_time.  The departure time at this stop (%s) is before the arrival time (%s).  This is often caused by problems in the feed exporter's time conversion (E14) ====
+==== Missing value for column departure_time.  arrival_time and departure_time should either both be provided or both be left blank.  It's OK to set them both to the same value.  (E15) ====
+==== Missing value for column arrival_time.  arrival_time and departure_time should either both be provided or both be left blank.  It's OK to set them both to the same value.  (E16) ====
 
 = Warnings =
 
@@ -31,9 +32,8 @@
 ==== Invalid value _value_ in field route_short_name.  route_long_name shouldn't contain the route_short_name value, as both fields are often displayed side-by-side. (W8) ====
 ==== Invalid value _value_ in field route_short_name.  route_long_name shouldn't be the same the route_short_name value, as both fields are often displayed side-by-side.  It's OK to omit either the short or long name (but not both). (W9) ====
 ==== Invalid value _value_ in field route_color.  The route_text_color and route_color should be set to contrasting colors, as they are used as the text and background color (respectively) for displaying route names.  When left blank, route_text_color defaults to 000000 (black) and route_color defaults to FFFFFF (white).  A common source of issues here is setting route_color to a dark color, while leaving route_text_color set to black.  In this case, route_text_color should be set to a lighter color like FFFFFF to ensure a legible contrast between the two. (W10) ====
+==== This stop time has a pickup_type and drop_off_type of 1, indicating that riders can't get on or off here.  Since it doesn't define a timepoint either, this entry serves no purpose and should be excluded from the trip. (W11) ====
 
-
-an't get on or drop off
 shape with no points
 no days of week
 no service dates

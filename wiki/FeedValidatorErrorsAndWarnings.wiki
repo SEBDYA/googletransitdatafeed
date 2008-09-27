@@ -19,7 +19,25 @@
 ==== Invalid value _value_ in field departure_time.  The departure time at this stop (%s) is before the arrival time (%s).  This is often caused by problems in the feed exporter's time conversion (E14) ====
 ==== Missing value for column departure_time.  arrival_time and departure_time should either both be provided or both be left blank.  It's OK to set them both to the same value.  (E15) ====
 ==== Missing value for column arrival_time.  arrival_time and departure_time should either both be provided or both be left blank.  It's OK to set them both to the same value.  (E16) ====
+==== No time for first StopTime of trip_id "_trip id_" (E17) ====
+==== out of order stop time for stop_id=_stop id_ trip_id=_trip id_ (E18) ==== 
+==== The first stop_time in trip _trip id_ is missing times. (E19) ====
+==== direction_id must be "0" or "1" (E20) ====
+==== Duplicate stop_sequence in trip_id (E21) ====
+==== No time for start of trip_id _trip id_ (E22) ====
+==== No time for end of trip_id _trip id_ (E23) ====
+==== Trip contains overlapping headway periods _period 1_ and _period 2_ (E24) ====
+==== can't have a nonzero transfer_duration for a fare that doesn't allow transfers! (E25) ====
+==== Each subsequent point in a shape should have a distance value that's at least as large as the previous ones.  In this case, the previous distance was _distance_. (E26) ====
+==== Invalid value _value_ in field shape_dist_traveled.  This value should be a positive number. (E27) ====
+==== Invalid value _value_ in field agency_timezone.  "_timezone_" isn\'t a recognized time zone (E28) ====
+==== Invalid value _value_ in field agency_id.  The route with ID _route id_ specifies agency_id _agency id_, which doesn't exist. (E29) ====
+==== Found %d CR LF \"\\r\\n\" line end%s (line%s %s) and "
+          "%d LF \"\\n\" line end%s (line%s %s). A file must use a "
+          "consistent line end.
 
+appears to be encoded in utf-16
+contains a null in text \"%s\" at byte %d
 = Warnings =
 
 ==== Unrecognized column _column name_ in file _file name_.  This might be a misspelled column name (capitalization matters!). Or it could be extra information (such as a proposed feed extension) that the validator doesn't know about yet. Extra information is fine; this warning is here to catch misspelled optional column names. (W1) ====
@@ -33,7 +51,12 @@
 ==== Invalid value _value_ in field route_short_name.  route_long_name shouldn't be the same the route_short_name value, as both fields are often displayed side-by-side.  It's OK to omit either the short or long name (but not both). (W9) ====
 ==== Invalid value _value_ in field route_color.  The route_text_color and route_color should be set to contrasting colors, as they are used as the text and background color (respectively) for displaying route names.  When left blank, route_text_color defaults to 000000 (black) and route_color defaults to FFFFFF (white).  A common source of issues here is setting route_color to a dark color, while leaving route_text_color set to black.  In this case, route_text_color should be set to a lighter color like FFFFFF to ensure a legible contrast between the two. (W10) ====
 ==== This stop time has a pickup_type and drop_off_type of 1, indicating that riders can't get on or off here.  Since it doesn't define a timepoint either, this entry serves no purpose and should be excluded from the trip. (W11) ====
-
-shape with no points
-no days of week
-no service dates
+==== Point location too close to 0, 0, which means that it's probably an incorrect location. (W12) ====
+==== The shape with shape_id "_shape id_" contains no points. (W13) ====
+==== Service period with service_id _service id_ doesn't have service on any days of the week. (W14) ====
+==== This feed has no effective service dates! (W15) ====
+==== The stops _stop name 1_ (ID _stop id 1_) and _stop name 2_ (ID _stop id 2_) are so close together that they probably represent the same location. (W16) ====
+==== The same combination of route_short_name and route_long_name shouldn't be used for more than one route, as it is for the for the two routes with IDs _route ID 1_ and _route ID 2_. (W17) ====
+==== The trip with the trip_id "_trip id_" doesn't have any stop times defined. (W18) ====
+==== The trip with the trip_id "_trip id_" only has one stop on it; it should have at least one more stop so that the riders can leave! (W19) ====
+==== The shapes with the following shape_ids aren't used by any trips: _shape IDs_ (W20) ====

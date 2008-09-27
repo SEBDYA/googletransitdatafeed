@@ -32,7 +32,7 @@ A list of errors and warnings returned by the FeedValidator utility is listed be
 ==== can't have a nonzero transfer_duration for a fare that doesn't allow transfers! (E25) ====
 ==== Each subsequent point in a shape should have a distance value that's at least as large as the previous ones.  In this case, the previous distance was _distance_. (E26) ====
 ==== Invalid value _value_ in field shape_dist_traveled.  This value should be a positive number. (E27) ====
-==== Invalid value _value_ in field agency_timezone.  "_timezone_" isn\'t a recognized time zone (E28) ====
+==== Invalid value _value_ in field agency_timezone.  "_timezone_" isn't a recognized time zone (E28) ====
 ==== Invalid value _value_ in field agency_id.  The route with ID _route id_ specifies agency_id _agency id_, which doesn't exist. (E29) ====
 ==== A file must use a consistent line end. (E30) ====
 ==== appears to be encoded in utf-16 (E31) ====

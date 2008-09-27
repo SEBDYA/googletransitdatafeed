@@ -1,5 +1,7 @@
 #summary This page serves as a catalog of the errors and warnings returned by the FeedValidator utility.
 
+A list of errors and warnings returned by the FeedValidator utility is listed below.  Wiki users are encouraged to add descriptions and discussion under each message.
+
 = Errors =
 
 ==== File _file name_ is not found (E1) ====
@@ -32,12 +34,17 @@
 ==== Invalid value _value_ in field shape_dist_traveled.  This value should be a positive number. (E27) ====
 ==== Invalid value _value_ in field agency_timezone.  "_timezone_" isn\'t a recognized time zone (E28) ====
 ==== Invalid value _value_ in field agency_id.  The route with ID _route id_ specifies agency_id _agency id_, which doesn't exist. (E29) ====
-==== Found %d CR LF \"\\r\\n\" line end%s (line%s %s) and "
-          "%d LF \"\\n\" line end%s (line%s %s). A file must use a "
-          "consistent line end.
+==== A file must use a consistent line end. (E30) ====
+==== appears to be encoded in utf-16 (E31) ====
+==== contains a null in text _text_ at byte _byte number_ (E32) ====
+==== Unicode error (E33) ====
+==== In shape _shape id_, a negative sequence number _number_ was found; sequence numbers should be 0 or higher. (E34) ====
+==== The sequence number _number_ occurs more than once in shape _shape ID_. (E35) ====
+==== Invalid value _value_ in field stop_sequence.  This should be a number. (E36) ====
+==== Invalid value _value_ in field stop_sequence.  Sequence numbers should be 0 or higher. (E37) ====
+==== Invalid value _value_ in field stop_id.  This value wasn't defined in stops.txt (E38) ====
+==== Invalid value _value_ in field trip_id.  This value wasn't defined in trips.txt (E39) ====
 
-appears to be encoded in utf-16
-contains a null in text \"%s\" at byte %d
 = Warnings =
 
 ==== Unrecognized column _column name_ in file _file name_.  This might be a misspelled column name (capitalization matters!). Or it could be extra information (such as a proposed feed extension) that the validator doesn't know about yet. Extra information is fine; this warning is here to catch misspelled optional column names. (W1) ====
@@ -60,3 +67,5 @@ contains a null in text \"%s\" at byte %d
 ==== The trip with the trip_id "_trip id_" doesn't have any stop times defined. (W18) ====
 ==== The trip with the trip_id "_trip id_" only has one stop on it; it should have at least one more stop so that the riders can leave! (W19) ====
 ==== The shapes with the following shape_ids aren't used by any trips: _shape IDs_ (W20) ====
+==== Found too many cells (commas) in line _line number_ of file "_file_".  Every row in the file should have the same number of cells as the header (first line) does. (W21) ====
+==== Found missing cells (commas) in line _line_ of file "_file_".  Every row in the file should have the same number of cells as the header (first line) does. (W22) ====

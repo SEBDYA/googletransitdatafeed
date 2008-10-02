@@ -1,4 +1,4 @@
-#summary Proposed code review process using subversion
+#summary Getting your change reviewed and submitted to trunk
 
 = Introduction =
 

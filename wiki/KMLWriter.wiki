@@ -27,6 +27,9 @@ Options:
                         if greater than 0 trips are drawn with time axis set
                         to this many meters high for each second of time
   -s, --splitroutes     split the routes by type
+  -p, --display_shape_points
+                        shows the actual points along shapes
+
 }}}
 
 The warning "Timezone not checked (install pytz package for timezone validation)" is normal. kmlwriter can not check the spelling of the agency_timezone until you install the pytz package.

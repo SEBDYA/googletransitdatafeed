@@ -35,6 +35,15 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.6 ====
+  * Store stop_times table in sqlite. This greatly reduces the memory requirements. Numbers forthcoming
+  * schedule_viewer no longer requires --key or --feed_filename when connecting to localhost
+  * added option to kmlwriter to show each shape point
+  * added new shape parsing library, shapelib.py, but not used by any tools yet
+  * new methods ServicePeriod.IsActiveOn and ServicePeriod.ActiveDates
+  * merge stops with station hierarchy (location_type and parent_station)
+  * fix some bugs
+
 ==== v1.1.5 ====
   * Add examples/filter_unused_stops.py that loads a gtfs file, modifies some things and saves the changes to a new file
   * Fix for

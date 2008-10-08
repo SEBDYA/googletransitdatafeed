@@ -36,7 +36,14 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 = Revision History =
 
 ==== v1.1.6 ====
-  * Store stop_times table in sqlite. This greatly reduces the memory requirements. Numbers forthcoming
+  * Store stop_times table in sqlite. This greatly reduces the memory requirements. 
+Measured in linux 2.6.22 on an Intel Core 2 Duo CPU T7300 at 2GHz laptop.
+|| Version  || Dataset  || stop_time rows || Memory (MB) || Time (s) ||
+|| 1.1.5    || bart     ||    33k         ||   30.7      ||    3     ||
+||          || portland ||  1134k         ||  984.2      ||  181     ||
+|| 1.1.6    || bart     ||   33k          ||   29.5      ||   20     ||
+||          || portland ||  1134k         ||  149.0      ||  746     ||
+
   * schedule_viewer no longer requires --key or --feed_filename when connecting to localhost
   * added option to kmlwriter to show each shape point
   * added new shape parsing library, shapelib.py, but not used by any tools yet

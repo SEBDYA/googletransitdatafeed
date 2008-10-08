@@ -47,7 +47,7 @@ Measured in linux 2.6.22 on an Intel Core 2 Duo CPU T7300 at 2GHz laptop.
   * schedule_viewer no longer requires --key or --feed_filename when connecting to localhost
   * added option to kmlwriter to show each shape point
   * added new shape parsing library, shapelib.py, but not used by any tools yet
-  * new methods ServicePeriod.IsActiveOn and ServicePeriod.ActiveDates
+  * new methods `ServicePeriod.IsActiveOn` and `ServicePeriod.ActiveDates`
   * merge stops with station hierarchy (location_type and parent_station)
   * fix some bugs
 

@@ -37,19 +37,20 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 ==== v1.1.6 ====
   * Store stop_times table in sqlite. This greatly reduces the memory requirements. 
-Measured in linux 2.6.22 on an Intel Core 2 Duo CPU T7300 at 2GHz laptop using `feedvalidator.py -p`.
-|| Version  || Dataset  || stop_time rows || Memory (MB) || Time (s) ||
-|| 1.1.5    || bart     ||    33k         ||   31        ||   12     ||
-||          || portland ||  1134k         ||  984.2      ||  551     ||
-|| 1.1.6    || bart     ||    33k         ||   29.5      ||   20     ||
-||          || portland ||  1134k         ||  149.0      ||  746     ||
-|| 1.1.6 -m || portland ||  1134k         ||  235.8      ||  738     ||
   * schedule_viewer no longer requires --key or --feed_filename when connecting to localhost
   * added option to kmlwriter to show each shape point
   * added new shape parsing library, shapelib.py, but not used by any tools yet
   * new methods `ServicePeriod.IsActiveOn` and `ServicePeriod.ActiveDates`
   * merge stops with station hierarchy (location_type and parent_station)
   * fix some bugs
+
+Measured in linux 2.6.22 on an Intel Core 2 Duo CPU T7300 at 2GHz laptop using `feedvalidator.py -p`.
+|| Version  || Dataset  || stop_time rows || Memory (MB) || Time (s) ||
+|| 1.1.5    || bart     ||    33k         ||   31        ||   12     ||
+||          || portland ||  1134k         ||  984.2      ||  551     ||
+|| 1.1.6    || bart     ||    33k         ||   29.5      ||   20     ||
+||          || portland ||  1134k         ||  149.0      ||  746     ||
+|| 1.1.6 --memory_db || portland ||  1134k         ||  235.8      ||  738     ||
 
 ==== v1.1.5 ====
   * Add examples/filter_unused_stops.py that loads a gtfs file, modifies some things and saves the changes to a new file

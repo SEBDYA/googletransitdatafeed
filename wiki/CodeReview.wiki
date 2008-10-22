@@ -1,8 +1,11 @@
 #summary Getting your change reviewed and submitted to trunk
+#labels Phase-Implementation
 
 = Introduction =
 
-To help us coordinate our work we would like at least one person other than the writer to review each change before it is added to the trunk. The [http://codereview.appspot.com/ Rietveld Code Review Tool] has [http://code.google.com/p/rietveld/wiki/CodeReviewHelp its own instructions]. This page describes things specific to the transitfeed project.
+Thank you for contributing to our project!
+
+We use two common practices to help us maintain an acceptable quality level. Automated tests should be a quick way to completely exercise your change and will make sure it continues to work in the future. Code reviews done by at least one person other than the writer helps us coordinate our work and hopefully make writing software more fun. This page describes the best practices we expect you to follow when contributing to the transitfeed distribution. Please post to googletransitdatafeed@googlegroups.com if you have suggestions for improving this process or have questions about the change you want to make.
 
 == Get source ==
 
@@ -14,7 +17,9 @@ Our project uses the [http://www.apache.org/licenses/ Apache License 2.0]. To ea
 
 == Make and test changes ==
 
-Before you request a review, you should ensure that all the unit tests pass.  You'll want a copy of the [http://somethingaboutorange.com/mrl/projects/nose/ nose] tool for Python.  Once you have that installed, you can just run
+Before you request a review, you should ensure that all the unit tests pass. If you are fixing a bug or adding a new feature please add a test for it in the `test` directory. It's good to make sure that you've seen your tests fail (so that you know that they're being run). If necessary, temporarily break the code that the tests check to ensure that they fail in that case.
+
+You'll want a copy of the [http://somethingaboutorange.com/mrl/projects/nose/ nose] tool for Python.  Once you have that installed, you can just run
 {{{
 $ nosetests
 }}}
@@ -25,11 +30,11 @@ Note that in order to pass all the tests, you'll need to install some extra Pyth
   * [http://effbot.org/zone/element-index.htm elementtree] (if running Python 2.4)
 Both of these should be available through `easy_install`.
 
-If you've added new tests to your project, it's good to make sure that you've seen them fail (so that you know that they're being run at all).  If necessary, temporarily break the code that the tests check to ensure that they fail in that case.
-
 ==Request a review==
 
-When you want someone to review your code make a new issue with your changes, add googletransitdatafeed@googlegroups.com to the list of reviewers and use the code review interface to mail a request for a review.
+We are currently using the [http://codereview.appspot.com/ Rietveld Code Review Tool] which has [http://code.google.com/p/rietveld/wiki/CodeReviewHelp its own instructions].
+
+When you want someone to review your code make a new issue with your changes. If you select GoogleTransitDataFeed from the SVN Base make your diff or run the upload script from the `trunk/` directory, not `trunk/python`. Enter googletransitdatafeed@googlegroups.com as the reviewer or CC. Then use the code review interface to mail a request for a review.
 
 ==Commit change to the trunk==
 

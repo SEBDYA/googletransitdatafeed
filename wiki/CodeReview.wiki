@@ -13,7 +13,7 @@ See the Source tab above for instructions on downloading the source. Please chec
 
 == Legal stuff ==
 
-Our project uses the [http://www.apache.org/licenses/ Apache License 2.0]. To ease distribution your contributions must be released under the same terms. You may release each change explicitly under the license or mail googletransitdatafeed@googlegroups.com saying that all your modifications to the transitfeed distribution may be released under the same terms as transitfeed itself.
+Our project uses the [http://www.apache.org/licenses/ Apache License 2.0]. To ease distribution your contributions must be released under the same terms. You may release each change explicitly under the license or mail googletransitdatafeed@googlegroups.com saying that all your contributions to the transitfeed distribution may be released under the same terms as transitfeed itself.
 
 == Python Style ==
 

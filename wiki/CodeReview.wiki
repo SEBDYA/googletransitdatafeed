@@ -15,6 +15,11 @@ See the Source tab above for instructions on downloading the source. Please chec
 
 Our project uses the [http://www.apache.org/licenses/ Apache License 2.0]. To ease distribution your contributions must be released under the same terms. You may release each change explicitly under the license or mail googletransitdatafeed@googlegroups.com saying that all your modifications to the transitfeed distribution may be released under the same terms as transitfeed itself.
 
+== Python Style ==
+
+To maintain a consistent style throughout the code and to help you avoid some common Python problems please follow this [http://code.google.com/p/soc/wiki/PythonStyleGuide style guide from SoC] or [http://www.python.org/dev/peps/pep-0008/ PEP8]. As a last resort follow the style of surrounding code.
+
+
 == Make and test changes ==
 
 Before you request a review, you should ensure that all the unit tests pass. If you are fixing a bug or adding a new feature please add a test for it in the `test` directory. It's good to make sure that you've seen your tests fail (so that you know that they're being run). If necessary, temporarily break the code that the tests check to ensure that they fail in that case.

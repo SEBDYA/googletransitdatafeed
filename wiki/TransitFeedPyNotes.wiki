@@ -1,6 +1,12 @@
 #summary Brain dump while thinking about the structure of transitfeed.py
 #labels Phase-Design
 
+= Unicode handling =
+
+GTFS says that all strings should be encoded with utf-8. Python can represent these as a a str containing utf-8 encoded bytes or a unicode string. A str containing utf-8 can only be appended to a unicode string if it is pure ascii (all characters <= 127). Appending a utf-8 with characters > 127 to a unicode raises a "UnicodeDecodeError: 'ascii' codec can't decode byte ..." as python tries to convert the str to a unicode.
+
+Currently all strings are converted to the python unicode type when loaded from csv and attributes are encoded to utf-8 as they are written back to csv. If the input csv contains an invalid utf-8 sequence it is added to the object as a str. 
+
 = Things to validate =
 
 In sections that could be checked at the same time, starting with low level byte things, working towards high level where relations between multiple rows or objects matter.

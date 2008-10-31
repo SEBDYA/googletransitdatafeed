@@ -35,6 +35,19 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.7 ====
+  * Ignore whitespace before csv fields, warn about whitespace in header fields
+  * Validate station/stop hierarchy
+  * Add methods GetHeadwayStopTimes and GetHeadwayStartTimes (Thanks to Juangui)
+  * Support arbitrary columns in agency.txt and agency_phone
+  * Fix for
+    * Issue 36 : Feed parsing doesn't deal with quoted values correctly when surrounded by space
+    * Issue 83 : FeedValidator complains of new feature agency_phone in agency.txt
+    * Issue 72 : warning about stops near each other should include distance
+    * Issue 92 : Enforce location_type=0 for stops used in stop_times.txt
+    * Issue 88 : Validation - location_type, parent_station
+    * Issue 101 : feedvalidator rejects blank stop.stop_url
+
 ==== v1.1.6 ====
   * Store stop_times table in sqlite. This greatly reduces the memory requirements. 
   * schedule_viewer no longer requires --key or --feed_filename when connecting to localhost

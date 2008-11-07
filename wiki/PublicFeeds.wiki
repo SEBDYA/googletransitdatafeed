@@ -19,6 +19,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.rtd-denver.com Regional Transportation District] || Denver, CO || http://www.rtd-denver.com/GoogleFeeder/ || [http://www.rtd-denver.com/License_Agreement/License_Agreement.pdf License Agreement] ||
 || [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA, Australia || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
 || [http://www.yrt.ca York Region Transit] || Ontario, Canada || http://www.yrt.ca/google/YRT_Feed.zip || [http://www.yrt.ca/google/disclaimer.asp Disclaimer] ||
+|| [http://www.ridemcts.com/ Milwaukee County Transit System] || Milwaukee, WI || http://kamino.mcts.org/gtfs/google_transit.zip || [http://kamino.mcts.org/gtfs/ Terms of Use] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

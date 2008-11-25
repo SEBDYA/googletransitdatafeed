@@ -15,7 +15,7 @@ As of Nov 2008 here is how I install these on a new Windows XP install.
   # Install setuptools using the Windows installer from http://pypi.python.org/pypi/setuptools/
   # `c:\Python25\Scripts\easy_install.exe --always-unzip pytz`
   # `c:\Python25\Scripts\easy_install.exe --always-unzip simplejson` (it will warn you that you don't get the faster C version)
-  # `c:\Python25\Scripts\easy_install.exe --always-unzip nose`
+  # `c:\Python25\Scripts\easy_install.exe nose`
 
 = Steps =
 

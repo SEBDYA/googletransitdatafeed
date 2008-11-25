@@ -35,6 +35,15 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.8 (2008-11-25)====
+  * Support for transfers.txt (Thanks to Ivan)
+  * Make Problem reporter more robust when given a mix of unicode and basic strings
+  * new command line option for kmlwriter: `--date_filter` "Restrict to trips active on date YYYYMMDD"
+  * transitfeed.Trip gets new method `ReplaceStopTimeObject`
+  * Fix for
+    * Issue 75: validate stop_latitude and lng are in format -?[1-9]\d+\.\d+
+    * Issue 118: error in transfers.txt file does not appear in validation-results.html document
+
 ==== v1.1.7 ====
   * Ignore whitespace before csv fields, warn about whitespace in header fields
   * Validate station/stop hierarchy

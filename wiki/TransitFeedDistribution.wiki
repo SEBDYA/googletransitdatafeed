@@ -35,6 +35,9 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+==== v1.1.9 (2008-12-01)====
+  * Fix kmlwriter, which was broken in 1.1.8 (Thanks to PK for the fix)
+
 ==== v1.1.8 (2008-11-25)====
   * Support for transfers.txt (Thanks to Ivan)
   * Make Problem reporter more robust when given a mix of unicode and basic strings

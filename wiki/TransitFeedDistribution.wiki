@@ -45,6 +45,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
   * transitfeed.Trip gets new method `ReplaceStopTimeObject`
   * Fix for
     * Issue 75: validate stop_latitude and lng are in format -?[1-9]\d+\.\d+
+    * Issue 106: TypeError: unsupported operand type(s) for -: 'NoneType' and 'NoneType' in Schedule.Validate
     * Issue 118: error in transfers.txt file does not appear in validation-results.html document
 
 ==== v1.1.7 ====

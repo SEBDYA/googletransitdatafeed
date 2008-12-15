@@ -37,8 +37,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 ===== pending =====
 
-  * GetTimeInterpolatedStops uses polyline connecting stops instead of
-straight-line between timepoints. (Thanks to William Lachance)
+  * `GetTimeInterpolatedStops` uses polyline connecting stops instead of straight-line between timepoints. (Thanks to William Lachance)
   * Fix for
     *  Issue 67: bad date format causes feedvalidator crash
 

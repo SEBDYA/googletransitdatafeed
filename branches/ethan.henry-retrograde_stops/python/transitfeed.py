@@ -1670,16 +1670,30 @@ class Trip(object):
       # Sorts the stoptimes by sequence and then checks that the arrival time
       # for each time point is after the departure time of the previous.
       stoptimes.sort(key=lambda x: x.stop_sequence)
+
       prev_departure = 0
+      prev_arrival = 0
+
+      # ethan changes
+
       for timepoint in stoptimes:
         if timepoint.arrival_secs is not None:
-          if timepoint.arrival_secs >= prev_departure:
-            prev_departure = timepoint.departure_secs
-          else:
+          if timepoint.arrival_secs < prev_departure:
             problems.OtherProblem('Timetravel detected! Arrival time '
                                   'is before previous departure '
                                   'at sequence number %s in trip %s' %
                                   (timepoint.stop_sequence, self.trip_id))
+          elif timepoint.arrival_secs < prev_arrival:
+            problems.OtherProblems('Timetravel detected! Out-of-order '
+                                   'arrival at sequence number %s in trip %s' %
+                                   (timepoint.stop_sequence, self.trip_id))
+          elif timepoint.departure_secs < prev_departure:
+            problems.OtherProblems('Timetravel detected! Out-of-order '
+                                   'departure at sequence number %s in trip %s' %
+                                   (timepoint.stop_sequence, self.trip_id))
+          else:
+            prev_departure = timepoint.departure_secs
+            prev_arrival= timepoint.arrival_secs
 
     # O(n^2), but we don't anticipate many headway periods per trip
     for headway_index, headway in enumerate(self._headways[0:-1]):

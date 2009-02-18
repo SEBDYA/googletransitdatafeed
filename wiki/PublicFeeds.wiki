@@ -27,6 +27,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://trilliumtransit.com/transit_feeds/flagstaff/ || ||
 || [http://www.jeffersontransit.com/ Jefferson Transit Authority] || Port Townsend, Washington || http://www.gtfs-data-exchange.com/agency/jefferson-transit-authority/ || [http://www.jeffersontransit.com/information.html License Agreement] ||
 || [http://www.islandtransit.org/ Island Transit] || Island County, Washington || http://www.gtfs-data-exchange.com/agency/island-transit/ || [http://islandtransit.org/license_agreement/ License Agreement] ||
+|| [http://ridemetro.org/ METRO] || Houston, TX || http://ridemetro.org/AboutUs/Publications/DataFiles/google_transit.zip || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

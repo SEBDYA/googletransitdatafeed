@@ -28,7 +28,10 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.jeffersontransit.com/ Jefferson Transit Authority] || Port Townsend, Washington || http://www.gtfs-data-exchange.com/agency/jefferson-transit-authority/ || [http://www.jeffersontransit.com/information.html License Agreement] ||
 || [http://www.islandtransit.org/ Island Transit] || Island County, Washington || http://www.gtfs-data-exchange.com/agency/island-transit/ || [http://islandtransit.org/license_agreement/ License Agreement] ||
 || [http://ridemetro.org/ METRO] || Houston, TX || http://ridemetro.org/AboutUs/Publications/DataFiles/google_transit.zip || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||
+|| [http://www.sfmta.com SFMTA (Muni)] || San Francisco, CA || http://www.sfmta.com/cms/asystem/data/I_agree_to_the_SFMTA_Transit_Data_License_Agreement.zip || [http://www.sfmta.com/transitdata License Agreement] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
+
+http://www.sfmta.com/cms/asystem/data/I_agree_to_the_SFMTA_Transit_Data_License_Agreement.zip
 
 ==How to add a feed to this page==
 If you work with a transit agency or other data provider, and would like to add your public feed to this list, please send an email to the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed.  (Thanks for making your data available to interested developers!)

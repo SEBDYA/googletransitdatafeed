@@ -11,11 +11,11 @@ Find the revision of the last release with {{{svn ls -v https://googletransitdat
 = Tag release =
 
 Check that {{{transitfeed.__version__}}} is correct. Then
-{{{svn cp https://googletransitdatafeed.googlecode.com/svn/trunk https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}
+{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/trunk https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}
 
 = Build and upload files =
 
-See also BuildingPythonWindowsExecutables. Build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project. Then update PyPI with {{{python setup.py register sdist}}}.
+See also BuildingPythonWindowsExecutables. Get a clean copy of the version with {{{svn export https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z/python transitfeed-x.y.z}}}. Build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project. Then update PyPI with {{{python setup.py register sdist}}}.
 
 = Update change log = 
 

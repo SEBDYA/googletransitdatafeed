@@ -6,7 +6,7 @@ Make sure you have nose installed. Run the tests in trunk in Linux and Windows. 
 
 = Find changes since last release =
 
-Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}.
+Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/tags}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}.
 
 = Tag release =
 

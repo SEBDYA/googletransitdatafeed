@@ -38,8 +38,12 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 ===== pending =====
 
   * `GetTimeInterpolatedStops` uses polyline connecting stops instead of straight-line between timepoints. (Thanks to William Lachance)
+  * slightly stricter time format validation. minutes and second must start with 0-5 instead of any digit
+  * add crash handler to merge.py
+  * protect crash handler from objects that crash when you try to convert them to a string
   * Fix for
-    *  Issue 67: bad date format causes feedvalidator crash
+    * Issue 67 (and duplicates): bad date format causes feedvalidator crash
+    * Issue 136 (half of it): zip files written are now compressed 
 
 ==== v1.1.9 (2008-12-01)====
   * Fix kmlwriter, which was broken in 1.1.8 (Thanks to PK for the fix)

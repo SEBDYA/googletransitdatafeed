@@ -35,7 +35,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
-===== pending =====
+===== 1.2.0 (2009-02-27) =====
 
   * `GetTimeInterpolatedStops` uses polyline connecting stops instead of straight-line between timepoints. (Thanks to William Lachance)
   * slightly stricter time format validation. minutes and second must start with 0-5 instead of any digit (Thanks to Clancy Childs)

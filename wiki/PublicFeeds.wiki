@@ -20,7 +20,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA, Australia || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
 || [http://www.yrt.ca York Region Transit] || Ontario, Canada || http://www.yrt.ca/google/google_transit.zip || [http://www.yrt.ca/google/ License Agreement] ||
 || [http://www.ridemcts.com/ Milwaukee County Transit System] || Milwaukee, WI || http://kamino.mcts.org/gtfs/google_transit.zip || [http://kamino.mcts.org/gtfs/ Terms of Use] ||
-|| [http://www.thebus.org Oahu Transit Services, Inc] || Honolulu, Hawaii || http://www.thebus.org/transitfeed || [http://www.thebus.org/transitfeed/terms-of-use.asp Terms of Use] ||
+|| [http://www.thebus.org Oahu Transit Services, Inc] || Honolulu, Hawaii || http://webapps.thebus.org/transitdata/Production || [http://www.thebus.org/transitfeed/terms-of-use.asp Terms of Use] ||
 || [http://www.gohrt.com/ Hampton Roads Transit] || Hampton Roads, Virginia || http://googletf.gohrt.com/ ||  ||
 || [http://www.metrolinktrains.com/ Metrolink] || Southern California || http://www.metrolinktrains.com/tripplanner/schedule_data.php || [http://www.metrolinktrains.com/tripplanner/license_agreement.php License Agreement] ||
 || [http://www.gomcta.com/ Monroe County Transit Authority] || Monroe County, Pennsylvania || http://www.gtfs-data-exchange.com/agency/monroe-county-transit-authority/ || ||

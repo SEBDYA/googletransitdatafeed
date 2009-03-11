@@ -1,4 +1,5 @@
 #labels documentation
+# How to use the merge tool to combine two GTFS files
 = Introduction =
 
 In many cases GTFS users have a need to combine two feeds that represent different service periods for their service. For example, an agency that changes their schedule quarterly might have one GTFS file for the January-March period and another for the April-June period. The merge tool helps users combine these two files so that data can be updated without having any gaps in service.

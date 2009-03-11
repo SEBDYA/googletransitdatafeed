@@ -20,4 +20,8 @@ For example, if the two feed files are `jan_schedule.zip` and `feb_schedule.zip`
 
 `\transitfeed-windows-binary-1.2.0\merge jan_schedule.zip feb_schedule.zip merged_schedule.zip`
 
-If there are no errors you will have a new file, `merged_schedule.zip` which will contain the service period for both January and February.
+If there are no errors you will have a new file, `merged_schedule.zip` which will contain the schedule for both January and February.
+
+== Using Python ==
+
+If you're using the Python version of the merge tool simply run `python merge.py old_schedule.zip new_schedule.zip merged_schedule.zip`. The transittools package can either by downloaded from [http://code.google.com/p/googletransitdatafeed/downloads/list here] or installed using easy_install: `easy_install transitfeed`

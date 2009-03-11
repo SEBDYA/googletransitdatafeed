@@ -1,4 +1,5 @@
 #summary Instructions for kmlwriter.
+#labels Documentation
 
 = Introduction =
 

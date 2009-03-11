@@ -30,6 +30,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://ridemetro.org/ METRO] || Houston, TX || http://ridemetro.org/AboutUs/Publications/DataFiles/google_transit.zip || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||
 || [http://www.sfmta.com SFMTA (Muni)] || San Francisco, CA || http://www.sfmta.com/cms/asystem/data/I_agree_to_the_SFMTA_Transit_Data_License_Agreement.zip || [http://www.sfmta.com/transitdata License Agreement] ||
 || [http://irvineshuttle.net/ The Irvine Shuttle] || Irvine, CA || http://irvineshuttle.net/files/managed/Document/70/google_transit.zip || [http://www.cityofirvine.org/civica/filebank/blobdload.asp?BlobID=12803 Website Policy] ||
+|| [http://www.broward.org/bct/ Broward County Transit] || Broward County, FL || http://www.broward.org/transitdata/latest/google_transit.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 http://www.sfmta.com/cms/asystem/data/I_agree_to_the_SFMTA_Transit_Data_License_Agreement.zip

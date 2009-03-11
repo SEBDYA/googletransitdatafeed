@@ -1,5 +1,5 @@
 #summary Instructions for feedvalidator.
-#labels Featured,Phase-Deploy
+#labels Featured,Phase-Deploy,Documentation
 
 = Introduction =
 

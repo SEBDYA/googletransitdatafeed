@@ -3,12 +3,21 @@
 
 = Introduction =
 
-In many cases GTFS users have a need to combine two feeds that represent different service periods for their service. For example, an agency that changes their schedule quarterly might have one GTFS file for the January-March period and another for the April-June period. The merge tool helps users combine these two files so that data can be updated without having any gaps in serivce.
+In many cases GTFS users have a need to combine two feeds that represent different service periods for their service. For example, an agency that changes their schedule quarterly might have one GTFS file for the January-March period and another for the April-June period. The merge tool helps users combine these two files so that data can be updated without having any gaps in service.
 
+= Using Merge =
 
-= Details =
+The merge tool is intended to merges schedules. New stops will be handled but some changes like moving stops may cause problems. 
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== On Windows ==
+First download the compiled version of transittools for Windows from [http://code.google.com/p/googletransitdatafeed/downloads/list here]. Unpack the zip file to some location - for the purposes of this document let's assume the zip file is unpacked to `C:\` so all the files are in `C:\transitfeed-windows-binary-1.2.0`. The merge tool is `merge.exe`.
+
+Open a command line window by going to the Start menu, selecting "Run...", typing `cmd` and press enter. Go to the directory where you have the GTFS files you want to merge using the `cd` command. If the files are in `c:\gtfs_files` type `cd \gtfs_files'. 
+
+To merge two feed files, you pass the name of the two files on the command line along with the name of the new merged GTFS file. 
+
+For example, if the two feed files are `jan_schedule.zip` and `feb_schedule.zip` then you use the following command line:
+
+`\transitfeed-windows-binary-1.2.0\merge jan_schedule.zip feb_schedule.zip merged_schedule.zip`
+
+If there are no errors you will have a new file, `merged_schedule.zip` which will contain the service period for both January and February.

@@ -50,7 +50,7 @@ The "Find Station:" field (top left of window) will search for all stops that ha
 
 == Exploring routes ==
 
-The left pane lists all the routes in the feed. Click on one of the route names to see the trip patterns (a group of trips that visit the same stops in the same order) for that route. The first trip will automatically be selected, and shown on the map. For each trip pattern the number of stops, number of trips and start times are displayed. For patterns that have many trips only a few start times are displayed. To see the start times of more trips edit "Time:" (HH:MM at top left of screen) and click on the route name again.
+The left pane lists all the routes in the feed. Click on one of the route names to see the trip patterns (a group of trips that visit the same stops in the same order) for that route. Gray background of pattern indicates that it has a trip with non-zero trip_type value (an unusual trip). The first trip will automatically be selected, and shown on the map. For each trip pattern the number of stops, number of trips and start times are displayed. For patterns that have many trips only a few start times are displayed. To see the start times of more trips edit "Time:" (HH:MM at top left of screen) and click on the route name again.
 
 == Viewing a trip ==
 

@@ -1,0 +1,98 @@
+== Introduction ==
+This page describes the use of the TransXChange2GoogleTransit data transformation tool. It generates [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specificiation] files from the [http://www.transxchange.org.uk TransXChange] standard (Version 2.1). The tool can be downloaded [http://code.google.com/p/googletransitdatafeed from this Google Code project site].
+
+== Manual ==
+Transxchange2GoogleTransit has been tested and approved for  [http://www.microsoft.com/windowsxp/default.mspx Windows XP] and [http://en.wikipedia.org/wiki/Linux GNU Linux] (Distribution: [http://www.debian.org Debian etch 4.0]).
+
+Follow these steps:
+  * Download the current release of TransXChange2GoogleTransit from the GoogleTransitDataFeed [http://code.google.com/p/googletransitdatafeed Google Code] web site, and install it on your computer
+  * Copy your transit data to your computer, or make it visible through your computer network
+  * Run TransXChange2GoogleTransit to generate a GTFS feed from the orginating TransXChange data
+  * Post the zipped file set for upload to [http://www.google.com/transit Google Transit]
+
+This manual starts with running one of the examples to illustrate the use of the program. Next, it explains how to use TransXChange2GoogleTransit for your transit data and the program arguments needed to complement your transit data.
+
+=== Running An Example ===
+Transit data following the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed (GTFS) Specification] consists of a set files that is wrapped into an archive (zip file). Let's turn to one of the examples included in the download to illustrate the process of generating a GTFS file set. 
+
+The distribution of TransXChange2GoogleTransit contains six examples. Let's pick the express route example. The corresponding GTFS feed file set is generated as follows:
+  * Start a CLI (Command Line Interface) session. In Windows, open a Command Prompt (DOS Box). On Linux, open a terminal (command shell).
+  * Change directory to the location of TransXChange2GoogleTransit.
+  * Run the program for the express route example. In Windows:
+<pre>tXCh2GT examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput</pre>
+Linux is similar:
+<pre>./tXCh2GT.sh examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput</pre>
+The program starts with the following prompt:
+<pre>transxchange2GoogleTransit 1.6.3</pre>
+It should not display any error messages. If this is not the case, verify that the installation has been completed and that you are located in the correct directory. After the program ran successfully, you can list the resulting file set with the following Windows (DOS) command:
+<pre>dir examplesOutput\20040101</pre>
+On Linux: 
+<pre>ls -l examplesOutput/20040101</pre>
+20040101 is the date of the earliest service found in the originating TransXChange source file, in the format yyyymmdd. You should see the following list of files (Windows screenshot):
+<pre> Directory of C:\mytransformations\examplesOutput\20040101
+
+06/20/2007  10:00 PM    <DIR>          .
+06/20/2007  10:00 PM    <DIR>          ..
+06/20/2007  10:00 PM               121 agency_20040101.txt
+06/20/2007  10:00 PM               125 calendar_20040101.txt
+06/20/2007  10:00 PM               422 calendar_dates_20040101.txt
+06/20/2007  10:00 PM             1,951 google_transit.zip
+06/20/2007  10:00 PM               308 routes_20040101.txt
+06/20/2007  10:00 PM               558 stops_20040101.txt
+06/20/2007  10:00 PM             1,041 stop_times_20040101.txt
+06/20/2007  10:00 PM               194 trips_20040101.txt
+               8 File(s)          4,720 bytes</pre>
+
+=== Transforming Your Transit Data ===
+Make your transit data visible to the program. Let's assume it has the filename myData.xml and you've copied it to your computer to the directory C:\SD\myTransitData (Windows). 
+
+Next, you need to find answers for the following questions:
+  * What is your organization's web site url? 
+(Example: http://www.myagency.org)
+  * What is your organization's time zone? Find your time zone [http://en.wikipedia.org/wiki/List_of_tz_zones here]
+(Example: Europe/London)
+  * What is your transportation mode?
+0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular
+
+(Example: 3)
+  * What is the output directoy? 
+(Example: C:\SD\myGoogleFiles)
+
+Now you are ready to run the program. Using the example answers above, the CLI commands are as follows.
+In Windows:
+<pre>tXCh2GT C:\mytransformations\myData.xml http://www.myagency.org Europe/London 3 C:\mytransformations\myGoogleFiles</pre>
+On Linux we assume the transit data is located in your home directory:
+<pre>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles</pre>
+
+In addition to individual TransXChange input files, Transxchange2GoogleTransit is also able to process a set of TransXChange files from a zip archive. Use the zip filename as input filename, and a single set of Google Transit Feed Specification files is generated.
+
+==== Including a NaPTAN format stop file ====
+Transxchange2GoogleTransit accepts a Version 1 [http://www.naptan.org.uk/ NaPTAN ] formatted stop file. This is used for stop coordinate look-ups in the "Lon" and "Lat" columns of the stop file. The stop file is passed as an optional command line argument, e.g.:
+<pre><nowiki>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles Stops.csv</nowiki></pre>
+
+To download a NaPTAN format stop file, please use the following settings on the download form:
+<pre><nowiki>
+NaPTAN Reference Data
+Preferences
+Data Required:	All Areas
+Data Format:	CSV ZIP
+Data Version:	Version 1
+</nowiki></pre>
+
+=== Posting The Google Transit Archive ===
+Transxchange2GoogleTransit automatically "zips" the resulting files in an archive. This archive must be "posted" to Google Transit. This means it must be visible in the web through a web address ([http://en.wikipedia.org/wiki/Url URL]).
+
+Tip: Verify if the Google Transit data feed file set is complete (see above for the file list). In order to make sure the program indeed generated a new set of files, verify that the creation date of the Google Transit files matches the time the program was run.
+
+You need to work with your IT staff to post the resulting zip archive on the web. You need to complete the following steps:
+  * Upload the zip archive
+  * Note the URL (web address) of the zip archive, and notify your contact at Google Transit
+Voila!
+
+== GWT_Transxchange2GoogleTransit: The Web Application ==
+Starting with v1.6.3, GWT_Transxchange2GoogleTransit is no longer be supported, and has been removed.
+
+== Bugs And Issues ==
+Is the program to crash or generate inaccurate results? Probably. Bugs are a reality, and the program might not be fitted to all specific in-and-outs of your specific transit data. With future development of the program, reported bugs will be worked out, and the "footprint" of the program will expand as it is being "rubbed" against transit data of different transit operators. Bring on the challenges.
+
+Bugs and issues are tracked on the Google Code page. Navigate to the [http://code.google.com/p/googletransitdatafeed/issues/list Issues] tab for a list and status of known bugs and issues

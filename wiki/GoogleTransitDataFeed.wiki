@@ -1,6 +1,7 @@
 #summary GoogleTransitDataFeed - new home of googletransitdatafeed.org
 #labels Featured
 
+== A new home for GoogleTransitDataFeed ==
 This is the new home of the GoogleTransitDataFeed Wiki, formerly hosted on http://www.googletransitdatafeed.org.
 
 GoogleTransitDataFeed offers a tool to transform transit data in the [http://www.transxchange.org.uk TransXChange] standard format to the [http://www.google.com/transit Google Transit] data feed format. 
@@ -8,3 +9,30 @@ GoogleTransitDataFeed offers a tool to transform transit data in the [http://www
 TransXChange2GoogleTransit can be downloaded from this Google Code site. Installation instructions [GTDF_Installation here]. There is [GTDF_Manual a manual in this Wiki] that describes the use of TransXChange2GoogleTransit.
 
 Additional transformation tools may be added in the future.
+
+== Release Notes == 
+=== v1.6.3 ===
+
+==== Read NaPTAN format CSV stop file as specified in Command Line (CLI)====
+A Command Line Interface (CLI) argument has been added to feed a NaPTAN format CSV stop file. TransXChange2GoogleTransit accepts Version 1 NaPTAN format files.
+
+==== Java heap size increased ====
+The tXCh2GT batch files (.bat and .sh) have been updated to increase the heap size to 512MB to accommodate the added memory needed to hold the regular UK NaPTAN stop records.
+
+==== Bank holidays revised ====
+This has been a long standing defect. v1.6.3 now provides the dynamic creation of (transit) bank holidays England and Wales for the years a service operates.
+  * GoodFriday - the Friday before Easter Sunday.
+  * EasterMonday - the Monday after Easter Sunday.
+  * MayDay - the first Monday in May.
+  * SpringBank - the last Monday in May.
+  * LateSummerHolidayNotScotland - the last Monday in August.
+  * ChristmasDay - 25th Dec.
+  * BoxingDay - 26th Dec.
+  * NewYearsDay - 1st Jan.
+
+
+==== Expose parse exceptions ====
+Send trace dump to console in case GTDF crashes when input files are parsed.
+
+==== GWT_Transxchange2GoogleTransit dropped ==== 
+Not included in releases any longer.

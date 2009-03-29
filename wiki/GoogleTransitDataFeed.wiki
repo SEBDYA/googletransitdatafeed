@@ -1,4 +1,4 @@
-#summary GoogleTransitDataFeed
+#summary GoogleTransitDataFeed - new home of googletransitdatafeed.org
 #labels Featured
 
 This is the new home of the GoogleTransitDataFeed Wiki, formerly hosted on http://www.googletransitdatafeed.org.

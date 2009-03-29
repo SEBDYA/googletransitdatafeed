@@ -1,6 +1,0 @@
-#summary Information on the Transxchange2GoogleTransit feed converter
-#labels Featured
-
-= Introduction =
-
-Transxchange2GoogleTransit is a Java-based utility application that can convert feeds of transit data between the TransXChange and Google Transit Feed Specification formats.  For more information, see the [http://www.googletransitdatafeed.org/ GoogleTransitDataFeed.org pages].

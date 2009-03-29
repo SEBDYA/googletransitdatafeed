@@ -1,6 +1,9 @@
-#summary Link to wiki of parent project, googletransitdatafeed.org
+#summary GoogleTransitDataFeed
 
-The main wiki of GoogleTransitDataFeed is located here:
+This is the new home of the GoogleTransitDataFeed Wiki, formerly hosted on http://www.googletransitdatafeed.org.
 
-http://www.googletransitdatafeed.org
- 
+GoogleTransitDataFeed offers a tool to transform transit data in the [http://www.transxchange.org.uk TransXChange] standard format to the [http://www.google.com/transit Google Transit] data feed format. 
+
+TransXChange2GoogleTransit can be downloaded from this Google Code site. Installation instructions [GTDF_Installation here]. There is [GTDF_Manual a manual in this Wiki] that describes the use of TransXChange2GoogleTransit.
+
+Additional transformation tools may be added in the future.

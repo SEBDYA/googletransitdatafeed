@@ -37,3 +37,6 @@ Start adress
 
 This code snippet creates an input field for the start address, and backfills the remaining data with hardcoded destination address, date and time. In the code snippet, the meeting would take place at Burnside St & SW Broadway, Portland, OR on 2/13 at 7:30. 
 For better formatting, it is possible to integrate the input field in other elements like a table.
+
+The following web site demonstrates how this can look like:
+http://healthierplanethealthieryou.com/index.html

@@ -22,11 +22,16 @@ Start adress
 <input type="text" style="width:20em" size="20" name="saddr" tabindex="1" maxlength="2048"/>
 <br>e.g. 4412 se 17th ave, Portland, OR
 
-<!-- Code meeting location, date and time below --!> 
+<!-- Code meeting location, date and time below --> 
 <input type="hidden" name="daddr" value="Burnside St & SW Broadway, Portland, OR"
 <input type="hidden" name="ttype" value="arr">
 <input type="hidden" name="date" value="2/13">
 <input type="hidden" name="time" value="7:30pm">
+
+<!-- Optional location hint to help a partial address in saddr work. Get the sll and sspan values by moving the map over the area of interest in clicking on "Link". If you edit these don't forgot to remove them from the html comment. -->
+<!-- <input type="hidden" name="sspan" value="0.1232,0.2211">
+<input type="hidden" name="sll" value="37.7587,-122.4415">
+-->
 
 <br><input type="submit" value="Get Directions" />
 </form>

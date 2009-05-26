@@ -2,14 +2,14 @@
 #labels Documentation
 = Introduction =
 
-In many cases GTFS users have a need to combine two feeds that represent different service periods for their service. For example, an agency that changes their schedule quarterly might have one GTFS file for the January-March period and another for the April-June period. The merge tool helps users combine these two files so that data can be updated without having any gaps in service.
+In many cases GTFS users have a need to combine two feeds that represent different service periods for their service. For example, an agency that changes their schedule quarterly might have one GTFS file for the January-March period and another for the April-June period. The merge tool helps users combine these two files so they can publish a GTFS file without any gaps in service.
 
 = Using Merge =
 
 The merge tool is intended to merges schedules. New stops will be handled but some changes like moving stops may cause problems. 
 
-== On Windows ==
-First download the compiled version of transittools for Windows from [http://code.google.com/p/googletransitdatafeed/downloads/list here]. Unpack the zip file to some location - for the purposes of this document let's assume the zip file is unpacked to `C:\` so all the files are in `C:\transitfeed-windows-binary-1.2.0`. The merge tool is `merge.exe`.
+== Installing and running the Windows binary ==
+First download the compiled version of the TransitFeedDistribution for Windows from [http://code.google.com/p/googletransitdatafeed/downloads/list here]. Unpack the zip file to some location - for the purposes of this document let's assume the zip file is unpacked to `C:\` so all the files are in `C:\transitfeed-windows-binary-1.2.0`. The merge tool is `merge.exe`.
 
 Open a command line window by going to the Start menu, selecting "Run...", typing `cmd` and press enter. Go to the directory where you have the GTFS files you want to merge using the `cd` command. If the files are in `c:\gtfs_files` type `cd \gtfs_files'. 
 
@@ -17,10 +17,14 @@ To merge two feed files, you pass the name of the two files on the command line 
 
 For example, if the two feed files are `jan_schedule.zip` and `feb_schedule.zip` then you use the following command line:
 
-`\transitfeed-windows-binary-1.2.0\merge jan_schedule.zip feb_schedule.zip merged_schedule.zip`
+`c:\transitfeed-windows-binary-1.2.0\merge jan_schedule.zip feb_schedule.zip merged_schedule.zip`
 
 If there are no errors you will have a new file, `merged_schedule.zip` which will contain the schedule for both January and February.
 
-== Using Python ==
+If you have small files or lots of RAM you can try the option --memory_db which runs much faster.
 
-If you're using the Python version of the merge tool simply run `python merge.py old_schedule.zip new_schedule.zip merged_schedule.zip`. The transittools package can either by downloaded from [http://code.google.com/p/googletransitdatafeed/downloads/list here] or installed using easy_install: `easy_install transitfeed`
+== Running from Python source ==
+
+After you have installed the TransitFeedDistribution source simply run `python merge.py old_schedule.zip new_schedule.zip merged_schedule.zip`. For additional options try `python merge.py --help`.
+
+If you have small files or lots of RAM you can try the option --memory_db which runs much faster.

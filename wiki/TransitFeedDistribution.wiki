@@ -35,6 +35,32 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+===== 1.2.1 (2009-05-26) =====
+
+  * Validation changes
+    * Change unknown 'route_type' value in 'route.txt' from error into warning. (Jiri)
+    * Change unknown 'location_type' value in 'stops.txt'from error into warning. (Leio)
+    * Warn if shape_dist_traveled is larger than max shape_dist_traveled of its shape (Leio)
+    * issue 114, issue an Error if a trip has frequencies defined, but no stop_times. (Clancy)
+    * check that for a stop entrance with location_type=2, its parent_station must
+have location_type=1. (Leio)
+    * Stricter checking for route_long_name containing route_short_name. (Leio)
+    * Some checking that shape and stop location are within 1000m when using shape_dist_traveled (Leio)
+  * [Merge Merger] change
+    * Use a temporary file instead of memory for stops_times. This allows feeds to be merged with less RAM but is slower. If you have small files or lots of RAM the option --memory_db reverts to the previous in-memory storage.
+    * Fixed issue 165, merge when schedules have the same trip_id
+  * Fix for
+    * issue 143, issue 144 Unicode related crashes
+    * issue 148, crash on badly formatted shape_dist_traveled (Clancy)
+    * issue 115, assert stop_id and !IndexError crash hit when column isn't found
+    * issue 120, "%s" isn't a recognized time zone; improved error message
+  * ScheduleViewer tweaks
+    * Marks patterns with unusual trips (those having non-zero trip_type) with gray background. (Jiri)
+    * Add support for mouse wheel zooming (Jiri)
+    * Displays station in red as opposed to stops in blue. (Jiri)
+    * Add a new option --host to support ditu.google.com maps (Leio)
+  * New tool unusual_trip_filter.py finds infrequent patterns of routes, setting a GTFS attribute 'trip_type' of the corresponding trips to value '1'. No Windows binary yet.
+
 ===== 1.2.0 (2009-02-27) =====
 
   * `GetTimeInterpolatedStops` uses polyline connecting stops instead of straight-line between timepoints. (Thanks to William Lachance)

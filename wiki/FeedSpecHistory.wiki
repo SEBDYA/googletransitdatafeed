@@ -4,6 +4,9 @@
 = Introduction =
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
+
+==== March 30, 2009 ====
+  * See http://groups.google.com/group/gtfs-changes/t/70bd44e2828aa4ac
 ==== February 26, 2009 ====
   * Removed most of the Google-specific feed submission instructions, since there are many other applications that consume GTFS data at this point.
   * Fixed a broken link in the sidebar to Orange County OCTA's public feed. 
@@ -77,6 +80,8 @@ Initial version.
 == Original Files ==
 The raw HTML files for each version of the specification are available below for historical reference.
 
+
+||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20090330.htm March 30, 2009]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20090226.htm February 26, 2009]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20080807.htm August 7, 2008]||
 ||[http://googletransitdatafeed.googlecode.com/svn/wiki/files/FeedSpecHistory/transit_feed_specification-20080229.htm February 29, 2008]||

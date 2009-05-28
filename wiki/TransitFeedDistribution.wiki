@@ -42,8 +42,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * Change unknown 'location_type' value in 'stops.txt'from error into warning. (Leio)
     * Warn if shape_dist_traveled is larger than max shape_dist_traveled of its shape (Leio)
     * issue 114, issue an Error if a trip has frequencies defined, but no stop_times. (Clancy)
-    * check that for a stop entrance with location_type=2, its parent_station must
-have location_type=1. (Leio)
+    * check that for a stop entrance with location_type=2, its parent_station must have location_type=1. (Leio)
     * Stricter checking for route_long_name containing route_short_name. (Leio)
     * Some checking that shape and stop location are within 1000m when using shape_dist_traveled (Leio)
   * [Merge Merger] change

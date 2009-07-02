@@ -36,6 +36,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.mountainline.com/ Mountain Line] || Missoula, MT || http://www.montanatransit.com/googletransit/MUTD/ || ||
 || [http://www.takeets.com/ Edmonton Transit System (ETS)] || Edmonton, Alberta, Canada  || http://webdocs.edmonton.ca/transit/etsdatafeed/google_transit.zip || [http://www.edmonton.ca/transportation/ets-data-for-developers.aspx Terms of Use] ||
 || [http://www.metro.net/ Los Angeles County Metro] || Los Angeles, CA  || http://developer.metro.net/gtfs/google_transit.zip || [http://developer.metro.net/policies/terms/ Terms and Conditions] ||
+|| [http://www.septa.org/ SEPTA] || Philadelphia, PA  || http://www2.septa.org/developer/index.php || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

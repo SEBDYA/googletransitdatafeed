@@ -7,7 +7,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 
 || *Agency* || *Area* || *Feed Location* || *Notes* ||
 || [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/schedule/GTFS/ || Use is subject to the terms of their [http://developer.trimet.org/terms_of_use.shtml developer license] ||
-|| [http://www.bart.gov/ BART] || San Francisco Bay Area, CA || http://www.bart.gov/schedules/developers/latest_open.aspx || Use is subject to the terms of their [http://www.bart.gov/dev/schedules/license.htm developer license]. Additional information at [http://www.bart.gov/schedules/developers/open.aspx] ||
+|| [http://www.bart.gov/ BART] || San Francisco Bay Area, CA || http://www.bart.gov/schedules/developers/open.aspx || Use is subject to the terms of their [http://www.bart.gov/dev/schedules/license.htm developer license]. Additional information at [http://www.bart.gov/schedules/developers/open.aspx] ||
 || [http://www.caltrain.com/ Caltrain] || San Francisco Bay Area, CA || http://www.caltrain.com/google_transit_feed/ || Use is subject to the terms of their [http://www.smctd.com/dla.html Developer License Agreement].||
 || [http://www.dart.org DART] || Dallas, TX || http://www.dart.org/transitdata/ || Please read [http://www.dart.org/transitdata/legalnotices.asp legal notice] ||
 || [http://www.octa.net OCTA] || Orange County, CA || http://www.octa.net/current/google_transit.zip || Use subject to [http://www.octa.net/disclaimer.aspx disclaimer] ||

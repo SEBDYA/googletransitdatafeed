@@ -38,7 +38,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.metro.net/ Los Angeles County Metro] || Los Angeles, CA  || http://developer.metro.net/gtfs/google_transit.zip || [http://developer.metro.net/policies/terms/ Terms and Conditions] ||
 || [http://www.septa.org/ SEPTA] || Philadelphia, PA  || http://www2.septa.org/developer/index.php || ||
 || [http://www.sdmts.com/ San Diego MTS] || San Diego, CA || http://209.125.19.210/Developer/GTFS%20Schedule/GTFS.aspx (registration required) || [http://209.125.19.210/Developer/TermsUse.aspx Terms of Use] ||
-|| [http://www.tillamookbus.com/] || Tillamook County, OR || http://trilliumtransit.com/transit_feeds/tillamook/  ||  ||
+|| [http://www.tillamookbus.com/ Tillamook County Transportation District] || Tillamook County, OR || http://trilliumtransit.com/transit_feeds/tillamook/  ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

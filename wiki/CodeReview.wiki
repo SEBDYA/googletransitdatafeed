@@ -17,7 +17,7 @@ Our project uses the [http://www.apache.org/licenses/ Apache License 2.0]. To ea
 
 == Python Style ==
 
-To maintain a consistent style throughout the code and to help you avoid some common Python problems please follow this [http://code.google.com/p/soc/wiki/PythonStyleGuide style guide from SoC] or [http://www.python.org/dev/peps/pep-0008/ PEP8]. As a last resort follow the style of surrounding code.
+To maintain a consistent style throughout the code and to help you avoid some common Python problems please follow this [http://google-styleguide.googlecode.com/svn/trunk/pyguide.html style guide] except we have been using 2 space indents. As a last resort follow the style of surrounding code.
 
 
 == Make and test changes ==

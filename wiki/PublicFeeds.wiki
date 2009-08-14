@@ -40,6 +40,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.sdmts.com/ San Diego MTS] || San Diego, CA || http://209.125.19.210/Developer/GTFS%20Schedule/GTFS.aspx (registration required) || [http://209.125.19.210/Developer/TermsUse.aspx Terms of Use] ||
 || [http://www.tillamookbus.com/ Tillamook County Transportation District] || Tillamook County, OR || http://trilliumtransit.com/transit_feeds/tillamook/  ||  ||
 || [http://www.eot.state.ma.us/developers/ MBTA and Massachusetts RTAs] || Massachusetts EOT || http://www.eot.state.ma.us/developers  ||  ||
+|| [http://parking.uark.edu/26.php Razorback Transit] || Fayetteville, AR || http://www.ozarkwebtech.com/google_transit.zip  ||  ||
+|| [http://www.bluego.org/ South Tahoe Area Transit Authority (BlueGO)] || Tahoe Basin Area, CA || http://trilliumtransit.com/transit_feeds/tahoe/latest/ ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

@@ -12,4 +12,4 @@ The Google Transit Feed Specification is used by several non-Google applications
   * [http://www.avego.com/ui/futurefleet.action Avego Future Fleet] has [http://groups.google.com/group/transit-developers/browse_thread/thread/318cd6a84f432718 announced] GTFS import and export for free
 
 
-See also the [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Consumers GTFS Consumers], [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Exporters GTFS Exporters] and [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Services GTFS Services] categories at [http://headwayblog.com/wiki].
+See also the [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Consumers GTFS Consumers], [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Exporters GTFS Exporters] and [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Service GTFS Services] categories at [http://headwayblog.com/wiki].

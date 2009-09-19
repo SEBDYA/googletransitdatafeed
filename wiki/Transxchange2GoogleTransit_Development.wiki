@@ -7,7 +7,7 @@ This page contains instructions how to create a development environment to maint
 The following instructions assume the use of a command shell, terminal or equivalent.
 
 == Download and Install Eclipse ==
-Eclipse is available for download at http://www.eclipse.org. (These instructions have been validated with Eclipse 3.5.0, "Galileo"). The Standard edition is recommended.
+Eclipse is available for download at http://www.eclipse.org. (These instructions have been validated with Eclipse 3.5.0, "Galileo"). The Standard edition of Eclipse is recommended.
 
 == Download and Install Java ==
 Many computers are delivered with Java installed. This can be verified in a command shell (or equivalent) by calling Java directly:

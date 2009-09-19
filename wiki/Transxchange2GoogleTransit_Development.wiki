@@ -1,0 +1,30 @@
+#summary Transxchange2GoogleTransit Development Environment
+
+= Introduction =
+This page contains instructions how to create a development environment to maintain the Transxchange2GoogleTransit converter tool, using Eclipse.
+
+= Details =
+The following instructions assume the use of a command shell, terminal or equivalent.
+
+== Download and Install Eclipse ==
+Eclipse is available for download at http://www.eclipse.org. (These instructions have been validated with Eclipse 3.5.0, "Galileo"). The Standard edition is recommended.
+
+== Download and Install Java ==
+Many computers are delivered with Java installed. This can be verified in a command shell (or equivalent) by calling Java directly:
+<pre>java -version</pre>
+If Java is installed, the resulting output should display the Java version, such as:
+<pre>java version "1.5.0_14"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_14-b03)
+Java HotSpot(TM) Client VM (build 1.5.0_14-b03, mixed mode, sharing)</pre>
+The code works with Java 5, or later.
+
+== Checkout the Transxchange2GoogleTransit Source Code ==
+As project member, the source code can be checked out with commit privilige, as described in the [http://code.google.com/p/googletransitdatafeed/source/checkout Source tab]. Non-members are limited to check out the source code read only. Use the following syntax to check out the code into the current directory:
+<pre>svn checkout http://googletransitdatafeed.googlecode.com/svn/trunk/java/Transxchange2GoogleTransit googletransitdatafeed-read-only</pre>
+The directory name will drive the Eclipse project name. Rename it, as appropriate.
+
+== Create New Eclipse Project from the Checked-out Source Code ==
+Open Eclipse and select "New" -> "Java Project" from the "File" menu.
+Select "Create project from existing source", and navigate to the root directory of the checked-out source code.
+Click "Finish".
+Verify the project by manually rebuilding the project. Select "Project" -> "Clean", select the project, and hit "OK".

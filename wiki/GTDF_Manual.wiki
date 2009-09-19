@@ -1,6 +1,6 @@
 #summary GoogleTransitDataFeed: TransXChange2GoogleTransit User Manual
 
-== Introduction ==
+== Introduction to TransXChange2GoogleTransit ==
 This page describes the use of the TransXChange2GoogleTransit data transformation tool. It generates [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specificiation] files from the [http://www.transxchange.org.uk TransXChange] standard (Version 2.1). The tool can be downloaded [http://code.google.com/p/googletransitdatafeed from this Google Code project site].
 
 == Manual ==

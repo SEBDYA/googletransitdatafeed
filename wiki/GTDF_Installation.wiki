@@ -1,4 +1,4 @@
-#summary GoogleTransitDataFeed: Download and Installation
+#summary TransXChange2GoogleTransit: Download and Installation
 
 == Transxchange2GoogleTransit Installation ==
 A version of Transxchange2GoogleTransit is released as a zip archive and as a tarball. Zip is probably the first choice on Windows, while Unix and GNU Linux systems are likely better served by downloading a tarball. The content of zip archive and tarball is identical. Zip and tarball are only two different forms of packaging.

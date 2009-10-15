@@ -27,7 +27,7 @@ First make sure the scripts work. Run them directly. Install nose and run the au
 Change into the python directory of the exported code and run:
 {{{C:\Python25\python.exe setup.py py2exe}}}
 
-This will create a directory {{{transitfeed-windows-binary-<version>}}}. Put it into a new zip file with the name {{{transitfeed-windows-binary-<version>.zip}}} and upload it to the project.
+This will create a directory {{{transitfeed-windows-binary-<version>}}}. (The name was picked so that it appears after the source tar.gz on the project home page. `easy_install transitfeed` fetches the first archive file it finds.) Put it into a new zip file with the name {{{transitfeed-windows-binary-<version>.zip}}} by right clicking on the folder and choosing Send To -> Compressed (zipped) Folder. Then upload it to the project.
 
 = TODO =
 

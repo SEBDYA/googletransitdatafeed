@@ -11,18 +11,21 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 
 As of Nov 2008 here is how I install these on a new Windows XP install.
   # Install python2.5 from http://python.org/
-  # Install py2exe using the Windows installer from http://www.py2exe.org/
-  # Install setuptools using the Windows installer from http://pypi.python.org/pypi/setuptools/
+  # Install py2exe-0.6.9.win32-py2.5.exe using the Windows installer from http://www.py2exe.org/
+  # Install setuptools-0.6c9.win32-py2.5.exe from http://pypi.python.org/pypi/setuptools/
   # `c:\Python25\Scripts\easy_install.exe --always-unzip pytz`
   # `c:\Python25\Scripts\easy_install.exe --always-unzip simplejson` (it will warn you that you don't get the faster C version)
   # `c:\Python25\Scripts\easy_install.exe nose`
+  # Install TortoiseSVN from http://tortoisesvn.tigris.org/
 
 = Steps =
 
 First make sure the scripts work. Run them directly. Install nose and run the automated tests ({{{\Python25\Scripts\nosetests.exe}}}). Make sure the same number of tests ran in linux. Note also issue 37.
 
-Assuming you have python installed in the default location on your Windows machine change into the python directory of your subversion working copy and run:
-{{{\Python25\python.exe setup.py py2exe}}}
+`svn export http://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-<version>/`. You can find this by right clicking in any folder and going to the TortoiseSVN submenu.
+
+Change into the python directory of the exported code and run:
+{{{C:\Python25\python.exe setup.py py2exe}}}
 
 This will create a directory {{{transitfeed-windows-binary-<version>}}}. Put it into a new zip file with the name {{{transitfeed-windows-binary-<version>.zip}}} and upload it to the project.
 

@@ -44,6 +44,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * Warn if a schedule starts in the future, issue 159
     * Warn when a new version of transitfeed has been created (Guangfan)
     * Include summary of trips per day in validation-results.html
+    * parent_station of stop X is not station Y but they are near changed from error to warning (issue 167)
     * Support HHH:MM:SS for really long distance trips
   * New features
     * `feedvalidator.py --duplicate_trip_check` Check for duplicate trips which go through the same stops with same service and start times. (Guangfan)
@@ -52,12 +53,11 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * `feedvalidator.py -o CONSOLE` print all errors and warnings to the command console. This lets the validator output useful information before a crash and saves memory when there are many problems.
     * `location_editor.py` adds support for editing station locations to schedule_viewer (Jiri)
   * Fix for
-    * issue 57, sort of fixed, with Schedule(load_stop_times=False) used by google_random_queries.py
+    * issue 57, sort of fixed. Added Schedule(load_stop_times=False) used by google_random_queries.py
     * issue 160, feedvalidator crash when given bad path
-    * issue 167, error parent_station of stop X is not station Y but they are near should be a warning
     * issue 153, merger crash when given wrong number of arguments
-    * issue 177, Inconsistent line ends error message should say what file had the bad lines
     * issue 156, merge raises error and crashes on input with warning or error
+    * issue 177, Inconsistent line ends error message should say what file had the bad lines
     * `examples/google_random_queries.py` prints errors and warnings to console instead of crashing
   * transitfeed.Schedule gets new method GetServicePeriodsActiveEachDate
 

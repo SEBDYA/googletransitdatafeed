@@ -46,6 +46,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.eot.state.ma.us/developers Massachusetts Executive Office of Transportation] || Massachusetts || [http://www.eot.state.ma.us/developers Links to bay, regional and ferry GTFS] || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || All SF Bay ferry operators || San Francisco Bay, CA || http://trilliumtransit.com/transit_feeds/sfbay-ferries/ ||  ||
 || The JO || Johnson County, KS || http://www.thejo.com/FEEDS/GT/google_transit.zip ||  ||
+|| [http://www.tankbus.org TANK] || Covington, KY || http://imi.nku.edu/tankgoogletransit/latest/google_transit.zip || [http://imi.nku.edu/tankgoogletransit/latest/Data%20Downloads%20legal%20notice%20for%20google%20site.pdf Legal Notice] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

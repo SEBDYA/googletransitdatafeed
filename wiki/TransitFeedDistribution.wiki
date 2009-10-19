@@ -59,8 +59,8 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * issue 156, merge raises error and crashes on input with warning or error
     * issue 177, Inconsistent line ends error message should say what file had the bad lines
     * `examples/google_random_queries.py` prints errors and warnings to console instead of crashing
-  * transitfeed.Schedule gets new method GetServicePeriodsActiveEachDate
-
+  * transitfeed.Schedule gets new method !GetServicePeriodsActiveEachDate
+  * The check for stops served by subway and bus and duplicate_trip_check use a second scan of stop_times, which increases validation time by ~10%. They may be disabled by default in a future release.
 
 ===== 1.2.1 (2009-05-26) =====
 

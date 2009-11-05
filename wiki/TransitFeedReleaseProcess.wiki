@@ -1,24 +1,34 @@
 #summary How to do a transitfeed release
 
+= Check that trunk is ready =
+
+Make sure {{{transitfeed.__version__}}} is set to the new version and all tests pass.
+
+= Make a branch =
+
+{{{svn cp -m "make version 1.2.3 branch" https://googletransitdatafeed.googlecode.com/svn/trunk https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3}}}
+
 = Run tests =
 
-Make sure you have nose installed. Run the tests in trunk in Linux and Windows. Manually start the schedule viewer, click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times.
+Get a clean copy with {{{svn export https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3}}} and run the tests in Linux and Windows. Manually start the schedule viewer, click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times.
 
 = Find changes since last release =
 
-Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/tags}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}.
-
-= Tag release =
-
-Check that {{{transitfeed.__version__}}} is correct. Then
-{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/trunk https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z}}}
+Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/branches}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}.
 
 = Build and upload files =
 
-See also BuildingPythonWindowsExecutables. Get a clean copy of the version with {{{svn export https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-x.y.z/python transitfeed-x.y.z}}}. Build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project. Then update PyPI with {{{python setup.py register sdist}}}.
+Using the exported tree build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project. Then update PyPI with {{{python setup.py register sdist}}}. Build the pyexe files using the instructions at BuildingPythonWindowsExecutables.
 
 = Update change log = 
 
 Edit the wiki page TransitFeedDistribution using information gathered from svn log.
+
+= Tag release =
+
+Once you create the tag older versions of feedvalidator will tell users to upgrade.
+{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3 https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-1.2.3}}}
+
+
 
  

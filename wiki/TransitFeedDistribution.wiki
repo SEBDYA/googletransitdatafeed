@@ -35,6 +35,18 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+===== 1.2.3 (2009-11-05) =====
+  * Validation changes
+    * Warn about duplicate calendar_dates.txt records (issue 82, Jiri)
+    * Ignore warning about travel in 0 seconds for times rounded to nearest minute (issue 193)
+  * transitfeed API changes
+    * Make `transitfeed.Route.AddTripObject` private
+    * Only write agency.txt, stops.txt, routes.txt and trips.txt if they are created
+  * Other changes
+    * Fix google_random_queries.py to output URLs with ISO 8601 date formats to avoid locale issues (Richard)
+    * Fix broken tests in Windows
+    * Fix kmlparser
+
 ===== 1.2.2 (2009-10-16) =====
 
   * Validation changes

@@ -39,7 +39,7 @@ Both of these should be available through `easy_install`.
 
 We are currently using the [http://codereview.appspot.com/ Rietveld Code Review Tool] which has [http://code.google.com/p/rietveld/wiki/CodeReviewHelp its own instructions].
 
-When you want someone to review your code make a new issue with your changes. If you select GoogleTransitDataFeed from the SVN Base make your diff or run the upload script from the `trunk/` directory, not `trunk/python`. Enter googletransitdatafeed@googlegroups.com as the reviewer or CC. Then use the code review interface to mail a request for a review.
+When you want someone to review your code make a new codereview issue with your changes. If you select GoogleTransitDataFeed from the SVN Base make your diff or run the upload script from the `trunk/` directory, not `trunk/python`. Enter googletransitdatafeed@googlegroups.com as the reviewer or CC. Then use the code review interface to mail a request for a review.
 
 ==Commit change to the trunk==
 

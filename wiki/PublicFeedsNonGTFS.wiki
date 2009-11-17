@@ -1,4 +1,4 @@
-# Non-GTFS public transportation data feeds
+#summary Non-GTFS public transportation data feeds
 
 This is a list of non-GTFS feeds.
 (Please refer to [PublicFeeds] for a list of publicly available public transportation feeds in the [code.google.com/transit/spec/transit_feed_specification.html GTFS] format.)

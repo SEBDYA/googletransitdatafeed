@@ -7,7 +7,7 @@ This is a list of non-GTFS feeds.
 || [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/ws_docs/ || Real time departure predictions and vehicle locations || Use is subject to the terms of their [http://developer.trimet.org/terms_of_use.shtml developer license] ||
 || [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/etas.aspx || Real time departure estimates || http://www.bart.gov/siteinfo/copyright.aspx ||
 || [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API || Currently unavailable ||
-|| NSW Government || Sydney, Australia || http://www.131500.com.au/transportdata/ || Schedule data in the TransXChange format || For development and testing only ||
+|| [http://more.nsw.gov.au/ NSW Government] || Sydney, Australia || http://www.131500.com.au/transportdata/ || Schedule data in the TransXChange format || For development and testing only ||
 || [http://www.cta.com CTA] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and vehicle locations || ||
 || [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations || || 
 || [http://www.ytv.fi/fin ytv] || Helsinki, Finland || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API, real time departure predictions ||  || 

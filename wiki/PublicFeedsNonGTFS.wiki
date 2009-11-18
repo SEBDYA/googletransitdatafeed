@@ -3,14 +3,14 @@
 This is a list of non-GTFS feeds.
 (Please refer to [PublicFeeds] for a list of publicly available public transportation feeds in the [http://code.google.com/transit/spec/transit_feed_specification.html GTFS] format.)
 
-|| *Agency* || *Area* || *Feed Location* || *Type* || *Notes* ||
-|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/ws_docs/ || Real time departure predictions and vehicle locations || Registration for API key required ||
-|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/etas.aspx || Real time departure predictions || http://www.bart.gov/siteinfo/copyright.aspx ||
-|| [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API || Registration for API key required, currently unavailable ||
-|| [http://more.nsw.gov.au/ NSW Government] || Sydney, Australia || http://www.131500.com.au/transportdata/ || Schedule data in the TransXChange format || For development and testing only ||
-|| [http://www.cta.com CTA] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and vehicle locations || Registration for API key required ||
-|| [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations || || 
-|| [http://www.ytv.fi/fin ytv] || Helsinki Metro, Finland || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || Registration required, non-commercial use (test and development) || 
+|| *Agency* || *Area* || *Feed Location* || *Type* || *Format* || *Notes* ||
+|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/ws_docs/ || Real time departure predictions and vehicle locations || RESTful/XML || Registration for API key required ||
+|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/etas.aspx || Real time departure predictions || RESTful/XML || http://www.bart.gov/siteinfo/copyright.aspx ||
+|| [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API || RESTful/XML || Registration for API key required, currently unavailable ||
+|| [http://more.nsw.gov.au/ NSW Government] || Sydney, Australia || http://www.131500.com.au/transportdata/ || Schedule data in the TransXChange format || Files/XML || For development and testing only ||
+|| [http://www.cta.com CTA] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and vehicle locations || RESTful/XML || Registration for API key required ||
+|| [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations ||  RESTful/XML || || 
+|| [http://www.ytv.fi/fin ytv] || Helsinki Metro, Finland || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || RESTful/XML || Registration required, non-commercial use (test and development) || 
 
 ==We want to hear from you==
 Not on this list? Please contact the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed. (Thanks for making your data available to interested developers!)

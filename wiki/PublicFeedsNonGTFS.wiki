@@ -10,7 +10,7 @@ This is a list of non-GTFS feeds.
 || [http://more.nsw.gov.au/ NSW Government] || Sydney, Australia || http://www.131500.com.au/transportdata/ || Schedule data in the TransXChange format || For development and testing only ||
 || [http://www.cta.com CTA] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and vehicle locations || Registration for API key required ||
 || [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations || || 
-|| [http://www.ytv.fi/fin ytv] || Helsinki, Finland || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API, real time departure predictions || Registration required, non-commercial use (test and development) || 
+|| [http://www.ytv.fi/fin ytv] || Helsinki, Finland || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || Registration required, non-commercial use (test and development) || 
 
 ==We want to hear from you==
 Not on this list? Please contact the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed. (Thanks for making your data available to interested developers!)

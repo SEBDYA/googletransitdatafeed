@@ -5,7 +5,7 @@
 
 GTFS says that all strings should be encoded with utf-8. Python can represent these as a a str containing utf-8 encoded bytes or a unicode string. A str containing utf-8 can only be appended to a unicode string if it is pure ascii (all characters <= 127). Appending a utf-8 with characters > 127 to a unicode raises a "UnicodeDecodeError: 'ascii' codec can't decode byte ..." as python tries to convert the str to a unicode.
 
-Currently all strings are converted to the python unicode type when loaded from csv and attributes are encoded to utf-8 as they are written back to csv. If the input csv contains an invalid utf-8 sequence it is added to the object as a str. 
+Currently all strings are converted to the python unicode type when loaded from csv and attributes are encoded to utf-8 as they are written back to csv. Invalid utf-8 sequences in inputs are replaced with `REPLACEMENT CHARACTER` (U+FFFD) in `_ReadCsvDict` and `_ReadCSV`.
 
 = Things to validate =
 
@@ -41,7 +41,7 @@ When an invalid value is assigned to an attribute what happens? It should probab
 
 == Consistent row/object ==
 
-These could be checked during __init__, if it is given all values which happens in the common case of loading from a file. Checking in __setattr__ doesn't seem like a great idea because the order that attributes are set may determine if a problem is reported. For example location_type and parent_id would need to be changed atomically.
+These could be checked during __init__, if it is given all values which happens in the common case of loading from a file. On the other hand it is good to decouple validation from object creation to avoid revalidating when recreating a !StopTime from sqlite. Checking in __setattr__ doesn't seem like a great idea because the order that attributes are set may determine if a problem is reported. For example location_type and parent_id would need to be changed atomically.
 
   * arr and dep time both present or absent
   * stop not near 0,0

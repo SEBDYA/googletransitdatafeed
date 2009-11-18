@@ -5,7 +5,7 @@ This is a list of non-GTFS feeds.
 
 || *Agency* || *Area* || *Feed Location* || *Type* || *Notes* ||
 || [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/ws_docs/ || Real time departure predictions and vehicle locations || Registration for API key required ||
-|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/etas.aspx || Real time departure estimates || http://www.bart.gov/siteinfo/copyright.aspx ||
+|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/etas.aspx || Real time departure predictions || http://www.bart.gov/siteinfo/copyright.aspx ||
 || [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API || Registration for API key required, currently unavailable ||
 || [http://more.nsw.gov.au/ NSW Government] || Sydney, Australia || http://www.131500.com.au/transportdata/ || Schedule data in the TransXChange format || For development and testing only ||
 || [http://www.cta.com CTA] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and vehicle locations || Registration for API key required ||

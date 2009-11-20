@@ -4,10 +4,10 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 
 = Ingredients =
 
-|| [http://www.python.org/ftp/python/2.5/python-2.5.msi Python 2.5 for Windows] || py2exe doesn't recognize the Cygwin version, so you'll need to have this one around ||
-|| [http://sourceforge.net/project/showfiles.php?group_id=15583 py2exe] || ||
-|| [http://cheeseshop.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
-|| [http://cheeseshop.python.org/pypi/simplejson/ simplejson] || Don't install as an egg, see pytz above ||
+|| [http://www.python.org/download/releases/ Python 2.5 for Windows] || py2exe doesn't recognize the Cygwin version, so you'll need to have this one around ||
+|| [http://sourceforge.net/projects/py2exe/files/ py2exe] || ||
+|| [http://pypi.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
+|| [http://pypi.python.org/pypi/simplejson/ simplejson] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
 
 As of Nov 2008 here is how I install these on a new Windows XP install.
   # Install python2.5 from http://python.org/
@@ -17,6 +17,15 @@ As of Nov 2008 here is how I install these on a new Windows XP install.
   # `c:\Python25\Scripts\easy_install.exe --always-unzip simplejson` (it will warn you that you don't get the faster C version)
   # `c:\Python25\Scripts\easy_install.exe nose`
   # Install TortoiseSVN from http://tortoisesvn.tigris.org/
+
+For Nov 2009 here is how I install these on a Windows XP machine. Some of them expect the Windows Installer to be available, but that should anyways be the case.
+  # Install python2.5.4 from http://python.org/
+  # Install py2exe-0.6.9.win32-py2.5.exe from http://www.py2exe.org/
+  # Install setuptools-0.6c11.win32-py2.5.exe from http://pypi.python.org/pypi/setuptools/
+  # `c:\Python25\Scripts\easy_install.exe --always-unzip pytz` gave me pytz 2009r
+  # `c:\Python25\Scripts\easy_install.exe --always-unzip simplejson` gave me simplejson-2.0.9-py2.5-win32
+  # `c:\Python25\Scripts\easy_install.exe nose` gave me nose-0.11.1
+  # Install TortoiseSVN-1.6.6.17493-win32-svn-1.6.6 from http://tortoisesvn.tigris.org/ , which needed a reboot after installation.
 
 = Steps =
 

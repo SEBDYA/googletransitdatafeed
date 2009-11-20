@@ -66,8 +66,7 @@ setup(
         'the start of a KML importer and exporter.',
     platforms='OS Independent',
     license='Apache License, Version 2.0',
-    packages=['gtfsscheduleviewer'],
-    py_modules=['transitfeed'],
+    packages=['gtfsscheduleviewer', 'transitfeed'],
     # Also need to list package_data contents in MANIFEST.in for it to be
     # included in sdist. See "[Distutils] package_data not used by sdist
     # command" Feb 2, 2007

@@ -9,6 +9,8 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 || [http://pypi.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
 || [http://pypi.python.org/pypi/simplejson/ simplejson] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
 
+You will also need a Subversion client to get hold of the code and Nose to run the tests.
+
 As of Nov 2008 here is how I install these on a new Windows XP install.
   # Install python2.5 from http://python.org/
   # Install py2exe-0.6.9.win32-py2.5.exe using the Windows installer from http://www.py2exe.org/
@@ -29,9 +31,9 @@ For Nov 2009 here is how I install these on a Windows XP machine. Some of them e
 
 = Steps =
 
-First make sure the scripts work. Run them directly. Install nose and run the automated tests ({{{\Python25\Scripts\nosetests.exe}}}). Make sure the same number of tests ran in linux. Note also issue 37.
+Make a new directory and do `svn export http://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-<version>/`.  To do that with TortoiseSVN, you go into the directory with Explorer, right-click, and select TortoiseSVN >> Export.
 
-`svn export http://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-<version>/`. You can find this by right clicking in any folder and going to the TortoiseSVN submenu.
+Now make sure the scripts work. Run them directly. Using nose (installed as above), run the automated tests ({{{\Python25\Scripts\nosetests.exe}}}). Make sure the same number of tests ran in linux. Note also issue 37.
 
 Change into the python directory of the exported code and run:
 {{{C:\Python25\python.exe setup.py py2exe}}}
@@ -41,5 +43,3 @@ This will create a directory {{{transitfeed-windows-binary-<version>}}}. (The na
 = TODO =
 
 Make an installer.
- 
- 

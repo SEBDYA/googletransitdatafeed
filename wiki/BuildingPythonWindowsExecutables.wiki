@@ -6,8 +6,8 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 
 || [http://www.python.org/download/releases/ Python 2.5 for Windows] || py2exe doesn't recognize the Cygwin version, so you'll need to have this one around ||
 || [http://sourceforge.net/projects/py2exe/files/ py2exe] || ||
-|| [http://pypi.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
-|| [http://pypi.python.org/pypi/simplejson/ simplejson] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this the old way] ||
+|| [http://pypi.python.org/pypi/pytz/ pytz (zip/gz)] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this in unzipped form] ||
+|| [http://pypi.python.org/pypi/simplejson/ simplejson] || py2exe doesn't understand Python eggs, so you'll need to [http://www.py2exe.org/index.cgi/ExeWithEggs install this in unzipped form] ||
 
 You will also need a Subversion client to get hold of the code and Nose to run the tests.
 

@@ -12,7 +12,7 @@ Some familiarity with subversion tags and branches may be useful. [http://svnboo
 
 == Check that trunk is ready ==
 
-Make sure {{{transitfeed.__version__}}} is set to the new version and all tests pass.
+Make sure {{{transitfeed.__version__}}} is set to the new version in trunk and all tests pass.
 
 == Make a branch ==
 

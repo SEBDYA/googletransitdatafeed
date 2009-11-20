@@ -20,7 +20,9 @@ Make sure {{{transitfeed.__version__}}} is set to the new version in trunk and a
 
 == Run tests ==
 
-Get a clean copy with {{{svn export https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3}}} and run the tests in Linux and Windows. Manually start the schedule viewer, click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times. Try it in a variety of browsers, at least IE and Firefox.
+Get a clean copy with {{{svn export https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3}}} and run the tests in Linux and Windows. 
+
+Manually start the schedule viewer (using test/data/good_feed.zip, for example), click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times. Try it in a variety of browsers, at least IE and Firefox.
 
 == Create a change log ==
 

@@ -30,7 +30,7 @@ import sys
 import tempfile
 import transitfeed
 import transitshapelib
-import util
+import transitfeed.util as util
 import zipfile
 
 

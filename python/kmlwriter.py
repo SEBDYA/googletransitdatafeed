@@ -77,7 +77,7 @@ import optparse
 import os.path
 import sys
 import transitfeed
-import util
+import transitfeed.util as util
 
 
 class KMLWriter(object):

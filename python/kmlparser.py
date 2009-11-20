@@ -29,7 +29,7 @@ import re
 import string
 import sys
 import transitfeed
-import util
+import transitfeed.util as util
 import xml.dom.minidom as minidom
 import zipfile
 

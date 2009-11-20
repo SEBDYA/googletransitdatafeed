@@ -29,7 +29,7 @@ import os.path
 import sys
 import time
 import transitfeed
-import util
+import transitfeed.util as util
 
 
 class UnusualTripFilter(object):

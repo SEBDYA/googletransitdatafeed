@@ -34,6 +34,19 @@ If you want to make changes grab our source from http://googletransitdatafeed.go
 Please create a new issue if you find bugs or have a feature requests. Patches released under the terms of the Apache 2.0 license are more than welcome! You may contact the developers in the [http://groups.google.com/group/googletransitdatafeed Google Transit Data Feed Google Group]. 
 
 = Revision History =
+===== 1.2.4 (2009-11-20) =====
+  * Validation changes
+    * The W3C formula for luminance comparison of line colors is used (partial fix for issue 108)
+    * Warn when an input file has more than one column with the same name (issue 87)
+    * Warn when there are several consecutive days without service in the feed validation (issue 188)
+    * Warn when start date or end date are set, but are not valid dates (issue 41)
+    * For problem types that can be sorted by severity keep the N most severe instead of the first N found. These include !StopTooFarFromParentStation, !StopsTooClose, !StationsTooClose, !DifferentStationTooClose, !StopTooFarFromShapeWithDistTraveled, and !TooFastTravel. (issue 184)
+  * transitfeed API changes
+    * Schedule.Validate() is now not run by Loader.Load() by default. To call it implicitly set extra_validation to True, or call it explicitly indicating the service_gap_interval.
+    * For performance reasons !ServicePeriod.!IsActiveOn now takes both a date string and, optionally, a date object representing the same date as the string.
+  * Other changes
+    * All tools now have a crash handler. The crash dump file is now called transitfeedcrash.txt
+    * --help available in all tools 
 
 ===== 1.2.3 (2009-11-05) =====
   * Validation changes

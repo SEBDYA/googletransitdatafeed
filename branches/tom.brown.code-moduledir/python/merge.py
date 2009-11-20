@@ -48,7 +48,7 @@ import re
 import sys
 import time
 import transitfeed
-import transitfeed.util as util
+from transitfeed import util
 import webbrowser
 
 

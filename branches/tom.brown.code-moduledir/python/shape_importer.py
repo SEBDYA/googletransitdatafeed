@@ -29,8 +29,8 @@ import shutil
 import sys
 import tempfile
 import transitfeed
-import transitfeed.shapelib as shapelib
-import transitfeed.util as util
+from transitfeed import shapelib
+from transitfeed import util
 import zipfile
 
 

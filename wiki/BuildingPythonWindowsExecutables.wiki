@@ -31,14 +31,16 @@ For Nov 2009 here is how I install these on a Windows XP machine. Some of them e
 
 = Steps =
 
-Make a new directory and do `svn export http://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-<version>/`.  To do that with TortoiseSVN, you go into the directory with Explorer, right-click, and select TortoiseSVN >> Export.
+Make a new directory and do `svn export http://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-<version>/`.  To do that with TortoiseSVN, you go into the directory with Explorer, right-click, and select TortoiseSVN >> Export.
 
-Now make sure the scripts work. Run them directly. Using nose (installed as above), run the automated tests ({{{\Python25\Scripts\nosetests.exe}}}). Make sure the same number of tests ran in linux. Note also issue 37.
+Run one or two of the scripts directly to make sure they are not broken. Using nose (installed as above), run all automated tests ({{{\Python25\Scripts\nosetests.exe}}}). Make sure the same number of tests ran in linux. Note also issue 37.
 
 Change into the python directory of the exported code and run:
 {{{C:\Python25\python.exe setup.py py2exe}}}
 
-This will create a directory {{{transitfeed-windows-binary-<version>}}}. (The name was picked so that it appears after the source tar.gz on the project home page. `easy_install transitfeed` fetches the first archive file it finds.) Put it into a new zip file with the name {{{transitfeed-windows-binary-<version>.zip}}} by right clicking on the folder and choosing Send To -> Compressed (zipped) Folder. Make sure the name includes the full version number and then add it to the project Downloads page.
+This will create a directory {{{transitfeed-windows-binary-<version>}}}. (The name was picked so that it appears after the source tar.gz on the project home page. `easy_install transitfeed` fetches the first archive file it finds.) Put it into a new zip file with the name {{{transitfeed-windows-binary-<version>.zip}}} by right clicking on the folder and choosing Send To -> Compressed (zipped) Folder. Make sure the name includes the full version number.
+
+Run all the exe files to make sure they work. Then upload the zip file to the project Downloads page.
 
 = TODO =
 

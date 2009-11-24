@@ -28,15 +28,19 @@ Manually start the schedule viewer (using test/data/good_feed.zip, for example),
 
 Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/branches}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}. Use this to list the changes on TransitFeedDistribution. Subversion doesn't do a great job of tracking merge history so some detective work may be needed if your branch and trunk have diverged.
 
+== Windows binary build ==
+
+Build the pyexe files using the instructions at BuildingPythonWindowsExecutables.
+
 == Build and upload files ==
 
-Using the exported tree build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project. Then update PyPI with {{{python setup.py register sdist}}}. Build the pyexe files using the instructions at BuildingPythonWindowsExecutables.
+Using the exported tree build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project and set the tags Type-Source and OpSys-All.  Send an announcement to the googletransitfeed group.
 
-== Tag release ==
+== Finalize the release ==
 
-Once you create the tag older versions of feedvalidator will tell users to upgrade.
-{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3 https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-1.2.3}}}
+Freeze the release branch with a Subversion tag:
+{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3 https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-1.2.3}}} -- Note: once you have created this Subversion tag, older versions of feedvalidator will tell users to upgrade.
 
+Move the label Featured from the previous to this release.
 
-
- 
+Update PyPI with {{{python setup.py register sdist}}}.

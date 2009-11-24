@@ -11,15 +11,6 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 
 You will also need a Subversion client to get hold of the code and Nose to run the tests.
 
-As of Nov 2008 here is how I install these on a new Windows XP install.
-  # Install python2.5 from http://python.org/
-  # Install py2exe-0.6.9.win32-py2.5.exe using the Windows installer from http://www.py2exe.org/
-  # Install setuptools-0.6c9.win32-py2.5.exe from http://pypi.python.org/pypi/setuptools/
-  # `c:\Python25\Scripts\easy_install.exe --always-unzip pytz`
-  # `c:\Python25\Scripts\easy_install.exe --always-unzip simplejson` (it will warn you that you don't get the faster C version)
-  # `c:\Python25\Scripts\easy_install.exe nose`
-  # Install TortoiseSVN from http://tortoisesvn.tigris.org/
-
 For Nov 2009 here is how I install these on a Windows XP machine. Some of them expect the Windows Installer to be available, but that should anyways be the case.
   # Install python2.5.4 from http://python.org/
   # Install py2exe-0.6.9.win32-py2.5.exe from http://www.py2exe.org/

@@ -39,7 +39,9 @@ Using the exported tree build the source tar ball in unix with {{{python setup.p
 == Finalize the release ==
 
 Freeze the release branch with a Subversion tag:
-{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3 https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-1.2.3}}} -- Note: once you have created this Subversion tag, older versions of feedvalidator will tell users to upgrade.
+{{{svn cp -m "make version x.y.z tag" https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3 https://googletransitdatafeed.googlecode.com/svn/tags/transitfeed-1.2.3}}}
+
+Note: once you have created the release's Subversion tag, older versions of feedvalidator will tell users to upgrade.
 
 Move the label Featured from the previous to this release.
 

@@ -2,7 +2,7 @@
 
 = Prerequisites =
 
-You need a Microsoft Windows machine for testing and BuildingPythonWindowsExecutables; that subpage also contains instalation instructions for Python, utilities, and a Subversion client.
+You need a Microsoft Windows machine for testing and BuildingPythonWindowsExecutables; that subpage also contains help how to install Python, utilities, and a Subversion client under Windows.
 
 Get access to update the [http://pypi.python.org/pypi/transitfeed PyPI transitfeed] package.
 

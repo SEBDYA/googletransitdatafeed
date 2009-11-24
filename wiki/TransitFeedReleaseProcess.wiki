@@ -2,7 +2,7 @@
 
 = Prerequisites =
 
-You need a Microsoft Windows machine for testing and BuildingPythonWindowsExecutables.
+You need a Microsoft Windows machine for testing and BuildingPythonWindowsExecutables; that subpage also contains instalation instructions for Python, utilities, and a Subversion client.
 
 Get access to update the [http://pypi.python.org/pypi/transitfeed PyPI transitfeed] package.
 
@@ -20,7 +20,7 @@ Make sure {{{transitfeed.__version__}}} is set to the new version in trunk and a
 
 == Run tests ==
 
-Get a clean copy with {{{svn export https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3}}} and run the tests in Linux and Windows. 
+Get a clean copy with {{{svn export https://googletransitdatafeed.googlecode.com/svn/branches/transitfeed-1.2.3}}} and run the tests in Linux and Windows with the nosetests command. 
 
 Manually start the schedule viewer (using test/data/good_feed.zip, for example), click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times. Try it in a variety of browsers, at least IE and Firefox.
 

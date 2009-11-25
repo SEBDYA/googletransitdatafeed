@@ -4,9 +4,9 @@
 
 You need a Microsoft Windows machine for testing and BuildingPythonWindowsExecutables; that subpage also contains help how to install Python, utilities, and a Subversion client under Windows.
 
-Get access to update the [http://pypi.python.org/pypi/transitfeed PyPI transitfeed] package.
-
 Some familiarity with subversion tags and branches may be useful. [http://svnbook.red-bean.com/en/1.5/svn.branchmerge.html Version Control with Subversion] is quite good.
+
+For the final step, you need access to update the [http://pypi.python.org/pypi/transitfeed PyPI transitfeed] package.  That means, you need an account at that site, and an owner of the package needs to grant write access to you or do the update for you.
 
 = Steps =
 

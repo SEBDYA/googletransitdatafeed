@@ -31,7 +31,7 @@ Change into the python directory of the exported code and run:
 
 This will create a directory {{{transitfeed-windows-binary-<version>}}}. (The name was picked so that it appears after the source tar.gz on the project home page. `easy_install transitfeed` fetches the first archive file it finds.) Put it into a new zip file with the name {{{transitfeed-windows-binary-<version>.zip}}} by right clicking on the folder and choosing Send To -> Compressed (zipped) Folder. Make sure the name includes the full version number.
 
-Run all the exe files to make sure they work. Then upload the zip file to the project Downloads page with tags Type-Archive and OpSys-Windows.
+Run all the exe files to make sure they work. Then upload the zip file to the project Downloads page with tags {{{Type-Archive}}} and {{{OpSys-Windows}}}.
 
 = TODO =
 

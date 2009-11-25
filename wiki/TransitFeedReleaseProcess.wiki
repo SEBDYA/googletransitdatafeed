@@ -36,7 +36,7 @@ Build the pyexe files using the instructions at BuildingPythonWindowsExecutables
 
 == Build and upload files ==
 
-Using the exported tree build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project and set the tags Type-Source and OpSys-All.  Send an announcement to the googletransitfeed group.
+Using the exported tree build the source tar ball in unix with {{{python setup.py sdist}}}. Upload it to this project and set the tags {{{Type-Source}}} and {{{OpSys-All}}}.  Send an announcement to the googletransitfeed group.
 
 == Finalize the release ==
 

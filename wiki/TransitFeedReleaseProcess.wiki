@@ -24,6 +24,8 @@ Get a clean copy with {{{svn export https://googletransitdatafeed.googlecode.com
 
 Manually start the schedule viewer (using test/data/good_feed.zip, for example), click on a stop (an info window of next departures should open), click on a trip and its shape should be displayed with stop times. Try it in a variety of browsers, at least IE and Firefox.
 
+Test {{{feedvalidator.py}}} on a large body of feeds to verify that it does not produce spurious error messages on good data (warnings may be acceptable).
+
 == Create a change log ==
 
 Find the revision of the last release with {{{svn ls -v https://googletransitdatafeed.googlecode.com/svn/branches}}}. Display a log of changes with {{{svn log -r xxx:HEAD https://googletransitdatafeed.googlecode.com/svn/trunk/python}}}. Use this to list the changes on TransitFeedDistribution. Subversion doesn't do a great job of tracking merge history so some detective work may be needed if your branch and trunk have diverged.

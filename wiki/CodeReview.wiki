@@ -35,6 +35,8 @@ Note that in order to pass all the tests, you'll need to install some extra Pyth
   * [http://effbot.org/zone/element-index.htm elementtree] (if running Python 2.4)
 Both of these should be available through `easy_install`.
 
+Your code should also run in python 2.4. Running `easy_install-2.4 nose` will create `nosetests-2.4` which runs the tests in 2.4. You may need to install other 2.4 specific libraries such as `python-pysqlite2`, another copy of `pytz`, etc.
+
 ==Request a review==
 
 We are currently using the [http://codereview.appspot.com/ Rietveld Code Review Tool] which has [http://code.google.com/p/rietveld/wiki/CodeReviewHelp its own instructions].

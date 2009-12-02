@@ -56,6 +56,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://metro.kingcounty.gov/ King County Metro Transit] || King County, Washington || http://your.kingcounty.gov/extranet/transit/PublicData/GTFS/ || The data is password-protected; to get login information, send email to trkscmittgis@kingcounty.gov, print the disclaimer form you get back, sign it, scan it, and send it back to them. ||
 || [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/Terms-and-Conditions.aspx || Terms of Use shown on the download page ||
 || [http://www.cdta.org/ CDTA] || Albany, NY || http://portal1.cdta.org:88/ ||  ||
+|| [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://trilliumtransit.com/transit_feeds/hood_river ||  ||
+|| [http://www.trinitytransportation.org/pg/Trinity-Transit.php Trinity Transit] || Weaverville/Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

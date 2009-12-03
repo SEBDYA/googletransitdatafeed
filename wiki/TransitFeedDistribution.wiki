@@ -37,6 +37,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 ===== 1.2.4 (2009-11-24) +++ STILL STUCK IN TESTING =====
   * Moved {{{transitfeed.py}}} to {{{transitfeed/_transitfeed.py}}} to package it properly with {{{transitfeed/util.py}}} and {{{transitfeed/shapelib.py}}}; provided {{{transitfeed/__init__.py}}} to make the contents of transitfeed available under the same names as before.
   * Validation changes
+    * Warn when the successive stop-times have the same value of shape_dist_traveled and Error when they are decreasing (issue 203)
     * The W3C formula for luminance comparison of line colors is used (partial fix for issue 108)
     * Warn when an input file has more than one column with the same name (issue 87)
     * Warn when there are several consecutive days without service in the feed validation (issue 188)

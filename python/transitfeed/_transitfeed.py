@@ -53,7 +53,7 @@ Stop object which has attributes such as stop_lat and stop_name.
 import bisect
 import cStringIO as StringIO
 import codecs
-from collections import defaultdict
+from transitfeed.util import defaultdict
 import csv
 import datetime
 import logging
@@ -1907,11 +1907,16 @@ class Trip(GenericGTFSObject):
           if distance > prev_distance and distance >= 0:
             prev_distance = distance
           else:
+            if distance == prev_distance:
+              type = TYPE_WARNING
+            else:
+              type = TYPE_ERROR
             problems.InvalidValue('stoptimes.shape_dist_traveled', distance,
-                'For the trip %s the stop %s has shape_dist_travled=%f, '
-                'which should be larger than the previous ones. In this '
-                'case, the previous distance was %s.' % 
-                (self.trip_id, timepoint.stop_id, distance, prev_distance))   
+                  'For the trip %s the stop %s has shape_dist_traveled=%s, '
+                  'which should be larger than the previous ones. In this '
+                  'case, the previous distance was %s.' % 
+                  (self.trip_id, timepoint.stop_id, distance, prev_distance),
+                  type=type)
 
         if timepoint.arrival_secs is not None:
           self._CheckSpeed(prev_stop, timepoint.stop, prev_departure,
@@ -3578,10 +3583,10 @@ class Schedule:
                             type=TYPE_WARNING)
     else:
         try:
-          last_service_day = datetime.datetime.strptime(
-                                 end_date, "%Y%m%d").date()
-          first_service_day = datetime.datetime.strptime(
-                                  start_date, "%Y%m%d").date()
+          last_service_day = datetime.datetime(
+              *(time.strptime(end_date, "%Y%m%d")[0:6])).date()
+          first_service_day = datetime.datetime(
+              *(time.strptime(start_date, "%Y%m%d")[0:6])).date()
 
         except ValueError:
           # Format of start_date and end_date checked in class ServicePeriod

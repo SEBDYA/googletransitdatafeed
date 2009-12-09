@@ -28,3 +28,31 @@ If you have small files or lots of RAM you can try the option --memory_db which 
 After you have installed the TransitFeedDistribution source simply run `python merge.py old_schedule.zip new_schedule.zip merged_schedule.zip`. For additional options try `python merge.py --help`.
 
 If you have small files or lots of RAM you can try the option --memory_db which runs much faster.
+
+= Command line usage =
+
+<pre>Usage: merge.py `[`options] <input GTFS a.zip> <input GTFS b.zip> <output GTFS.zip>
+
+Merges <input GTFS a.zip> and <input GTFS b.zip> into a new GTFS file
+<output GTFS.zip>.
+
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  --cutoff_date=CUTOFF_DATE
+                        a transition date from the old feed to the new feed in
+                        the format YYYYMMDD
+  --largest_stop_distance=LARGEST_STOP_DISTANCE
+                        the furthest distance two stops can be apart and still
+                        be merged, in metres
+  --largest_shape_distance=LARGEST_SHAPE_DISTANCE
+                        the furthest distance the endpoints of two shapes can
+                        be apart and the shape still be merged, in metres
+  --html_output_path=HTML_OUTPUT_PATH
+                        write the html output to this file
+  --no_browser          prevents the merge results from being opened in a
+                        browser
+  -m, --memory_db       Use in-memory sqlite db instead of a temporary file.
+                        It is faster but uses more RAM.
+</pre>

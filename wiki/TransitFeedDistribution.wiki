@@ -4,7 +4,7 @@
 
 The TransitFeedDistribution contains several parts, each with its own instructions
 
-  * TransitFeed - a Python module for reading, writing, and validating feeds
+  * TransitFeed - a Python package for reading, writing, and validating feeds
   * FeedValidator - a command line tool that checks a Google Transit Feed for problems
   * ScheduleViewer - an application for exploring a feed on a map   
   * [KMLWriter] - an application for plotting a feed's stops in a KML file for viewing in Google Earth 

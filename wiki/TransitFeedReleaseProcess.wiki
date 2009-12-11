@@ -48,3 +48,7 @@ Note: once you have created the release's Subversion tag, older versions of feed
 Move the label Featured from the previous to this release.
 
 Update PyPI with {{{python setup.py register sdist}}}.
+
+== Announce it ==
+
+Send an email to googletransitdatafeed@googlegroups.com. If you have access also put something on https://groups.google.com/group/google-transit-help-announcements .

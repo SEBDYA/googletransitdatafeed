@@ -60,6 +60,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.trinitytransportation.org/pg/Trinity-Transit.php Trinity Transit] || Weaverville/Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity ||  ||
 || [http://www.fasttransit.org/ Fairfield and Suisun Transit (FAST)] || Fairfield and Suisun City, CA || http://trilliumtransit.com/transit_feeds/fairfield-suisun ||  ||
 || [http://www.metrostlouis.org/ Metro Saint Louis] || St. Louis, MO || ftp://tripfinder.metrostlouis.org/pub/Google_transit/latest/google_transit.zip  ||  ||
+|| [http://www.ridesmart.com/ South Metro Area Regional Transit (SMART)] || Siskiyou County, CA || http://trilliumtransit.com/transit_feeds/wilsonville/ ||  ||
+|| [http://www.co.siskiyou.ca.us/gensvcs/transportation.htm Siskiyou Transit and General Express (STAGE)] || Siskiyou County, CA || http://trilliumtransit.com/transit_feeds/siskiyou/ ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

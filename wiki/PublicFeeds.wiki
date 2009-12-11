@@ -3,6 +3,8 @@
 
 This is a list of transit schedule data published by transit agencies and operators in [http://code.google.com/transit/spec/transit_feed_specification.html GTFS] format for developers to use.  They contain scheduled times, stop locations, route information and optionally fare information and detailed route shapes.
 
+Another [http://www.gtfs-data-exchange.com/agencies#filter_official list of official GTFS data] is maintained by the [http://www.gtfs-data-exchange.com GTFS Data Exchange] site.
+
 For details on the feed format, see the [http://code.google.com/transit/spec/transit_feed_specification.html Google Transit Feed Specification] document.
 
 || *Agency* || *Area* || *Feed Location* || *Notes* ||

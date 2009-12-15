@@ -116,7 +116,7 @@ class TestingProblemReporter(merge.MergeProblemReporterBase):
       testcase.assert_(self.CheckReported(problem_class))
 
 
-class TestApproximateDistanceBetweenPoints(util.TestCase):
+class TestApproximateDistanceBetweenPoints(unittest.TestCase):
 
   def _assertWithinEpsilon(self, a, b, epsilon=1.0):
     """Asserts that a and b are equal to within an epsilon.
@@ -139,7 +139,7 @@ class TestApproximateDistanceBetweenPoints(util.TestCase):
     self.assert_(merge.ApproximateDistanceBetweenPoints(p1, p2) > 1e4)
 
 
-class TestSchemedMerge(util.TestCase):
+class TestSchemedMerge(unittest.TestCase):
 
   class TestEntity:
     """A mock entity (like Route or Stop) for testing."""
@@ -292,7 +292,7 @@ class TestSchemedMerge(util.TestCase):
       self.assert_(attribute_name in error_text)
 
 
-class TestFeedMerger(util.TestCase):
+class TestFeedMerger(unittest.TestCase):
 
   class Merger:
     def __init__(self, test, n, should_fail=False):
@@ -400,7 +400,7 @@ class TestFeedMerger(util.TestCase):
     self.assertRaises(LookupError, self.fm.GetMerger, TestFeedMerger.Merger)
 
 
-class TestServicePeriodMerger(util.TestCase):
+class TestServicePeriodMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -500,7 +500,7 @@ class TestServicePeriodMerger(util.TestCase):
     self.fm.problem_reporter.assertExpectedProblemsReported(self)
 
 
-class TestAgencyMerger(util.TestCase):
+class TestAgencyMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -586,7 +586,7 @@ class TestAgencyMerger(util.TestCase):
     self.fm.problem_reporter.assertExpectedProblemsReported(self)
 
 
-class TestStopMerger(util.TestCase):
+class TestStopMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -847,7 +847,7 @@ class TestStopMerger(util.TestCase):
     self.assertEquals(len(self.fm.GetMergedSchedule().GetStopList()), 1)
 
 
-class TestRouteMerger(util.TestCase):
+class TestRouteMerger(unittest.TestCase):
 
   fields = ['route_short_name', 'route_long_name', 'route_type',
             'route_url']
@@ -950,7 +950,7 @@ class TestRouteMerger(util.TestCase):
     self.fm.problem_reporter.assertExpectedProblemsReported(self)
 
 
-class TestTripMerger(util.TestCase):
+class TestTripMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -1053,7 +1053,7 @@ class TestTripMerger(util.TestCase):
     self.assertEquals(len(self.fm.merged_schedule.GetTripList()), 3)
 
 
-class TestFareMerger(util.TestCase):
+class TestFareMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -1106,7 +1106,7 @@ class TestFareMerger(util.TestCase):
     self.assertEquals(self.fm.b_merge_map[self.f2].fare_id, self.f2.fare_id)
 
 
-class TestShapeMerger(util.TestCase):
+class TestShapeMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -1212,7 +1212,7 @@ class TestShapeMerger(util.TestCase):
     self.assertEquals(len(self.fm.GetMergedSchedule().GetShapeList()), 1)
 
 
-class TestFareRuleMerger(util.TestCase):
+class TestFareRuleMerger(unittest.TestCase):
 
   def setUp(self):
     a_schedule = transitfeed.Schedule()
@@ -1288,7 +1288,7 @@ class TestFareRuleMerger(util.TestCase):
     self.assert_(self.fare_rule_merger.GetMergeStats() is None)
 
 
-class TestExceptionProblemReporter(util.TestCase):
+class TestExceptionProblemReporter(unittest.TestCase):
 
   def setUp(self):
     self.dataset_merger = merge.TripMerger(None)
@@ -1310,7 +1310,7 @@ class TestExceptionProblemReporter(util.TestCase):
                       self.dataset_merger)
 
 
-class TestHTMLProblemReporter(util.TestCase):
+class TestHTMLProblemReporter(unittest.TestCase):
 
   def setUp(self):
     self.problem_reporter = merge.HTMLProblemReporter()

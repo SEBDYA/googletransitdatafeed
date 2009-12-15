@@ -25,7 +25,6 @@ from transitfeed.shapelib import Poly
 from transitfeed.shapelib import PolyCollection
 from transitfeed.shapelib import PolyGraph
 import unittest
-import util
 
 
 def formatPoint(p, precision=12):
@@ -37,7 +36,7 @@ def formatPoints(points):
     return "[%s]" % ", ".join([formatPoint(p, precision=4) for p in points])
 
 
-class ShapeLibTestBase(util.TestCase):
+class ShapeLibTestBase(unittest.TestCase):
   def assertApproxEq(self, a, b):
     self.assertAlmostEqual(a, b, 8)
 

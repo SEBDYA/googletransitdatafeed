@@ -80,7 +80,7 @@ MAX_DISTANCE_FROM_STOP_TO_SHAPE = 1000
 MAX_DISTANCE_BETWEEN_STOP_AND_PARENT_STATION_WARNING = 100.0
 MAX_DISTANCE_BETWEEN_STOP_AND_PARENT_STATION_ERROR = 1000.0
 
-__version__ = '1.2.4'
+__version__ = '1.2.5'
 
 
 def EncodeUnicode(text):
@@ -668,8 +668,7 @@ def FindUniqueId(dic):
   """Return a string not used as a key in the dictionary dic"""
   name = str(len(dic))
   while name in dic:
-    # Use bigger numbers so it is obvious when an id is picked randomly.
-    name = str(random.randint(1000000, 999999999))
+    name = str(random.randint(1, 999999999))
   return name
 
 
@@ -1071,26 +1070,17 @@ class Route(GenericGTFSObject):
         field_dict['agency_id'] = agency_id
     self.__dict__.update(field_dict)
 
-  def AddTrip(self, schedule=None, headsign=None, service_period=None,
-              trip_id=None):
-    """Add a trip to this route.
+  def AddTrip(self, schedule, headsign, service_period=None, trip_id=None):
+    """ Adds a trip to this route.
 
     Args:
-      schedule: a Schedule object which will hold the new trip or None to use
-        the schedule of this route.
       headsign: headsign of the trip as a string
-      service_period: a ServicePeriod object or None to use
-        schedule.GetDefaultServicePeriod()
-      trip_id: optional trip_id for the new trip
 
     Returns:
       a new Trip object
     """
-    if schedule is None:
-      assert self._schedule is not None
-      schedule = self._schedule
     if trip_id is None:
-      trip_id = FindUniqueId(schedule.trips)
+      trip_id = unicode(len(schedule.trips))
     if service_period is None:
       service_period = schedule.GetDefaultServicePeriod()
     trip = Trip(route=self, headsign=headsign, service_period=service_period,
@@ -1519,7 +1509,7 @@ class Trip(GenericGTFSObject):
     if schedule is None:
       schedule = self._schedule
     if schedule is None:
-      warnings.warn("No longer supported. _schedule attribute is used to get "
+      warnings.warn("No longer supported. _schedule attribute is  used to get "
                     "stop_times table", DeprecationWarning)
     if problems is None:
       problems = schedule.problem_reporter
@@ -2854,7 +2844,7 @@ class Schedule:
   """Represents a Schedule, a collection of stops, routes, trips and
   an agency.  This is the main class for this module."""
 
-  def __init__(self, problem_reporter=None,
+  def __init__(self, problem_reporter=default_problem_reporter,
                memory_db=True, check_duplicate_trips=False):
     # Map from table name to list of columns present in this schedule
     self._table_columns = {}
@@ -2870,10 +2860,7 @@ class Schedule:
     self._transfers = []  # list of transfers
     self._default_service_period = None
     self._default_agency = None
-    if problem_reporter is None:
-      self.problem_reporter = default_problem_reporter
-    else:
-      self.problem_reporter = problem_reporter
+    self.problem_reporter = problem_reporter
     self._check_duplicate_trips = check_duplicate_trips
     self.ConnectDb(memory_db)
 
@@ -3087,20 +3074,23 @@ class Schedule:
     return date_service_period_list
 
 
-  def AddStop(self, lat, lng, name, stop_id=None):
+  def AddStop(self, lat, lng, name):
     """Add a stop to this schedule.
+
+    A new stop_id is created for this stop. Do not use this method unless all
+    stops in this Schedule are created with it. See source for details.
 
     Args:
       lat: Latitude of the stop as a float or string
       lng: Longitude of the stop as a float or string
       name: Name of the stop, which will appear in the feed
-      stop_id: stop_id of the stop or None, in which case a unique id is picked
 
     Returns:
       A new Stop object
     """
-    if stop_id is None:
-      stop_id = FindUniqueId(self.stops)
+    # TODO: stop_id isn't guarenteed to be unique and conflicts are not
+    # handled. Please fix.
+    stop_id = unicode(len(self.stops))
     stop = Stop(stop_id=stop_id, lat=lat, lng=lng, name=name)
     self.AddStopObject(stop)
     return stop
@@ -3127,19 +3117,17 @@ class Schedule:
   def GetStopList(self):
     return self.stops.values()
 
-  def AddRoute(self, short_name, long_name, route_type, route_id=None):
+  def AddRoute(self, short_name, long_name, route_type):
     """Add a route to this schedule.
 
     Args:
       short_name: Short name of the route, such as "71L"
       long_name: Full name of the route, such as "NW 21st Ave/St Helens Rd"
       route_type: A type such as "Tram", "Subway" or "Bus"
-      route_id: id of the route or None, in which case a unique id is picked
     Returns:
       A new Route object
     """
-    if route_id is None:
-      route_id = FindUniqueId(self.routes)
+    route_id = unicode(len(self.routes))
     route = Route(short_name=short_name, long_name=long_name,
                   route_type=route_type, route_id=route_id)
     route.agency_id = self.GetDefaultAgency().agency_id

@@ -9,7 +9,7 @@ Currently all strings are converted to the python unicode type when loaded from 
 
 = Things to validate =
 
-In sections that could be checked at the same time, starting with low level byte things, working towards high level where relations between multiple rows or objects matter.
+Here is a list of things that should be validated, divided into sections that can be checked at the same time. This startn with low level byte things, working towards high level where relations between multiple rows or objects matter.
 
 == File format ==
   * correct eol
@@ -50,17 +50,23 @@ These could be checked during __init__, if it is given all values which happens 
   * All required fields are set
   * warn about fields that are not in spec?
 
-== Good ids ==
+== An object within a Schedule ==
 
-Many tables refer to ids found elsewhere in a GTFS feed. If everything was in a SQL DB it might make sense to check using SQL instead of in each objects Validate method. Here is a subset of things to check:
+Some checks can only be done within the context of a schedule, for example references between tables and the speed of a trip (because it needs all stop_time rows for a trip). At the moment some of these checks are done while loading the schedule and others are done 
+ once loading is finished.
 
+=== While loading ===
+
+If tables are loaded in an appropriate order many checks can be done on a partial schedule. For example, transitfeed loads routes.txt before trips.txt so that the route_id in trips.txt can be checked while loading. The full context of the source file is available at this time. If everything was in a SQL DB it might make sense to check cross-table references using SQL instead of in each object's Validate method. Here is a subset of things that can be checked while loading:
    * No duplicate stop_id in stops, trip_id in trips etc
    * No duplicate (trip_id, stop_sequence) tuples in stop_times
    * trips: route_id, shape_id, service_id
    * stops: parent_id is the id of another stop
    * stop_times: the current sqlite branch does not check that all stop_times entries contain a valid stop_id and trip_id and there is no test
 
-== Other multirow checks ==
+=== After loading ===
+
+Some checks can not be done while loading a file. For example, parent_station in stops.txt and anything that needs all the times of a trip. It will take a lot of extra memory to preserve the original file context of every row for these checks. If the raw files were dumped into an sqlite db with the context memory wouldn't be such a problem. Here are some checks easiest to run after loading:
 
   * For a trip
     * first and last stop_time have a time

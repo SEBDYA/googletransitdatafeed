@@ -52,8 +52,7 @@ These could be checked during __init__, if it is given all values which happens 
 
 == An object within a Schedule ==
 
-Some checks can only be done within the context of a schedule, for example references between tables and the speed of a trip (because it needs all stop_time rows for a trip). At the moment some of these checks are done while loading the schedule and others are done 
- once loading is finished.
+Some checks can only be done within the context of a schedule, for example references between tables and the speed of a trip (because it needs all stop_time rows for a trip). At the moment some of these checks are done while loading the schedule and others are done once loading is finished.
 
 === While loading ===
 

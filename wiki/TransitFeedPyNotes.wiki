@@ -74,3 +74,16 @@ Some checks can not be done while loading a file. For example, parent_station in
   * warn about stops within 2m that are not related in stop hierarchy
   * illogical fares
   * warn about unused stops
+
+
+= Making it easier to extend =
+
+An elegant way to support GTFS extension is very desirable. I think we can support many types of extensions with only a few changes to the existing transitfeed package.
+
+== Create a factory for objects ==
+
+The classes which represent objects, mostly subclasses of `GenericGTFSObject`, are currently direct members of the module. There is no way to tell the `Loader` to create `Stop`, `Route`, etc objects with a different implementation. The `Loader` should be modified to get new objects from a factory. An extension can than provide a factory to inject objects that support the new behaviors. All other code that creates new objects, such as `Schedule.AddStop` will also need to be changed to use a factory. For simplicity I suggest modifying the Schedule to support factory methods. The classes which represent objects can be made class attributes of `Schedule`. An extension will be created by creating a subclass of `Schedule` that overrides some of these class attributes.
+
+== Make `GenericGTFSObject` subclasses easier to subclass ==
+
+We need to make sure that it is easy to make a subclass of `Stop`, `Route`, etc. For example GenericGTFSObject accesses the class attribute _FIELD_NAMES. (too be continued)

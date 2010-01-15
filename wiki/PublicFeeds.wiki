@@ -68,7 +68,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ridethebus.org/ Sunset Empire Transportation District] || Clatsop County, OR || http://www.ridethebus.org/Google_Transit/ ||  ||
 || [http://www.portauthority.org Port Authority of Allegheny County] || Pittsburgh, PA || http://www.portauthority.org/PAAC/CompanyInfo/DeveloperResources/tabid/515/Default.aspx || Subject to License agreement and terms of use ||
 || [http://www.mta.info MTA] || New York, NY || http://www.mta.info/developers/ ||  ||
-|| [http://www.511ny.org 511NY] || New York DOT || http://www.511ny.org/developer.aspx ||  ||
+|| [http://www.511ny.org 511NY] || New York State || http://www.511ny.org/developer.aspx ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

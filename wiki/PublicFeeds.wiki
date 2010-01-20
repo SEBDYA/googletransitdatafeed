@@ -36,7 +36,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.btransit.org/ Blacksburg Transit] || Blacksburg, VA || http://www.gtfs-data-exchange.com/agency/blacksburg-transit/ || ||
 || [http://www.wmata.com/ Washington Metropolitan Area Transit Authority] || Washington, DC || http://www.wmata.com/rider_tools/developer_resources.cfm || [http://www.wmata.com/rider_tools/license_agreement.cfm License Agreement] ||
 || [http://www.mountainline.com/ Mountain Line] || Missoula, MT || http://www.montanatransit.com/googletransit/MUTD/ || ||
-|| [http://www.takeets.com/ Edmonton Transit System (ETS)] || Edmonton, Alberta, Canada  || http://webdocs.edmonton.ca/transit/etsdatafeed/google_transit.zip || [http://www.edmonton.ca/transportation/ets-data-for-developers.aspx Terms of Use] ||
+|| [http://www.takeets.com/ Edmonton Transit System (ETS)] || Edmonton, Alberta, Canada  || http://webdocs.edmonton.ca/transit/etsdatafeed/google_transit.zip || [http://www.edmonton.ca/transportation/ets/ets-data-for-developers.aspx Terms of Use] ||
 || [http://www.metro.net/ Los Angeles County Metro] || Los Angeles, CA  || http://developer.metro.net/gtfs/google_transit.zip || [http://developer.metro.net/policies/terms/ Terms and Conditions] ||
 || [http://www.septa.org/ SEPTA] || Philadelphia, PA  || http://www2.septa.org/developer/index.php || ||
 || [http://www.sdmts.com/ San Diego MTS] || San Diego, CA || http://209.125.19.210/Developer/GTFS%20Schedule/GTFS.aspx (registration required) || [http://209.125.19.210/Developer/TermsUse.aspx Terms of Use] ||
@@ -56,7 +56,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.rtcsnv.com/ Regional Transportation Commission of Southern Nevada] || Southern Nevada || http://www.rtcsnv.com/g/google_transit.zip ||  ||
 || [http://www.ltd.org Lane Transit District] || Lane County, Oregon || http://www.ltd.org/googlepublic/ || ||
 || [http://metro.kingcounty.gov/ King County Metro Transit] || King County, Washington || http://your.kingcounty.gov/extranet/transit/PublicData/GTFS/ || The data is password-protected; to get login information, send email to PublicTransitData@kingcounty.gov, print the disclaimer form you get back, sign it, scan it, and send it back to them. ||
-|| [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/Terms-and-Conditions.aspx || Terms of Use shown on the download page ||
+|| [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/GTFS-Data.aspx || Terms of Use shown on the download page ||
 || [http://www.cdta.org/ CDTA] || Albany, NY || http://portal1.cdta.org:88/ ||  ||
 || [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://trilliumtransit.com/transit_feeds/hood_river ||  ||
 || [http://www.trinitytransportation.org/pg/Trinity-Transit.php Trinity Transit] || Weaverville/Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity ||  ||

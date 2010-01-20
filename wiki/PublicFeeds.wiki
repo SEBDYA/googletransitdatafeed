@@ -66,7 +66,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.co.siskiyou.ca.us/gensvcs/transportation.htm Siskiyou Transit and General Express (STAGE)] || Siskiyou County, CA || http://trilliumtransit.com/transit_feeds/siskiyou/ ||  ||
 || [http://www.transitchicago.com Chicago Transit Authority (CTA)] || Chicago area, IL || http://www.transitchicago.com/developers/gtfs.aspx || Use is subject to terms of CTA's [http://www.transitchicago.com/developers Developer License Agreement]. More data/feeds at the [http://www.transitchicago.com/developers CTA Developer Center].  ||
 || [http://www.ridethebus.org/ Sunset Empire Transportation District] || Clatsop County, OR || http://www.ridethebus.org/Google_Transit/ ||  ||
-|| [http://www.portauthority.org Port Authority of Allegheny County] || Pittsburgh, PA || http://www.portauthority.org/PAAC/CompanyInfo/DeveloperResources/tabid/515/Default.aspx || Subject to License agreement and terms of use ||
+|| [http://www.portauthority.org Port Authority of Allegheny County] || Pittsburgh, PA || http://www.portauthority.org/GoogleTransitFeed || Use is subject to the terms and conditions of [http://www.portauthority.org/PAAC/CompanyInfo/DeveloperResources/DeveloperLicenseAgreement/tabid/521/Default.aspx Port Authority's License Agreement] ||
 || [http://www.mta.info MTA] || New York, NY || http://www.mta.info/developers/ ||  ||
 || [http://www.511ny.org 511NY] || New York State || [http://www.511ny.org/developer.aspx Links to regional and local GTFS] ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||

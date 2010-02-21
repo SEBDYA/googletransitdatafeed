@@ -69,7 +69,6 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.portauthority.org Port Authority of Allegheny County] || Pittsburgh, PA || http://www.portauthority.org/GoogleTransitFeed || Use is subject to the terms and conditions of [http://www.portauthority.org/PAAC/CompanyInfo/DeveloperResources/DeveloperLicenseAgreement/tabid/521/Default.aspx Port Authority's License Agreement] ||
 || [http://www.mta.info MTA] || New York, NY || http://www.mta.info/developers/ ||  ||
 || [http://www.hsvcity,cin Huntsville Shuttle] || Huntsville, AL || [http://maps.hsvcity.com/GoogleTransit/google_transit.zip] ||  ||
-|| [http://www.mta.info MTA] || New York, NY || http://www.mta.info/developers/ ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

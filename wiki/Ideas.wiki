@@ -1,4 +1,4 @@
-#Ideas Page for googletransitdatafeed
+#summary Ideas Page for googletransitdatafeed
 
 = Introduction =
 Please feel free to add ideas for new features or products of googletransitdatafeed

@@ -9,6 +9,7 @@ The TransitFeedDistribution contains several parts, each with its own instructio
   * ScheduleViewer - an application for exploring a feed on a map   
   * [KMLWriter] - an application for plotting a feed's stops in a KML file for viewing in Google Earth
   * [Merge] - combines two GTFS files into one
+  * [GoogleRandomQueries] - an example program. generates random queries for Google Maps trip planner.
 
 = Download =
 

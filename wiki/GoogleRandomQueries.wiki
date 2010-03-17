@@ -1,0 +1,32 @@
+#summary google_random_queries
+
+= Introduction =
+
+This program generates an HTML page of random URLs for the Google Maps transit trip planner. The queries go between places near stops listed in a GTFS file.
+
+= Details =
+
+Find `google_random_queries.py` in the TransitFeedDistribution or a Windows exe in [http://code.google.com/p/googletransitdatafeed/downloads/list the downloads section].
+
+The queries are for dates 0-7 days after google_random_queries was run at random times of the day. When a request for a date in the past is sent to Google's trip planner it is ignored and todays date is used. Thus to get results from different days of the week use a HTML file created in the past few days. The queries it generates are between locations within a 1km square box surrounding two random stops.
+
+Usually these URLs find trips that exist. The most common cause of errors is that Google does not have data for your service on the date in the URL. You can also get errors if you have very sparse or disconnected service areas. You could try changing the time in the URL to one you know should work.
+
+Google Transit partners should look at the tips found at http://groups.google.com/group/google-transit-partner-support/web/google-transit-data-provider-best-practices
+
+== Command line usage ==
+
+<pre>Usage: google_random_queries.py `[`options] feed_filename.zip
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -l LIMIT, --limit=LIMIT
+                        Maximum number of URLs to generate
+  -o FILE, --output=FILE
+                        write html output to FILE
+</pre>
+
+== Source ==
+
+You can view the source of this script at [http://code.google.com/p/googletransitdatafeed/source/browse/trunk/python/examples/google_random_queries.py].

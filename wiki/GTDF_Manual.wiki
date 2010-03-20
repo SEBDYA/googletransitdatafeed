@@ -25,7 +25,7 @@ The distribution of TransXChange2GoogleTransit contains six examples. Let's pick
 Linux is similar:
 <pre>./tXCh2GT.sh examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput</pre>
 The program starts with the following prompt:
-<pre>transxchange2GoogleTransit 1.6.3</pre>
+<pre>transxchange2GoogleTransit 1.6.4</pre>
 It should not display any error messages. If this is not the case, verify that the installation has been completed and that you are located in the correct directory. After the program ran successfully, you can list the resulting file set with the following Windows (DOS) command:
 <pre>dir examplesOutput\20040101</pre>
 On Linux: 
@@ -92,7 +92,7 @@ You need to work with your IT staff to post the resulting zip archive on the web
 Voila!
 
 == GWT_Transxchange2GoogleTransit: The Web Application ==
-Starting with v1.6.3, GWT_Transxchange2GoogleTransit is no longer be supported, and has been removed.
+Starting with v1.6.4, GWT_Transxchange2GoogleTransit is no longer be supported, and has been removed.
 
 == Bugs And Issues ==
 Is the program to crash or generate inaccurate results? Probably. Bugs are a reality, and the program might not be fitted to all specific in-and-outs of your specific transit data. With future development of the program, reported bugs will be worked out, and the "footprint" of the program will expand as it is being "rubbed" against transit data of different transit operators. Bring on the challenges.

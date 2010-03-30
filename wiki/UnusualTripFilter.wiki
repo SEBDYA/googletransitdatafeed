@@ -1,0 +1,11 @@
+#summary Instructions for unusual_trip_filter
+
+= Introduction =
+
+unusual_trip_filter sets the `trip_type` (see http://groups.google.com/group/gtfs-changes/browse_frm/thread/557dd991c453807a) for trips that have an unusual pattern for a route.
+
+= Details =
+
+The pattern of a trip is the sequence of stops it visits. By default a trip is marked as unusual if its pattern is used by less than 10% of the trips of that route. unusual_trip_filter only works with GTFS files that validate without any warnings or errors.
+
+== Command line usage ==

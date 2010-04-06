@@ -5,7 +5,7 @@ This is a list of transit schedule data published by transit agencies and operat
 
 Another [http://www.gtfs-data-exchange.com/agencies#filter_official list of official GTFS data] is maintained by the [http://www.gtfs-data-exchange.com GTFS Data Exchange] site.
 
-For details on the feed format, see the [http://code.google.com/transit/spec/transit_feed_specification.html Google Transit Feed Specification] document.
+For details on the feed format, see the [http://code.google.com/transit/spec/transit_feed_specification.html General Transit Feed Specification] document.
 
 || *Agency* || *Area* || *Feed Location* || *Notes* ||
 || [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/schedule/GTFS/ || Use is subject to the terms of their [http://developer.trimet.org/terms_of_use.shtml developer license] ||

@@ -1,6 +1,6 @@
 #summary A list of other software that read and write GTFS files
 
-The Google Transit Feed Specification is used by several non-Google applications:
+GTFS is used by several non-Google applications:
 
   * [http://timetablepublisher.org/ TimeTablePublisher] can take GTFS feeds and format them into static schedule tables for online and print applications.
   * [http://graphserver.sourceforge.net/ Graphserver] is an open-source transit (and more) routing engine, with support for Google Transit Feed Spec feeds
@@ -10,6 +10,13 @@ The Google Transit Feed Specification is used by several non-Google applications
   * Trillum Solutions (formally Transit Info Solutions) offers custom-designed transit websites and a web-based schedule manager with [http://www.trilliumtransit.com/services/ Google Transit export]
   * [http://www.merakas.lt Merakas] is a Lithuanian company whose [http://www.merakas.lt/en/pikas/index.html PikasPHP] transit software can read and write GTFS.  (An example deployment for Vilnius, Lithuania can be seen [http://www.marsrutai.lt/vilnius/?a=p.routes&transport_id=bus&t=xhtml&l=en here].)
   * [http://www.avego.com/ui/futurefleet.action Avego Future Fleet] has [http://groups.google.com/group/transit-developers/browse_thread/thread/318cd6a84f432718 announced] GTFS import and export for free
+
+
+Here are some libraries to help software developers handle GTFS files:
+
+  * [http://code.google.com/p/googletransitdatafeed This project] has Python code for reading and writing GTFS.
+  * [http://github.com/perkinsms/Perl-GTFS A set of perl modules for dealing with GTFS]. Uses DBI to access the raw data
+  * [http://code.google.com/p/onebusaway/ OneBusAway] has a [http://code.google.com/p/onebusaway/wiki/ModuleGtfs GTFS module] written in Java.
 
 
 See also the [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Consumers GTFS Consumers], [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Exporters GTFS Exporters] and [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Service GTFS Services] categories at [http://headwayblog.com/wiki].

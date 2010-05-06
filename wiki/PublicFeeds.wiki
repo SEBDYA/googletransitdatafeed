@@ -70,6 +70,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.mta.info MTA] || New York, NY || http://www.mta.info/developers/ ||  ||
 || [http://www.hsvcity.com Huntsville Shuttle] || Huntsville, AL || [http://maps.hsvcity.com/GoogleTransit/google_transit.zip] ||  ||
 || [http://www.arlingtontransit.com Arlington Transit] || Arlington, VA || http://www.arlingtontransit.com/gtfs/google_transit.zip ||  ||
+|| [http://www.cityofescalon.org/transit.htm eTrans] || Escalon, CA || http://trilliumtransit.com/transit_feeds/escalon-ca-us/ ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

@@ -74,6 +74,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://northwest-point.com/ NorthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/ocw/ ||  ||
 || [http://highdesert-point.com/ HighDesert POINT] || Oregon || http://trilliumtransit.com/transit_feeds/tac_transportation/ ||  ||
 || [http://southwest-point.com/ SouthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/swpoint/ ||  ||
+|| [http://www.catbus.com/ Clamson Area Transit (CAT)] || Clemson, SC || http://trilliumtransit.com/transit_feeds/cat/ ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

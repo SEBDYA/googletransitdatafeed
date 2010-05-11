@@ -75,7 +75,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://highdesert-point.com/ HighDesert POINT] || Oregon || http://trilliumtransit.com/transit_feeds/tac_transportation/ ||  ||
 || [http://southwest-point.com/ SouthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/swpoint/ ||  ||
 || [http://www.catbus.com/ Clamson Area Transit (CAT)] || Clemson, SC || http://trilliumtransit.com/transit_feeds/cat/ ||  ||
-|| [http://www.taketrax.com/ Tehama Area Rural Express (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama/ ||  ||
+|| [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama/ ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

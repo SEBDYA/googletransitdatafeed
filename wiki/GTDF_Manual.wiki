@@ -70,7 +70,7 @@ In addition to individual TransXChange input files, Transxchange2GoogleTransit i
 
 ==== Including a NaPTAN format stop file ====
 Transxchange2GoogleTransit accepts a Version 1 [http://www.naptan.org.uk/ NaPTAN ] formatted stop file. This is used for stop coordinate look-ups in the "Lon" and "Lat" columns of the stop file. The stop file is passed as an optional command line argument, e.g.:
-<pre><nowiki>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles Stops.csv</nowiki></pre>
+<pre>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles Stops.csv</pre>
 
 To download a NaPTAN format stop file, please use the following settings on the download form:
 <pre><nowiki>

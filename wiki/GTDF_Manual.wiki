@@ -73,13 +73,13 @@ Transxchange2GoogleTransit accepts a Version 1 [http://www.naptan.org.uk/ NaPTAN
 <pre>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles Stops.csv</pre>
 
 To download a NaPTAN format stop file, please use the following settings on the download form:
-<pre><nowiki>
+<pre>
 NaPTAN Reference Data
 Preferences
 Data Required:	All Areas
 Data Format:	CSV ZIP
 Data Version:	Version 1
-</nowiki></pre>
+</pre>
 
 === Posting The Google Transit Archive ===
 Transxchange2GoogleTransit automatically "zips" the resulting files in an archive. This archive must be "posted" to Google Transit. This means it must be visible in the web through a web address ([http://en.wikipedia.org/wiki/Url URL]).

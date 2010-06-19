@@ -25,24 +25,24 @@ The distribution of TransXChange2GoogleTransit contains six examples. Let's pick
 Linux is similar:
 <pre>./tXCh2GT.sh examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput</pre>
 The program starts with the following prompt:
-<pre>transxchange2GoogleTransit 1.6.4</pre>
-It should not display any error messages. If this is not the case, verify that the installation has been completed and that you are located in the correct directory. After the program ran successfully, you can list the resulting file set with the following Windows (DOS) command:
-<pre>dir examplesOutput\20040101</pre>
+<pre>transxchange2GoogleTransit 1.6.5</pre>
+It should not display any error messages. If this is not the case, verify that the installation has been completed and that you are executing the commands in the correct directory. After the program ran successfully, you can list the resulting file set with the following Windows (DOS) command:
+<pre>dir examplesOutput</pre>
 On Linux: 
-<pre>ls -l examplesOutput/20040101</pre>
-20040101 is the date of the earliest service found in the originating TransXChange source file, in the format yyyymmdd. You should see the following list of files (Windows screenshot):
-<pre> Directory of C:\mytransformations\examplesOutput\20040101
+<pre>ls -l examplesOutput</pre>
+You should find the following list of files (Windows):
+<pre> Directory of C:\mytransformations\examplesOutput
 
 06/20/2007  10:00 PM    <DIR>          .
 06/20/2007  10:00 PM    <DIR>          ..
-06/20/2007  10:00 PM               121 agency_20040101.txt
-06/20/2007  10:00 PM               125 calendar_20040101.txt
-06/20/2007  10:00 PM               422 calendar_dates_20040101.txt
+06/20/2007  10:00 PM               121 agency.txt
+06/20/2007  10:00 PM               125 calendar.txt
+06/20/2007  10:00 PM               422 calendar_dates.txt
 06/20/2007  10:00 PM             1,951 google_transit.zip
-06/20/2007  10:00 PM               308 routes_20040101.txt
-06/20/2007  10:00 PM               558 stops_20040101.txt
-06/20/2007  10:00 PM             1,041 stop_times_20040101.txt
-06/20/2007  10:00 PM               194 trips_20040101.txt
+06/20/2007  10:00 PM               308 routes.txt
+06/20/2007  10:00 PM               558 stops.txt
+06/20/2007  10:00 PM             1,041 stop_times.txt
+06/20/2007  10:00 PM               194 trips.txt
                8 File(s)          4,720 bytes</pre>
 
 === Transforming Your Transit Data ===
@@ -66,7 +66,7 @@ In Windows:
 On Linux we assume the transit data is located in your home directory:
 <pre>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles</pre>
 
-In addition to individual TransXChange input files, Transxchange2GoogleTransit is also able to process a set of TransXChange files from a zip archive. Use the zip filename as input filename, and a single set of Google Transit Feed Specification files is generated.
+In addition to individual TransXChange input files, Transxchange2GoogleTransit is also able to process a set of TransXChange files from a zip archive. Use the zip filename as input filename, and a single set of Google Transit Feed Specification files is generated which contains a combination of the inputfiles of the zip file.
 
 ==== Including a NaPTAN format stop file ====
 Transxchange2GoogleTransit accepts a Version 1 [http://www.naptan.org.uk/ NaPTAN ] formatted stop file. This is used for stop coordinate look-ups in the "Lon" and "Lat" columns of the stop file. The stop file is passed as an optional command line argument, e.g.:

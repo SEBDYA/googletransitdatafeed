@@ -78,7 +78,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama/ ||  ||
 || [http://www.duluthtransit.com/ Duluth Transit] || Duluth, MN || http://www.duluthtransit.com/GoogleTransit/latest/google_transit.zip || [http://www.duluthtransit.com/GoogleTransit/index.aspx License Agreement] ||
 || [http://www.metlink.org.nz/google-transit-feed/ Metlink] || Wellington, New Zealand || http://www.metlink.org.nz/googletransit/google_transit.zip || [http://www.metlink.org.nz/gtf-terms-of-use/ Terms of Use] ||
-|| [http://www.soundtransit.org/ Sound Transit] || Puget Sound Region, Washington State  || http://developer.soundtransit.org/Developer-Home/Data-Downloads/Download-Data.xml || [http://developer.soundtransit.org/Documents/developer/pdf/ElectronicDataTermsofUse.pdf/ Terms of Use] ||
+|| [http://www.soundtransit.org/ Sound Transit] || Puget Sound Region, Washington State  || http://developer.soundtransit.org || [http://developer.soundtransit.org/Documents/developer/pdf/ElectronicDataTermsofUse.pdf/ Terms of Use] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

@@ -35,7 +35,7 @@ _Microsoft Windows_
 {{{
 --limit=LIMIT: set the maximum number of random queries to generate to <LIMIT>
 --output=FILE: write the random queries to <FILE>
---version: show program's version number
+--version: show the version number
 --help: show a help message
 }}}
  
@@ -49,7 +49,7 @@ _Platform independent_
 {{{
 --limit=LIMIT: set the maximum number of random queries to generate to <LIMIT>
 --output=FILE: write the random queries to <FILE>
---version: show program's version number
+--version: show the version number
 --help: show a help message
 }}} 
 
@@ -86,14 +86,17 @@ Execute the following steps to test your feed data:
 
 = Troubleshooting =
 
-*Problem*: The random queries generates itineraries that don’t include public transit
+*Problem*: The random queries generates itineraries that don’t include public transit.<BR>
 *Possible causes*:
-  # Google transit does not have data for your service on the date in the URL. *Solution*:  generate random queries multiple times on different dates. The tool generates queries for the next 7 days.
-  # You have very sparse or disconnected service areas. *Solution*: try changing the time in the URL to one you know should work.
-  # The query start and stop points are not close enough to a transit station provided by the agency in their feed. *Solution*: move start and stop points of the query close to a transit station provided by the agency
+  # Google transit does not have data for your service on the date in the URL.
+    * *Solution*:  generate random queries multiple times on different dates. The tool generates queries for the next 7 days.
+  # You have very sparse or disconnected service areas. 
+    * *Solution*: try changing the time in the URL to one you know should work.
+  # The query start and stop points are not close enough to a transit station provided by the agency in their feed.
+    * *Solution*: move start and stop points of the query close to a transit station provided by the agency
 
 = Online Resources =
 
 Use the following links if you can’t find what you are looking for in this document:
-  * Google group “google-transit-partner-support” at: http://groups.google.com/group/google-transit-partner-support/web/google-transit-data-provider-best-practices
-  * Source code: http://code.google.com/p/googletransitdatafeed/source/browse/trunk/python/examples/google_random_queries.py
+  * Google group “google-transit-partner-support” at:<BR>http://groups.google.com/group/google-transit-partner-support/web/google-transit-data-provider-best-practices
+  * Source code at:<BR>http://code.google.com/p/googletransitdatafeed/source/browse/trunk/python/examples/google_random_queries.py

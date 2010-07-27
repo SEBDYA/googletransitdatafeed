@@ -11,6 +11,7 @@ This program reads a GTFS feed file and generates a web page with randomly gener
 _Microsoft Windows_
 
   * Point your internet browser at http://code.google.com/p/googletransitdatafeed/downloads/list
+  * When running the following commands you should substitute {{{<month>}}} and {{{<year>}}} with the month and year of the package you downloaded!
   * Download the most recent zip file with name {{{“random-queries-windows-<month>_<year>.zip”}}}
   * Unzip {{{random-queries-windows-<month>_<year>.zip}}}. This will create a folder called random-queries-windows in the current directory.
 
@@ -18,9 +19,11 @@ _Platform independent_
 
   * Point your internet browser at http://code.google.com/p/googletransitdatafeed/downloads/list
   * Download the tarball with name {{{“transitfeed-<release>.tar.gz”}}} (pick the most recent release)
+  * When running the following commands you should substitute {{{<release>}}} with the release of the package you downloaded!
   * Open a command line terminal (like xterm, bash, tcsh, sh, MS Windows command)
   * Unzip {{{transitfeed-<release>.tar.gz}}} using the command {{{“tar xvfz transitfeed-<release>.tar.gz”}}}. This will create a folder called {{{transitfeed-<release>}}} in the current directory.
   * Navigate into the folder {{{“transitfeed-<release>”}}}
+  * Issue the following command to give executing rights to the setup procedure: {{{ chmod a+x setup.py }}}
   * Install the necessary {{{“transitfeed”}}} python module using the command {{{“sudo ./setup.py install”}}} if you do not have root access rights or just {{{“./setup.py install”}}} if you do have root access rights.
 
 == Step 2: Run the program ==
@@ -30,6 +33,7 @@ _Microsoft Windows_
   * Open a command prompt. Easiest way is to click {{{"Start" -> "Run.."}}} type {{{"cmd"}}} and click Ok.
   * Navigate to folder {{{“random-queries-windows”}}} using the DOS command {{{“cd”}}}
   * Type command: {{{“google_random_queries.exe <path to your transit data zip file>”}}}
+  * If <path to your transit data zip file> contains spaces be sure to put double quote around it
   * This will create an HTML file named google_random_queries.html in the same directory as google_random_queries.exe
   * Specific options you can use to customize the program’s behaviour:
 {{{
@@ -94,6 +98,8 @@ Execute the following steps to test your feed data:
     * *Solution*: try changing the time in the URL to one you know should work.
   # The query start and stop points are not close enough to a transit station provided by the agency in their feed.
     * *Solution*: move start and stop points of the query close to a transit station provided by the agency
+  # Your transit data has expired.
+    * *Solution*: submit an updated feed to Google transit program. You will have to wait one or two weeks until the new data will be available in the preview 
 
 = Online Resources =
 

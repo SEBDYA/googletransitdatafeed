@@ -10,13 +10,13 @@ This program reads a GTFS feed file and generates a web page with randomly gener
 
 _Microsoft Windows_
 
-  * Point your internet browser at {{{ http://code.google.com/p/googletransitdatafeed/downloads/list }}}
+  * Point your internet browser at http://code.google.com/p/googletransitdatafeed/downloads/list
   * Download the most recent zip file with name {{{“random-queries-windows-<month>_<year>.zip”}}}
   * Unzip {{{random-queries-windows-<month>_<year>.zip}}}. This will create a folder called random-queries-windows in the current directory.
 
 _Platform independent_
 
-  * Point your internet browser at {{{http://code.google.com/p/googletransitdatafeed/downloads/list}}}
+  * Point your internet browser at http://code.google.com/p/googletransitdatafeed/downloads/list
   * Download the tarball with name {{{“transitfeed-<release>.tar.gz”}}} (pick the most recent release)
   * Open a command line terminal (like xterm, bash, tcsh, sh, MS Windows command)
   * Unzip {{{transitfeed-<release>.tar.gz}}} using the command {{{“tar xvfz transitfeed-<release>.tar.gz”}}}. This will create a folder called {{{transitfeed-<release>}}} in the current directory.
@@ -65,7 +65,7 @@ Execute the following steps to test your feed data:
     * a box containing the departure date and time.
   * These values encode a random trip query that can be tested by clicking with your mouse pointer on the “get directions” button on the lower right in the “get directions” form.
   * If Google Transit finds an available itinerary that uses public transport it will display it graphically on the map (screenshot 3).
-  * If  Google Transit does not find an available itinerary that uses public transport it will display a message that states: “Sorry, we don't have transit schedule data for a trip from <latitude>,<longitude> to <latitude>,<longitude> at the time and date you specified.”. In this case:
+  * If  Google Transit does not find an available itinerary that uses public transport it will display a message that states: {{{“Sorry, we don't have transit schedule data for a trip from <latitude>,<longitude> to <latitude>,<longitude> at the time and date you specified.”}}}. In this case:
     * try to change date/time
     * consult the troubleshooting section of this document
   * When Google Transit finds a valid itinerary you should check the quality by considering the following issues:
@@ -82,7 +82,7 @@ Execute the following steps to test your feed data:
 == Step 4: Improve the testing process with the following suggestions ==
 
   * Test trips on different dates. The queries are for dates 0-7 days after google_random_queries was run at random times of the day. When a request for a date in the past is sent to Google's trip planner it is ignored and todays date is used. Thus to get results from different days of the week use a HTML file created in the past few days. The queries it generates are between locations within a 1km square box surrounding two random stops.
-  * Gain efficiency. You may want to open 5 to 10 queries in different browser tabs to save flipping back and forth between the HTML and maps. You can achieve this by right-clicking (right mouse button, or CTRL & left mouse button, Apple Mac OS X users should use <CMD> + mouse button) the random query links.
+  * Gain efficiency. You may want to open 5 to 10 queries in different browser tabs to save flipping back and forth between the HTML and maps. You can achieve this by right-clicking (right mouse button, or {{{<CTRL>}}} & left mouse button, Apple Mac OS X users should use {{{<CMD>}}} + mouse button) the random query links.
 
 = Troubleshooting =
 

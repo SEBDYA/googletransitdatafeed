@@ -11,25 +11,25 @@ This program reads a GTFS feed file and generates a web page with randomly gener
 _Microsoft Windows_
 
   * Point your internet browser at {{{ http://code.google.com/p/googletransitdatafeed/downloads/list }}}
-  * Download the most recent zip file with name “random-queries-windows-<month>_<year>.zip”
-  * Unzip random-queries-windows-<month>_<year>.zip. This will create a folder called random-queries-windows in the current directory.
+  * Download the most recent zip file with name {{{“random-queries-windows-<month>_<year>.zip”}}}
+  * Unzip {{{random-queries-windows-<month>_<year>.zip}}}. This will create a folder called random-queries-windows in the current directory.
 
 _Platform independent_
 
-  * Point your internet browser at http://code.google.com/p/googletransitdatafeed/downloads/list
-  * Download the tarball with name “transitfeed-<release>.tar.gz” (pick the most recent release)
+  * Point your internet browser at {{{http://code.google.com/p/googletransitdatafeed/downloads/list}}}
+  * Download the tarball with name {{{“transitfeed-<release>.tar.gz”}}} (pick the most recent release)
   * Open a command line terminal (like xterm, bash, tcsh, sh, MS Windows command)
-  * Unzip transitfeed-<release>.tar.gz using the command “tar xvfz transitfeed-<release>.tar.gz”. This will create a folder called transitfeed-<release> in the current directory.
-  * Navigate into the folder “transitfeed-<release>”
-  * Install the necessary “transitfeed” python module using the command “sudo ./setup.py install” if you do not have root access rights or just “./setup.py install” if you do have root access rights.
+  * Unzip {{{transitfeed-<release>.tar.gz}}} using the command {{{“tar xvfz transitfeed-<release>.tar.gz”}}}. This will create a folder called {{{transitfeed-<release>}}} in the current directory.
+  * Navigate into the folder {{{“transitfeed-<release>”}}}
+  * Install the necessary {{{“transitfeed”}}} python module using the command {{{“sudo ./setup.py install”}}} if you do not have root access rights or just {{{“./setup.py install”}}} if you do have root access rights.
 
 == Step 2: Run the program ==
 
 _Microsoft Windows_
 
-  * Open a command prompt. Easiest way is to click "Start" -> "Run.." type "cmd" and click Ok.
-  * Navigate to folder “random-queries-windows” using the DOS command “cd”
-  * Type command: “google_random_queries.exe <path to your transit data zip file>”
+  * Open a command prompt. Easiest way is to click {{{"Start" -> "Run.."}}} type {{{"cmd"}}} and click Ok.
+  * Navigate to folder {{{“random-queries-windows”}}} using the DOS command {{{“cd”}}}
+  * Type command: {{{“google_random_queries.exe <path to your transit data zip file>”}}}
   * This will create an HTML file named google_random_queries.html in the same directory as google_random_queries.exe
   * Specific options you can use to customize the program’s behaviour:
 {{{
@@ -42,8 +42,8 @@ _Microsoft Windows_
 _Platform independent_
 
   * Open a command line terminal (like xterm, bash, tcsh, sh, MS Windows command)
-  * Navigate into the folder “transitfeed-<release>”
-  * Type command: “./examples/google_random_queries.py <path to your transit data zip file>
+  * Navigate into the folder {{{“transitfeed-<release>”}}}
+  * Type command: {{{“./examples/google_random_queries.py <path to your transit data zip file>}}}
   * This will create an HTML file named google_random_queries.html in the current directory
   * Specific options you can use to customize the program’s behaviour:
 {{{

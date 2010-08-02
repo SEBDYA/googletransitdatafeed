@@ -12,7 +12,7 @@ This is a list of non-GTFS feeds.
 || [http://www.cta.com CTA] || Chicago, Illinois || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and vehicle locations || RESTful/XML || Registration for API key required ||
 || [http://www.sfmta.com SFMTA] || San Francisco, California || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations ||  RESTful/XML || || 
 || [http://www.ytv.fi/fin ytv] || Helsinki Metro, Finland || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || RESTful/XML || Registration required, non-commercial use (test and development) || 
-|| [http://www.eot.state.ma.us/developers MBTA/EOT] || Boston, Massachusetts || http://www.eot.state.ma.us/developers/realtime/ || Real time departure predictions and vehicle locations ||  RESTful/XML || Limited to five routes ||  
+|| [http://www.eot.state.ma.us/developers MBTA/EOT] || Boston, Massachusetts || http://www.eot.state.ma.us/developers/realtime/ || Real time departure predictions and vehicle locations ||  RESTful/XML || 135 out of 185 routes ||  
 
 
 ==We want to hear from you==

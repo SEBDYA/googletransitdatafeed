@@ -49,8 +49,8 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * util.!FloatStringToFloat and util.!NonNegIntStringToInt are now more flexible, issuing a warning when the number formats are not recognized but can be parsed by Python. As this is implementation dependent, it should be moved to an error as soon as possible. (r1350)
   * transitfeed API changes
     * Introduction of an object factory (r1281)
-    * Introduction of the !HeadwayPeriod and !GtfsFactory classes (r1281)
-    * {{{Trip._FIELD_NAMES_HEADWAY}}} was removed. {{{HeadwayPeriod._FIELD_NAMES}}} should be used instead. (r1296)
+    * Introduction of the !HeadwayPeriod (later renamed to Frequency) and !GtfsFactory classes (r1281)
+    * {{{Trip._FIELD_NAMES_HEADWAY}}} was removed. {{{Frequency._FIELD_NAMES}}} should be used instead. (r1296)
     * Invalid values in routes.txt's route_color and route_text_color are now replaced by the respective default values (r1281)
     * Schedule.!AddAgencyObject() no longer calls Validate() by default on the Agency object being added (r1281)
     * Schedule.!AddTripObject() no longer calls Validate() by default on the Trip object being added (r1281)
@@ -61,7 +61,7 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
     * Renamed a couple of classes to more closely mirror their respective GTFS names. Fare was renamed !FareAttribute and !HeadwayPeriod was renamed Frequency. GenericGTFSObject was also renamed to !GtfsObjectBase. (r1324)
   * Other changes
     * !FeedValidator on Windows now deletes database file successfully (issue 206, r1257)
-    * Introduction of a GenericGTFSObject from which all GTFS classes should inherit (r1258)
+    * Introduction of a GenericGTFSObject (later renamed !GtfsObjectBase) from which all GTFS classes should inherit (r1258)
     * Moved each GTFS class to its own file and removed the big {{{transitfeed/_transitfeed.py}}}. The API was not changed. (issue 196, r1275)
     * Fixed google_random_queries.py usage info, added URL to usage of several tools (r1280)
     * Added single date selection to Schedule Viewer (issue 17, r1300)

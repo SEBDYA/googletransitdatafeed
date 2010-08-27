@@ -81,6 +81,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.soundtransit.org/ Sound Transit] || Puget Sound Region, Washington State  || http://developer.soundtransit.org || [http://developer.soundtransit.org/Documents/developer/pdf/ElectronicDataTermsofUse.pdf/ Terms of Use] ||
 || [http://www.maxx.co.nz/ ARTA] || Auckland, New Zealand  || http://www.maxx.co.nz/information/about-maxx/google-transit-feed.html ||  ||
 || [http://www.miamidade.gov/ Miami-Dade Transit] || Miami-Dade, FL  || http://www.miamidade.gov/transit/googletransit/current/google_transit.zip ||  ||
+|| [http://www.mvta.com/ Minnesota Valley Transit Authority] || Minnesota Valley || http://wiki.mvta.com/files/Home/google_transit.zip ||  ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

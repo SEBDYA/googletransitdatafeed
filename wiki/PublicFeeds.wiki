@@ -83,6 +83,12 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.miamidade.gov/ Miami-Dade Transit] || Miami-Dade, FL  || http://www.miamidade.gov/transit/googletransit/current/google_transit.zip ||  ||
 || [http://www.mvta.com/ Minnesota Valley Transit Authority] || Minnesota Valley || http://wiki.mvta.com/files/Home/google_transit.zip ||  ||
 || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/ City of Santa Rosa CityBus] || Santa Rosa, CA || ftp://ftp.ci.santa-rosa.ca.us/SantaRosaCityBus/  || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/Pages/GTSFOpenSourceData.aspx Developer License Agreement] ||
+|| Caravan Airport Transportation || Oregon || http://trilliumtransit.com/transit_feeds/caravan-or-us/ || ||
+|| Cascades East Transit || Oregon  || http://trilliumtransit.com/transit_feeds/deschutes-or-us/ || ||
+|| HUT Airport Transportation || Oregon  || http://trilliumtransit.com/transit_feeds/hut-or-us/ || ||
+|| People Mover || Oregon  || http://trilliumtransit.com/transit_feeds/peoplemover-or-us/ || ||
+|| Porter Stage || Oregon  || http://trilliumtransit.com/transit_feeds/porterstage-or-us/ || ||
+|| Valley Retriever || Oregon  || http://trilliumtransit.com/transit_feeds/valleyretriever-or-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

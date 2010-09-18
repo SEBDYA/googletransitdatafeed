@@ -89,8 +89,9 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || People Mover || Oregon  || http://trilliumtransit.com/transit_feeds/peoplemover-or-us/ || ||
 || Porter Stage || Oregon  || http://trilliumtransit.com/transit_feeds/porterstage-or-us/ || ||
 || Valley Retriever || Oregon  || http://trilliumtransit.com/transit_feeds/valleyretriever-or-us/ || ||
-|| Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 || [http://www.cumtd.com/ Champaign-Urbana Mass Transit District] || Champaign-Urbana, IL || http://www.cumtd.com/google/google_transit.zip  || ||
+|| Rockland County || Rockland County, NY || https://geopower.jws.com/rockland/DataPage.jsp#  || ||
+|| Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==
 If you work with a transit agency or other data provider, and would like to add your public feed to this list, please send an email to the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed.  (Thanks for making your data available to interested developers!)

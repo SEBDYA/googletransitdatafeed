@@ -91,6 +91,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Valley Retriever || Oregon  || http://trilliumtransit.com/transit_feeds/valleyretriever-or-us/ || ||
 || [http://www.cumtd.com/ Champaign-Urbana Mass Transit District] || Champaign-Urbana, IL || http://www.cumtd.com/google/google_transit.zip  || ||
 || Rockland County || Rockland County, NY || https://geopower.jws.com/rockland/DataPage.jsp#  || ||
+|| [http://www.dartfirststate.com/ Delaware First State] || Delaware || http://www.dartfirststate.com/information/routes/gtfs_data/dartfirststate_de_us.zip   || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

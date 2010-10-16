@@ -17,6 +17,12 @@ This is a list of non-GTFS feeds.
 || [http://www.wmata.com WMATA] || Washington, D.C. Metro || http://developer.wmata.com/ || Real time departure predictions for Metro Rail ||  RESTful/XML || Registration for API key required  ||  
 || [http://www.actransit.org/ AC Transit] || Alameda and Contra Costa Counties, CA || http://www.actransit.org/riderinfo/nextbus_XML_data.wu || Real time departure predictions and bus locations ||  RESTful/XML || 61 out of 175 routes ||  
 || [http://data.london.gov.uk/datastore/ London Datastore] || London, UK || http://data.london.gov.uk/datastore/package/tfl-timetable-listings || Network and schedule data || File set TransXChange || [http://www.tfl.gov.uk/termsandconditions/11402.aspx Terms and Conditions] ||
+|| [http://www.ttc.ca/ Toronta Transit Commission] || Toronto, ON Canada || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
+|| Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
+|| DC and Charm City Circulstors, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
+|| Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
+
+
 
 ==We want to hear from you==
 Not on this list? Please contact the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed. (Thanks for making your data available to interested developers!)

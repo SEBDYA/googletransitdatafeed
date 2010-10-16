@@ -19,7 +19,7 @@ This is a list of non-GTFS feeds.
 || [http://data.london.gov.uk/datastore/ London Datastore] || London, UK || http://data.london.gov.uk/datastore/package/tfl-timetable-listings || Network and schedule data || File set TransXChange || [http://www.tfl.gov.uk/termsandconditions/11402.aspx Terms and Conditions] ||
 || [http://www.ttc.ca/ Toronta Transit Commission] || Toronto, ON Canada || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
 || Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
-|| DC and Charm City Circulstors, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
+|| DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
 || Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
 
 

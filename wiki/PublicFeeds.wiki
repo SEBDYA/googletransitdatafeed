@@ -98,7 +98,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.calgarytransit.com/ Calgary Transit ] || Calgary, Alberta || http://calgaryonlinestore.com/detail.asp?prod_id=2909 || ||
 || [http://www.metlink.org.nz// Greater Wellington's public transportation network ] || Greater Wellington, New Zealand || http://www.metlink.org.nz/googletransit/google_transit.zip || ||
 || [http://www.halifax.ca// Halifax Metro] || Halifax, Nova Scotia || http://halifax.ca/GoogleTransit/developerdata.html || ||
-|| [http://www.cota.com// Central Ohio Transit Authority] || Columbus, Ohio || http://www.cota.com/data.asp || ||
+|| [http://www.cota.com/ Central Ohio Transit Authority] || Columbus, Ohio || http://www.cota.com/data.asp || ||
+|| [http://sites.google.com/site/gotrianglegtfs/ GoTriangle] || Research Triangle, North Carolina || http://sites.google.com/site/gotrianglegtfs/google-transit || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

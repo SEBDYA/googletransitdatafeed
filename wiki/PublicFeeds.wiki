@@ -19,7 +19,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.rio-vista-ca.com/transit/ Rio Vista Delta Breeze] || Rio Vista, CA || http://www.trilliumtransit.com/transit_feeds/rio_vista/ || ||
 || [http://unitrans.ucdavis.edu/ Unitrans] || Davis, CA || http://iportal.sacrt.com/GTFS/Unitrans || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.rtd-denver.com Regional Transportation District] || Denver, CO || http://www.rtd-denver.com/GoogleFeeder/ || [http://www.rtd-denver.com/License_Agreement/License_Agreement.pdf License Agreement] ||
-|| [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA, Australia || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
+|| [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA (Australia) || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
 || [http://www.yrt.ca York Region Transit] || Ontario, Canada || http://www.yrt.ca/google/google_transit.zip || [http://www.yrt.ca/google/ License Agreement] ||
 || [http://www.ridemcts.com/ Milwaukee County Transit System] || Milwaukee, WI || http://kamino.mcts.org/gtfs/google_transit.zip || [http://kamino.mcts.org/gtfs/ Terms of Use] ||
 || [http://www.thebus.org Oahu Transit Services, Inc] || Honolulu, Hawaii || http://webapps.thebus.org/transitdata/Production || [http://www.thebus.org/transitfeed/terms-of-use.asp Terms of Use] ||
@@ -77,9 +77,9 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.catbus.com/ Clamson Area Transit (CAT)] || Clemson, SC || http://trilliumtransit.com/transit_feeds/cat/ ||  ||
 || [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama/ ||  ||
 || [http://www.duluthtransit.com/ Duluth Transit] || Duluth, MN || http://www.duluthtransit.com/GoogleTransit/latest/google_transit.zip || [http://www.duluthtransit.com/GoogleTransit/index.aspx License Agreement] ||
-|| [http://www.metlink.org.nz/google-transit-feed/ Metlink] || Wellington, New Zealand || http://www.metlink.org.nz/googletransit/google_transit.zip || [http://www.metlink.org.nz/gtf-terms-of-use/ Terms of Use] ||
+|| [http://www.metlink.org.nz/google-transit-feed/ Metlink] || Wellington (New Zealand) || http://www.metlink.org.nz/googletransit/google_transit.zip || [http://www.metlink.org.nz/gtf-terms-of-use/ Terms of Use] ||
 || [http://www.soundtransit.org/ Sound Transit] || Puget Sound Region, Washington State  || http://developer.soundtransit.org || [http://developer.soundtransit.org/Documents/developer/pdf/ElectronicDataTermsofUse.pdf/ Terms of Use] ||
-|| [http://www.maxx.co.nz/ ARTA] || Auckland, New Zealand  || http://www.maxx.co.nz/information/about-maxx/google-transit-feed.html ||  ||
+|| [http://www.maxx.co.nz/ ARTA] || Auckland (New Zealand)  || http://www.maxx.co.nz/information/about-maxx/google-transit-feed.html ||  ||
 || [http://www.miamidade.gov/ Miami-Dade Transit] || Miami-Dade, FL  || http://www.miamidade.gov/transit/googletransit/current/google_transit.zip ||  ||
 || [http://www.mvta.com/ Minnesota Valley Transit Authority] || Minnesota Valley || http://wiki.mvta.com/files/Home/google_transit.zip ||  ||
 || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/ City of Santa Rosa CityBus] || Santa Rosa, CA || ftp://ftp.ci.santa-rosa.ca.us/SantaRosaCityBus/  || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/Pages/GTSFOpenSourceData.aspx Developer License Agreement] ||
@@ -100,7 +100,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.halifax.ca// Halifax Metro] || Halifax, Nova Scotia || http://halifax.ca/GoogleTransit/developerdata.html || ||
 || [http://www.cota.com/ Central Ohio Transit Authority] || Columbus, Ohio || http://www.cota.com/data.asp || ||
 || [http://sites.google.com/site/gotrianglegtfs/ GoTriangle] || Research Triangle, North Carolina || http://sites.google.com/site/gotrianglegtfs/google-transit || ||
-|| [http://www.vitoria-gasteiz.org/ Red de Transporte urbano de Vitoria-Gasteiz] || Vitoria-Gasteiz, Spain || http://www.vitoria-gasteiz.org/we001/http/vgTransit/google_transit.zip || ||
+|| [http://www.vitoria-gasteiz.org/ Red de Transporte urbano de Vitoria-Gasteiz] || Vitoria-Gasteiz (Spain) || http://www.vitoria-gasteiz.org/we001/http/vgTransit/google_transit.zip || ||
+|| [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://www.adelaidemetro.com.au/publish_article/GTFS.html || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

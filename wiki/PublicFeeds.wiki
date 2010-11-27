@@ -103,6 +103,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.vitoria-gasteiz.org/ Red de Transporte urbano de Vitoria-Gasteiz] || Vitoria-Gasteiz (Spain) || http://www.vitoria-gasteiz.org/we001/http/vgTransit/google_transit.zip || ||
 || [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://www.adelaidemetro.com.au/publish_article/GTFS.html || ||
 || [http://www.toronto.ca/ TTC] || Toronto (Canada) || http://www.toronto.ca/open/datasets/ttc-routes/ || ||
+|| [http://www.hamilton.ca/ Hamilton Street Railway] || Hamilton (Canada) || http://www.hamilton.ca/ProjectsInitiatives/OpenData/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

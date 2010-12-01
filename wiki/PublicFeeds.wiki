@@ -104,6 +104,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://www.adelaidemetro.com.au/publish_article/GTFS.html || ||
 || [http://www.toronto.ca/ TTC] || Toronto, ON || http://www.toronto.ca/open/datasets/ttc-routes/ || ||
 || [http://www.hamilton.ca/ Hamilton Street Railway] || Hamilton, ON || http://www.hamilton.ca/ProjectsInitiatives/OpenData/ || ||
+|| [http://www.vvta.org/ Victor Valley Transit Authority] || Victor Valley, CA || http://trilliumtransit.com/transit_feeds/vvta/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

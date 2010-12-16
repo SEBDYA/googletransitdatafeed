@@ -107,6 +107,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.vvta.org/ Victor Valley Transit Authority] || Victor Valley, CA || http://trilliumtransit.com/transit_feeds/vvta/ || ||
 || [http://data.keolis-rennes.com Rennes] || Rennes, France || http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html || ||
 || [http://www.montgomerycountymd.gov Montgomery County] || Montgomery County, MD || http://www.montgomerycountymd.gov/content/dot/transit/news/google_transit.zip || ||
+|| [http://www.spokanetransit.com Spokane Transit Authority] || Spokane, WA || http://198.1.35.130/sta/gmap-data/SpokaneTransitGTFS.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

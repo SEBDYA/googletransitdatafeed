@@ -74,7 +74,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://northwest-point.com/ NorthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/ocw/ ||  ||
 || [http://highdesert-point.com/ HighDesert POINT] || Oregon || http://trilliumtransit.com/transit_feeds/tac_transportation/ ||  ||
 || [http://southwest-point.com/ SouthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/swpoint/ ||  ||
-|| [http://www.catbus.com/ Clamson Area Transit (CAT)] || Clemson, SC || http://trilliumtransit.com/transit_feeds/cat/ ||  ||
+|| [http://www.catbus.com/ Clemson Area Transit (CAT)] || Clemson, SC ||  http://trilliumtransit.com/transit_feeds/clemson-sc-us/ ||  ||
 || [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama/ ||  ||
 || [http://www.duluthtransit.com/ Duluth Transit] || Duluth, MN || http://www.duluthtransit.com/GoogleTransit/latest/google_transit.zip || [http://www.duluthtransit.com/GoogleTransit/index.aspx License Agreement] ||
 || [http://www.metlink.org.nz/google-transit-feed/ Metlink] || Wellington (New Zealand) || http://www.metlink.org.nz/googletransit/google_transit.zip || [http://www.metlink.org.nz/gtf-terms-of-use/ Terms of Use] ||

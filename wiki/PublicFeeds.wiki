@@ -115,7 +115,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.norwalktransit.com/ Norwalk Transit District] || Norwalk, CT || http://rfshared.s3.amazonaws.com/gtfs/norwalk_gtfs.zip ||  ||
 || [http://www.cccta.org/ County Transit] || Central Contra Costa County, CA || http://cccta.org/GTFS/google_transit.zip ||  ||
 || [http://www.wavetransit.com/ Wave Transit] || Wilmington, NC || http://www.wavetransit.com/gtransit/google_transit.zip ||  ||
-|| Allegany County Transit || Allegany County, Maryland || http://gov.allconet.org/ACT/ggl/google_transit.zip || ||
+|| [http://gov.allconet.org/act/ Allegany County Transit] || Allegany County, Maryland || http://gov.allconet.org/ACT/ggl/google_transit.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

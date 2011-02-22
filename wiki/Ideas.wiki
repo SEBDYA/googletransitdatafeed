@@ -1,7 +1,0 @@
-#summary Ideas Page for googletransitdatafeed
-
-= Introduction =
-Please feel free to add ideas for new features or products of googletransitdatafeed
-
-= Details =
-1. Converter from GTFS to TransXChange. This is the reverse of TransXChange2GTFS

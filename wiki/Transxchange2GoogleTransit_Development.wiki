@@ -1,13 +1,13 @@
-#summary Transxchange2GoogleTransit Development Environment
+#summary Transxchange2GTFS Development Environment
 
 = Introduction =
-This page contains instructions how to create a development environment to maintain the transxchange2GoogleTransit converter tool, using Eclipse.
+This page contains instructions how to create a development environment to maintain the transxchange2GTFS converter, using Eclipse.
 
 = Details =
 The following instructions assume the use of a command shell, terminal or equivalent.
 
 == Download and Install Eclipse ==
-Eclipse is available for download at http://www.eclipse.org. (These instructions have been validated with Eclipse 3.5.0, "Galileo"). The Standard edition of Eclipse is recommended.
+Eclipse is available for download at http://www.eclipse.org. The Standard edition of Eclipse is recommended.
 
 == Download and Install Java ==
 Many computers are delivered with Java installed. This can be verified in a command shell (or equivalent) by calling Java directly:
@@ -16,10 +16,10 @@ If Java is installed, the resulting output should display the Java version, such
 <pre>java version "1.5.0_14"
 Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_14-b03)
 Java HotSpot(TM) Client VM (build 1.5.0_14-b03, mixed mode, sharing)</pre>
-The code works with Java 5, or later. Java is available for download at http://java.sun.com
+The code works with Java 1.5, or later. Java is available for download at http://java.sun.com
 
-== Checkout the transxchange2GoogleTransit Source Code ==
-As project member, the source code can be checked out with commit privilige, as described in the [http://code.google.com/p/googletransitdatafeed/source/checkout Source tab]. Non-members are limited to check out the source code read only. Use the following syntax to check out the code into the current directory:
+== Checkout the transxchange2GTFS Source Code ==
+As project member, the source code can be checked out with commit privilege, as described in the [http://code.google.com/p/googletransitdatafeed/source/checkout Source tab]. Non-members are limited to check out the source code on a read-only basis only. Use the following syntax to check out the code into the current directory:
 <pre>svn checkout http://googletransitdatafeed.googlecode.com/svn/trunk/java/Transxchange2GoogleTransit googletransitdatafeed-read-only</pre>
 The directory name will drive the Eclipse project name. Rename it, as appropriate.
 
@@ -29,10 +29,13 @@ Select "Create project from existing source", and navigate to the root directory
 Click "Finish".
 Verify the project by manually rebuilding the project. Select "Project" -> "Clean", select the project, and hit "OK".
 
-== Running transxchange2GoogleTransit is Eclipse ==
+== Running transxchange2GTFS is Eclipse ==
 In Eclipse, select "Run as" -> "Java Application" from the "Run" menu. The Eclipse console  should display the output of transxchange2GoogleTransit, similar to:
-<pre>transxchange2GoogleTransit 1.6.4 Please refer to LICENSE file for licensing information
+<pre>transxchange2GTFS 1.7.0 Please refer to LICENSE file for licensing information
 
+Usage: $ transxchange2GoogleTransit <transxchange input filename> -c <configuration file name>
+Usage: $ transxchange2GoogleTransit <transxchange input filename> <output-directory> -c <configuration file name>
+Usage: $ transxchange2GoogleTransit <transxchange input filename> <output-directory> <agency name> -c <configuration file name>
 Usage: $ transxchange2GoogleTransit <transxchange input filename> -
          <url> <timezone> <default route type> <output-directory> [<stopfile>]
 
@@ -41,6 +44,6 @@ Usage: $ transxchange2GoogleTransit <transxchange input filename> -
          <default route type>:
              0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular
 </pre>
-This output lists the command line parameters required to run transxchange2GoogleTransit. These are set up in an Eclipse "Run Configuration". Please refer to the Eclipse documentation for details. A description of the transxchange2GoogleTransit command parameters is available on the [http://code.google.com/p/googletransitdatafeed/wiki/GTDF_Manual GTDF_Manual] wiki page
+This output lists the command line parameters required to run the transxchange2GTFS converter. These are set in an Eclipse "Run Configuration". Please refer to the Eclipse documentation for details. A description of the transxchange2GTFS converter command line arguments is available on the [http://code.google.com/p/googletransitdatafeed/wiki/GTDF_Manual GTDF_Manual] wiki page
 
   

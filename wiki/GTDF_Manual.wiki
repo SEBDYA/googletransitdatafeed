@@ -4,7 +4,7 @@
 This page describes the use of the TransXChange2GTFS converter. It generates [http://code.google.com/transit/spec/transit_feed_specification.htm GTFS] files from the [http://www.transxchange.org.uk TransXChange] standard (Version 2.2 and later). The converter can be downloaded [http://code.google.com/p/googletransitdatafeed from this Google Code project site].
 
 == Manual ==
-Transxchange2GTFS has been tested on [http://www.microsoft.com/windowsxp/default.mspx Windows XP], Max OS/X 10.6.6 and [http://en.wikipedia.org/wiki/Linux GNU Linux] (Distribution: [http://www.debian.org Debian etch 4.0]). The converter requires Java SE 1.5 or later.
+Transxchange2GTFS has been tested on [http://www.microsoft.com/windowsxp/default.mspx Windows XP], Max OS/X 10.6.6 and [http://en.wikipedia.org/wiki/Linux GNU Linux] (Distribution: [http://www.debian.org Debian]). The converter requires Java SE 1.5 or later.
 
 Follow these steps:
   * Download the current release of TransXChange2GTFS from the GoogleTransitDataFeed [http://code.google.com/p/googletransitdatafeed Google Code] web site, and install it on your computer

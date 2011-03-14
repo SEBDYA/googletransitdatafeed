@@ -1,10 +1,10 @@
 #summary GoogleTransitDataFeed: TransXChange2GTFS User Manual
 
 == Introduction to TransXChange2GTFS ==
-This page describes the use of the TransXChange2GTFS converter. It generates [http://code.google.com/transit/spec/transit_feed_specification.htm GTFS] files from the [http://www.transxchange.org.uk TransXChange] standard (Version 2.2 and later). The converter can be downloaded [http://code.google.com/p/googletransitdatafeed from this Google Code project site].
+This page describes the use of the TransXChange2GTFS converter. The purpose of the converter is to generate [http://code.google.com/transit/spec/transit_feed_specification.htm GTFS] files from [http://www.transxchange.org.uk TransXChange] standard data (Version 2.2 and later). Download the converter [http://code.google.com/p/googletransitdatafeed here].
 
 == Manual ==
-Transxchange2GTFS has been tested on [http://www.microsoft.com/windowsxp/default.mspx Windows XP], Max OS/X 10.6.6 and [http://en.wikipedia.org/wiki/Linux GNU Linux] (Distribution: [http://www.debian.org Debian]). The converter requires Java SE 1.5 or later.
+Transxchange2GTFS has been tested to run on [http://www.microsoft.com/windowsxp/default.mspx Windows XP], Max OS/X 10.6.6 and [http://en.wikipedia.org/wiki/Linux GNU Linux] (Distribution: [http://www.debian.org Debian]). The converter requires Java SE 1.5 or later.
 
 Follow these steps:
   * Download the current release of TransXChange2GTFS from the GoogleTransitDataFeed [http://code.google.com/p/googletransitdatafeed Google Code] web site, and install it on your computer
@@ -15,10 +15,10 @@ Follow these steps:
 Below an example to illustrate the use of the converter. Next, we will look at the converter's command line arguments to complement your transit data.
 
 === Running An Example ===
-Transit data following [http://code.google.com/transit/spec/transit_feed_specification.htm GTFS] consists of a set of files that is wrapped into an archive (zip file). Let's turn to one of the six examples included in the download of TransXChange2GTFS, the express route example. The corresponding GTFS feed file set is generated as follows:
+Transit data following [http://code.google.com/transit/spec/transit_feed_specification.htm GTFS] consists of a set of files that is wrapped into an archive (zip file). Let's turn to one of the six examples included in the download of TransXChange2GTFS, the Express route example. The corresponding GTFS feed file set is generated as follows:
   * Start a CLI (Command Line Interface) session. In Windows, open a Command Prompt (DOS Box). With Linux or OS/X, open a terminal (command shell).
-  * Change directory to the location of TransXChange2GTFS.
-  * Run the converter for the express route example. In Windows:
+  * Change the directory to the location of the TransXChange2GTFS converter.
+  * Run the converter for the Express route example. In Windows:
 <pre>tXCh2GT examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput</pre>
 Linux and OS/X work similar:
 <pre>./tXCh2GT.sh examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput</pre>

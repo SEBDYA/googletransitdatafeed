@@ -46,7 +46,7 @@ You should find the following list of files (Windows):
 === Converting TransXChange Data ===
 Let's assume the TransXChange input has the filename myData.xml, and it is stored in the directory C:\SD\myTransitData (Windows). 
 
-Next, find answers for the following questions:
+Next, find answers to the following questions:
   * What is your organization's web site url? 
 (Example: http://www.myagency.org)
   * What is your organization's time zone? Find your time zone [http://en.wikipedia.org/wiki/List_of_tz_zones here]
@@ -58,8 +58,7 @@ Next, find answers for the following questions:
   * What is the output directoy? 
 (Example: C:\SD\myGoogleFiles)
 
-Using the example answers above, the CLI commands for the converter are as follows.
-In Windows:
+Using the exemplary answers above, the CLI commands for the converter are as follows. Windows:
 <pre>tXCh2GT C:\mytransformations\myData.xml http://www.myagency.org Europe/London 3 C:\mytransformations\myGoogleFiles</pre>
 On Linux and OS/X, we assume the transit data is located in the user's home directory:
 <pre>./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles</pre>

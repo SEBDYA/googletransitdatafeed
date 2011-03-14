@@ -12,7 +12,7 @@ Follow these steps:
   * Run the TransXChange2GTFS converter to generate a GTFS feed from the orginating TransXChange data
   * Post the zipped file set for upload to [http://www.google.com/transit Google Transit]
 
-Below an example to illustrate the use of the converter. Next, it explains how to use the converter for your transit data and the command line arguments needed to complement your transit data.
+Below an example to illustrate the use of the converter. Next, we will look at the converter's command line arguments to complement your transit data.
 
 === Running An Example ===
 Transit data following [http://code.google.com/transit/spec/transit_feed_specification.htm GTFS] consists of a set of files that is wrapped into an archive (zip file). Let's turn to one of the six examples included in the download of TransXChange2GTFS, the express route example. The corresponding GTFS feed file set is generated as follows:

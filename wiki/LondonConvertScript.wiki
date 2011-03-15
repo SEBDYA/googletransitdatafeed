@@ -1,4 +1,3 @@
-#LondonConvertScript
 
 <pre>
 #!/bin/bash

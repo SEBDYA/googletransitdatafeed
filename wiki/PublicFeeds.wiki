@@ -119,6 +119,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.scgov.net/scat/ Sarasota County Area Transit] || Sarasota, FL || http://www.scgov.net/scat/google/current/google_transit.zip  || ||
 || [http://www.gmpte.com Greater Manchester Passenger Transport Executive] || Manchester, Great Britain || http://datagm.org.uk/package/gmpte-gtfs-schedule-data || UK Crown Copyright ||
 || [http://www.gtt.to.it Gruppo Torinese Trasporti] || Torino, Italy || http://opendata.5t.torino.it/gtfs/torino_it.zip || ||
+|| [http://macog.com Michiana Area Council Of Governments] || South Bend, IN ||http://macog.com/google/google_transit.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

@@ -79,7 +79,7 @@ On Linux and OS/X, we assume the transit data is located in the user's home dire
 In addition to individual TransXChange input files, the converter is also able to process a set of TransXChange files from a zip archive. Use the zip filename as input filename, and a single set of GTFS files is generated containing the converted superset of the inputfiles of the zip file.
 
 ==== Including a NaPTAN format stop file ====
-The Transxchange2GTFS converter accepts a Version 1 [http://www.naptan.org.uk/ NaPTAN ] formatted stop file. Mainly, this is used for stop coordinate look-ups in the "Lon" and "Lat" columns of the stop file. The stop file is passed as an optional command line argument, e.g.:
+The Transxchange2GTFS converter accepts a Version 1 CSV [http://www.naptan.org.uk/ NaPTAN ] formatted stop file. Mainly, this is used for stop coordinate look-ups in the "Lon" and "Lat" columns of the stop file. The stop file is passed as an optional command line argument, e.g.:
 
 {{{./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles Stops.csv}}}
 

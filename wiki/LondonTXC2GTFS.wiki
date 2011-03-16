@@ -1,3 +1,5 @@
+#summary How to convert a TfL TransXChange export stream to GTFS
+
 == Introduction ==
 This page describes how to create GTFS file sets from the Transport for London TransXChange export stream, assuming the use of the TransXChange2GTFS converter. There is a series of dependencies that need to be satisfied, which are described below. A sample Converter Script and a series of sample configuration files should help jump start the setup of a conversion environment. Starting from scratch, please expect to spend a few hours setting up the TransXChange Converter and modifying the sample Converter Script to your needs. Converting the London export stream to GTFS is not trivial, and at this point, somewhat incomplete. The resulting GTFS files however pass GTFS validation, but unfortunately cannot be used without consideration for a few caveats, which are explained below. As of March 2011, the problems surrounding the TransXChange export stream have been reported to Transport for London, and we can be hopeful that these will be resolved in the future.
 

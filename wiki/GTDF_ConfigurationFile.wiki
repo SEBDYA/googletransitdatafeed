@@ -1,7 +1,7 @@
 #summary This page describes the TransXChange2GTFS converter configuration file.
 
 == Introduction ==
-This page describes the structure and settings of the TransXChange2GTFS converter. The individual settings are described in the sections below.
+This page describes the structure and controls of the TransXChange2GTFS converter. The individual controls are described in the sections below.
 
 == Output Directory ==
 Directory path to save the resulting google_transit.zip file.
@@ -24,7 +24,7 @@ Flag to determine whether OperatorShortName should be used to fill the agency_na
 {{{useagencyshortname=<true|false>}}}
 
 == Agency mapping ==
-This setting maps the agency_id as captured from the operator registration into an agency_name of the GTFS agency.txt file. 
+This control maps the agency_id as captured from the operator registration into an agency_name of the GTFS agency.txt file. 
 Use '=' to separate key ("agency"), agency_id and the mapped agency name. Multiple agency mappings can be defined, using separate rows.
 Example:
 <pre>

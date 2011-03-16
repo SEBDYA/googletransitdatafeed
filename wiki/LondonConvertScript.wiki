@@ -1,4 +1,4 @@
-#summary Sample Convert Script for TfL TransXChange export stream
+#summary Sample Converter Script for TfL TransXChange export stream
 
 {{{
 #!/bin/bash

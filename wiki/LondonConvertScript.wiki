@@ -1,5 +1,7 @@
 #summary Sample Converter Script for TfL TransXChange export stream
 
+This is the sample Converter Script for the Transport for London TransXChange export stream. Please visit the [LondonTXC2GTFS] page for details.
+
 {{{
 #!/bin/bash
 #

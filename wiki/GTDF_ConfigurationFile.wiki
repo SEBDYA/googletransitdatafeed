@@ -71,8 +71,8 @@ Note: Geocoded coordinates are expected to have insufficient accuracy for most u
 
 {{{geocodemissingstops=true}}}
 
-== Stop File ==
-Path and filename of NaPTAN version 1 CSV stop file. 
+== NaPTAN Stop File ==
+Path and filename of a NaPTAN version 1 CSV stop file. 
 
 {{{stopfile=<file name of optional stopfile name in NaPTAN CSV format>}}}
 
@@ -98,6 +98,4 @@ The stop column separator works in conjunction with the NaPTAN stop name helper 
 Example:
 <pre>
 stopfilecolumnseparator=;-</pre>
-
-
 

@@ -84,7 +84,7 @@ The Transxchange2GTFS converter accepts a Version 1 [http://www.naptan.org.uk/ N
 {{{./tXCh2GT.sh ~/mytransformations/myTransitData\myData.xml http://www.myagency.org Europe/London 3 ~/mytransformations/myGoogleFiles Stops.csv}}}
 
 ==== Using a Configuration File ====
-In place of command line options such as agency URL or timezone, the converter offers the use of a configuration file. Advanced controls such as the handling of orphan stops or empty services can be used through a configuration file only. The [TransXChange2GTFS converter configuration file] is described on a separate wiki page. 
+In place of command line options such as agency URL or timezone, the converter offers the use of a configuration file. Advanced controls such as the handling of orphan stops or empty services can be used through a configuration file only. The [GTDF_ConfigurationFile TransXChange2GTFS converter configuration file] is described on a separate wiki page. 
 
 == Bugs And Issues ==
 Does the convert crash or generate inaccurate results? Possibly. Bugs are a reality, and the converter might not be fitted to all specific in-and-outs of your specific transit data. With future development of the converter, reported bugs will be worked out, and the "footprint" of the converter will expand as it is being "rubbed" against transit data of different transit operators. Bring on the challenges.

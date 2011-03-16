@@ -52,6 +52,7 @@ The default route type is used to fill the route_type field in the GTFS routes.t
 Services of a TransXChange feed that include Mode tags are mapped to a mode as defined in the configuration file. 
 
 {{{mode:<<Mode> tag value>=<GTFS mode value>}}}
+
 Example:
 <pre>
 mode:rail=2

@@ -59,7 +59,7 @@ mode:bus=3
 mode:ferry=4</pre>
 With this mapping, occurrences of a Service Mode "bus" in the TransXChange feed will be set to value "3" in the route_type field of the GTFS routes.txt file.
 
-== Skip orphan stops ==
+== Skip Orphan Stops ==
 TransXChange feeds sometimes contain stops which are not referenced in any of the services. Stops which are not referenced by a service ("orphan stops") can be skipped. Default value=false
 
 {{{skiporhpanstops=<true|false>}}}

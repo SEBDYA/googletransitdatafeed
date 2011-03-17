@@ -22,7 +22,7 @@ This is a list of non-GTFS feeds.
 || Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
 || DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
 || Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
-|| NYCT B63 || New York, NY || [http://bustime.mta.info/] || Bus locations ||  RESTful/XML || ||  
+|| MTA || New York, NY || [http://bustime.mta.info/] || Bus locations route B63||  RESTful/XML || ||  
 
 
 

@@ -23,7 +23,7 @@ This is a list of non-GTFS feeds.
 || DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
 || Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
 || MTA || New York, NY || [http://bustime.mta.info/] || Bus locations route B63||  RESTful/XML || ||  
-|| Triangle Transit || Chapel Hill, NC || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
+|| [http://triangletransit.org/ Triangle Transit] || Chapel Hill, NC || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
 
 
 

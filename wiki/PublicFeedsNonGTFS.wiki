@@ -18,10 +18,11 @@ This is a list of non-GTFS feeds.
 || [http://www.actransit.org/ AC Transit] || Alameda and Contra Costa Counties, CA || http://www.actransit.org/riderinfo/nextbus_XML_data.wu || Real time departure predictions and bus locations ||  RESTful/XML || 61 out of 175 routes ||  
 || [http://data.london.gov.uk/datastore/ London Datastore] || London, UK || http://data.london.gov.uk/datastore/package/tfl-timetable-listings || Network and schedule data || File set TransXChange || [http://www.tfl.gov.uk/termsandconditions/11402.aspx Terms and Conditions] ||
 || [http://data.london.gov.uk/datastore/ London Datastore] || London, UK || http://www.tfl.gov.uk/businessandpartners/syndication/16493.aspx#17615 || London Tube departure boards || RESTful/XML || [http://www.tfl.gov.uk/termsandconditions/11402.aspx Terms and Conditions] ||
-|| [http://www.ttc.ca/ Toronta Transit Commission] || Toronto, ON Canada || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
-|| Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
-|| DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
-|| Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions and bus locations ||  RESTful/XML || ||  
+|| [http://www.ttc.ca/ Toronto Transit Commission] || Toronto, ON Canada || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
+|| Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
+|| DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
+|| Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
+|| NYCT B63 || New York, NY || [http://bustime.mta.info/] || Bus locations ||  RESTful/XML || ||  
 
 
 

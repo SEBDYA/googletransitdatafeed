@@ -15,8 +15,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.octa.net OCTA] || Orange County, CA || http://www.octa.net/current/google_transit.zip || Use subject to [http://www.octa.net/disclaimer.aspx disclaimer] ||
 || [http://www.sacrt.com Sacramento RT] || Sacramento, CA || http://iportal.sacrt.com/GTFS/SRTD || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.capmetro.org Capital Metro] || Austin, TX || http://www.capmetro.org/gisdata/google_transit.zip || Disclaimer and additional files/formats available on [http://www.capmetro.org/gisdata/gisdata.asp their GIS Data page] ||
-|| [http://www.hta.org/ Humboldt Transit Authority] || Humboldt County, CA || http://www.transitinfosolutions.com/transit_feeds/humboldt/ || ||
-|| [http://www.rio-vista-ca.com/transit/ Rio Vista Delta Breeze] || Rio Vista, CA || http://www.trilliumtransit.com/transit_feeds/rio_vista/ || ||
+|| [http://www.hta.org/ Humboldt Transit Authority] || Humboldt County, CA || http://trilliumtransit.com/transit_feeds/humboldtcounty-ca-us/ || ||
+|| [http://www.rio-vista-ca.com/transit/ Rio Vista Delta Breeze] || Rio Vista, CA || http://trilliumtransit.com/transit_feeds/riovista-ca-us/ || ||
 || [http://unitrans.ucdavis.edu/ Unitrans] || Davis, CA || http://iportal.sacrt.com/GTFS/Unitrans || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.rtd-denver.com Regional Transportation District] || Denver, CO || http://www.rtd-denver.com/GoogleFeeder/ || [http://www.rtd-denver.com/License_Agreement/License_Agreement.pdf License Agreement] ||
 || [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA (Australia) || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
@@ -26,7 +26,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.gohrt.com/ Hampton Roads Transit] || Hampton Roads, Virginia || http://googletf.gohrt.com/ ||  ||
 || [http://www.metrolinktrains.com/ Metrolink] || Southern California || http://www.metrolinktrains.com/tripplanner/schedule_data.php || [http://www.metrolinktrains.com/tripplanner/license_agreement.php License Agreement] ||
 || [http://www.gomcta.com/ Monroe County Transit Authority] || Monroe County, Pennsylvania || http://www.gtfs-data-exchange.com/agency/monroe-county-transit-authority/ || ||
-|| [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://trilliumtransit.com/transit_feeds/flagstaff/ || ||
+|| [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://trilliumtransit.com/transit_feeds/mountainline-ca-us/
+ || ||
 || [http://www.jeffersontransit.com/ Jefferson Transit Authority] || Port Townsend, Washington || http://www.gtfs-data-exchange.com/agency/jefferson-transit-authority/ || [http://www.jeffersontransit.com/information.html License Agreement] ||
 || [http://www.islandtransit.org/ Island Transit] || Island County, Washington || http://www.gtfs-data-exchange.com/agency/island-transit/ || [http://islandtransit.org/license_agreement/ License Agreement] ||
 || [http://ridemetro.org/ METRO] || Houston, TX || http://www.ridemetro.org/News/Downloads/DataDownloads.aspx || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||
@@ -40,16 +41,16 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.metro.net/ Los Angeles County Metro] || Los Angeles, CA  || http://developer.metro.net/gtfs/google_transit.zip || [http://developer.metro.net/policies/terms/ Terms and Conditions] ||
 || [http://www.septa.org/ SEPTA] || Philadelphia, PA  || http://www2.septa.org/developer/index.php || ||
 || [http://www.sdmts.com/ San Diego MTS] || San Diego, CA || http://developer.sdmts.com/Developer/GTFS%20Schedule/GTFS.aspx (registration required) || [http://developer.sdmts.com/Developer/TermsUse.aspx Terms of Use] ||
-|| [http://www.tillamookbus.com/ Tillamook County Transportation District] || Tillamook County, OR || http://trilliumtransit.com/transit_feeds/tillamook/  ||  ||
+|| [http://www.tillamookbus.com/ Tillamook County Transportation District] || Tillamook County, OR || http://trilliumtransit.com/transit_feeds/tillamook-or-us/  ||  ||
 || [http://www.eot.state.ma.us/developers/ Massachusetts] || Massachusetts EOT || http://www.eot.state.ma.us/developers  ||  ||
 || [http://parking.uark.edu/26.php Razorback Transit] || Fayetteville, AR || http://www.ozarkwebtech.com/google_transit.zip  ||  ||
-|| [http://www.bluego.org/ South Tahoe Area Transit Authority (BlueGO)] || Tahoe Basin Area, CA || http://trilliumtransit.com/transit_feeds/tahoe/ ||  ||
+|| [http://www.bluego.org/ South Tahoe Area Transit Authority (BlueGO)] || Tahoe Basin Area, CA || http://trilliumtransit.com/transit_feeds/laketahoe-ca-us ||  ||
 || [http://www.mbta.com/ MBTA] || Boston, MA || http://www.eot.state.ma.us/downloads/developers_beta/MBTA-1.zip || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || [http://www.eot.state.ma.us/developers Massachusetts Executive Office of Transportation] || Massachusetts || [http://www.eot.state.ma.us/developers Links to bay, regional and ferry GTFS] || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
-|| All SF Bay ferry operators || San Francisco Bay, CA || http://trilliumtransit.com/transit_feeds/sfbay-ferries/ ||  ||
+|| All SF Bay ferry operators || San Francisco Bay, CA || http://trilliumtransit.com/transit_feeds/sfbay-ferries-ca-us/ ||  ||
 || The JO || Johnson County, KS || http://www.thejo.com/FEEDS/GT/google_transit.zip ||  ||
 || [http://www.tankbus.org TANK] || Covington, KY || http://imi.nku.edu/tankgoogletransit/latest/google_transit.zip || [http://imi.nku.edu/tankgoogletransit/latest/Data%20Downloads%20legal%20notice%20for%20google%20site.pdf Legal Notice] ||
-|| Redding Area Bus Authority || Redding, CA || http://trilliumtransit.com/transit_feeds/redding/google_transit.zip ||  ||
+|| Redding Area Bus Authority || Redding, CA || http://trilliumtransit.com/transit_feeds/redding-ca-us/ ||  ||
 || [http://www.gonctd.com/ North County Transit District] || North San Diego County, CA || http://www.gonctd.com/google_transit.zip ||  ||
 || [http://www.kcata.org/ Kansas City Area Transportation Authority (KCATA)] || Kansas City, Missouri || http://www.kcata.org/transit_data ||  ||
 || [http://www.riderta.com/ Greater Cleveland Regional Transit Authority] || Cleveland, Ohio || http://www.riderta.com/gtfs/latest ||  ||
@@ -58,12 +59,12 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://metro.kingcounty.gov/ King County Metro Transit] || King County, Washington || http://www.kingcounty.gov/transportation/kcdot/MetroTransit/Developers.aspx || The data is password-protected; to get login information, send email to PublicTransitData@kingcounty.gov, print the disclaimer form you get back, sign it, scan it, and send it back to them. ||
 || [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/GTFS-Data.aspx || Terms of Use shown on the download page ||
 || [http://www.cdta.org/ CDTA] || Albany, NY || http://www.cdta.org/schedules/google_transit.zip || [http://www.cdta.org/schedules_developer_tools_developer_license.php Developer license] and [http://www.cdta.org/schedules_developer_tools.php developer page] ||
-|| [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://trilliumtransit.com/transit_feeds/hood_river ||  ||
-|| [http://www.trinitytransportation.org/pg/Trinity-Transit.php Trinity Transit] || Weaverville/Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity ||  ||
+|| [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://trilliumtransit.com/transit_feeds/hoodriver-or-us/ ||  ||
+|| [http://www.trinitytransportation.org/pg/Trinity-Transit.php Trinity Transit] || Weaverville/Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity-ca-us/ ||  ||
 || [http://www.fasttransit.org/ Fairfield and Suisun Transit (FAST)] || Fairfield and Suisun City, CA || http://trilliumtransit.com/transit_feeds/fairfield-suisun ||  ||
 || [http://www.metrostlouis.org/ Metro Saint Louis] || St. Louis, MO || ftp://tripfinder.metrostlouis.org/pub/Google_transit/latest/google_transit.zip  ||  ||
-|| [http://www.ridesmart.com/ South Metro Area Regional Transit (SMART)] || Wilsonville, OR || http://trilliumtransit.com/transit_feeds/wilsonville/ ||  ||
-|| [http://www.co.siskiyou.ca.us/gensvcs/transportation.htm Siskiyou Transit and General Express (STAGE)] || Siskiyou County, CA || http://trilliumtransit.com/transit_feeds/siskiyou/ ||  ||
+|| [http://www.ridesmart.com/ South Metro Area Regional Transit (SMART)] || Wilsonville, OR || http://trilliumtransit.com/transit_feeds/wilsonville-or-us/ ||  ||
+|| [http://www.co.siskiyou.ca.us/gensvcs/transportation.htm Siskiyou Transit and General Express (STAGE)] || Siskiyou County, CA || http://trilliumtransit.com/transit_feeds/siskiyou-ca-us/ ||  ||
 || [http://www.transitchicago.com Chicago Transit Authority (CTA)] || Chicago area, IL || http://www.transitchicago.com/developers/gtfs.aspx || Use is subject to terms of CTA's [http://www.transitchicago.com/developers Developer License Agreement]. More data/feeds at the [http://www.transitchicago.com/developers CTA Developer Center].  ||
 || [http://www.ridethebus.org/ Sunset Empire Transportation District] || Clatsop County, OR || http://www.ridethebus.org/Google_Transit/ ||  ||
 || [http://www.portauthority.org Port Authority of Allegheny County] || Pittsburgh, PA || http://www.portauthority.org/GoogleTransitFeed || Use is subject to the terms and conditions of [http://www.portauthority.org/PAAC/CompanyInfo/DeveloperResources/DeveloperLicenseAgreement/tabid/521/Default.aspx Port Authority's License Agreement] ||
@@ -71,11 +72,11 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.hsvcity.com Huntsville Shuttle] || Huntsville, AL || [http://maps.hsvcity.com/GoogleTransit/google_transit.zip] ||  ||
 || [http://www.arlingtontransit.com Arlington Transit] || Arlington, VA || http://www.arlingtontransit.com/gtfs/google_transit.zip ||  ||
 || [http://www.cityofescalon.org/transit.htm eTrans] || Escalon, CA || http://trilliumtransit.com/transit_feeds/escalon-ca-us/ ||  ||
-|| [http://northwest-point.com/ NorthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/ocw/ ||  ||
+|| [http://northwest-point.com/ NorthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/ocw-or-us ||  ||
 || [http://highdesert-point.com/ HighDesert POINT] || Oregon || http://trilliumtransit.com/transit_feeds/tac_transportation/ ||  ||
-|| [http://southwest-point.com/ SouthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/swpoint/ ||  ||
+|| [http://southwest-point.com/ SouthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/southwestpoint-or-us/ ||  ||
 || [http://www.catbus.com/ Clemson Area Transit (CAT)] || Clemson, SC ||  http://trilliumtransit.com/transit_feeds/clemson-sc-us/ ||  ||
-|| [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama/ ||  ||
+|| [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama-ca-us/ ||  ||
 || [http://www.duluthtransit.com/ Duluth Transit] || Duluth, MN || http://www.duluthtransit.com/GoogleTransit/latest/google_transit.zip || [http://www.duluthtransit.com/GoogleTransit/index.aspx License Agreement] ||
 || [http://www.metlink.org.nz/google-transit-feed/ Metlink] || Wellington (New Zealand) || http://www.metlink.org.nz/googletransit/google_transit.zip || [http://www.metlink.org.nz/gtf-terms-of-use/ Terms of Use] ||
 || [http://www.soundtransit.org/ Sound Transit] || Puget Sound Region, Washington State  || http://developer.soundtransit.org || [http://developer.soundtransit.org/Documents/developer/pdf/ElectronicDataTermsofUse.pdf/ Terms of Use] ||
@@ -104,7 +105,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://www.adelaidemetro.com.au/publish_article/GTFS.html || ||
 || [http://www.toronto.ca/ TTC] || Toronto, ON || http://www.toronto.ca/open/datasets/ttc-routes/ || ||
 || [http://www.hamilton.ca/ Hamilton Street Railway] || Hamilton, ON || http://www.hamilton.ca/ProjectsInitiatives/OpenData/ || ||
-|| [http://www.vvta.org/ Victor Valley Transit Authority] || Victor Valley, CA || http://trilliumtransit.com/transit_feeds/vvta/ || ||
+|| [http://www.vvta.org/ Victor Valley Transit Authority] || Victor Valley, CA ||http://trilliumtransit.com/transit_feeds/victorville-ca-us/ || ||
 || [http://data.keolis-rennes.com Rennes] || Rennes, France || http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html || ||
 || [http://www.montgomerycountymd.gov Montgomery County] || Montgomery County, MD || http://www.montgomerycountymd.gov/content/dot/transit/news/google_transit.zip || ||
 || [http://www.spokanetransit.com Spokane Transit Authority] || Spokane, WA || http://198.1.35.130/sta/gmap-data/SpokaneTransitGTFS.zip || ||

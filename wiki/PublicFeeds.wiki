@@ -119,7 +119,9 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.scgov.net/scat/ Sarasota County Area Transit] || Sarasota, FL || http://www.scgov.net/scat/google/current/google_transit.zip  || ||
 || [http://www.gmpte.com Greater Manchester Passenger Transport Executive] || Manchester, Great Britain || http://datagm.org.uk/package/gmpte-gtfs-schedule-data || UK Crown Copyright ||
 || [http://www.gtt.to.it Gruppo Torinese Trasporti] || Torino, Italy || http://opendata.5t.torino.it/gtfs/torino_it.zip || ||
-|| [http://macog.com Michiana Area Council Of Governments] || South Bend, IN ||http://macog.com/google/google_transit.zip || ||
+|| [http://macog.com Michiana Area Council Of Governments] || South Bend, IN || http://macog.com/google/google_transit.zip || ||
+|| [http://columbiacountyrider.com/ Columbia County Rider] || Columbia County, OR || http://trilliumtransit.com/transit_feeds/columbia-or-us/ || ||
+|| [http://www.ci.sandy.or.us/index.asp?Type=B_BASIC&SEC={BF6D9F91-1204-479D-B3A5-B12572DA8DD1} Sandy Area Metro] || Sandy, OR || http://trilliumtransit.com/transit_feeds/sandy-or-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

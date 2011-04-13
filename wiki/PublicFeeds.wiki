@@ -124,6 +124,9 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ci.sandy.or.us/index.asp?Type=B_BASIC&SEC={BF6D9F91-1204-479D-B3A5-B12572DA8DD1} Sandy Area Metro] || Sandy, OR || http://trilliumtransit.com/transit_feeds/sandy-or-us/ || ||
 || [http://www.nfta.com/ NFTA Metro] || Buffalo - Niagara Region, NY || http://www.nfta.com/metro/developers.asp || To use the feed you should read and accept the terms of our Developer License Agreement.  http://www.nfta.com/metro/DeveloperLicense.asp ||
 || [http://sanjoaquinrtd.com San Joaquin Regional Transit District (RTD)] || San Joaquin Valley, CA || http://sanjoaquinrtd.com/RTD-GTFS/RTD-GTFS.zip || [http://sanjoaquinrtd.com/legal/default.php Terms of Use] ||
+|| [http://scmtd.com/ Santa Cruz Metro Transit District] || Santa Cruz, CA || http://scmtd.com/google_transit/google_transit.zip ||  ||
+|| [Brown County Metro] || Brown County, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip ||  ||
+|| [http://www.cherriots.com Salem-Keizer Transit (Cherriots)] || Salem, OR || http://www.cherriots.org/developer/gtfs.zip  || Developer area and usage agreement are available [http://www.cherriots.org/developer/agreement.htm here] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

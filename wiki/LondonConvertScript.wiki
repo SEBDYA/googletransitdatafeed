@@ -1,6 +1,6 @@
 #summary Sample Converter Script for TfL TransXChange export stream
 
-This is the sample Converter Script for the Transport for London TransXChange export stream. Please visit the [LondonTXC2GTFS] page for details.
+This is the sample Converter Script for the Transport for London TransXChange export stream. Please visit the [LondonTXC2GTFS] page for details. This sample script is updated from time to time, but not maintained to track the ever changing operator licensing.
 
 {{{
 #!/bin/bash
@@ -129,10 +129,14 @@ tflmkdir LondonUnderground
 zip -q LondonUnderground/data.zip london/output_txc_01*.xml
 rm london/output_txc_01*.xml
 #
-echo "-I- Preparing River Service"
-tflmkdir LondonRiverService
-zip -q LondonRiverService/data.zip london/output_txc_31*.xml 
-rm london/output_txc_31*.xml
+tflmkdir LondonRiverServices
+tflprepare OId_30 LondonRiverServices
+tflprepare OId_31 LondonRiverServices
+tflprepare OId_32 LondonRiverServices
+tflprepare OId_33 LondonRiverServices
+tflprepare OId_35 LondonRiverServices
+tflprepare OId_36 LondonRiverServices
+tflprepare OId_37 LondonRiverServices
 #
 echo "-I- Preparing DLR"
 tflmkdir DLR
@@ -168,13 +172,11 @@ tflprepare OId_IF
 tflprepare OId_EB
 # London Buses
 tflmkdir LondonBuses
+tflprepare OId_07 LondonBuses
 tflprepare OId_08 LondonBuses
 tflprepare OId_16 LondonBuses
 tflprepare OId_21 LondonBuses
 tflprepare OId_24 LondonBuses
-tflprepare OId_30 LondonBuses
-tflprepare OId_32 LondonBuses
-tflprepare OId_33 LondonBuses
 tflprepare OId_41 LondonBuses
 tflprepare OId_45 LondonBuses
 tflprepare OId_48 LondonBuses
@@ -201,8 +203,8 @@ then
 fi
 #
 # Convert, using mode specific configuration files
-tflconvert "London Underground" LondonUnderground configs/LondonUnderground.cfg
-tflconvert "River Service" LondonRiverService configs/LondonRiverService.cfg
+tflconvert "London Underground" LondonUnderground configs/Underground.cfg
+tflconvert "London River Services" LondonRiverServices configs/RiverServices.cfg
 tflconvert DLR DLR configs/DLR.cfg
 tflconvert Tramlink Tramlink configs/Tramlink.cfg
 tflconvert "London Buses" LondonBuses configs/Buses.cfg
@@ -238,7 +240,7 @@ exit
 # START OF REFERENCE FILES
 #
 # Proposed for-reference content for the mode specific configuration files
-# ./configs/LondonUnderground.cfg
+# ./configs/Underground.cfg
 url=http://tfl.gov.uk
 timezone=Europe/London
 default-route-type=1
@@ -247,7 +249,7 @@ skiporphanstops=true
 stopfile=NaPTANcsv/Stops.csv
 naptanstopcolumn="CommonName"
 #
-# ./configs/LondonRiverService.cfg
+# ./configs/RiverServices.cfg
 url=http://tfl.gov.uk
 timezone=Europe/London
 default-route-type=4
@@ -255,6 +257,12 @@ skipemptyservice=true
 skiporphanstops=true
 stopfile=NaPTANcsv/Stops.csv
 naptanstopcolumn="CommonName"
+agency:OId_30=London River Services, operated by Crown River Cruises
+agency:OId_32=London River Services, operated by City Cruises
+agency:OId_33=London River Services, operated by Thames Clippers
+agency:OId_35=London River Services, operated by Woolwich Free Ferry
+agency:OId_36=London River Services, operated by Westminster Passenger Services Association
+agency:OId_37=London River Services, operated by Turk Launches
 #
 # ./configs/DLR.cfg
 url=http://tfl.gov.uk
@@ -287,9 +295,6 @@ agency:OId_08=London Buses, operated by Arriva London
 agency:OId_16=London Buses, operated by Blue Triangle
 agency:OId_21=London Buses, operated by Abellio London
 agency:OId_24=London Buses, operated by First
-agency:OId_30=London Buses, operated by Crown River Cruises
-agency:OId_32=London Buses, operated by City Cruises
-agency:OId_33=London Buses, operated by Thames Clippers
 agency:OId_41=London Buses, operated by C T Plus
 agency:OId_45=London Buses, operated by London Central
 agency:OId_48=London Buses, operated by London General

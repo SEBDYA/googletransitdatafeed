@@ -137,6 +137,8 @@ tflprepare OId_33 LondonRiverServices
 tflprepare OId_35 LondonRiverServices
 tflprepare OId_36 LondonRiverServices
 tflprepare OId_37 LondonRiverServices
+zip -q LondonRiverServices/data.zip LondonRiverServices/*.xml
+rm LondonRiverServices/*.xml
 #
 echo "-I- Preparing DLR"
 tflmkdir DLR

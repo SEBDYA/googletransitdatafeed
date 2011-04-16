@@ -61,4 +61,4 @@ The installation of a Jave Runtime Environment (JRE) and ZIP may be required.
 The converter and script should run without the need for the installation of additional software.
 
 ==== MS Windows ==== 
-The installation of a an Unix-line environment is required for the Converter Script. The Converter Script has been tested with [Cygwin http://www.cygwin.com].
+The installation of a an Unix-line environment is required for the Converter Script. The Converter Script has been tested with [http://www.cygwin.com Cygwin].

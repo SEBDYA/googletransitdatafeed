@@ -127,6 +127,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://scmtd.com/ Santa Cruz Metro Transit District] || Santa Cruz, CA || http://scmtd.com/google_transit/google_transit.zip ||  ||
 || Brown County Metro || Brown County, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip ||  ||
 || [http://www.cherriots.com Salem-Keizer Transit (Cherriots)] || Salem, OR || http://www.cherriots.org/developer/gtfs.zip  || Developer area and usage agreement are available [http://www.cherriots.org/developer/agreement.htm here] ||
+|| [www.co.coos.or.us Coos County] || Coos County, OR || http://trilliumtransit.com/transit_feeds/cooscounty-or-us/ || ||
+|| [www.ci.sandy.or.us Sandy] || Sandy, OR || http://trilliumtransit.com/transit_feeds/sandy-or-us || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

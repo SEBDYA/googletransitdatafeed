@@ -111,7 +111,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.pacebus.com Pace Bus] || Chicago, IL || http://www.pacebus.com/gtfs/gtfs.zip || ||
 || [http://www.roseville.ca.us/transportation/roseville_transit/default.asp Roseville Transit] || Roseville, CA || http://iportal.sacrt.com/GTFS/Roseville ||  ||
 || [http://www.yolobus.com/ Yolobus] || Yolo County, CA || http://iportal.sacrt.com/GTFS/Yolobus ||  ||
-|| [http://www.yubasuttertransit.com/ Yuba-Sutter Transit] || Yuba City, CA || http://iportal.sacrt.com/GTFS/Yuba ||  ||
+|| [http://www.yubasuttertransit.com/ Yuba-Sutter Transit] || Yuba City, CA || http://trilliumtransit.com/transit_feeds/yubasutter-ca-us/ ||  ||
 || [http://www.norwalktransit.com/ Norwalk Transit District] || Norwalk, CT || http://rfshared.s3.amazonaws.com/gtfs/norwalk_gtfs.zip ||  ||
 || [http://www.cccta.org/ County Transit] || Central Contra Costa County, CA || http://cccta.org/GTFS/google_transit.zip ||  ||
 || [http://www.wavetransit.com/ Wave Transit] || Wilmington, NC || http://www.wavetransit.com/gtransit/google_transit.zip ||  ||

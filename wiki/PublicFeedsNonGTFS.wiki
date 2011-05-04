@@ -25,7 +25,7 @@ This is a list of non-GTFS feeds.
 || MTA || New York, NY || [http://bustime.mta.info/] || Bus locations route B63||  RESTful/XML || ||  
 || [http://triangletransit.org/ Triangle Transit] || Chapel Hill, NC || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || RESTful/XML || ||  
 || Dutch Railways (NS) || The Netherlands || [http://ns.nl/api] || Trip planning, station list, live departures, prices and service disruptions || RESTful/XML || ||  
-|| CUMTD || Champaign-Urbana, IL || [http://developer.cumtd.com/] || Real time departure predictions||  RESTful/XML || [http://developer.cumtd.com/terms-of-use Terms of Use] ||  
+|| [http://www.cumtd.com CUMTD] || Champaign-Urbana, IL || [http://developer.cumtd.com/] || Real time departure predictions||  RESTful/XML || [http://developer.cumtd.com/terms-of-use Terms of Use] ||  
 
 
 

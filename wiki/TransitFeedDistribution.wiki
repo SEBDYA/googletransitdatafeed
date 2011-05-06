@@ -37,6 +37,33 @@ If you want to make changes grab our source from http://googletransitdatafeed.go
 Please create a new issue if you find bugs or have a feature requests. Patches released under the terms of the Apache 2.0 license are more than welcome! You may contact the developers in the [http://groups.google.com/group/googletransitdatafeed Google Transit Data Feed Google Group]. 
 
 = Revision History =
+===== 1.2.7 (2011-05-06) =====
+  * New features
+    * Adding possibility to warn about "deprecated column names" (r1423, other related commits: r1463, r1521)
+    * Adding the first FeedValidator extension: this “googletransit” extension adds and alters validations of feeds to be used by Google Transit (r1452, see also FeedValidatorExtensions)
+      * extension of transitfeed.FareAttribute
+      * validation of new file feedinfo.txt
+      * extension of transitfeed.Schedule
+      * extension of transitfeed.Frequency (r1455)
+      * extension of transitfeed.Route and transitfeed.Stop (r1509)
+      * extension of transitfeed.Agency (includes the BCP-47 language code validation) (r1521, other related commits: r1524)
+      * adding feedvalidator_googletransit.py for using the googletransit extension without having to add the -extension flag (r1498)
+  * General validation changes
+    * Removed date dependency from two tests (r1393)
+    * Allowing trip_id to contain a hash '#' (r1399)
+    * Avoiding duplicate errors from schedule.Validate due to validate_children=true (r1408)
+    * Fix handling of empty string stop_lat and stop_lon values in stops.txt ( issue 258 , r1419)
+    * Harmonizing and extending date validation in ServicePeriod. Dates must be between 1900 and 2100 (r1424)
+  * transitfeed API changes
+    * Changes to the extensibility mechanism to make creating and testing of extensions easier (r1409 and r1438)
+    * Code formatting changes: cleaned code and removed trailing whitespaces (r1420)
+    * Code refactoring: harmonized the Expect... and Expect...InClosure functions in the ValidationTestCase (r1421)
+    * Making the error level configurable on all problem types (r1439)
+    * Making feedvalidator.py extensible (r1498)
+  * Other changes
+    * Making transitfeed nosetests run on Windows 7 (r1458)
+    * Adding a line to the output (both Console and HTML) saying which extension, if any, was used to validate the feed (r1497)
+
 ===== 1.2.6 (2010-08-05) =====
   * New features
     * Introduction of an extensibility mechanism so validation can be altered without directly changing the base transitfeed code (r1296. Other related commits: r1319)

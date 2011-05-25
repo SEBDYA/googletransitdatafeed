@@ -130,7 +130,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.co.coos.or.us Coos County] || Coos County, OR || http://trilliumtransit.com/transit_feeds/cooscounty-or-us/ || ||
 || [http://www.linnshuttle.com Linn Shuttle] || Linn County, OR || http://trilliumtransit.com/transit_feeds/linnshuttle-or-us || ||
 || [http://www.charlottesville.org Charlottesville Area Transit] || Charlottesville, VA || http://avlweb.charlottesville.org/rtt/public/utility/GTFS.aspx || ||
-|| Josephine County || Josephine County, OR || http://trillumtransit.com/transit_feeds/josephinecounty-or-us || ||
+|| Josephine County || Josephine County, OR || http://trilliumtransit.com/transit_feeds/josephinecounty-or-us || ||
 || [http://www.umpquatransit.com/ U-Trans] || Roseburg, OR || http://trilliumtransit.com/transit_feeds/umpquatransit-or-us/ || ||
 || [http://www.panynj.gov/path/ Path] || New York New Jersey || http://www.panynj.gov/path/developers.html || ||
 || [http://www.ci.corona.ca.us/About-Corona/Public-Transportation.aspx Corona Cruiser] || Corona, CA || http://trilliumtransit.com/transit_feeds/corona-ca-us/ || [http://www.discovercorona.com/City-Departments/Public-Works/Transportation/GTFS.aspx License Agreement] ||

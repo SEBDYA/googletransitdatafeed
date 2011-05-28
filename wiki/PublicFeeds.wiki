@@ -135,6 +135,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.panynj.gov/path/ Path] || New York New Jersey || http://www.panynj.gov/path/developers.html || ||
 || [http://www.ci.corona.ca.us/About-Corona/Public-Transportation.aspx Corona Cruiser] || Corona, CA || http://trilliumtransit.com/transit_feeds/corona-ca-us/ || [http://www.discovercorona.com/City-Departments/Public-Works/Transportation/GTFS.aspx License Agreement] ||
 || [http://www.mymetrobus.com Metro Transit] || Madison, WI || http://www.cityofmadison.com/metro/gtfs/mmt_gtfs.zip || [http://www.cityofmadison.com/metro/Apps/terms.cfm Terms of Use] ||
+|| [modestoareaexpress.com Modesto Area Express] || Modesto, CA || http://trilliumtransit.com/transit_feeds/modesto-ca-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

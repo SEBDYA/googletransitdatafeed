@@ -72,7 +72,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.arlingtontransit.com Arlington Transit] || Arlington, VA || http://www.arlingtontransit.com/gtfs/google_transit.zip ||  ||
 || [http://www.cityofescalon.org/transit.htm eTrans] || Escalon, CA || http://trilliumtransit.com/transit_feeds/escalon-ca-us/ ||  ||
 || [http://northwest-point.com/ NorthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/ocw-or-us ||  ||
-|| [http://highdesert-point.com/ HighDesert POINT] || Oregon || http://trilliumtransit.com/transit_feeds/tac_transportation/ ||  ||
+|| [http://highdesert-point.com/ HighDesert POINT] || Oregon || http://trilliumtransit.com/transit_feeds/chemultthruway-or-us/ ||  ||
 || [http://southwest-point.com/ SouthWest POINT] || Oregon || http://trilliumtransit.com/transit_feeds/southwestpoint-or-us/ ||  ||
 || [http://www.catbus.com/ Clemson Area Transit (CAT)] || Clemson, SC ||  http://trilliumtransit.com/transit_feeds/clemson-sc-us/ ||  ||
 || [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama-ca-us/ ||  ||

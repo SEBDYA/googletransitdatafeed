@@ -138,6 +138,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://modestoareaexpress.com Modesto Area Express] || Modesto, CA || http://trilliumtransit.com/transit_feeds/modesto-ca-us/ || ||
 || [http://www.grt.ca Grand River Transit] || Cambridge/Kitchener-Waterloo, Ontario || http://www.grt.ca/en/doingBusiness/supportingsoftwareapplications.asp?_mid_=18101 || Terms and Conditions ||
 || [http://bctransit.com BC Transit] || Victoria / Whistler, BC || http://bctransit.com/data/default.cfm || ||
+|| [http://vta.org Santa Clara Valley Transportation Authority] || Santa Clara, CA || http://www.vta.org/dev/data/google_transit.zip || [http://www.vta.org/dev/tou/index.php?redirect=/dev/data/index.php Terms and Conditions] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

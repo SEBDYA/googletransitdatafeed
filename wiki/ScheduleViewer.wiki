@@ -29,7 +29,9 @@ On Windows the python executable is normally installed as `C:\Python25\python`
 
 == Running Windows exe ==
 
-If you installed the Windows exe run the following command
+If you will only access the schedule viewer from your local computer (this is safest and most common case) double click on `schedule_viewer.exe`. When prompted `Enter Feed Location:` drag the GTFS file into the window and press enter.
+
+Otherwise run the following command
 {{{
 schedule_viewer.exe [--key <google_maps_api_key>] --feed_filename <feed_file_or_directory>
 }}}

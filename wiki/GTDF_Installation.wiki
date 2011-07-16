@@ -43,6 +43,6 @@ Usage: $ transxchange2GoogleTransit <transxchange input filename> -
          <url> <timezone> <default route type> <output-directory> [<stopfile>]
 
          <timezone>: Please refer to 
-             http://en.wikipedia.org/wiki/List_of_tz_zones
-         <default route type>:
-             0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular</nowiki></pre>
+             http://code.google.com/transit/spec/transit_feed_specification.html
+
+             for instructions about the values of the arguments <url>, <timezone> and <default route type>.</nowiki></pre>

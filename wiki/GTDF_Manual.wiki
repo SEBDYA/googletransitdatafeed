@@ -29,7 +29,7 @@ Linux and OS/X work similar:
 {{{./tXCh2GT.sh examplesInput/express.xml http://www.aagency.org Europe/London 3 examplesOutput}}}
 
 The converter starts with the following prompt:
-{{{transxchange2GTFS 1.7.0}}}
+{{{transxchange2GTFS 1.7.2}}}
 It should not display any error messages. If this is not the case, verify that the installation has been completed and that you are executing the commands in the correct directory. After the converter completed successfully, the resulting file set can be shown with the following Windows (DOS) command:
 
 {{{dir examplesOutput}}}

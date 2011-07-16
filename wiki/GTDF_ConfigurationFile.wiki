@@ -1,25 +1,37 @@
 #summary This page describes the TransXChange2GTFS converter configuration file.
 
 == Introduction ==
-This page describes the structure and controls of the TransXChange2GTFS converter. The individual controls are described in the sections below.
+This page describes the structure and controls of the TransXChange2GTFS converter configuration file. The individual controls are described in the sections below.
 
 == Output Directory ==
 Directory path to save the resulting google_transit.zip file.
 
-{{{output-directory=<outout path>}}}
+{{{output-directory=<output path>}}}
 
 == Agency URL ==
-The agency URL is used to fill the agency_url field in the GTFS agency.txt file. 
+The agency URL control is used to fill the agency_url field in the GTFS agency.txt file with a value. 
 
 {{{url=<Agency URL>}}}
 
 == Agency Timezone ==
-A timzone is used to fill the agency_timezone field in the GTFS agency.txt file.
+The agency timzone control is used to fill the agency_timezone field in the GTFS agency.txt file with a value.
 
-{{{timezone=<List of timezones: http://en.wikipedia.org/wiki/List_of_tz_zones>}}}
+{{{timezone=<value>}}}
+
+Please refer to the [http://code.google.com/transit/spec/transit_feed_specification.html#agency_txt___Field_Definitions GTFS specification] for a reference of the values used.
+
+== Agency Language ==
+The agency language control is used to fill the agency_lang field in the GTFS agency.txt file with a value. 
+
+{{{lang=<language>}}}
+
+== Agency Phone ==
+The agency phone control is used to fill the agency_phone field in the GTFS agency.txt file with a value. 
+
+{{{phone=<phone>}}}
 
 == Agency shortname flag ==
-Flag to determine whether OperatorShortName should be used to fill the agency_name field in the GTFS agency.txt file. Default: false, which uses OperatorNameOnLicence.
+Flag to determine whether OperatorShortName should be used to fill the agency_name field in the GTFS agency.txt file. Default: false, which directing the converter to use the value of the OperatorNameOnLicence tag.
 
 {{{useagencyshortname=<true|false>}}}
 
@@ -31,7 +43,7 @@ Example:
 agency:OId_LU=London Buses, operated by London United
 agency:OId_48=London Buses, operated by London General</pre>
 The resulting output in agency.txt uses OId_LU as agency_id, and "London Buses, operated by London United" as agency_name, and so forth.
-Without this setting, agency_name's are populated with the values of the OperatorNameOnLicence or OperatorShortName tag, as directed by the agencyshortname setting.
+Without this setting, agency_names are populated with the values of the OperatorNameOnLicence or OperatorShortName tag, as directed by the agencyshortname control.
 
 == Skip Empty Services ==
 Services sometimes do not combine to a valid day pattern, and lead to the following types of records in a GTFS calendar.txt file:
@@ -44,9 +56,7 @@ Services which do not contain a valid day pattern can be skipped by specifying:
 As a side effect, specific non-service days (DaysOfNonOperation) are also skipped in the GTFS calendar_dates.txt file, while records for specific active DaysOfOperation continue to be included in the GTFS calendar_dates.txt file. Default value=false
 
 == Default Route Type ==
-The default route type is used to fill the route_type field in the GTFS routes.txt file.
-
-{{{default-route-type=<0 - Tram, 1 - Subway, 2 - Rail, 3 - Bus, 4 - Ferry, 5 - Cable car, 6 - Gondola, 7 - Funicular>}}}
+The default route type control is used to fill the route_type field in the GTFS routes.txt file. Refer to the [http://code.google.com/transit/spec/transit_feed_specification.html#routes_txt___Field_Definitions GTFS specification] for a list of valid route types.
 
 == Mode Override of Default Route Type ==
 Services of a TransXChange feed that include Mode tags are mapped to a mode as defined in the configuration file. 
@@ -61,12 +71,12 @@ mode:ferry=4</pre>
 With this mapping, occurrences of a Service Mode "bus" in the TransXChange feed will be set to value "3" in the route_type field of the GTFS routes.txt file.
 
 == Skip Orphaned Stops ==
-TransXChange feeds sometimes contain stops which are not referenced in any of the services. Stops which are not referenced by a service ("orphan stops") can be skipped. Default value=false
+TransXChange feeds sometimes contain stops that are not referenced in any of the services. Setting this control to true skips the stops not referenced by a service ("orphan stops"). Default value=false
 
 {{{skiporhpanstops=<true|false>}}}
 
 == Geocode Stop Coordinates Where Missing ==
-The GTFS specification requires WGS-84 coordinates for each stop in the GTFS stops.txt file. Some coordinates for stops of a TransXChange input, possibly in concert with a NapTAN stop file, may not be available however. With this option active, the converter makes an attempt to geocode the stop's coordinates, using Google's Maps API. (http://code.google.com/apis/maps/documentation/geocoding/)
+The GTFS specification requires WGS-84 coordinates for each stop in the GTFS stops.txt file. Some coordinates for stops of a TransXChange input, possibly in concert with a NapTAN stop file, may not be available. With this option active, the converter makes an attempt to geocode the stop's coordinates, using Google's Maps API. (http://code.google.com/apis/maps/documentation/geocoding/)
 The converter logs geocoding attempts in the console.
 Note: Geocoded coordinates are expected to have insufficient accuracy for most uses. This feature allows to reach formal compliance to validate against the GTFS specification. Default value=false
 
@@ -91,8 +101,8 @@ naptanstopcolumn="CommonName"
 naptanstopcolumn="NatGazLocality"
 naptanstopcolumn="ATCOCode"
 </pre>
-This results in a stop_name that is a combination of a stop's CommonName, NatGazLocality and ATCOCode. 
-Note that the respective values identify the columns in a NaPTAN version 1 CSV stop file. In the GTFS stops.txt file, the values of the picked columns are separated by a comma (,), or by the definition of the NaPTAN stop column separator.
+This results in stop_names which are combinations of the stops' CommonName, NatGazLocality and ATCOCode. 
+Note that the respective values identify the columns in a NaPTAN version 1 CSV stop file. In the GTFS stops.txt file, the values of the picked columns are separated by a comma (,), or by the characters defined as the NaPTAN stop column separator.
 
 == NaPTAN Stop Column Separator ==
 The stop column separator works in conjunction with the NaPTAN stop name helper and NaPTAN stop column pick definitions. The value defined is used in place of the default comma (,).

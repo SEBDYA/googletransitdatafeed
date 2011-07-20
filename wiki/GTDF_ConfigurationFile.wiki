@@ -58,6 +58,8 @@ As a side effect, specific non-service days (DaysOfNonOperation) are also skippe
 == Default Route Type ==
 The default route type control is used to fill the route_type field in the GTFS routes.txt file. Refer to the [http://code.google.com/transit/spec/transit_feed_specification.html#routes_txt___Field_Definitions GTFS specification] for a list of valid route types.
 
+{{{default-route-type=[0|1|2|3|4|5|6|7]}}}
+
 == Mode Override of Default Route Type ==
 Services of a TransXChange feed that include Mode tags are mapped to a mode as defined in the configuration file. 
 

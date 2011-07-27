@@ -144,6 +144,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.bkk.hu Budapesti Kozelkedesi Kopont] || Budapest (Hungary) || http://www.bkk.hu/gtfs/budapest_gtfs.zip || http://www.bkk.hu/magunkrol/fejlesztoknek/ ||
 || [http://www.gohart.org HART] || Hillsborough County, FL || http://www.gohart.org/google/ || [http://groups.google.com/group/googletransitdatafeed/browse_thread/thread/798e2af28996fac2 License Agreement] ||
 || Ponferada || León (Spain) || https://sites.google.com/site/pruebasgeoreferencesimplygo/lineabus1-kml/ || ||
+|| [http://www.co.lincoln.or.us/transit/ Lincoln County Transit] || Lincoln County, OR || http://trilliumtransit.com/transit_feeds/lincolncounty-or-us/ || ||
+|| [http://www.yctransitarea.org/ Yamhill County Transit] || Yamhill County, OR || http://trilliumtransit.com/transit_feeds/yamhill-or-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

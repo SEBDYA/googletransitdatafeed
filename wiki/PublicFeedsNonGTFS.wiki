@@ -27,8 +27,8 @@ This is a list of non-GTFS feeds.
 || Dutch Railways (NS) || The Netherlands || [http://ns.nl/api] || Trip planning, station list, live departures, prices and service disruptions || RESTful/XML || ||  
 || [http://www.cumtd.com CUMTD] || Champaign-Urbana, IL || [http://developer.cumtd.com/] || Real time departure predictions||  RESTful/XML || [http://developer.cumtd.com/terms-of-use Terms of Use] ||  
 || [http://www.mtc.ca.gov/ MTC] || San Francisco Bay Area, CA || [http://511.org/developer-resources_transit-api.asp] || Real time departure predictions||  RESTful/XML || [http://511portalstaging.lan.511.org/developer-resources_api-terms_rtt.asp Terms and Conditions] ||  
-|| [http://www.transitchicago.com/ CTA Customer Alerts] || Chicago, Illinois || http://www.transitchicago.com/developers/traintracker.aspx || Real time service messages|| RESTful/XML || ||
-|| [http://www.transitchicago.com/ CTA Train Tracker] || Chicago, Illinois || http://www.transitchicago.com/developers/alerts.aspx || Real time departure predictions || RESTful/XML || Registration for API key required ||
+|| [http://www.transitchicago.com/ CTA Customer Alerts] || Chicago, Illinois || http://www.transitchicago.com/developers/alerts.aspx || Real time service messages|| RESTful/XML || ||
+|| [http://www.transitchicago.com/ CTA Train Tracker] || Chicago, Illinois || http://www.transitchicago.com/developers/traintracker.aspx || Real time departure predictions || RESTful/XML || Registration for API key required ||
 
 
 ==We want to hear from you==

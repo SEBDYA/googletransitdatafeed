@@ -149,6 +149,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.rgrta.com/ Rochester-Genesee Regional Transportation Authority] || Rochester, NY || http://scheduledata.rgrta.com/ || [http://scheduledata.rgrta.com/License%20Agreement%20and%20Terms%20of%20Use.pdf License Agreement]||
 || [http://www.rtl-longueuil.qc.ca Réseau de transport de Longueuil (RTL)] || Longueuil, QC || http://www.rtl-longueuil.qc.ca/W1/gtfs.htm/ || ||
 || [http://www.friweb.hu/vonalhalozat/ Szeget] || Szeget (Hungary) || http://vonalhalozat.fw.hu/google_transit.zip || ||
+|| [http://www.cata.org/ CATA] || Lansing, MI || http://www.cata.org/AboutCATA/DeveloperResources/tabid/555/Default.aspx || [http://www.cata.org/AboutCATA/DeveloperResources/GTFS/tabid/556/Default.aspx License Agreement] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

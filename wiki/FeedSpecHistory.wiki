@@ -5,6 +5,9 @@
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
 
+==== September 6, 2011 ====
+  * Added 'agency_fare_url' proposal to spec: [https://groups.google.com/group/gtfs-changes/browse_thread/thread/669f6b3c6d3b0a01/a20633df56424c5e discussion]
+  * Added 'exact_times' proposal to spec: [https://groups.google.com/group/gtfs-changes/browse_thread/thread/9d917d95b43b4d0b/1298765a30b12edf discussion]
 ==== March 30, 2009 ====
   * See http://groups.google.com/group/gtfs-changes/t/70bd44e2828aa4ac
 ==== February 26, 2009 ====

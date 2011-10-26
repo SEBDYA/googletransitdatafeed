@@ -153,7 +153,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.emtmadrid.es/ EMT] || Madrid (Spain) || https://servicios.emtmadrid.es:8443/gtfs/transitemt.zip  || ||
 || [http://www.rtcwashie.com/ RTC Washoe] || Washoe County, NV || http://www.rtcwashoe.com/googletransit/latest/google_transit.zip  || ||
 || [http://www.psta.net/ Pinellas Suncoast Transit Authority] || Pinellas County, FL || http://www.psta.net/latest/google_transit.zip  || ||
-|| [http://www.rtcquebec.ca/ RTC Quebec] || Quebec (Canada) || http://www.rtcquebec.ca/donneesouvertes/googletransit.zip  || ||
+|| [http://www.rtcquebec.ca/ RTC Quebec] || Quebec (Canada) || http://www.rtcquebec.ca/donneesouvertes/googletransit.zip || ||
+|| [http://www.viainfo.net/ San Antonio VIA] || San Antonio, TX || http://www.viainfo.net/BusService/google_trasit.zip || http://www.viainfo.net/Opportunities/DevLicense.aspx ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

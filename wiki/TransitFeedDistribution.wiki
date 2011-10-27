@@ -38,7 +38,10 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
-===== 1.2.8 (2011-11-21) =====
+===== 1.2.9 (2011-10-27) =====
+  * Issue 305: Change "Too Many Consecutive StopTimes with same departure/arrival time" from ERROR to WARNING
+
+===== 1.2.8 (2011-10-21) =====
   * Issue 296: Feed Validator should send a warning when there are multiple consecutive 0:00:00 stop_times
   * Issue 300: frequencies.txt - exact_times is now an officially adopted proposal
   * Issue 301: agency.txt - agency_fare_url is now officially part of the GTFS spec

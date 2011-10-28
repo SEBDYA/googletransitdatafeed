@@ -12,7 +12,7 @@ Python and Subversion are great, but they're not very straightforward for non-pr
 
 You will also need a Subversion client to get hold of the code and Nose to run the tests.
 
-**NOTE:** Make sure to use 32-bit versions of Python and py2exe.  A 64-bit release won't work for most users.
+*NOTE:* Make sure to use 32-bit versions of Python and py2exe.  A 64-bit release won't work for most users.
 
 For Nov 2009 here is how I install these on a Windows XP machine. Some of them expect the Windows Installer to be available, but that should anyways be the case.
   # Install python2.5.4 from http://python.org/

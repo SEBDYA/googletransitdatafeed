@@ -29,6 +29,7 @@ This is a list of non-GTFS feeds.
 || [http://www.mtc.ca.gov/ MTC] || San Francisco Bay Area, CA || [http://511.org/developer-resources_transit-api.asp] || Real time departure predictions||  RESTful/XML || [http://511portalstaging.lan.511.org/developer-resources_api-terms_rtt.asp Terms and Conditions] ||  
 || [http://www.transitchicago.com/ CTA Customer Alerts] || Chicago, Illinois || http://www.transitchicago.com/developers/alerts.aspx || Real time service messages|| RESTful/XML || ||
 || [http://www.transitchicago.com/ CTA Train Tracker] || Chicago, Illinois || http://www.transitchicago.com/developers/traintracker.aspx || Real time departure predictions || RESTful/XML || Registration for API key required ||
+|| [http://www.thebus.org/ OTS API] || Honolulu, Hawaii || http://hea.thebus.org/api_info.asp || Real time departure predictions || RESTful/XML || Registration for API key required ||
 
 
 ==We want to hear from you==

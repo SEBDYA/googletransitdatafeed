@@ -38,6 +38,14 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 = Revision History =
 
+===== 1.2.10 (2011-11-04) =====
+  * Issue 307: Fix whitespace in schedule.py
+  * Issue 309: Update schedule viewer to show different arrival / departure time in stop label
+  * Issue 310: Bug in TooManyConsecutiveStopTimesWithSameTime check when stop times are undefined
+  * Issue 311: Add new_feed.zip, a artifact of unit tests, to svn:ignore
+  * Issue 312: Test feed good_feed expires on Dec 31, 2011 - 60 days from now - causing unexpected warnings and test failures
+  * Issue 313: Convert tabs to spaces in python/gtfsscheduleviewer/files/index.html
+
 ===== 1.2.9 (2011-10-27) =====
   * Issue 305: Change "Too Many Consecutive !StopTimes with same departure/arrival time" from ERROR to WARNING
 

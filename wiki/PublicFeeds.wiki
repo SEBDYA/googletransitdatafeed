@@ -158,7 +158,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.corvallistransit.com/ Corvallis Transit] || Corvallis, OR || ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/ || ||
 || Rockland County Department of Public Transportation || Rockland and Westchester Counties, NY || https://geopower.jws.com/rockland/DataPage.jsp# || ||
 || [http://www.intercitytransit.com/ Intercity Transit] || Olympia, WA || http://www.intercitytransit.com/googledata/google_transit.zip || ||
-|| [http://www.ridetarc.org/ TARC] || Louisville, KY || http://googletransit.ridetarc.org/feed || ||
+|| [http://www.ridetarc.org/ TARC] || Louisville, KY || http://googletransit.ridetarc.org/feed || http://googletransit.ridetarc.org/feed/Developer License Agreeement.pdf ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

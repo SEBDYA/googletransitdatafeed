@@ -156,6 +156,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.rtcquebec.ca/ RTC Quebec] || Quebec (Canada) || http://www.rtcquebec.ca/donneesouvertes/googletransit.zip || ||
 || [http://www.viainfo.net/ San Antonio VIA] || San Antonio, TX || http://www.viainfo.net/BusService/google_transit.zip || http://www.viainfo.net/Opportunities/DevLicense.aspx ||
 || [http://www.corvallistransit.com/ Corvallis Transit] || Corvallis, OR || ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/ || ||
+|| Rockland County Department of Public Transportation || Rockland and Westchester Counties, NY || https://geopower.jws.com/rockland/DataPage.jsp# || ||
 || [http://www.intercitytransit.com/ Intercity Transit] || Olympia, WA || http://www.intercitytransit.com/googledata/google_transit.zip || ||
 || [http://www.ridetarc.org/ TARC] || Louisville, KY || http://googletransit.ridetarc.org/feed || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||

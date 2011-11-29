@@ -26,7 +26,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.gohrt.com/ Hampton Roads Transit] || Hampton Roads, VA || http://googletf.gohrt.com/ ||  ||
 || [http://www.metrolinktrains.com/ Metrolink] || Southern California || http://www.metrolinktrains.com/tripplanner/schedule_data.php || [http://www.metrolinktrains.com/tripplanner/license_agreement.php License Agreement] ||
 || [http://www.gomcta.com/ Monroe County Transit Authority] || Monroe County, PA || http://www.gtfs-data-exchange.com/agency/monroe-county-transit-authority/ || ||
-|| [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://trilliumtransit.com/transit_feeds/mountainline-az-us/ || || 
+|| [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://trilliumtransit.com/transit_feeds/naipta-az-us/ || || 
 || [http://www.jeffersontransit.com/ Jefferson Transit Authority] || Port Townsend, WA || http://www.gtfs-data-exchange.com/agency/jefferson-transit-authority/ || [http://www.jeffersontransit.com/information.html License Agreement] ||
 || [http://www.islandtransit.org/ Island Transit] || Island County, WA || http://www.gtfs-data-exchange.com/agency/island-transit/ || [http://islandtransit.org/license_agreement/ License Agreement] ||
 || [http://ridemetro.org/ METRO] || Houston, TX || http://www.ridemetro.org/News/Downloads/DataDownloads.aspx || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||

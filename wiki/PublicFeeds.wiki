@@ -162,7 +162,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Central Oregon Breeze || Oregon || http://oregon-gtfs.com/gtfs_data/centraloregonbreeze-or-us || ||
 || [http://www.umatilla.nsn.us/bus.html Confederated Tribes of the Umatilla Indian Reservation] || Oregon || http://www.gtfs-data-exchange.com/agency/confederated-tribes-of-the-umatilla-indian-reservation || ||
 || [http://www.currypublictransit.org/ Curry Public Transit] || Curry, OR || http://www.gtfs-data-exchange.com/agency/curry-public-transit/ || ||
-|| [http://www.mfcity.com/transport City of Milton-Freewater] || Milton-Freewater, OR || 	http://www.gtfs-data-exchange.com/agency/city-of-milton-freewater-oregon/ || ||
+|| [http://www.mfcity.com/transport City of Milton-Freewater] || Milton-Freewater, OR || http://www.gtfs-data-exchange.com/agency/city-of-milton-freewater-oregon/ || ||
+|| [http://www.amt.qc.ca/developpeurs Agence métropolitaine de transport] || Montreal, QC || http://www.amt.qc.ca/developpeurs/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

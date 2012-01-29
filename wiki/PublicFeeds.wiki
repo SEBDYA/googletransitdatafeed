@@ -84,7 +84,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.mvta.com/ Minnesota Valley Transit Authority] || Minnesota Valley || http://wiki.mvta.com/files/Home/google_transit.zip ||  ||
 || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/ City of Santa Rosa CityBus] || Santa Rosa, CA || ftp://ftp.ci.santa-rosa.ca.us/SantaRosaCityBus/  || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/Pages/GTSFOpenSourceData.aspx Developer License Agreement] ||
 || Caravan Airport Shuttle || Oregon || http://oregon-gtfs.com/gtfs_data/caravan-or-us/ || ||
-|| Cascades East Transit || Oregon || http://oregon-gtfs.com/gtfs_data/deschutes-or-us || ||
+|| Cascades East Transit || Oregon || http://oregon-gtfs.com/gtfs_data/cascadeseast-or-us || ||
 || HUT Airport Shuttle || Oregon || http://oregon-gtfs.com/gtfs_data/hut-or-us || ||
 || People Mover || Oregon || http://oregon-gtfs.com/gtfs_data/peoplemover-or-us || ||
 || Porter Stage Lines || Oregon || http://oregon-gtfs.com/gtfs_data/porterstage-or-us || ||

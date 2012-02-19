@@ -22,7 +22,7 @@ Here are some libraries to help software developers handle GTFS files:
 
   * [http://code.google.com/p/googletransitdatafeed This project] has Python code for reading and writing GTFS.
   * [http://github.com/perkinsms/Perl-GTFS A set of perl modules for dealing with GTFS]. Uses DBI to access the raw data
-  * [http://code.google.com/p/onebusaway/ OneBusAway] has a [http://code.google.com/p/onebusaway/wiki/ModuleGtfs GTFS module] written in Java.
+  * [http://code.google.com/p/onebusaway/ OneBusAway] has a [https://github.com/OneBusAway/onebusaway-gtfs-modules/wiki GTFS module] written in Java.
 
 
 See also the [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Consumers GTFS Consumers], [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Exporters GTFS Exporters] and [http://headwayblog.com/wiki/index.php?title=Category:GTFS_Service GTFS Services] categories at [http://headwayblog.com/wiki].

@@ -40,11 +40,11 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
 ===== 1.2.11 (2012-02-22) =====
 
-  * Issue 299: Fix feed validator crash for feeds that have trips with service_id values that are not defined in either calendar.txt or calendar_dates.txt.
-  * Issue 315: Add support to kmlwriter to show stop-station hierarchy
-  * Issue 316: Fix crash in kmlwriter
+  * Issue 299: Fix FeedValidator crash for feeds that have trips with service_id values that are not defined in either calendar.txt or calendar_dates.txt.
+  * Issue 315: Add support to [KMLWriter] to show stop-station hierarchy
+  * Issue 316: Fix crash in [KMLWriter]
   * Issue 319: Fix issue with Google Maps API key in ScheduleViewer
-  * Issue 320: Refactor stop_timezone validation code out of google extensions and into main validator
+  * Issue 320: Refactor stop_timezone validation code out of google extensions and into main FeedValidator
 
 ===== 1.2.10 (2011-11-04) =====
   * Issue 307: Fix whitespace in schedule.py

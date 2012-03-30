@@ -30,6 +30,7 @@ This is a list of non-GTFS feeds.
 || [http://www.transitchicago.com/ CTA Customer Alerts] || Chicago, Illinois || http://www.transitchicago.com/developers/alerts.aspx || Real time service messages|| RESTful/XML || ||
 || [http://www.transitchicago.com/ CTA Train Tracker] || Chicago, Illinois || http://www.transitchicago.com/developers/traintracker.aspx || Real time departure predictions || RESTful/XML || Registration for API key required ||
 || [http://www.thebus.org/ OTS API] || Honolulu, Hawaii || http://hea.thebus.org/api_info.asp || Real time departure predictions || RESTful/XML || Registration for API key required ||
+|| [http://www.norta.com/ New Orleans Regional Transit Authority] || New Orleans, LA || http://norta.com || Network and schedule data || Proprietary format || Go to www.norta.com. Set up a MyRTA account. Choose Data Subscription. Agree to License Agreement.  You will receive download instructions ||
 
 
 ==We want to hear from you==

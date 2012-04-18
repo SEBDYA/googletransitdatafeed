@@ -168,6 +168,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.woodburn-or.gov/publicworks/transit.aspx Woodburn Transit] || Woodburn, OR || http://oregon-gtfs.com/gtfs_data/woodburn-or-us || ||
 || [http://southlanewheels.org/ South Lane Wheels] || South Lane, OR || http://oregon-gtfs.com/gtfs_data/southlanewheels-or-us || ||
 || [http://www.rideconnection.org/ride/default.aspx Ride Connection] || Portland Metro Area, OR || http://oregon-gtfs.com/gtfs_data/rideconnection-or-us || ||
+|| [http://www.go-metro.com Cincinnati Metro] || Cincinnati, OH || http://www.go-metro.com/uploads/google_transit.zip || [http://www.go-metro.com/about-metro/developer-data Terms of Use] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

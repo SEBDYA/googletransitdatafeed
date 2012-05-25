@@ -59,7 +59,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/GTFS-Data.aspx || Terms of Use shown on the download page ||
 || [http://www.cdta.org/ CDTA] || Albany, NY || http://www.cdta.org/schedules/google_transit.zip || [http://www.cdta.org/schedules_developer_tools_developer_license.php Developer license] and [http://www.cdta.org/schedules_developer_tools.php developer page] ||
 || [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://trilliumtransit.com/transit_feeds/hoodriver-or-us/ ||  ||
-|| [http://www.trinitytransportation.org/pg/Trinity-Transit.php Trinity Transit] || Weaverville/Trinity County, CA || http://trilliumtransit.com/transit_feeds/weaverville-ca-us/ ||  ||
+|| [http://www.trinitytransit.org Trinity Transit] || Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity-ca-us/ ||  ||
 || [http://www.fasttransit.org/ Fairfield and Suisun Transit (FAST)] || Fairfield and Suisun City, CA || http://trilliumtransit.com/transit_feeds/fairfield-suisun ||  ||
 || [http://www.metrostlouis.org/ Metro Saint Louis] || St. Louis, MO || ftp://tripfinder.metrostlouis.org/pub/Google_transit/latest/google_transit.zip  ||  ||
 || [http://www.ridesmart.com/ South Metro Area Regional Transit (SMART)] || Wilsonville, OR || http://trilliumtransit.com/transit_feeds/wilsonville-or-us/ ||  ||

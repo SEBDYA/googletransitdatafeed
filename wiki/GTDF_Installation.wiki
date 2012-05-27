@@ -21,19 +21,19 @@ Download the runtime release of TransXChange2GTFS, and unpack the release file (
 <pre>tar xvf <filename></pre>
 where filename is the filename of the release, e.g.
 <br/>
-<pre>tar xvf TransXChange2GTFS_1.7.3.tar</pre>
-for the tarball of version 1.7.3 of the TransXChange2GTFS program.
+<pre>tar xvf TransXChange2GTFS_1.7.5.tar</pre>
+for the tarball of version 1.7.5 of the TransXChange2GTFS program.
 
 ==== Test the installation ====
 In a CLI session, change the directory to the program's directory, e.g.
 <br/>
-<pre>cd TransXChange2GTFS_1.7.3</pre>
+<pre>cd TransXChange2GTFS_1.7.5</pre>
 Start the program with the following command:
 <br/>
 <pre>java -jar dist/transxchange2GoogleTransit.jar</pre>
 The TransXChange2GTFS converter is installed correctly when the following message is displayed:
 <br/>
-<pre>transxchange2GTFS 1.7.3
+<pre>transxchange2GTFS 1.7.5
 Please refer to LICENSE file for licensing information
 
 Usage: $ transxchange2GoogleTransit <transxchange input filename> -c <configuration file name>

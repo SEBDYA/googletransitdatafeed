@@ -31,7 +31,7 @@ Verify the project by manually rebuilding the project. Select "Project" -> "Clea
 
 == Running transxchange2GTFS is Eclipse ==
 In Eclipse, select "Run as" -> "Java Application" from the "Run" menu. The Eclipse console  should display the output of transxchange2GoogleTransit, similar to:
-<pre>transxchange2GTFS 1.7.3 Please refer to LICENSE file for licensing information
+<pre>transxchange2GTFS 1.7.5 Please refer to LICENSE file for licensing information
 
 Usage: $ transxchange2GoogleTransit <transxchange input filename> -c <configuration file name>
 Usage: $ transxchange2GoogleTransit <transxchange input filename> <output-directory> -c <configuration file name>

@@ -133,7 +133,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Josephine County Transit || Josephine County, OR || http://oregon-gtfs.com/gtfs_data/josephinecounty-or-us  || ||
 || [http://www.umpquatransit.com/ U-Trans] || Roseburg, OR || http://oregon-gtfs.com/gtfs_data/umpquatransit-or-us || ||
 || [http://www.panynj.gov/path/ Path] || New York New Jersey || http://www.panynj.gov/path/developers.html || ||
-|| [http://www.ci.corona.ca.us/About-Corona/Public-Transportation.aspx Corona Cruiser] || Corona, CA || http://trilliumtransit.com/transit_feeds/corona-ca-us/ || [http://www.discovercorona.com/City-Departments/Public-Works/Transportation/GTFS.aspx License Agreement] ||
+|| [http://www.discovercorona.com/City-Departments/Public-Works/Public-Services-and-Information/Corona-Cruiser.aspx Corona Cruiser] || Corona, CA || http://trilliumtransit.com/transit_feeds/corona-ca-us/ || [http://www.discovercorona.com/City-Departments/Public-Works/Transportation/GTFS.aspx License Agreement] ||
 || [http://www.mymetrobus.com Metro Transit] || Madison, WI || http://www.cityofmadison.com/metro/gtfs/mmt_gtfs.zip || [http://www.cityofmadison.com/metro/Apps/terms.cfm Terms of Use] ||
 || [http://modestoareaexpress.com Modesto Area Express] || Modesto, CA || http://trilliumtransit.com/transit_feeds/modesto-ca-us/ || ||
 || [http://www.grt.ca Grand River Transit] || Cambridge/Kitchener-Waterloo, ON || http://www.grt.ca/en/doingBusiness/supportingsoftwareapplications.asp?_mid_=18101 || Terms and Conditions ||

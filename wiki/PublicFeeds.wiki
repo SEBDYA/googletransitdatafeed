@@ -24,7 +24,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ridemcts.com/ Milwaukee County Transit System] || Milwaukee, WI || http://kamino.mcts.org/gtfs/google_transit.zip || [http://kamino.mcts.org/gtfs/ Terms of Use] ||
 || [http://www.thebus.org Oahu Transit Services, Inc] || Honolulu, HI || http://webapps.thebus.org/transitdata/Production/google_transit.zip || [http://www.thebus.org/transitfeed/terms-of-use.asp Terms of Use] ||
 || [http://www.gohrt.com/ Hampton Roads Transit] || Hampton Roads, VA || http://googletf.gohrt.com/ ||  ||
-|| [http://www.metrolinktrains.com/ Metrolink] || Southern California || http://www.metrolinktrains.com/tripplanner/schedule_data.php || [http://www.metrolinktrains.com/tripplanner/license_agreement.php License Agreement] ||
+|| [http://www.metrolinktrains.com/ Metrolink] || Southern California || http://www.metrolinktrains.com/tripplanner/schedule_data.php || [http://www.metrolinktrains.com/help/page/title/developer_resources#license-agreement License Agreement] ||
 || [http://www.gomcta.com/ Monroe County Transit Authority] || Monroe County, PA || http://www.gtfs-data-exchange.com/agency/monroe-county-transit-authority/ || ||
 || [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://trilliumtransit.com/transit_feeds/naipta-az-us/ || || 
 || [http://www.jeffersontransit.com/ Jefferson Transit Authority] || Port Townsend, WA || http://www.gtfs-data-exchange.com/agency/jefferson-transit-authority/ || [http://www.jeffersontransit.com/information.html License Agreement] ||

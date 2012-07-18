@@ -7,7 +7,7 @@ The revision history for the General Transit Feed Specification is now hosted in
 
 This existing page is kept for historical purposes
 
-= Introduction =
+== Introduction ==
 
 This page documents the revisions that the [http://code.google.com/transit/spec/transit_feed_specification.htm Google Transit Feed Specification] has had over its history.
 

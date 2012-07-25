@@ -58,7 +58,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://metro.kingcounty.gov/ King County Metro Transit] || King County, WA || http://www.kingcounty.gov/transportation/kcdot/MetroTransit/Developers.aspx || The data is password-protected; to get login information, send email to PublicTransitData@kingcounty.gov, print the disclaimer form you get back, sign it, scan it, and send it back to them. ||
 || [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/GTFS-Data.aspx || Terms of Use shown on the download page ||
 || [http://www.cdta.org/ CDTA] || Albany, NY || http://www.cdta.org/schedules/google_transit.zip || [http://www.cdta.org/schedules_developer_tools_developer_license.php Developer license] and [http://www.cdta.org/schedules_developer_tools.php developer page] ||
-|| [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://trilliumtransit.com/transit_feeds/hoodriver-or-us/ ||  ||
+|| [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://oregon-gtfs.com/gtfs_data/hoodriver-or-us/ ||  ||
 || [http://www.trinitytransit.org Trinity Transit] || Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity-ca-us/ ||  ||
 || [http://www.fasttransit.org/ Fairfield and Suisun Transit (FAST)] || Fairfield and Suisun City, CA || http://trilliumtransit.com/transit_feeds/fairfield-suisun ||  ||
 || [http://www.metrostlouis.org/ Metro Saint Louis] || St. Louis, MO || ftp://tripfinder.metrostlouis.org/pub/Google_transit/latest/google_transit.zip  ||  ||

@@ -42,8 +42,8 @@ Please create a new issue if you find bugs or have a feature requests. Patches r
 
   * Issue 326: Add South Sudan to language-subtag-registry.
   * Issue 327: Fix for crash in FeedValidator when stop in stops.txt does not include location information and stop-station hierarchy is used.
-  * Issue 328: ValidateNoDuplicateStopSequences produces a confusing error message.
-  * Issue 341: Feed Validator crashes when loading frequencies.txt with no header specified.
+  * Issue 328: !ValidateNoDuplicateStopSequences produces a confusing error message.
+  * Issue 341: FeedValidator crashes when loading frequencies.txt with no header specified.
   * Issue 343: GTFS Validation Problem in Merge Tool Causes Crash
 
 ===== 1.2.11 (2012-02-22) =====

@@ -177,6 +177,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://cabq.gov/ City of Albuquerque] || Albuquerque, NM || http://data.cabq.gov/transit/gtfs/ || ||
 || [http://more.nsw.gov.au/ NSW Government] || New South Wales (Australia) || http://www.131500.com.au/transport-data-exchange-program/nsw-public-transport-data-exchange-tdx-program || ||
 || [http://kingsporttransit.org Kingsport Transit] || Kingsport, TN || http://kingsporttransit.org/GTFS/gtfs || ||
+|| [http://pts.umich.edu/ University of Michigan Transit Services] || University of Michigan, Ann Arbor, MI || http://pts.umich.edu/gtfs/google_transit.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

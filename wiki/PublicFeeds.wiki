@@ -179,6 +179,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://kingsporttransit.org Kingsport Transit] || Kingsport, TN || http://kingsporttransit.org/GTFS/gtfs || ||
 || [http://pts.umich.edu/ University of Michigan Transit Services] || University of Michigan, Ann Arbor, MI || http://pts.umich.edu/gtfs/google_transit.zip || ||
 || [http://www.trafiklab.se/ Sweden] || Sweden || http://www.trafiklab.se/api/gtfs-sverige || ||
+|| [http://cottonwoodaz.gov/cat.php Cottonwood Area Transit] || City of Cottonwood, Arizona || http://trilliumtransit.com/transit_feeds/cottonwood-az-us/ || ||
+|| [http://cottonwoodaz.gov/cat-verde_lynx.php Verde Lynx] || Cottonwood and Sedona area, Arizona || http://trilliumtransit.com/transit_feeds/verdelynx-az-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

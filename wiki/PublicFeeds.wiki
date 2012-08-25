@@ -39,7 +39,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.takeets.com/ Edmonton Transit System (ETS)] || Edmonton, AB || http://webdocs.edmonton.ca/transit/etsdatafeed/google_transit.zip || [http://www.edmonton.ca/transportation/ets/ets-data-for-developers.aspx Terms of Use] ||
 || [http://www.metro.net/ Los Angeles County Metro] || Los Angeles, CA  || http://developer.metro.net/gtfs/google_transit.zip || [http://developer.metro.net/policies/terms/ Terms and Conditions] ||
 || [http://www.septa.org/ SEPTA] || Philadelphia, PA  || http://www2.septa.org/developer/index.php || ||
-|| [http://www.sdmts.com/ San Diego MTS] || San Diego, CA || http://developer.sdmts.com/Developer/GTFS%20Schedule/GTFS.aspx (registration required) || [http://developer.sdmts.com/Developer/TermsUse.aspx Terms of Use] ||
+|| [http://www.sdmts.com/ San Diego MTS] || San Diego, CA || http://www.sdmts.com/google_transit_files/google_transit.zip || [http://www.sdmts.com/Planning/Developers_TermsAndConditions.asp Terms of Use] ||
 || [http://www.tillamookbus.com/ Tillamook County Transportation District] || Tillamook County, OR || http://trilliumtransit.com/transit_feeds/tillamook-or-us/  ||  ||
 || [http://www.eot.state.ma.us/developers/ Massachusetts] || Massachusetts EOT || http://www.eot.state.ma.us/developers  ||  ||
 || [http://parking.uark.edu/26.php Razorback Transit] || Fayetteville, AR || http://www.ozarkwebtech.com/google_transit.zip  ||  ||

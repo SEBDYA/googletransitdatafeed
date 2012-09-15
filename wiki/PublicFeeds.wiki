@@ -183,6 +183,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://cottonwoodaz.gov/cat-verde_lynx.php Verde Lynx] || Cottonwood and Sedona area, AZ || http://trilliumtransit.com/transit_feeds/verdelynx-az-us/ || ||
 || [http://actransit.org AC Transit] || Alameda and Contra Costa Counties, CA || http://www.actransit.org/wp-content/uploads/ || ||
 || [http://www.valleymetro.org Valley Metro] || Phoenix, AZ || http://www.valleymetro.org/developers || [http://www.valleymetro.org/developers/terms_of_use/ Terms of Use] ||
+|| [http://www.getbus.org Golden Empire Transit District] || Bakersfield, CA || http://www.getbus.org/googletransit/ || [http://www.getbus.org/googletransit/GET-GTFS-License_Agreement.txt/ License Agreement] ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

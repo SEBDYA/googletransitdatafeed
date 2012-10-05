@@ -185,12 +185,12 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.valleymetro.org Valley Metro] || Phoenix, AZ || http://www.valleymetro.org/developers || [http://www.valleymetro.org/developers/terms_of_use/ Terms of Use] ||
 || [http://www.getbus.org Golden Empire Transit District] || Bakersfield, CA || http://www.getbus.org/googletransit/ || [http://www.getbus.org/googletransit/GET-GTFS-License_Agreement.txt/ License Agreement] ||
 || [http://www.amadortransit.com Amador Regional Transit] || Amador County, CA || http://trilliumtransit.com/transit_feeds/amador-ca-us/ || ||
-|| Calaveras Transit || Calaveras County, CA || http://trilliumtransit.com/transit_feeds/calaveras-ca-us/ || ||
-|| Eastern Sierra Transit Authority || Inyo and Mono Counties, CA || http://trilliumtransit.com/transit_feeds/easternsierra-ca-us/ || ||
-|| Madera County Transit || Madera County, CA || http://trilliumtransit.com/transit_feeds/madera-ca-us/ || ||
-|| Plumas Transit || Plumas County, CA || http://trilliumtransit.com/transit_feeds/plumas-ca-us/ || ||
-|| Yosemite Area Regional Transit || Yosemite Area, CA || http://trilliumtransit.com/transit_feeds/yosemite-ca-us/ || ||
-|| Lassen Rural Bus || Lassen County, CA || http://trilliumtransit.com/transit_feeds/lassen-ca-us/ || ||
+|| [http://transit.calaverasgov.us Calaveras Transit] || Calaveras County, CA || http://trilliumtransit.com/transit_feeds/calaveras-ca-us/ || ||
+|| [http://www.estransit.com Eastern Sierra Transit Authority] || Inyo and Mono Counties, CA || http://trilliumtransit.com/transit_feeds/easternsierra-ca-us/ || ||
+|| [http://www.maderactc.org/translinks.html Madera County Transit] || Madera County, CA || http://trilliumtransit.com/transit_feeds/madera-ca-us/ || ||
+|| [http://www.plumastransit.com/default.html Plumas Transit] || Plumas County, CA || http://trilliumtransit.com/transit_feeds/plumas-ca-us/ || ||
+|| [http://www.yarts.com Yosemite Area Regional Transit] || Yosemite Area, CA || http://trilliumtransit.com/transit_feeds/yosemite-ca-us/ || ||
+|| [http://www.lassentransportation.org/a/Lassen-Rural-Bus-LRB.php Lassen Rural Bus] || Lassen County, CA || http://trilliumtransit.com/transit_feeds/lassen-ca-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

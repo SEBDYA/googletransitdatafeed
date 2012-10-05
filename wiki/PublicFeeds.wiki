@@ -83,12 +83,12 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.miamidade.gov/ Miami-Dade Transit] || Miami-Dade, FL  || http://www.miamidade.gov/transit/googletransit/current/google_transit.zip ||  ||
 || [http://www.mvta.com/ Minnesota Valley Transit Authority] || Minnesota Valley || http://wiki.mvta.com/files/Home/google_transit.zip ||  ||
 || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/ City of Santa Rosa CityBus] || Santa Rosa, CA || ftp://ftp.ci.santa-rosa.ca.us/SantaRosaCityBus/  || [http://ci.santa-rosa.ca.us/departments/transit/CityBus/Pages/GTSFOpenSourceData.aspx Developer License Agreement] ||
-|| Caravan Airport Shuttle || Oregon || http://oregon-gtfs.com/gtfs_data/caravan-or-us/ || ||
-|| Cascades East Transit || Oregon || http://oregon-gtfs.com/gtfs_data/cascadeseast-or-us || ||
-|| HUT Airport Shuttle || Oregon || http://oregon-gtfs.com/gtfs_data/hut-or-us || ||
-|| People Mover || Oregon || http://oregon-gtfs.com/gtfs_data/peoplemover-or-us || ||
-|| Porter Stage Lines || Oregon || http://oregon-gtfs.com/gtfs_data/porterstage-or-us || ||
-|| Valley Retriever || Oregon || http://oregon-gtfs.com/gtfs_data/valleyretriever-or-us || ||
+|| [http://caravanairporttransportation.com Caravan Airport Shuttle] || Oregon || http://oregon-gtfs.com/gtfs_data/caravan-or-us/ || ||
+|| [http://www.cascadeseasttransit.com Cascades East Transit] || Oregon || http://oregon-gtfs.com/gtfs_data/cascadeseast-or-us || ||
+|| [http://www.hutshuttle.com HUT Airport Shuttle] || Oregon || http://oregon-gtfs.com/gtfs_data/hut-or-us || ||
+|| [http://www.grantcountypeoplemover.com People Mover] || Oregon || http://oregon-gtfs.com/gtfs_data/peoplemover-or-us || ||
+|| [http://www.porterstageline.com Porter Stage Lines] || Oregon || http://oregon-gtfs.com/gtfs_data/porterstage-or-us || ||
+|| [http://www.kokkola-bus.com/ValleyRetrieverBuslines.html Valley Retriever] || Oregon || http://oregon-gtfs.com/gtfs_data/valleyretriever-or-us || ||
 || [http://www.cumtd.com/ Champaign-Urbana Mass Transit District] || Champaign-Urbana, IL || http://www.cumtd.com/google/google_transit.zip  || ||
 || Rockland County || Rockland County, NY || https://geopower.jws.com/rockland/DataPage.jsp#  || ||
 || [http://www.dartfirststate.com/ Delaware First State] || Delaware || http://www.dartfirststate.com/information/routes/gtfs_data/dartfirststate_de_us.zip   || ||
@@ -130,7 +130,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.co.coos.or.us Coos County Area Transit] || Coos County, OR || http://oregon-gtfs.com/gtfs_data/cooscounty-or-us  || ||
 || [http://www.linnshuttle.com Linn Shuttle] || Linn County, OR || http://oregon-gtfs.com/gtfs_data/linnshuttle-or-us || ||
 || [http://www.charlottesville.org Charlottesville Area Transit] || Charlottesville, VA || http://avlweb.charlottesville.org/rtt/public/utility/GTFS.aspx || ||
-|| Josephine County Transit || Josephine County, OR || http://oregon-gtfs.com/gtfs_data/josephinecounty-or-us  || ||
+|| [http://www.co.josephine.or.us/Page.asp?NavID=628 Josephine County Transit] || Josephine County, OR || http://oregon-gtfs.com/gtfs_data/josephinecounty-or-us  || ||
 || [http://www.umpquatransit.com/ U-Trans] || Roseburg, OR || http://oregon-gtfs.com/gtfs_data/umpquatransit-or-us || ||
 || [http://www.panynj.gov/path/ Path] || New York New Jersey || http://www.panynj.gov/path/developers.html || ||
 || [http://www.discovercorona.com/City-Departments/Public-Works/Public-Services-and-Information/Corona-Cruiser.aspx Corona Cruiser] || Corona, CA || http://trilliumtransit.com/transit_feeds/corona-ca-us/ || [http://www.discovercorona.com/City-Departments/Public-Works/Transportation/GTFS.aspx License Agreement] ||

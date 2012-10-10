@@ -191,6 +191,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.plumastransit.com/default.html Plumas Transit] || Plumas County, CA || http://trilliumtransit.com/transit_feeds/plumas-ca-us/ || ||
 || [http://www.yarts.com Yosemite Area Regional Transit] || Yosemite Area, CA || http://trilliumtransit.com/transit_feeds/yosemite-ca-us/ || ||
 || [http://www.lassentransportation.org/a/Lassen-Rural-Bus-LRB.php Lassen Rural Bus] || Lassen County, CA || http://trilliumtransit.com/transit_feeds/lassen-ca-us/ || ||
+|| [http://www.getbus.org Golden Empire Transit District] || Bakersfield, CA || http://www.getbus.org/google-transit-data-download/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

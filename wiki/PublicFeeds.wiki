@@ -76,7 +76,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://southwest-point.com/ SouthWest POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/southwestpoint-or-us ||  ||
 || [http://www.catbus.com/ Clemson Area Transit (CAT)] || Clemson, SC ||  http://trilliumtransit.com/transit_feeds/clemson-sc-us/ ||  ||
 || [http://www.taketrax.com/ Tehama Area Rural eXpress (TRAX)] || Tehama County, CA. Including Susanville Indian Rancheria Public Transportation Program between Redding, Red Bluff, and Susanville. || http://trilliumtransit.com/transit_feeds/tehama-ca-us/ ||  ||
-|| [http://www.duluthtransit.com/ Duluth Transit] || Duluth, MN || http://www.duluthtransit.com/GoogleTransit/latest/google_transit.zip || [http://www.duluthtransit.com/GoogleTransit/index.aspx License Agreement] ||
+|| [http://www.duluthtransit.com/ Duluth Transit] || Duluth, MN || http://www.duluthtransit.com/gtf/google_transit.zip || [http://www.duluthtransit.com/GoogleTransit/index.aspx License Agreement] ||
 || [http://www.metlink.org.nz/google-transit-feed/ Metlink] || Wellington (New Zealand) || http://www.metlink.org.nz/google-transit-feed/ || [http://www.metlink.org.nz/gtf-terms-of-use/ Terms of Use] ||
 || [http://www.soundtransit.org/ Sound Transit] || Puget Sound Region, WA || http://developer.soundtransit.org || [http://developer.soundtransit.org/documents/developer/pdf/electronicdatatermsofuse.pdf Terms of Use] ||
 || [http://www.maxx.co.nz/ ARTA] || Auckland (New Zealand)  || http://www.maxx.co.nz/about-maxx/google-transit-feed.aspx ||  ||

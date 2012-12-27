@@ -122,7 +122,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://macog.com Michiana Area Council Of Governments] || South Bend, IN || http://macog.com/google/google_transit.zip || ||
 || [http://columbiacountyrider.com/ Columbia County Rider] || Columbia County, OR || http://oregon-gtfs.com/gtfs_data/columbiacounty-or-us || ||
 || [http://www.ci.sandy.or.us/index.asp?Type=B_BASIC&SEC={BF6D9F91-1204-479D-B3A5-B12572DA8DD1} Sandy Area Metro] || Sandy, OR || http://oregon-gtfs.com/gtfs_data/sandy-or-us || ||
-|| [http://www.nfta.com/ NFTA Metro] || Buffalo - Niagara Region, NY || http://www.nfta.com/metro/developers.asp || To use the feed you should read and accept the terms of our Developer License Agreement.  http://www.nfta.com/metro/DeveloperLicense.asp ||
+|| [http://www.nfta.com/ NFTA Metro] || Buffalo - Niagara Region, NY || http://metro.nfta.com/Contact/Developers.aspx || ||
 || [http://sanjoaquinrtd.com San Joaquin Regional Transit District (RTD)] || San Joaquin Valley, CA || http://sanjoaquinrtd.com/RTD-GTFS/RTD-GTFS.zip || [http://sanjoaquinrtd.com/legal/default.php Terms of Use] ||
 || [http://scmtd.com/ Santa Cruz Metro Transit District] || Santa Cruz, CA || http://scmtd.com/google_transit/google_transit.zip ||  ||
 || Brown County Metro || Brown County, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip ||  ||

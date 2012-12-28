@@ -198,6 +198,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.njtransit.com/ New Jersey Transit] || New Jersey || https://www.njtransit.com/developer || ||
 || [http://www.marintransit.org/ Marin Transit] || Marin, CA ||  http://www.marintransit.org/data/google_transit.zip || ||
 || [http://www.rochestercitylines.com/ Rochester City Lines] || Rochester, MN || http://trilliumtransit.com/transit_feeds/rochestercitylines-mn-us || ||
+|| [http://www.palosverdes.com/pvtransit/ Palos Verdes Peninsula Transit Authority] || Palos Verdes Peninsula, CA || http://trilliumtransit.com/transit_feeds/pvpta-ca-us || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

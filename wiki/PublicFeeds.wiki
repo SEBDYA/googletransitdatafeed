@@ -159,7 +159,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Rockland County Department of Public Transportation || Rockland and Westchester Counties, NY || https://geopower.jws.com/rockland/DataPage.jsp# || ||
 || [http://www.intercitytransit.com/ Intercity Transit] || Olympia, WA || http://www.intercitytransit.com/googledata/google_transit.zip || ||
 || [http://www.ridetarc.org/ TARC] || Louisville, KY || http://googletransit.ridetarc.org/feed || ||
-|| Central Oregon Breeze || Oregon || http://oregon-gtfs.com/gtfs_data/centraloregonbreeze-or-us || ||
+|| http://cobreeze.com/ Central Oregon Breeze || Oregon || http://oregon-gtfs.com/gtfs_data/centraloregonbreeze-or-us || ||
 || [http://www.umatilla.nsn.us/bus.html Confederated Tribes of the Umatilla Indian Reservation] || Oregon || http://www.gtfs-data-exchange.com/agency/confederated-tribes-of-the-umatilla-indian-reservation || ||
 || [http://www.currypublictransit.org/ Curry Public Transit] || Curry, OR || http://www.gtfs-data-exchange.com/agency/curry-public-transit/ || ||
 || [http://www.mfcity.com/transport City of Milton-Freewater] || Milton-Freewater, OR || http://www.gtfs-data-exchange.com/agency/city-of-milton-freewater-oregon/ || ||

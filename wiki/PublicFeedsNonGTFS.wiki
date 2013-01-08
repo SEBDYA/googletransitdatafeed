@@ -31,6 +31,7 @@ This is a list of non-GTFS feeds.
 || [http://www.thebus.org/ OTS] || Oahu, HI || http://hea.thebus.org/api_info.asp || Real time departure predictions || RESTful/XML || Registration for API key required ||
 || [http://www.norta.com/ New Orleans Regional Transit Authority] || New Orleans, LA || http://norta.com || Network and schedule data || Proprietary format || Go to www.norta.com. Set up a MyRTA account. Choose Data Subscription. Agree to License Agreement.  You will receive download instructions ||
 || [http://www.psta.net/ PSTA] || Penillas County, FL || http://psta.net/developers/ridepsta_API.php || Real time departure predictions || RESTful/XML || Registration for API key required ||
+|| [http://www.itsmarta.com/ MARTA] || Atlanta, GA || http://www.itsmarta.com/marta-developer-resources.aspx || Real time departure predictions || RESTful/Json || ||
 
 
 ==We want to hear from you==

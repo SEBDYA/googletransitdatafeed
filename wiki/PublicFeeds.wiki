@@ -61,7 +61,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://oregon-gtfs.com/gtfs_data/hoodriver-or-us/ ||  ||
 || [http://www.trinitytransit.org Trinity Transit] || Trinity County, CA || http://trilliumtransit.com/transit_feeds/trinity-ca-us/ ||  ||
 || [http://www.fasttransit.org/ Fairfield and Suisun Transit (FAST)] || Fairfield and Suisun City, CA || http://trilliumtransit.com/transit_feeds/fairfield-suisun ||  ||
-|| [http://www.metrostlouis.org/ Metro Saint Louis] || St. Louis, MO || ftp://tripfinder.metrostlouis.org/pub/Google_transit/latest/google_transit.zip  ||  ||
+|| [http://www.metrostlouis.org/ Metro Saint Louis] || St. Louis, MO || ftp://www.metrostlouis.org/transit/google_transit.zip ||  ||
 || [http://www.ridesmart.com/ South Metro Area Regional Transit (SMART)] || Wilsonville, OR || http://trilliumtransit.com/transit_feeds/wilsonville-or-us/ ||  ||
 || [http://www.co.siskiyou.ca.us/gensvcs/transportation.htm Siskiyou Transit and General Express (STAGE)] || Siskiyou County, CA || http://trilliumtransit.com/transit_feeds/siskiyou-ca-us/ ||  ||
 || [http://www.transitchicago.com Chicago Transit Authority (CTA)] || Chicago area, IL || http://www.transitchicago.com/developers/gtfs.aspx || Use is subject to terms of CTA's [http://www.transitchicago.com/developers Developer License Agreement]. More data/feeds at the [http://www.transitchicago.com/developers CTA Developer Center].  ||

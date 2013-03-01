@@ -202,7 +202,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.buttebus.org/ Butte Silver-Bow] || Butte, MT || http://trilliumtransit.com/transit_feeds/butte-mt-us || ||
 || [http://www.thunderbay.ca/ Thunder Bay Transit] || Thunder Bay, ON || http://ftp.thunderbay.ca/transit/google_transit.zip || ||
 || [http://swanislandtma.org// Swan Island TMA] || Portland, OR || http://oregon-gtfs.com/gtfs_data/swanisland-or-us || ||
-|| [http://www.mymanatee.org/home/government/departments/public-works/transit-paratransit.html/ Manatee County Area Transit] || Bradenton, FL || http://trilliumtransit.com/transit_feeds/manatee-fl-us || ||
+|| [www.mymanatee.org/mcat/ Manatee County Area Transit] || Bradenton, FL || http://trilliumtransit.com/transit_feeds/manatee-fl-us || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

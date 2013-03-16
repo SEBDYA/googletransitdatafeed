@@ -1,6 +1,6 @@
 #summary Non-GTFS public transportation data feeds
 
-This is a list of non-GTFS feeds.
+This is a list of non-GTFS feeds. It includes known links to GTFS-realtime feeds.
 (Please refer to [PublicFeeds] for a list of publicly available public transportation feeds in the [http://code.google.com/transit/spec/transit_feed_specification.html GTFS] format.)
 
 || *Agency* || *Area* || *Feed Location* || *Type* || *Format* || *Notes* ||
@@ -32,6 +32,8 @@ This is a list of non-GTFS feeds.
 || [http://www.norta.com/ New Orleans Regional Transit Authority] || New Orleans, LA || http://norta.com || Network and schedule data || Proprietary format || Go to www.norta.com. Set up a MyRTA account. Choose Data Subscription. Agree to License Agreement.  You will receive download instructions ||
 || [http://www.psta.net/ PSTA] || Penillas County, FL || http://psta.net/developers/ridepsta_API.php || Real time departure predictions || RESTful/XML || Registration for API key required ||
 || [http://www.itsmarta.com/ MARTA] || Atlanta, GA || http://www.itsmarta.com/marta-developer-resources.aspx || Real time departure predictions || RESTful/Json || ||
+|| [http://www.mta.info/ MTA] || New York, NY || http://datamine.mta.info/ || Subway real-time data feeds (Beta) || GTFS-realtime || ||
+
 
 
 ==We want to hear from you==

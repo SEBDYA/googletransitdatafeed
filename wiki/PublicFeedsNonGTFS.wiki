@@ -4,34 +4,37 @@ This is a list of non-GTFS feeds. It includes known links to GTFS-realtime feeds
 (Please refer to [PublicFeeds] for a list of publicly available public transportation feeds in the [http://code.google.com/transit/spec/transit_feed_specification.html GTFS] format.)
 
 || *Agency* || *Area* || *Feed Location* || *Type* || *Format* || *Notes* ||
-|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/ws_docs/ || Real time departure predictions and vehicle locations || RESTful/XML || Registration for API key required ||
-|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://api.bart.gov/docs/overview/index.aspx || Real time departure predictions, route and schedule information || RESTful/XML || [http://www.bart.gov/schedules/developers/api.aspx Developer page]||
-|| King County METRO || Seattle, WA || http://www.its.washington.edu/its_ws.html || Real time departure predictions || RESTful/XML ||  ||
-|| [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API, Real time departure predictions (buses) || RESTful/XML || Trip planner: Registration for API key required ||
+|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/ws_docs/ || Real time departure predictions and vehicle locations || REST/XML || Registration for API key required ||
+|| [http://www.trimet.org/ TriMet] || Portland, OR || http://developer.trimet.org/GTFS.shtml || GTFS-realtime || GTFS-realtime || [http://developer.trimet.org/terms_of_use.shtml Terms of Use] ||
+|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://api.bart.gov/docs/overview/index.aspx || Real time departure predictions, route and schedule information || REST/XML || [http://www.bart.gov/schedules/developers/api.aspx Developer page]||
+|| [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/gtfs-realtime.aspx || BART GTFS-Real Time || GTFS-realtime || [http://www.bart.gov/schedules/developers/api.aspx Developer page]||
+|| King County METRO || Seattle, WA || http://www.its.washington.edu/its_ws.html || Real time departure predictions || REST/XML ||  ||
+|| [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API, Real time departure predictions (buses) || REST/XML || Trip planner: Registration for API key required ||
 || [http://more.nsw.gov.au/ NSW Government] || Sydney (Australia) || http://www.131500.com.au/transport-data-exchange-program/nsw-public-transport-data-exchange-tdx-program || Network and schedule data || File set TransXChange ||  ||
-|| [http://www.transitchicago.com/ CTA Bus] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and bus locations || RESTful/XML || Registration for API key required ||
-|| [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations ||  RESTful/XML || || 
-|| [http://www.ytv.fi/fin ytv] || Helsinki Metro (Finland) || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || RESTful/XML || Registration required, non-commercial use (test and development) || 
-|| [http://www.traveline.info/mobile.html Traveline NextBuses] || England, Wales and Scotland ||  || Scheduled and some real time departure predictions || RESTful/XML || Registration required, commercial license || 
-|| [http://www.eot.state.ma.us/developers MBTA/EOT] || Boston, MA || http://www.eot.state.ma.us/developers || Real time departure predictions and bus locations ||  RESTful/XML || Bus, Subway and Commuter Rail ||  
-|| [http://www.wmata.com WMATA] || Washington, D.C. || http://developer.wmata.com/ || Real time departure predictions for Metro Rail and Bus ||  RESTful/XML || Registration for API key required  ||  
-|| [http://www.actransit.org/ AC Transit] || Alameda and Contra Costa Counties, CA || http://www.actransit.org/riderinfo/nextbus_XML_data.wu || Real time departure predictions and bus locations ||  RESTful/XML || 110 out of 175 routes ||  
+|| [http://www.transitchicago.com/ CTA Bus] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and bus locations || REST/XML || Registration for API key required ||
+|| [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations || REST/XML || || 
+|| [http://www.ytv.fi/fin ytv] || Helsinki Metro (Finland) || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || REST/XML || Registration required, non-commercial use (test and development) || 
+|| [http://www.traveline.info/mobile.html Traveline NextBuses] || England, Wales and Scotland ||  || Scheduled and some real time departure predictions || REST/XML || Registration required, commercial license || 
+|| [http://www.eot.state.ma.us/developers MBTA/EOT] || Boston, MA || http://www.eot.state.ma.us/developers || Real time departure predictions and bus locations || REST/XML || Bus, Subway and Commuter Rail ||
+|| [http://www.eot.state.ma.us/developers MBTA/EOT] || Boston, MA || http://www.eot.state.ma.us/developers || Real-Time Data in GTFS-realtime Format || GTFS-realtime || [http://www.eot.state.ma.us/developers/downloads/DLA_11-13-09.pdf License] ||  
+|| [http://www.wmata.com WMATA] || Washington, D.C. || http://developer.wmata.com/ || Real time departure predictions for Metro Rail and Bus || REST/XML || Registration for API key required  ||  
+|| [http://www.actransit.org/ AC Transit] || Alameda and Contra Costa Counties, CA || http://www.actransit.org/riderinfo/nextbus_XML_data.wu || Real time departure predictions and bus locations || REST/XML || 110 out of 175 routes ||  
 || [http://data.london.gov.uk/datastore/ London Datastore] || London (UK) || http://www.tfl.gov.uk/businessandpartners/syndication/16492.aspx || Various datasets and real time feeds || || ||
-|| [http://www.ttc.ca/ Toronto Transit Commission] || Toronto, ON || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
-|| Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
-|| DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
-|| Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions ||  RESTful/XML || ||  
-|| MTA || New York, NY || [http://bustime.mta.info/] || Bus locations route B63||  RESTful/XML || ||  
-|| [http://triangletransit.org/ Triangle Transit] || Chapel Hill, NC || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || RESTful/XML || ||  
-|| Dutch Railways (NS) || The Netherlands || [http://ns.nl/api] || Trip planning, station list, live departures, prices and service disruptions || RESTful/XML || ||  
-|| [http://www.cumtd.com CUMTD] || Champaign-Urbana, IL || [http://developer.cumtd.com/] || Real time departure predictions||  RESTful/XML || [http://developer.cumtd.com/terms-of-use Terms of Use] ||  
-|| [http://www.mtc.ca.gov/ MTC] || San Francisco Bay Area, CA || [http://511.org/developer-resources_transit-api.asp] || Real time departure predictions||  RESTful/XML || [http://511portalstaging.lan.511.org/developer-resources_api-terms_rtt.asp Terms and Conditions] ||  
-|| [http://www.transitchicago.com/ CTA Customer Alerts] || Chicago, IL || http://www.transitchicago.com/developers/alerts.aspx || Real time service messages|| RESTful/XML || ||
-|| [http://www.transitchicago.com/ CTA Train Tracker] || Chicago, IL || http://www.transitchicago.com/developers/traintracker.aspx || Real time departure predictions || RESTful/XML || Registration for API key required ||
-|| [http://www.thebus.org/ OTS] || Oahu, HI || http://hea.thebus.org/api_info.asp || Real time departure predictions || RESTful/XML || Registration for API key required ||
+|| [http://www.ttc.ca/ Toronto Transit Commission] || Toronto, ON || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
+|| Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
+|| DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
+|| Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
+|| MTA || New York, NY || [http://bustime.mta.info/] || Bus locations route B63|| REST/XML || ||  
+|| [http://triangletransit.org/ Triangle Transit] || Chapel Hill, NC || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
+|| Dutch Railways (NS) || The Netherlands || [http://ns.nl/api] || Trip planning, station list, live departures, prices and service disruptions || REST/XML || ||  
+|| [http://www.cumtd.com CUMTD] || Champaign-Urbana, IL || [http://developer.cumtd.com/] || Real time departure predictions|| REST/XML || [http://developer.cumtd.com/terms-of-use Terms of Use] ||  
+|| [http://www.mtc.ca.gov/ MTC] || San Francisco Bay Area, CA || [http://511.org/developer-resources_transit-api.asp] || Real time departure predictions|| REST/XML || [http://511portalstaging.lan.511.org/developer-resources_api-terms_rtt.asp Terms and Conditions] ||  
+|| [http://www.transitchicago.com/ CTA Customer Alerts] || Chicago, IL || http://www.transitchicago.com/developers/alerts.aspx || Real time service messages|| REST/XML || ||
+|| [http://www.transitchicago.com/ CTA Train Tracker] || Chicago, IL || http://www.transitchicago.com/developers/traintracker.aspx || Real time departure predictions || REST/XML || Registration for API key required ||
+|| [http://www.thebus.org/ OTS] || Oahu, HI || http://hea.thebus.org/api_info.asp || Real time departure predictions || REST/XML || Registration for API key required ||
 || [http://www.norta.com/ New Orleans Regional Transit Authority] || New Orleans, LA || http://norta.com || Network and schedule data || Proprietary format || Go to www.norta.com. Set up a MyRTA account. Choose Data Subscription. Agree to License Agreement.  You will receive download instructions ||
-|| [http://www.psta.net/ PSTA] || Penillas County, FL || http://psta.net/developers/ridepsta_API.php || Real time departure predictions || RESTful/XML || Registration for API key required ||
-|| [http://www.itsmarta.com/ MARTA] || Atlanta, GA || http://www.itsmarta.com/marta-developer-resources.aspx || Real time departure predictions || RESTful/Json || ||
+|| [http://www.psta.net/ PSTA] || Penillas County, FL || http://psta.net/developers/ridepsta_API.php || Real time departure predictions || REST/XML || Registration for API key required ||
+|| [http://www.itsmarta.com/ MARTA] || Atlanta, GA || http://www.itsmarta.com/marta-developer-resources.aspx || Real time departure predictions || REST/Json || ||
 || [http://www.mta.info/ MTA] || New York, NY || http://datamine.mta.info/ || Subway real-time data feeds (Beta) || GTFS-realtime || ||
 
 

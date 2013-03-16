@@ -24,7 +24,7 @@ This is a list of non-GTFS feeds. It includes known links to GTFS-realtime feeds
 || Various Universities || US || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
 || DC Circulator, Charm City Circulator, US || Maryland, Virginia || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
 || Portland Streetcar || Portland, OR || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
-|| MTA || New York, NY || [http://bustime.mta.info/] || Bus locations route B63|| REST/XML || ||  
+|| MTA || New York, NY || [http://bustime.mta.info/wiki/Developers/Index] || Bus locations route B63|| REST/XML || ||  
 || [http://triangletransit.org/ Triangle Transit] || Chapel Hill, NC || [http://webservices.nextbus.com/service/publicXMLFeed?command=agencyList NextBus Webservices] || Real time departure predictions || REST/XML || ||  
 || Dutch Railways (NS) || The Netherlands || [http://ns.nl/api] || Trip planning, station list, live departures, prices and service disruptions || REST/XML || ||  
 || [http://www.cumtd.com CUMTD] || Champaign-Urbana, IL || [http://developer.cumtd.com/] || Real time departure predictions|| REST/XML || [http://developer.cumtd.com/terms-of-use Terms of Use] ||  

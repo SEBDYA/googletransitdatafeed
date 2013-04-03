@@ -206,6 +206,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.neotransit.org Northeast Oregon Public Transit] || La Grand, OR || http://oregon-gtfs.com/gtfs_data/northeast-or-us || ||
 || [http://dati.trentino.it Trentino] || Trentino (Italy) || http://www.dati.trentino.it/dataset/trasporti-pubblici-del-trentino-formato-gtfs || http://dati.trentino.it/it/storage/f/2013-03-15T085950/mitt_opendata.zip ||
 || [http://www.springsgov.com Mountain Metro Transit] || Colorado Springs, CO || http://www.springsgov.com/units/transit/google_transit.zip || ||
+|| [http://www.ridewta.com Whatcom Transportation Authority] || Whatcom County, WA ||  https://github.com/whatcomtrans/publicwtadata/raw/master/GTFS/wta_gtfs_latest.zip || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

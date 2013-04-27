@@ -31,30 +31,39 @@ public class NaPTANHelper {
 	    int parentLocalityIx;
 	    int busStopTypeIx;
 	    if ((line = bufFileIn.readLine()) != null) {
+	    	line = line.replaceAll("\",,\"", "\",\"\",\""); // v1.8: Fill in quotation marks in empty tokens
 	        if ((stopcodeAltIx = findColumn(line, "\"ATCOCode\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column ATCOCode not found");
+		        if ((stopcodeAltIx = findColumn(line, "\"AtcoCode\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"ATCOCode\" or \"AtcoCode\" not found");
 	        if ((latIx = findColumn(line, "\"Lat\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column Lat not found");
+		        if ((latIx = findColumn(line, "\"Latitude\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"Lat\" or \"Latitude\" not found");
 	        if ((lonIx = findColumn(line, "\"Lon\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column Lon not found");
+		        if ((lonIx = findColumn(line, "\"Longitude\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"Lon\" or \"Longitude\" not found");
 	        if ((commonNameIx = findColumn(line, "\"CommonName\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column CommonName not found");
+	            throw new UnsupportedEncodingException("Stopfile column \"CommonName\" not found");
 	        if ((indicatorIx = findColumn(line, "\"Identifier\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column Identifier not found");
+		        if ((indicatorIx = findColumn(line, "\"Indicator\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"Identifier\" or \"Indicator\" not found");
 	        if ((directionIx = findColumn(line, "\"Direction\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column Direction not found");
+		        if ((directionIx = findColumn(line, "\"Bearing\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"Direction\" or \"Bearing\" not found");
 	        if ((streetIx = findColumn(line, "\"Street\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column Street not found");
+	            throw new UnsupportedEncodingException("Stopfile column \"Street\" not found");
 	        if ((localityIx = findColumn(line, "\"NatGazLocality\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column NatGazLocality not found");
+		        if ((localityIx = findColumn(line, "\"LocalityName\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"NatGazLocality\" or \"LocalityName\" not found");
 	        if ((parentLocalityIx = findColumn(line, "\"ParentLocality\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column ParentLocality not found");
+		        if ((parentLocalityIx = findColumn(line, "\"ParentLocalityName\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"ParentLocalityName\" not found");
 	        if ((busStopTypeIx = findColumn(line, "\"BusStopType\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column BusStopType not found");
+	            throw new UnsupportedEncodingException("Stopfile column \"BusStopType\" not found");
 	        if ((smscodeIx = findColumn(line, "\"SMSNumber\"")) == -1)
-	            throw new UnsupportedEncodingException("stopfile column SMSNumber not found");
+		        if ((smscodeIx = findColumn(line, "\"NaptanCode\"")) == -1) // v1.8: NaPTAN v2 CSV format
+		        	throw new UnsupportedEncodingException("Stopfile column \"SMSNumber\" or \"NaptanCode\" not found");
 	    } else
-	        throw new UnsupportedEncodingException("stopfile is empty");
+	        throw new UnsupportedEncodingException("Stopfile is empty");
 
 	    String commonName;
 	    String atcoCode;
@@ -67,7 +76,8 @@ public class NaPTANHelper {
 	    String locality;
 	    String parentLocality;
 	    String busStopType;
-	    String tokens[] = {"", "", "", "", "", "", "", "", "", "",
+	    String tokens[] = {
+	    		"", "", "", "", "", "", "", "", "", "",
 	            "", "", "", "", "", "", "", "", "", "",
 	            "", "", "", "", "", "", "", "", "", "",
 	            "", "", "", "", "", "", "", "", "", "",
@@ -77,15 +87,16 @@ public class NaPTANHelper {
 	    initializeIndicatorMap();
 	    boolean indicatorSet;
 	    while((line = bufFileIn.readLine()) != null) {
+	    	line = line.replaceAll("\",,\"", "\",\"\",\""); // v1.8: Fill in quotation marks in empty tokens
 	    	
 	    	try { // v1.7.4
 	            StringTokenizer st = new StringTokenizer(line, ",");
 	            i = 0;
-	            while (st.hasMoreTokens() && i < 30) {
+	            while (st.hasMoreTokens() && i < tokens.length) {
 	                tokens[i] = st.nextToken();
 	                i++;
 	            }
-	            
+
 	            // Stop code (for queries to server and display as "stop number"
 	            atcoCode = tokens[stopcodeAltIx].substring(1, tokens[stopcodeAltIx].length() - 1);
 	            smscode = tokens[smscodeIx].substring(1, tokens[smscodeIx].length() - 1); // Use SMS code as stop code - Remove quotation marks

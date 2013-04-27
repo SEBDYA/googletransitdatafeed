@@ -1,5 +1,5 @@
 /*
- * Copyright 2007, 2008, 2009, 2010, 2011, 2012 GoogleTransitDataFeed
+ * Copyright 2007 - 2013 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -630,14 +630,18 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		int latIx;
 		int lonIx;
 		if ((line = bufFileIn.readLine()) != null) {
+	    	line = line.replaceAll("\",,\"", "\",\"\",\""); // v1.8: Fill in quotation marks in empty tokens
 			if ((stopcodeIx = NaPTANHelper.findColumn(line, "\"ATCOCode\"")) == -1)
-				throw new UnsupportedEncodingException("stopfile column ATCOCode not found");
+				if ((stopcodeIx = NaPTANHelper.findColumn(line, "\"AtcoCode\"")) == -1)
+					throw new UnsupportedEncodingException("Stopfile column \"ATCOCode\" or \"AtcoCode\" not found");
 			if ((latIx = NaPTANHelper.findColumn(line, "\"Lat\"")) == -1)
-				throw new UnsupportedEncodingException("stopfile column Lat not found");
+				if ((latIx = NaPTANHelper.findColumn(line, "\"Latitude\"")) == -1)
+					throw new UnsupportedEncodingException("Stopfile column \"Lat\" or \"Latitude\" not found");
 			if ((lonIx = NaPTANHelper.findColumn(line, "\"Lon\"")) == -1)
-				throw new UnsupportedEncodingException("stopfile column Lon not found");
+				if ((lonIx = NaPTANHelper.findColumn(line, "\"Longitude\"")) == -1)
+					throw new UnsupportedEncodingException("Stopfile column \"Lon\" or \"Longitude\" not found");
 		} else
-			throw new UnsupportedEncodingException("stopfile is empty");
+			throw new UnsupportedEncodingException("Stopfile is empty");
 			
 		if (lat != null)
 			lat.clear();
@@ -655,9 +659,10 @@ public class TransxchangeStops extends TransxchangeDataAspect{
 		int i, j;
 		int lineCounter = 0;
 		while((line = bufFileIn.readLine()) != null) {
+	    	line = line.replaceAll("\",,\"", "\",\"\",\""); // v1.8: Fill in quotation marks in empty tokens
 			StringTokenizer st = new StringTokenizer(line, ",");
 			i = 0;
-			while (st.hasMoreTokens() && i < 30) {
+			while (st.hasMoreTokens() && i < tokens.length) {
 				tokens[i] = st.nextToken();
 				i++;
 			}

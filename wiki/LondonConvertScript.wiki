@@ -83,7 +83,7 @@ echo
 echo "-I- Converting $1"
 if [ -f $2/data.zip ]
 then
-	java -Xmx1080M -jar $TXC2GTFS/transxchange2GoogleTransit.jar $2/data.zip $2/GTFS -c $3
+	java -Xmx2300M -jar $TXC2GTFS/transxchange2GoogleTransit.jar $2/data.zip $2/GTFS -c $3
 	tflrm $2/data.zip
 else
 	echo "-E- Data for operator $1 not found"

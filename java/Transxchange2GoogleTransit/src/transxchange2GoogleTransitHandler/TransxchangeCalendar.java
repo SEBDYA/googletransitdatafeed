@@ -1,5 +1,5 @@
 /*
- * Copyright 2007, 2008, 2009, 2010, 2011, 2012 GoogleTransitDataFeed
+ * Copyright 2007 - 2013 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -39,7 +39,7 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 	static final String[] key_calendar__saturday = new String[] {"__transxchange2GTFS_drawDefault", "", "0"}; // GTFS required
 	static final String[] key_calendar__sunday = new String[] {"__transxchange2GTFS_drawDefault", "", "0"}; // GTFS required
 	static final String[] key_calendar__start_date = new String[] {"Service", "StartDate", "20060901"}; // GTFS required
-	static final String[] key_calendar__end_date = new String[] {"Service", "EndDate", "20091231"}; // GTFS required
+	static final String[] key_calendar__end_date = new String[] {"Service", "EndDate", "20991231"}; // GTFS required
 
 	// Parsed data
 	List listCalendar__service_id;
@@ -562,47 +562,62 @@ public class TransxchangeCalendar extends TransxchangeDataAspect {
 		
    		newCalendar__monday = new ValueList(key_calendar__monday[0]);
    		listCalendar__monday.add(newCalendar__monday);
-   		newCalendar__monday.addValue((String)((ValueList)listCalendar__monday.get(i)).getValue(0));
-  		newCalendar__monday.addValue((String)((ValueList)listCalendar__monday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__monday.get(i)).getValue(0) != null)
+   			newCalendar__monday.addValue((String)((ValueList)listCalendar__monday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__monday.get(i)).getValue(1) != null)
+   			newCalendar__monday.addValue((String)((ValueList)listCalendar__monday.get(i)).getValue(1));
   		newCalendar__monday.addValue(newServiceId);
    		newCalendar__tuesday = new ValueList(key_calendar__tuesday[0]);
    		listCalendar__tuesday.add(newCalendar__tuesday);
-   		newCalendar__tuesday.addValue((String)((ValueList)listCalendar__tuesday.get(i)).getValue(0));
-  		newCalendar__tuesday.addValue((String)((ValueList)listCalendar__tuesday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__tuesday.get(i)).getValue(0) != null)
+   			newCalendar__tuesday.addValue((String)((ValueList)listCalendar__tuesday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__tuesday.get(i)).getValue(1) != null)
+   			newCalendar__tuesday.addValue((String)((ValueList)listCalendar__tuesday.get(i)).getValue(1));
   		newCalendar__tuesday.addValue(newServiceId);
   		newCalendar__wednesday = new ValueList(key_calendar__wednesday[0]);
    		listCalendar__wednesday.add(newCalendar__wednesday);
-   		newCalendar__wednesday.addValue((String)((ValueList)listCalendar__wednesday.get(i)).getValue(0));
-   		newCalendar__wednesday.addValue((String)((ValueList)listCalendar__wednesday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__wednesday.get(i)).getValue(0) != null)
+   			newCalendar__wednesday.addValue((String)((ValueList)listCalendar__wednesday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__wednesday.get(i)).getValue(1) != null)
+   			newCalendar__wednesday.addValue((String)((ValueList)listCalendar__wednesday.get(i)).getValue(1));
   		newCalendar__wednesday.addValue(newServiceId);
    		newCalendar__thursday = new ValueList(key_calendar__thursday[0]);
    		listCalendar__thursday.add(newCalendar__thursday);
-   		newCalendar__thursday.addValue((String)((ValueList)listCalendar__thursday.get(i)).getValue(0));
-   		newCalendar__thursday.addValue((String)((ValueList)listCalendar__thursday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__thursday.get(i)).getValue(0) != null)
+   			newCalendar__thursday.addValue((String)((ValueList)listCalendar__thursday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__thursday.get(i)).getValue(1) != null)
+   			newCalendar__thursday.addValue((String)((ValueList)listCalendar__thursday.get(i)).getValue(1));
   		newCalendar__thursday.addValue(newServiceId);
    		newCalendar__friday = new ValueList(key_calendar__friday[0]);
    		listCalendar__friday.add(newCalendar__friday);
-   		newCalendar__friday.addValue((String)((ValueList)listCalendar__friday.get(i)).getValue(0));
-   		newCalendar__friday.addValue((String)((ValueList)listCalendar__friday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__friday.get(i)).getValue(0) != null)
+   			newCalendar__friday.addValue((String)((ValueList)listCalendar__friday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__friday.get(i)).getValue(1) != null)
+   			newCalendar__friday.addValue((String)((ValueList)listCalendar__friday.get(i)).getValue(1));
   		newCalendar__friday.addValue(newServiceId);
    		newCalendar__saturday = new ValueList(key_calendar__saturday[0]);
    		listCalendar__saturday.add(newCalendar__saturday);
-   		newCalendar__saturday.addValue((String)((ValueList)listCalendar__saturday.get(i)).getValue(0));
-   		newCalendar__saturday.addValue((String)((ValueList)listCalendar__saturday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__saturday.get(i)).getValue(0) != null)
+   			newCalendar__saturday.addValue((String)((ValueList)listCalendar__saturday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__saturday.get(i)).getValue(1) != null)
+   			newCalendar__saturday.addValue((String)((ValueList)listCalendar__saturday.get(i)).getValue(1));
   		newCalendar__saturday.addValue(newServiceId);
    		newCalendar__sunday = new ValueList(key_calendar__sunday[0]);
    		listCalendar__sunday.add(newCalendar__sunday);
-   		newCalendar__sunday.addValue((String)((ValueList)listCalendar__sunday.get(i)).getValue(0));
-   		newCalendar__sunday.addValue((String)((ValueList)listCalendar__sunday.get(i)).getValue(1));
+   		if ((String)((ValueList)listCalendar__sunday.get(i)).getValue(0) != null)
+   			newCalendar__sunday.addValue((String)((ValueList)listCalendar__sunday.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__sunday.get(i)).getValue(1) != null)
+   			newCalendar__sunday.addValue((String)((ValueList)listCalendar__sunday.get(i)).getValue(1));
   		newCalendar__sunday.addValue(newServiceId);
    		newCalendar__start_date = new ValueList(key_calendar__start_date[1]);
    		listCalendar__start_date.add(newCalendar__start_date);
-   		newCalendar__start_date.addValue((String)((ValueList)listCalendar__start_date.get(i)).getValue(0));
+   		if ((String)((ValueList)listCalendar__start_date.get(i)).getValue(0) != null)
+   			newCalendar__start_date.addValue((String)((ValueList)listCalendar__start_date.get(i)).getValue(0));
    		newCalendar__end_date = new ValueList(key_calendar__end_date[1]);
    		listCalendar__end_date.add(newCalendar__end_date);
-   		newCalendar__end_date.addValue((String)((ValueList)listCalendar__end_date.get(i)).getValue(0));	
+   		if ((String)((ValueList)listCalendar__end_date.get(i)).getValue(0) != null)
+   			newCalendar__end_date.addValue((String)((ValueList)listCalendar__end_date.get(i)).getValue(0));	
 	}
-	
 
 	public TransxchangeCalendar(TransxchangeHandlerEngine owner) {
 		super(owner);

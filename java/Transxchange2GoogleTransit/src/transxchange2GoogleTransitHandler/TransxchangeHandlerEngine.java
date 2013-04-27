@@ -1,5 +1,5 @@
 /*
- * Copyright 2007, 2008, 2009, 2010, 2011, 2012 GoogleTransitDataFeed
+ * Copyright 2007 - 2013 GoogleTransitDataFeed
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -445,6 +445,10 @@ public class TransxchangeHandlerEngine extends DefaultHandler {
         
         String outLine;
         for (int i = 0; i < this.getCalendar().getListCalendar__service_id().size(); i++) {
+        	if (((ValueList)this.getCalendar().getListCalendar__start_date().get(i)).getValue(0) == null
+        		|| ((ValueList)this.getCalendar().getListCalendar__end_date().get(i)).getValue(0) == null)
+        		continue;
+
         	outLine = "";
         	serviceId = (String)(((ValueList)this.getCalendar().getListCalendar__service_id().get(i))).getValue(0);
         	// Service ID added to calendar data structure in class TransxchangeCalendar. 

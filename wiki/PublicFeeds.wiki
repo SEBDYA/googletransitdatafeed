@@ -208,6 +208,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.springsgov.com Mountain Metro Transit] || Colorado Springs, CO || http://www.springsgov.com/units/transit/google_transit.zip || ||
 || [http://www.ridewta.com Whatcom Transportation Authority] || Whatcom County, WA || https://github.com/whatcomtrans/publicwtadata/raw/master/GTFS/wta_gtfs_latest.zip || ||
 || [http://www.cmrtransit.org Central Maryland Regional Transit] || Central Maryland || http://www.cmrtransit.org/Portals/0/Google/google_transit.zip || ||
+|| [http://www.lagunabeachcity.net/cityhall/pw/transit/] || Laguna Beach, Ca || http://trilliumtransit.com/transit_feeds/lagunabeach-ca-us || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

@@ -71,7 +71,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.hsvcity.com Huntsville Shuttle] || Huntsville, AL || [http://maps.hsvcity.com/GoogleTransit/google_transit.zip] ||  ||
 || [http://www.arlingtontransit.com Arlington Transit] || Arlington, VA || http://www.arlingtontransit.com/gtfs/google_transit.zip ||  ||
 || [http://www.cityofescalon.org/transit.htm eTrans] || Escalon, CA || http://trilliumtransit.com/transit_feeds/escalon-ca-us/ ||  ||
-|| [http://northwest-point.com/ NorthWest Point, operated by MTR Western] || Oregon || http://oregon-gtfs.com/gtfs_data/northwestpoint-or-us || [http://oregon-gtfs.com/ Terms of use] ||
+|| [http://northwest-point.com/ NorthWest POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/northwestpoint-or-us || [http://oregon-gtfs.com/ Terms of use] ||
 || [http://highdesert-point.com/ HighDesert POINT and Eastern POINT] operated by TAC Transportation || Oregon || http://oregon-gtfs.com/gtfs_data/tac-or-us ||  ||
 || [http://southwest-point.com/ SouthWest POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/southwestpoint-or-us ||  ||
 || [http://www.catbus.com/ Clemson Area Transit (CAT)] || Clemson, SC ||  http://trilliumtransit.com/transit_feeds/clemson-sc-us/ ||  ||
@@ -209,7 +209,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ridewta.com Whatcom Transportation Authority] || Whatcom County, WA || https://github.com/whatcomtrans/publicwtadata/raw/master/GTFS/wta_gtfs_latest.zip || ||
 || [http://www.cmrtransit.org Central Maryland Regional Transit] || Central Maryland || http://www.cmrtransit.org/Portals/0/Google/google_transit.zip || ||
 || [http://www.lagunabeachcity.net/cityhall/pw/transit/ Laguna Beach Transit] || Laguna Beach, CA || http://trilliumtransit.com/transit_feeds/lagunabeach-ca-us || ||
-|| [http://www.amtrakcascades.com/ Cascades Point Thruway] || Oregon || http://oregon-gtfs.com/gtfs_data/cascadesthruway-or-us || [http://oregon-gtfs.com/ Terms of use] ||
+|| [http://www.amtrakcascades.com/ Cascades POINT Thruway] || Oregon || http://oregon-gtfs.com/gtfs_data/cascadesthruway-or-us || [http://oregon-gtfs.com/ Terms of use] ||
 
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||

@@ -210,7 +210,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.cmrtransit.org Central Maryland Regional Transit] || Central Maryland || http://www.cmrtransit.org/Portals/0/Google/google_transit.zip || ||
 || [http://www.lagunabeachcity.net/cityhall/pw/transit/ Laguna Beach Transit] || Laguna Beach, CA || http://trilliumtransit.com/transit_feeds/lagunabeach-ca-us || ||
 || [http://www.amtrakcascades.com/ Cascades POINT Thruway] || Oregon || http://oregon-gtfs.com/gtfs_data/cascadesthruway-or-us || [http://oregon-gtfs.com/ Terms of use] ||
-|| [www.nashvillemta.org/ Nashville MTA] || Nashville, TN || http://www.nashvillemta.org/Nashville-MTA-Developer-Data-Request.asp ||  ||
+|| [http://www.nashvillemta.org/ Nashville MTA] || Nashville, TN || http://www.nashvillemta.org/Nashville-MTA-Developer-Data-Request.asp ||  ||
 
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||

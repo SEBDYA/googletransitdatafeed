@@ -213,9 +213,16 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.nashvillemta.org/ Nashville MTA] || Nashville, TN || http://www.nashvillemta.org/Nashville-MTA-Developer-Data-Request.asp || ||
 || [http://www.511ny.org/ 511 New York] || New York || http://www.511ny.org/developer.aspx || ||
 || [http://www.stm.info/ Société de transport de Montréal] || Montréal, QC || http://www.stm.info/fichiers/gtfs/ || ||
-|| [http://www.ci.green-bay.wi.us/transit/ Green Bay Metro Transit || Green Bay, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip || ||
-|| [http://www.rideuta.com Utah Transit Authority || Salt Lake City, UT || http://developer.rideuta.com/DeveloperResources/developer.aspx || ||
-|| [http://www.winnipegtransit.com Winnipeg Transit || Winnipeg, ON || http://gtfs.winnipegtransit.com/google_transit.zip || ||
+|| [http://www.ci.green-bay.wi.us/transit/ Green Bay Metro Transit] || Green Bay, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip || ||
+|| [http://www.rideuta.com Utah Transit Authority] || Salt Lake City, UT || http://developer.rideuta.com/DeveloperResources/developer.aspx || ||
+|| [http://www.winnipegtransit.com Winnipeg Transit] || Winnipeg, ON || http://gtfs.winnipegtransit.com/google_transit.zip || ||
+|| [http://www.gotransit.com GO Ontario] || Ontario, ON || http://www.gotransit.com/publicroot/gtfs/google_transit.zip || ||
+|| [http://www.ripta.com Rhode Island Public Transit Authority ] || Rhode Island || http://www.ripta.com/googledata/current/google_transit.zip || ||
+|| [http://www.fivecounty.utah.gov SunTran] || Five Counties, UT || http://www.fivecounty.utah.gov/transit/google_transit.zip || ||
+|| [http://www.slorta.org SLORTA] || San Luis Obispo, CA || https://sites.google.com/site/slocountytransit/google-transit-docs/slorta_datafiles/latest/google_transit.zip || ||
+
+
+
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

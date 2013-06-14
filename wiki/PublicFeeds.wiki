@@ -125,7 +125,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.nfta.com/ NFTA Metro] || Buffalo - Niagara Region, NY || http://metro.nfta.com/Contact/Developers.aspx || ||
 || [http://sanjoaquinrtd.com San Joaquin Regional Transit District (RTD)] || San Joaquin Valley, CA || http://sanjoaquinrtd.com/RTD-GTFS/RTD-GTFS.zip || [http://sanjoaquinrtd.com/legal/default.php Terms of Use] ||
 || [http://scmtd.com/ Santa Cruz Metro Transit District] || Santa Cruz, CA || http://scmtd.com/google_transit/google_transit.zip ||  ||
-|| Brown County Metro || Brown County, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip ||  ||
+|| [http://www.ci.green-bay.wi.us/transit/ Brown County / Green Bay Metro Transit] || Green Bay, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip ||  ||
 || [http://www.cherriots.com Salem-Keizer Transit (Cherriots)] || Salem, OR || http://www.cherriots.org/developer/gtfs.zip  || Developer area and usage agreement are available [http://www.cherriots.org/developer/agreement.htm here] ||
 || [http://www.co.coos.or.us Coos County Area Transit] || Coos County, OR || http://oregon-gtfs.com/gtfs_data/cooscounty-or-us  || ||
 || [http://www.linnshuttle.com Linn Shuttle] || Linn County, OR || http://oregon-gtfs.com/gtfs_data/linnshuttle-or-us || ||
@@ -213,7 +213,6 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.nashvillemta.org/ Nashville MTA] || Nashville, TN || http://www.nashvillemta.org/Nashville-MTA-Developer-Data-Request.asp || ||
 || [http://www.511ny.org/ 511 New York] || New York || http://www.511ny.org/developer.aspx || ||
 || [http://www.stm.info/ Société de transport de Montréal] || Montréal, QC || http://www.stm.info/fichiers/gtfs/ || ||
-|| [http://www.ci.green-bay.wi.us/transit/ Green Bay Metro Transit] || Green Bay, WI || http://maps.gis.co.brown.wi.us/web_documents/Planning/Google_Transit.zip || ||
 || [http://www.rideuta.com Utah Transit Authority] || Salt Lake City, UT || http://developer.rideuta.com/DeveloperResources/developer.aspx || ||
 || [http://www.winnipegtransit.com Winnipeg Transit] || Winnipeg, ON || http://gtfs.winnipegtransit.com/google_transit.zip || ||
 || [http://www.gotransit.com GO Ontario] || Ontario, ON || http://www.gotransit.com/publicroot/gtfs/google_transit.zip || ||

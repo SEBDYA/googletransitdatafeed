@@ -167,7 +167,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.basintransit.com/ Basin Transit Service] || Klamath Falls, OR || http://oregon-gtfs.com/gtfs_data/basin-or-us || ||
 || [http://www.woodburn-or.gov/publicworks/transit.aspx Woodburn Transit] || Woodburn, OR || http://oregon-gtfs.com/gtfs_data/woodburn-or-us || ||
 || [http://southlanewheels.org/ South Lane Wheels] || South Lane, OR || http://oregon-gtfs.com/gtfs_data/southlanewheels-or-us || ||
-|| [http://www.rideconnection.org/ride/default.aspx Ride Connection] || Portland Metro Area, OR || http://oregon-gtfs.com/gtfs_data/rideconnection-or-us || [http://www.rideconnection.org/ride/AboutUs/GTFSLicensingAgreement.aspx/ Terms of use] ||
+|| [http://www.rideconnection.org/ride/default.aspx Ride Connection] || Portland Metro Area, OR || http://oregon-gtfs.com/gtfs_data/rideconnection-or-us || [http://www.rideconnection.org/ride/AboutUs/GTFSLicensingAgreement.aspx Terms of use] ||
 || [http://www.go-metro.com Cincinnati Metro] || Cincinnati, OH || http://www.go-metro.com/uploads/google_transit.zip || [http://www.go-metro.com/about-metro/developer-data Terms of Use] ||
 || [http://www.go-metro.com Washington State Ferries] || Washington State || https://business.wsdot.wa.gov/Transit/csv_files/wsf/google_transit.zip || ||
 || [http://www.sanbenitocountyexpress.org/ San Benito County Express] || San Benito County, CA || http://trilliumtransit.com/transit_feeds/sanbenito-ca-us/ || ||

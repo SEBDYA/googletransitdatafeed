@@ -69,7 +69,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.portauthority.org Port Authority of Allegheny County] || Pittsburgh, PA || http://www.portauthority.org/GoogleTransitFeed || Use is subject to the terms and conditions of [http://www.portauthority.org/PAAC/CompanyInfo/DeveloperResources/DeveloperLicenseAgreement/tabid/521/Default.aspx Port Authority's License Agreement] ||
 || [http://www.mta.info MTA] || New York, NY || http://www.mta.info/developers/ ||  ||
 || [http://www.hsvcity.com Huntsville Shuttle] || Huntsville, AL || [http://maps.hsvcity.com/GoogleTransit/google_transit.zip] ||  ||
-|| [http://www.arlingtontransit.com Arlington Transit] || Arlington, VA || http://www.arlingtontransit.com/gtfs/google_transit.zip ||  ||
+|| [http://www.arlingtontransit.com Arlington Transit] || Arlington, VA || http://realtime.commuterpage.com/RTT/Public/Utility/GTFS.aspx ||  ||
 || [http://www.cityofescalon.org/transit.htm eTrans] || Escalon, CA || http://trilliumtransit.com/transit_feeds/escalon-ca-us/ ||  ||
 || [http://northwest-point.com/ NorthWest POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/northwestpoint-or-us || [http://oregon-gtfs.com/ Terms of use] ||
 || [http://highdesert-point.com/ HighDesert POINT and Eastern POINT] operated by TAC Transportation || Oregon || http://oregon-gtfs.com/gtfs_data/tac-or-us ||  ||

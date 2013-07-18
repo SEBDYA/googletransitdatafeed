@@ -220,6 +220,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.fivecounty.utah.gov SunTran] || Five Counties, UT || http://www.fivecounty.utah.gov/transit/google_transit.zip || ||
 || [http://www.slorta.org SLORTA] || San Luis Obispo, CA || https://sites.google.com/site/slocountytransit/google-transit-docs/slorta_datafiles/latest/google_transit.zip || ||
 || [http://www.ruraltransit.org// Fresno County Rural Transit Agency] || Fresno, CA || http://trilliumtransit.com/transit_feeds/fresnocounty-ca-us || ||
+|| Minneapolis-St.Paul Regional GIS Consortium] || Minnepolis-St.Paul, MN || ftp://gisftp.metc.state.mn.us || ||
 
 
 

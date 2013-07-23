@@ -186,7 +186,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.getbus.org Golden Empire Transit District] || Bakersfield, CA || http://www.getbus.org/google-transit-data-download/ || [http://www.getbus.org/googletransit/GET-GTFS-License_Agreement.txt/ License Agreement] ||
 || [http://www.amadortransit.com Amador Regional Transit] || Amador County, CA || http://trilliumtransit.com/transit_feeds/amador-ca-us/ || ||
 || [http://transit.calaverasgov.us Calaveras Transit] || Calaveras County, CA || http://trilliumtransit.com/transit_feeds/calaveras-ca-us/ || ||
-|| [http://www.estransit.com Eastern Sierra Transit Authority] || Inyo and Mono Counties, CA || http://trilliumtransit.com/transit_feeds/easternsierra-ca-us/ || ||
+|| [http://www.estransit.com Eastern Sierra Transit Authority] || Inyo and Mono Counties, CA || http://trilliumtransit.com/transit_feeds/easternsierra-ca-us/ || [http://trilliumtransit.com/transit_feeds/easternsierra-ca-us/ESTA%20Data%20License%20Agreement.html Data License Agreement] ||
 || [http://www.maderactc.org/translinks.html Madera County Transit] || Madera County, CA || http://trilliumtransit.com/transit_feeds/madera-ca-us/ || ||
 || [http://www.plumastransit.com/default.html Plumas Transit] || Plumas County, CA || http://trilliumtransit.com/transit_feeds/plumas-ca-us/ || ||
 || [http://www.yarts.com Yosemite Area Regional Transit] || Yosemite Area, CA || http://trilliumtransit.com/transit_feeds/yosemite-ca-us/ || ||

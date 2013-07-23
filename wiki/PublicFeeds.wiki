@@ -222,7 +222,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ruraltransit.org// Fresno County Rural Transit Agency] || Fresno, CA || http://trilliumtransit.com/transit_feeds/fresnocounty-ca-us || ||
 || Minneapolis-St.Paul Regional GIS Consortium || Minnepolis-St.Paul, MN || ftp://gisftp.metc.state.mn.us || ||
 || [http://www.ci.oshkosh.wi.us/Transit// Go Transit] || Oshkosh, WI || http://trilliumtransit.com/transit_feeds/oshkosh-wi-us || ||
-|| [Roanoke Valley Regional Commission / http://www.valleymetro.com// (Valley Metro) /http://www.radartransit.org/ (Radar Transit)] || Roanoke, VA || http://trilliumtransit.com/transit_feeds/roanoke-va-us || ||
+|| [http://www.rvarc.org/ Roanoke Valley Region] ([http://www.valleymetro.com Valley Metro], [http://www.radartransit.org/ Radar Transit]) || Roanoke Valley Region, VA || http://trilliumtransit.com/transit_feeds/roanoke-va-us || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

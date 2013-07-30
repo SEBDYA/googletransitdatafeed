@@ -55,7 +55,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.riderta.com/ Greater Cleveland Regional Transit Authority] || Cleveland, Ohio ||  http://www.riderta.com/sites/default/files/gtfs/latest/google_transit.zip ||  ||
 || [http://www.rtcsnv.com/ Regional Transportation Commission of Southern Nevada] || Southern Nevada || http://rtcws.rtcsnv.com/g/google_transit.zip ||  ||
 || [http://www.ltd.org Lane Transit District] || Lane County, Oregon || http://www.ltd.org/googlepublic/ || ||
-|| [http://metro.kingcounty.gov/ King County Metro Transit] || King County, WA || http://www.kingcounty.gov/transportation/kcdot/MetroTransit/Developers.aspx || The data is password-protected; to get login information, send email to PublicTransitData@kingcounty.gov, print the disclaimer form you get back, sign it, scan it, and send it back to them. ||
+|| [http://metro.kingcounty.gov/ King County Metro Transit] || King County, WA || http://www.kingcounty.gov/transportation/kcdot/MetroTransit/Developers.aspx || ||
 || [http://www.translink.ca/ TransLink] || Vancouver, BC || http://www.translink.ca/en/Schedules-and-Maps/Developer-Resources/GTFS-Data.aspx || Terms of Use shown on the download page ||
 || [http://www.cdta.org/ CDTA] || Albany, NY || http://www.cdta.org/schedules/google_transit.zip || [http://www.cdta.org/schedules_developer_tools_developer_license.php Developer license] and [http://www.cdta.org/schedules_developer_tools.php developer page] ||
 || [http://community.gorge.net/hrctd/Dial-A-Ride.htm Columbia Area Transit] || Hood River County, OR || http://oregon-gtfs.com/gtfs_data/hoodriver-or-us/ ||  ||
@@ -223,7 +223,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Minneapolis-St.Paul Regional GIS Consortium || Minnepolis-St.Paul, MN || ftp://gisftp.metc.state.mn.us || ||
 || [http://www.ci.oshkosh.wi.us/Transit// Go Transit] || Oshkosh, WI || http://trilliumtransit.com/transit_feeds/oshkosh-wi-us || ||
 || [http://www.rvarc.org/ Roanoke Valley Region] ([http://www.valleymetro.com Valley Metro], [http://www.radartransit.org/ Radar Transit]) || Roanoke Valley Region, VA || http://trilliumtransit.com/transit_feeds/roanoke-va-us || ||
-|| [https://data.qld.gov.au/ Queensland] || Queensland (AU) || http://translink.com.au/about-translink/reporting-and-publications/public-transport-performance-data || ||
+|| [https://data.qld.gov.au/ Queensland] || Queensland (Australia) || http://translink.com.au/about-translink/reporting-and-publications/public-transport-performance-data || ||
 
 
 

@@ -227,6 +227,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Mexico City || Mexico City (Mexico) || http://datosabiertos.df.gob.mx/index.php/busqueda-por-dependencia/81-transporte-y-vialidad/787-base-de-datos-abiertos-de-transporte-del-distrito-federal || || 
 || [http://mot.gov.il Israel Public Transportation] || Israel || ftp://gtfs.mot.gov.il/israel-public-transportation.zip || Note: Requires right-to-left text processing capability || 
 || [http://mot.gov.il Israel Railways] || Israel || ftp://gtfs.mot.gov.il/irw_gtfs.zip || || 
+|| [http://www.vbb.de Verkehrsverbund Berlin-Brandenburg] || Berlin and Brandenburg (Germany) || http://www.vbb.de/de/datei/gtfs-daten.zip || gtfs by CC BY Attribution || 
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

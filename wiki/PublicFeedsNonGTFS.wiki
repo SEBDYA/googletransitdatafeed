@@ -37,6 +37,8 @@ This is a list of non-GTFS feeds. It includes known links to GTFS-realtime feeds
 || [http://www.itsmarta.com/ MARTA] || Atlanta, GA || http://www.itsmarta.com/marta-developer-resources.aspx || Real time departure predictions || REST/Json || ||
 || [http://www.mta.info/ MTA] || New York, NY || http://datamine.mta.info/ || Subway real-time data feeds (Beta) || GTFS-realtime || ||
 || [http://www.rideuta.com/ UTA] || Salt Lake City, UT || http://developer.rideuta.com/DeveloperResources/DataInstructions.aspx || Next bus and train times || REST/XML/SIRI || ||
+|| [http://www.opendata.ch/ OpenData.ch] || Switzerland || http://transport.opendata.ch/ || Public timetable data || REST/JSON || ||
+
 
 
 

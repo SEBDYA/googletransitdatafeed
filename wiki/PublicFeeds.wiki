@@ -95,7 +95,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://trilliumtransit.com/transit_feeds/spacecoast-fl-us/ SpaceCoast FL US] || Space Coast, FL || http://trilliumtransit.com/transit_feeds/spacecoast-fl-us/ || ||
 || [http://trilliumtransit.com/transit_feeds/stanislaus-ca-us/ Stanislaus County, CA] || Stanislaus County || http://trilliumtransit.com/transit_feeds/stanislaus-ca-us/ || Stanislaus Area Regional Transit (Stanislaus County), Bus Line Service of Turlock (Turlock, California), Ceres Area Transit (Ceres, California) ||
 || [http://www.rvtd.org/ Rogue Valley Transportation District ] || Rogue Valley, OR || http://www.rvtd.org/images/subpages/GTFS_feed.zip || ||
-|| [http://www.calgarytransit.com/ Calgary Transit ] || Calgary, AB || http://calgaryonlinestore.com/detail.asp?prod_id=2909 || ||
+|| [http://www.calgarytransit.com/ Calgary Transit ] || Calgary, AB || https://data.calgary.ca/OpenData/Pages/DatasetDetails.aspx?DatasetID=PDC0-99999-99999-00501-P%28CITYonlineDefault%29 || ||
 || [http://www.metlink.org.nz// Greater Wellington's public transportation network ] || Greater Wellington (New Zealand) || http://www.metlink.org.nz/googletransit/google_transit.zip || ||
 || [http://www.halifax.ca// Halifax Metro] || Halifax, NS || http://halifax.ca/GoogleTransit/developerdata.html || ||
 || [http://www.cota.com/ Central Ohio Transit Authority] || Columbus, OH || http://www.cota.com/data.asp || ||

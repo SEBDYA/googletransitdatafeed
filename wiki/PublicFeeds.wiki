@@ -229,7 +229,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://mot.gov.il Israel Railways] || Israel || ftp://gtfs.mot.gov.il/irw_gtfs.zip || || 
 || [http://www.vbb.de Verkehrsverbund Berlin-Brandenburg] || Berlin and Brandenburg (Germany) || http://www.vbb.de/de/datei/gtfs-daten.zip || gtfs by CC BY Attribution || 
 || [http://www.sctransit.com/ Sonoma County Transit] || Santa Rosa, CA || http://trilliumtransit.com/transit_feeds/sonomacounty-ca-us || ||
-|| [myciti.org.za/ MyCiTi] || Cape Town (ZA) || hhttp://myciti.org.za/google_transit.zip || ||
+|| [http://myciti.org.za/ MyCiTi] || Cape Town (South Africa) || hhttp://myciti.org.za/google_transit.zip || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

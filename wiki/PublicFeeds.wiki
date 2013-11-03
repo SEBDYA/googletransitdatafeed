@@ -20,7 +20,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://unitrans.ucdavis.edu/ Unitrans] || Davis, CA || http://iportal.sacrt.com/GTFS/Unitrans || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.rtd-denver.com Regional Transportation District] || Denver, CO || http://www.rtd-denver.com/GoogleFeeder/ || [http://www.rtd-denver.com/License_Agreement/License_Agreement.pdf License Agreement] ||
 || [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA (Australia) || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
-|| [http://www.yrt.ca York Region Transit] || Ontario, ON || http://www.yrt.ca/google/google_transit.zip || [http://www.yrt.ca/google/ License Agreement] ||
+|| [http://www.yrt.ca York Region Transit] || York County, ON || http://www.yrt.ca/google/google_transit.zip || [http://www.yrt.ca/google/ License Agreement] ||
 || [http://www.ridemcts.com/ Milwaukee County Transit System] || Milwaukee, WI || http://kamino.mcts.org/gtfs/google_transit.zip || [http://kamino.mcts.org/gtfs/ Terms of Use] ||
 || [http://www.thebus.org Oahu Transit Services, Inc] || Honolulu, HI || http://webapps.thebus.org/transitdata/Production/google_transit.zip || [http://www.thebus.org/transitfeed/terms-of-use.asp Terms of Use] ||
 || [http://www.gohrt.com/ Hampton Roads Transit] || Hampton Roads, VA || http://googletf.gohrt.com/ ||  ||
@@ -215,7 +215,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.stm.info/ Société de transport de Montréal] || Montréal, QC || http://www.stm.info/en/about/developers || ||
 || [http://www.rideuta.com Utah Transit Authority] || Salt Lake City, UT || http://developer.rideuta.com/DeveloperResources/developer.aspx || ||
 || [http://www.winnipegtransit.com Winnipeg Transit] || Winnipeg, ON || http://gtfs.winnipegtransit.com/google_transit.zip || ||
-|| [http://www.gotransit.com GO Ontario] || Ontario, ON || http://www.gotransit.com/publicroot/gtfs/google_transit.zip || ||
+|| [http://www.gotransit.com GO Ontario] || Ontario || http://www.gotransit.com/publicroot/gtfs/google_transit.zip || ||
 || [http://www.ripta.com Rhode Island Public Transit Authority ] || Rhode Island || http://www.ripta.com/googledata/current/google_transit.zip || ||
 || [http://www.fivecounty.utah.gov SunTran] || Five Counties, UT || http://www.fivecounty.utah.gov/transit/google_transit.zip || ||
 || [http://www.slorta.org SLORTA] || San Luis Obispo, CA || https://sites.google.com/site/slocountytransit/google-transit-docs/slorta_datafiles/latest/google_transit.zip || ||
@@ -231,7 +231,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.sctransit.com/ Sonoma County Transit] || Santa Rosa, CA || http://trilliumtransit.com/transit_feeds/sonomacounty-ca-us || ||
 || [http://myciti.org.za/ MyCiTi] || Cape Town (South Africa) || http://myciti.org.za/google_transit.zip || ||
 || [http://www.nictd.com/ Northern Indiana Commuter Transportation District] || Chesterton, IN || http://www.nictd.com/google/google_transit.zip || ||
-
+|| [http://www.octranspo1.com/ OC Transpo] || Ottawa, ON || http://data.ottawa.ca/en/dataset/oc-transpo-schedules || ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

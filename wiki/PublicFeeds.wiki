@@ -232,7 +232,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.nictd.com/ Northern Indiana Commuter Transportation District] || Chesterton, IN || http://www.nictd.com/google/google_transit.zip || ||
 || [http://www.octranspo1.com/ OC Transpo] || Ottawa, ON || http://data.ottawa.ca/en/dataset/oc-transpo-schedules || ||
 || [http://www.highdesert-point.com/high-desert-point/ HighDesert POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/highdesertpoint-or-us/ ||  ||
-|| [http://www.highdesert-point.com/eastern-point/ Eastern POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/easterntpoint-or-us ||  ||
+|| [http://www.highdesert-point.com/eastern-point/ Eastern POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/easternpoint-or-us ||  ||
 || [http://www.highdesert-point.com/eugene-to-bend/ Eugene to BEND] || Oregon || http://oregon-gtfs.com/gtfs_data/eugenetobend-or-us ||  ||
 || [http://www.ltd.org/diamondex// Diamond Express] || Oakridge, OR || http://oregon-gtfs.com/gtfs_data/diamondexpress-or-us ||  ||
 || Tisséo || Toulouse (France) || http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs ||  ||

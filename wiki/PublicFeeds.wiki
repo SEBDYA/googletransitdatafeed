@@ -236,6 +236,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.highdesert-point.com/eugene-to-bend/ Eugene to BEND] || Oregon || http://oregon-gtfs.com/gtfs_data/eugenetobend-or-us ||  ||
 || [http://www.ltd.org/diamondex// Diamond Express] || Oakridge, OR || http://oregon-gtfs.com/gtfs_data/diamondexpress-or-us ||  ||
 || Tisséo || Toulouse (France) || http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs ||  ||
+|| [http://www.radfordtransit.com/// Radford Transit] || Radford, VA || http://trilliumtransit.com/transit_feeds/radford-va-us/ ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

@@ -238,7 +238,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Tisséo || Toulouse (France) || http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs ||  ||
 || [http://www.radfordtransit.com/// Radford Transit] || Radford, VA || http://trilliumtransit.com/transit_feeds/radford-va-us/ ||  ||
 || [http://www.c-tran.com/// C-Tran] || Clark County, WA || http://www.c-tran.com/gtfs/gtfs_agreement_form.html ||  ||
-|| [http://www.mthoodexpress.com// Mt Hood Express] || Clackamas County, OR || http://oregon-gtfs.com/gtfs_data/mthoodexpress-or-us/  ||  ||
+|| [http://www.mthoodexpress.com// Mt. Hood Express] || Clackamas County, OR || http://oregon-gtfs.com/gtfs_data/mthoodexpress-or-us/  ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

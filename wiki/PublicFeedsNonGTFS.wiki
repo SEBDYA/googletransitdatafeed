@@ -10,7 +10,7 @@ This is a list of non-GTFS feeds. It includes known links to GTFS-realtime feeds
 || [http://www.bart.gov/ BART] || San Francisco Bay Area || http://www.bart.gov/schedules/developers/gtfs-realtime.aspx || BART GTFS-Real Time || GTFS-realtime || [http://www.bart.gov/schedules/developers/api.aspx Developer page]||
 || King County METRO || Seattle, WA || http://www.its.washington.edu/its_ws.html || Real time departure predictions || REST/XML ||  ||
 || [http://www.metro.net L.A. Metro] || Los Angeles, CA || [http://developer.metro.net] || Trip planner API, Real time departure predictions (buses) || REST/XML || Trip planner: Registration for API key required ||
-|| [http://more.nsw.gov.au/ NSW Government] || Sydney (Australia) || http://www.131500.com.au/transport-data-exchange-program/nsw-public-transport-data-exchange-tdx-program || Network and schedule data || File set TransXChange ||  ||
+|| [http://transport.nsw.gov.au/ Transport for NSW] || New South Wales and Sydney (Australia) || https://tdx.131500.com.au  || Network and schedule data || File set TransXChange || Registration required ||
 || [http://www.transitchicago.com/ CTA Bus] || Chicago, IL || http://www.ctabustracker.com/bustime/APIDocument.jsp || Real time departure predictions and bus locations || REST/XML || Registration for API key required ||
 || [http://www.sfmta.com SFMTA] || San Francisco, CA || http://www.sfmta.com/cms/asite/nextmunidata.htm || Real time departure predictions and vehicle locations || REST/XML || || 
 || [http://www.ytv.fi/fin ytv] || Helsinki Metro (Finland) || http://developer.reittiopas.fi/pages/en/home.php || Trip planner API || REST/XML || Registration required, non-commercial use (test and development) || 

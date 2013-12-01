@@ -152,7 +152,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.emtmadrid.es/ EMT] || Madrid (Spain) || https://servicios.emtmadrid.es:8443/gtfs/transitemt.zip  || ||
 || [http://www.rtcwashie.com/ RTC Washoe] || Washoe County, NV || http://www.rtcwashoe.com/googletransit/latest/google_transit.zip  || ||
 || [http://www.psta.net/ Pinellas Suncoast Transit Authority] || Pinellas County, FL || http://www.psta.net/latest/google_transit.zip  || ||
-|| [http://www.rtcquebec.ca/ RTC Quebec] || Quebec (Canada) || http://www.rtcquebec.ca/donneesouvertes/googletransit.zip || ||
+|| [http://www.rtcquebec.ca/ RTC Quebec] || Quebec (Canada) || http://www.rtcquebec.ca/Default.aspx?tabid=192&language=fr-CA || ||
 || [http://www.viainfo.net/ San Antonio VIA] || San Antonio, TX || http://www.viainfo.net/BusService/google_transit.zip || http://www.viainfo.net/Opportunities/DevLicense.aspx ||
 || [http://www.corvallistransit.com/ Corvallis Transit] || Corvallis, OR || ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/ || ||
 || Rockland County Department of Public Transportation || Rockland and Westchester Counties, NY || https://geopower.jws.com/rockland/DataPage.jsp# || ||

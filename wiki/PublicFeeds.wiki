@@ -137,7 +137,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://modestoareaexpress.com Modesto Area Express] || Modesto, CA || http://trilliumtransit.com/transit_feeds/modesto-ca-us/ || ||
 || [http://www.grt.ca Grand River Transit] || Cambridge/Kitchener-Waterloo, ON || http://www.grt.ca/en/doingBusiness/supportingsoftwareapplications.asp?_mid_=18101 || Terms and Conditions ||
 || [http://bctransit.com BC Transit] || Victoria / Whistler, BC || http://bctransit.com/data/default.cfm || ||
-|| [http://vta.org Santa Clara Valley Transportation Authority] || Santa Clara, CA || http://www.vta.org/dev/data/google_transit.zip || [http://www.vta.org/dev/tou/index.php?redirect=/dev/data/index.php Terms and Conditions] ||
+|| [http://vta.org Santa Clara Valley Transportation Authority] || Santa Clara, CA || http://www.vta.org/getting-around/gtfs-info/data-file || [http://www.vta.org/getting-around/gtfs-info/dev-terms-of-use Terms and Conditions] ||
 || [http://www.sunline.org Sunline] || Palm Springs, CA || http://www.sunline.org/transit/google_transit.zip || ||
 || [http://www.rkt.no/ Rogaland Kollektivtrafikk FKF] || Kolumbus (Norway) || http://www.rkt.no/gt/google_transit.zip || [http://next.kolumbus.no/rutedata/rutedata-registrering/ Registration required] ||
 || [http://www.bkk.hu Budapesti Kozelkedesi Kopont] || Budapest (Hungary) || http://www.bkk.hu/gtfs/budapest_gtfs.zip || http://www.bkk.hu/magunkrol/fejlesztoknek/ ||

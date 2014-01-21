@@ -100,8 +100,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.cota.com/ Central Ohio Transit Authority] || Columbus, OH || http://www.cota.com/data.asp || ||
 || [http://sites.google.com/site/gotrianglegtfs/ GoTriangle] || Research Triangle, NC || http://sites.google.com/site/gotrianglegtfs/google-transit || ||
 || [http://www.vitoria-gasteiz.org/ Red de Transporte urbano de Vitoria-Gasteiz] || Vitoria-Gasteiz (Spain) || http://www.vitoria-gasteiz.org/we001/http/vgTransit/google_transit.zip || ||
-|| [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://adelaidemetro.com.au/GTFS/google_transit.zip
- || ||
+|| [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://adelaidemetro.com.au/GTFS/google_transit.zip || ||
 || [http://www.toronto.ca/ TTC] || Toronto, ON || http://www.toronto.ca/open/datasets/ttc-routes/ || ||
 || [http://www.hamilton.ca/ Hamilton Street Railway] || Hamilton, ON || http://www.hamilton.ca/ProjectsInitiatives/OpenData/ || ||
 || [http://www.vvta.org/ Victor Valley Transit Authority] || Victor Valley, CA ||http://trilliumtransit.com/transit_feeds/victorville-ca-us/ || ||
@@ -240,6 +239,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.radfordtransit.com/// Radford Transit] || Radford, VA || http://trilliumtransit.com/transit_feeds/radford-va-us/ ||  ||
 || [http://www.c-tran.com/// C-Tran] || Clark County, WA || http://www.c-tran.com/gtfs/gtfs_agreement_form.html ||  ||
 || [http://www.mthoodexpress.com// Mt. Hood Express] || Clackamas County, OR || http://oregon-gtfs.com/gtfs_data/mthoodexpress-or-us/  ||  ||
+|| The Netherlands || The Netherlands || http://gtfs.ovapi.nl/nl/gtfs-nl.zip ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

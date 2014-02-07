@@ -242,6 +242,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || The Netherlands || The Netherlands || http://gtfs.ovapi.nl/nl/gtfs-nl.zip ||  ||
 || [http://www.ci.beaumont.ca.us/index.aspx?NID=160 Beaumont Transit System] || Beaumont, CA || http://trilliumtransit.com/transit_feeds/beaumont-ca-us/ ||  ||
 || [http://www.yubasuttertransit.com/ Yuba Sutter Transit] || Yuba City, CA || http://trilliumtransit.com/transit_feeds/yubasutter-ca-us/ ||  ||
+|| [http://www.linktransit.com/ Link Transit] || Wenatchee, WA || http://trilliumtransit.com/transit_feeds/linktransit-wa-us/ ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

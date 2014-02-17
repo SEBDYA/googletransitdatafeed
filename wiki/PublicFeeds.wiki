@@ -244,6 +244,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.yubasuttertransit.com/ Yuba Sutter Transit] || Yuba City, CA || http://trilliumtransit.com/transit_feeds/yubasutter-ca-us/ ||  ||
 || [http://www.linktransit.com/ Link Transit] || Wenatchee, WA || http://trilliumtransit.com/transit_feeds/linktransit-wa-us/ ||  ||
 || [http://www.athenstransit.org/ Athens Transit] || Athens, GA || http://www.athenstransit.org/code/wp-content/athenstransit-athens-oh-us/google_transit.zip ||  ||
+|| [http://transit.torranceca.gov/ Torrance Transit] || Torrance, CA || http://transit.torranceca.gov/24436.htm ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

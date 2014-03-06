@@ -246,6 +246,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.athenstransit.org/ Athens Transit] || Athens, GA || http://www.athenstransit.org/code/wp-content/athenstransit-athens-oh-us/google_transit.zip ||  ||
 || [http://transit.torranceca.gov/ Torrance Transit] || Torrance, CA || http://transit.torranceca.gov/24436.htm ||  ||
 || [http://www.ashevillenc.gov/Departments/Transit.aspx Asheville Redefines Transit] || Asheville, NC || http://trilliumtransit.com/transit_feeds/asheville-nc-us/ || ||
+|| [hhttp://www.pulaskitransit.org/ Pulaski Area Transit] || Pulaski, VA || http://trilliumtransit.com/transit_feeds/pulaski-va-us/ ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

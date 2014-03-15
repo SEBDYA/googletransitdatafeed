@@ -248,6 +248,12 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ashevillenc.gov/Departments/Transit.aspx Asheville Redefines Transit] || Asheville, NC || http://trilliumtransit.com/transit_feeds/asheville-nc-us/ || ||
 || [http://www.pulaskitransit.org/ Pulaski Area Transit] || Pulaski, VA || http://trilliumtransit.com/transit_feeds/pulaski-va-us/ ||  ||
 || [http://www.marta.cc/ Mountain Transit] || Big Bear Lake, CA || http://trilliumtransit.com/transit_feeds/bigbear-ca-us/ ||  ||
+|| [http://www.clallamtransit.com/ Clallam Transit] || Clallam County and Olympic Peninsula || http://mjcaction.com/MJC_GTFS_Public/clallam_google_transit.zip ||  ||
+|| People for People ||  || http://mjcaction.com/MJC_GTFS_Public/pfp_google_transit.zip ||  ||
+|| [http://www.yakimatransit.org/ Yakima Transit] || Yakima Valley || http://mjcaction.com/MJC_GTFS_Public/yakima_google_transit.zip ||  ||
+|| [http://tapsbus.com/ TAPS Bus] || Texoma Area || http://mjcaction.com/MJC_GTFS_Public/taps_google_transit.zip ||  ||
+|| [http://www.sctlink.com/ South County Transit] || South County, CA || http://mjcaction.com/MJC_GTFS_Public/southcounty_google_transit.zip ||  ||
+
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

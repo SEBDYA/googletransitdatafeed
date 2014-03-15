@@ -249,6 +249,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.pulaskitransit.org/ Pulaski Area Transit] || Pulaski, VA || http://trilliumtransit.com/transit_feeds/pulaski-va-us/ ||  ||
 || [http://www.marta.cc/ Mountain Transit] || Big Bear Lake, CA || http://trilliumtransit.com/transit_feeds/bigbear-ca-us/ ||  ||
 || [http://www.clallamtransit.com/ Clallam Transit] || Clallam County and Olympic Peninsula, WA || http://mjcaction.com/MJC_GTFS_Public/clallam_google_transit.zip ||  ||
+|| [http://makah.com/transit/ Makah Public Transit] || Makah Tribe || http://mjcaction.com/MJC_GTFS_Public/makah_google_transit.zip ||  ||
 || People for People ||  || http://mjcaction.com/MJC_GTFS_Public/pfp_google_transit.zip ||  ||
 || [http://www.yakimatransit.org/ Yakima Transit] || Yakima, WA || http://mjcaction.com/MJC_GTFS_Public/yakima_google_transit.zip ||  ||
 || [http://tapsbus.com/ TAPS Bus] || Texoma Area || http://mjcaction.com/MJC_GTFS_Public/taps_google_transit.zip ||  ||

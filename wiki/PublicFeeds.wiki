@@ -254,7 +254,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.yakimatransit.org/ Yakima Transit] || Yakima, WA || http://mjcaction.com/MJC_GTFS_Public/yakima_google_transit.zip ||  ||
 || [http://tapsbus.com/ TAPS Bus] || Texoma Area || http://mjcaction.com/MJC_GTFS_Public/taps_google_transit.zip ||  ||
 || [http://www.sctlink.com/ South County Transit] || South County, CA || http://mjcaction.com/MJC_GTFS_Public/southcounty_google_transit.zip ||  ||
-
+|| [http://www.mississauga.ca/portal/miway MiWay] || Mississauga, ON || https://www.miapp.ca/GTFS/google_transit.zip?# ||  ||
 
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

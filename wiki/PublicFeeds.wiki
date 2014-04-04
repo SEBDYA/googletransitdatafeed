@@ -47,7 +47,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.mbta.com/ MBTA] || Boston, MA || http://www.mbta.com/rider_tools/developers/default.asp?id=21895 || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || [http://www.eot.state.ma.us/developers Massachusetts Executive Office of Transportation] || Massachusetts || [http://www.eot.state.ma.us/developers Links to bay, regional and ferry GTFS] || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || All SF Bay ferry operators || San Francisco Bay, CA || http://trilliumtransit.com/transit_feeds/sfbay-ferries-ca-us/ ||  ||
-|| The JO || Johnson County, KS || http://www.thejo.com/FEEDS/GT/google_transit.zip ||  ||
+|| The JO || Johnson County, KS || http://www.jocogov.org/sites/default/files/documents/TRN/google_transit.zip ||  ||
 || [http://www.tankbus.org TANK] || Covington, KY || http://imi.nku.edu/tankgoogletransit/latest/google_transit.zip || [http://imi.nku.edu/tankgoogletransit/latest/Data%20Downloads%20legal%20notice%20for%20google%20site.pdf Legal Notice] ||
 || [http://www.rabaride.com Redding Area Bus Authority] || Redding, CA || http://trilliumtransit.com/transit_feeds/redding-ca-us/ ||  ||
 || [http://www.gonctd.com/ North County Transit District] || North San Diego County, CA || http://www.gonctd.com/google_transit.zip ||  ||

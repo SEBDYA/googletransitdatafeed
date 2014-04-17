@@ -131,7 +131,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.charlottesville.org Charlottesville Area Transit] || Charlottesville, VA || http://avlweb.charlottesville.org/rtt/public/utility/GTFS.aspx || ||
 || [http://www.co.josephine.or.us/Page.asp?NavID=628 Josephine County Transit] || Josephine County, OR || http://oregon-gtfs.com/gtfs_data/josephinecounty-or-us  || ||
 || [http://www.umpquatransit.com/ U-Trans] || Roseburg, OR || http://oregon-gtfs.com/gtfs_data/umpquatransit-or-us || ||
-|| [http://www.panynj.gov/path/ Port Authority Trans-Hudson (PATH)] || New York/New Jersey || http://trilliumtransit.com/transit_feeds/path-nj-us/ || http://www.panynj.gov/path/developers.html ||
+|| [http://www.panynj.gov/path/ Port Authority Trans-Hudson (PATH)] || New York/New Jersey || http://trilliumtransit.com/transit_feeds/path-nj-us/ || [http://www.panynj.gov/path/developers.html Developer page & terms of use] ||
 || [http://www.discovercorona.com/City-Departments/Public-Works/Public-Services-and-Information/Corona-Cruiser.aspx Corona Cruiser] || Corona, CA || http://trilliumtransit.com/transit_feeds/corona-ca-us/ || [http://www.discovercorona.com/City-Departments/Public-Works/Transportation/GTFS.aspx License Agreement] ||
 || [http://www.mymetrobus.com Metro Transit] || Madison, WI || http://www.cityofmadison.com/metro/gtfs/mmt_gtfs.zip || [http://www.cityofmadison.com/metro/Apps/terms.cfm Terms of Use] ||
 || [http://modestoareaexpress.com Modesto Area Express] || Modesto, CA || http://trilliumtransit.com/transit_feeds/modesto-ca-us/ || ||

@@ -174,7 +174,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.metroplan.org/ Central Arkansas Transit Authority] || Central Arkansas, AR || http://metroplan.org/maps/transit/ || ||
 || [http://www.4mta.org/ Mendocino Transit Authority] || Mendocino County, CA || http://trilliumtransit.com/transit_feeds/mendocino-ca-us/ || ||
 || [http://cabq.gov/ City of Albuquerque] || Albuquerque, NM || http://data.cabq.gov/transit/gtfs/ || ||
-|| [http://transport.nsw.gov.au/ Transport of NSW] || Sydney and New South Wales (Australia) || https://tdx.131500.com.au || https://tdx.131500.com.au/terms-conditions.php ||
+|| [http://transport.nsw.gov.au/ Transport of NSW] || Sydney and New South Wales (Australia) || https://tdx.transportnsw.info || https://tdx.transportnsw.info/terms-conditions.php ||
 || [http://kingsporttransit.org Kingsport Transit] || Kingsport, TN || http://kingsporttransit.org/GTFS/gtfs || ||
 || [http://pts.umich.edu/ University of Michigan Transit Services] || University of Michigan, Ann Arbor, MI || http://pts.umich.edu/gtfs/google_transit.zip || ||
 || [http://www.trafiklab.se/ Sweden] || Sweden || http://www.trafiklab.se/api/gtfs-sverige || ||

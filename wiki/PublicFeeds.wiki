@@ -258,8 +258,9 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.cityofkingston.ca Kingston Transit] || Kingston, ON || http://www.cityofkingston.ca/cok/data/transit_feeds/google_transit.zip ||  ||
 || [http://www.omnitrans.org OmniTrans] || San Bernardino County, CA || http://www.omnitrans.org/google/ ||  ||
 || [http://www.lawrenceks.org Lawrence Transit] || Lawrence, KS || http://lawrenceks.org/assets/gis/google-transit/google_transit.zip ||  ||
-|| [http://ladot.lacity.org/index.htm LA DOT] || LA DOT, CA || http://lacitydot.com/gtfs/administrator/gtfszip/ladotgtfs.zip  ||  ||
-
+|| [http://ladot.lacity.org/index.htm LA DOT] || LA DOT, CA || http://lacitydot.com/gtfs/administrator/gtfszip/ladotgtfs.zip ||  ||
+|| [http://www.suntran.com Suntran] || Tucson, AZ || http://www.suntran.com/gtfs/SuntranGTFS.zip ||  ||
+|| [http://www.ridewta.com Whatcom Transportation Authority] || Bellingham, WA || https://github.com/whatcomtrans/publicwtadata/raw/master/GTFS/wta_gtfs_latest.zip|| https://github.com/whatcomtrans/publicwtadata ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

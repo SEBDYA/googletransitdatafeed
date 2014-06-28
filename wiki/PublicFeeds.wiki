@@ -255,7 +255,6 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://tapsbus.com/ TAPS Bus] || Texoma Area || http://mjcaction.com/MJC_GTFS_Public/taps_google_transit.zip ||  ||
 || [http://www.sctlink.com/ South County Transit] || South County, CA || http://mjcaction.com/MJC_GTFS_Public/southcounty_google_transit.zip ||  ||
 || [http://www.mississauga.ca/portal/miway MiWay] || Mississauga, ON || https://www.miapp.ca/GTFS/google_transit.zip?# ||  ||
-|| [http://www.cityofkingston.ca Kingston Transit] || Kingston, ON || http://www.cityofkingston.ca/cok/data/transit_feeds/google_transit.zip ||  ||
 || [http://www.omnitrans.org OmniTrans] || San Bernardino County, CA || http://www.omnitrans.org/google/ ||  ||
 || [http://www.lawrenceks.org Lawrence Transit] || Lawrence, KS || http://lawrenceks.org/assets/gis/google-transit/google_transit.zip ||  ||
 || [http://ladot.lacity.org/index.htm LA DOT] || LA DOT, CA || http://lacitydot.com/gtfs/administrator/gtfszip/ladotgtfs.zip ||  ||

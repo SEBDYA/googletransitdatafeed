@@ -6,8 +6,8 @@ GTFS is used by several non-Google applications:
   * [http://graphserver.sourceforge.net/ Graphserver] is an open-source transit (and more) routing engine, with support for Google Transit Feed Spec feeds
   * GIRO's HASTUS transit scheduling software has a [http://www.giro.ca/en/press-room/press-releases/google-transit-200612.htm GTFS export option].
   * Trapeze [http://www.trapezegroup.com/solutions/pt_google.php offers a GTFS export tool] for their Trapeze FX schedule management software.
+  * [http://trilliumtransit.com Trillum Solutions] offers web-based software, [http://www.trilliumtransit.com/services/gtfs GTFS Manager]
   * Next Insight Transportation Software offers a [http://nextinsight.com/products/ Google Transit Feed Creator]
-  * [http://trilliumtransit.com Trillum Solutions] web-based software, [http://www.trilliumtransit.com/services/gtfs GTFS Manager]
   * [http://www.merakas.lt Merakas] is a Lithuanian company whose [http://www.merakas.lt/en/pikas/index.html PikasPHP] transit software can read and write GTFS.  (An example deployment for Vilnius, Lithuania can be seen [http://www.marsrutai.lt/vilnius/?a=p.routes&transport_id=bus&t=xhtml&l=en here].)
   * Mentor Streets® Schedule includes a one-click GTFS export tool: http://www.mentoreng.com/products/streets-transit/streets-schedule/schedule.html
   * [http://code.google.com/p/gtfs-osm-sync/ GTFS-OpenStreetMap Sync (GO-Sync)], an open-source software tool that synchronizes GTFS datasets with !OpenStreetMap

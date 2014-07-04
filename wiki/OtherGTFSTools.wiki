@@ -17,6 +17,8 @@ GTFS is used by several non-Google applications:
   * [http://www.transiteditor.com/ TransitEditor] was created with the objective making managing a GTFS feed quick, easy and low cost. It may import a valid GTFS feeds to make getting started easier. There is a 20 day free test period.
   * [http://code.google.com/p/transitdatafeeder/ TransitDataFeeder] is an open source web-based tool for creating GTFS.
   * [http://www.connexionz.us Connexionz] is an ITS solutions provider with references across the US, South America, Europe and Australasia. They provide GTFE feeds for all its customers as standard, with the option of them being provided access to a GTFE real time data feed at no additional cost.
+  * [http://transitwand.com Transit Wand] is an open source web and mobile application for collecting transit data.
+  * [https://github.com/conveyal/gtfs-editor GTFS Editor] is Java-based open-source software for creating and editing GTFS data.
 
 
 Here are some libraries to help software developers handle GTFS files:

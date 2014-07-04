@@ -7,9 +7,8 @@ GTFS is used by several non-Google applications:
   * GIRO's HASTUS transit scheduling software has a [http://www.giro.ca/en/press-room/press-releases/google-transit-200612.htm GTFS export option].
   * Trapeze [http://www.trapezegroup.com/solutions/pt_google.php offers a GTFS export tool] for their Trapeze FX schedule management software.
   * Next Insight Transportation Software offers a [http://nextinsight.com/products/ Google Transit Feed Creator]
-  * Trillum Solutions (formally Transit Info Solutions) offers custom-designed transit websites and a web-based schedule manager with [http://www.trilliumtransit.com/services/ Google Transit export]
+  * [http://trilliumtransit.com Trillum Solutions] web-based software, [http://www.trilliumtransit.com/services/gtfs GTFS Manager]
   * [http://www.merakas.lt Merakas] is a Lithuanian company whose [http://www.merakas.lt/en/pikas/index.html PikasPHP] transit software can read and write GTFS.  (An example deployment for Vilnius, Lithuania can be seen [http://www.marsrutai.lt/vilnius/?a=p.routes&transport_id=bus&t=xhtml&l=en here].)
-  * [http://www.avego.com/ui/futurefleet.action Avego Future Fleet] has [http://groups.google.com/group/transit-developers/browse_thread/thread/318cd6a84f432718 announced] GTFS import and export for free
   * Mentor Streets® Schedule includes a one-click GTFS export tool: http://www.mentoreng.com/products/streets-transit/streets-schedule/schedule.html
   * [http://code.google.com/p/gtfs-osm-sync/ GTFS-OpenStreetMap Sync (GO-Sync)], an open-source software tool that synchronizes GTFS datasets with !OpenStreetMap
   * [http://www.locationaware.usf.edu/ongoing-research/travel-assistance-device/ The Travel Assistance Device (TAD)], a mobile application for GPS-enabled cell phones which helps bus riders successfully get to their destination through real-time navigation prompts such as "Pull the Cord Now!"

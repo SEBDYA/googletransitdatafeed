@@ -243,7 +243,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ci.beaumont.ca.us/index.aspx?NID=160 Beaumont Transit System] || Beaumont, CA || http://trilliumtransit.com/transit_feeds/beaumont-ca-us/ ||  ||
 || [http://www.yubasuttertransit.com/ Yuba Sutter Transit] || Yuba City, CA || http://trilliumtransit.com/transit_feeds/yubasutter-ca-us/ ||  ||
 || [http://www.linktransit.com/ Link Transit] || Wenatchee, WA || http://trilliumtransit.com/transit_feeds/linktransit-wa-us/ ||  ||
-|| [http://www.athenstransit.org/ Athens Transit] || Athens, GA || http://www.athenstransit.org/code/wp-content/athenstransit-athens-oh-us/google_transit.zip ||  ||
+|| [http://www.athenstransit.org/ Athens Transit] || Athens, OH || http://www.athenstransit.org/code/wp-content/athenstransit-athens-oh-us/google_transit.zip ||  ||
 || [http://transit.torranceca.gov/ Torrance Transit] || Torrance, CA || http://transit.torranceca.gov/24436.htm ||  ||
 || [http://www.ashevillenc.gov/Departments/Transit.aspx Asheville Redefines Transit] || Asheville, NC || http://trilliumtransit.com/transit_feeds/asheville-nc-us/ || ||
 || [http://www.pulaskitransit.org/ Pulaski Area Transit] || Pulaski, VA || http://trilliumtransit.com/transit_feeds/pulaski-va-us/ ||  ||
@@ -263,7 +263,6 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Société de transport de Sherbrooke (STS) || Sherbrooke, QC ||  http://donnees.ville.sherbrooke.qc.ca/dataset/transpo || http://donnees.ville.sherbrooke.qc.ca/licence ||
 || [http://gis.nevcounty.net Gold Country Stage] || Western Nevada County, CA ||  http://gis.nevcounty.net/GTFS/GTFS.zip || ||
 || [https://gocarta.com CARTA] || Chattanooga, TN || http://carta-gtfs.herokuapp.com || ||
-|| [https://athenstransit.org Athens Transit] || Athens, OH || http://www.athenstransit.org/gtfs/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

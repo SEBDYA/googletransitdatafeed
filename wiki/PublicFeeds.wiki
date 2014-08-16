@@ -44,7 +44,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.eot.state.ma.us/developers/ Massachusetts] || Massachusetts EOT || http://www.eot.state.ma.us/developers  ||  ||
 || [http://parking.uark.edu/26.php Razorback Transit] || Fayetteville, AR || http://www.ozarkwebtech.com/google_transit.zip  ||  ||
 || [http://www.laketahoetransit.com/home Truckee / North Tahoe Transportation Management Association] || North Lake Tahoe, CA || http://trilliumtransit.com/transit_feeds/laketahoe-ca-us ||  ||
-|| [http://www.bluego.org/ South Tahoe Area Transit Authority (BlueGO)] || Tahoe Basin Area, CA ||  ||  ||
+|| [http://www.bluego.org/ TTD-South Shore Services (BlueGo)] || Tahoe Basin Area, CA ||  ||  ||
 || [http://www.mbta.com/ MBTA] || Boston, MA || http://www.mbta.com/rider_tools/developers/default.asp?id=21895 || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || [http://www.eot.state.ma.us/developers Massachusetts Executive Office of Transportation] || Massachusetts || [http://www.eot.state.ma.us/developers Links to bay, regional and ferry GTFS] || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || All SF Bay ferry operators || San Francisco Bay, CA || http://trilliumtransit.com/transit_feeds/sfbay-ferries-ca-us/ ||  ||

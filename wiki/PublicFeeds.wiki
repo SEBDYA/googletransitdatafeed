@@ -265,6 +265,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://gis.nevcounty.net Gold Country Stage] || Western Nevada County, CA ||  http://gis.nevcounty.net/GTFS/GTFS.zip || ||
 || [https://gocarta.com CARTA] || Chattanooga, TN || http://carta-gtfs.herokuapp.com || ||
 || [https://toaks.org City of Thousand Oaks] || Thousand Oaks, CA || http://www.toaks.org/GoogleTransit/thousandoaks/google_transit.zip || ||
+|| [http://www.brampton.ca Brampton Transit] || Brampton, ON || http://www.brampton.ca/en/City-Hall/OpenGov/Open-Data-Catalogue/Pages/Welcome.aspx || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

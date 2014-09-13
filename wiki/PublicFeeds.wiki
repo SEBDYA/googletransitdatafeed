@@ -238,7 +238,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ltd.org/diamondex// Diamond Express] || Oakridge, OR || http://oregon-gtfs.com/gtfs_data/diamondexpress-or-us ||  ||
 || Tisséo || Toulouse (France) || http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs ||  ||
 || [http://www.radfordtransit.com/// Radford Transit] || Radford, VA || http://trilliumtransit.com/transit_feeds/radford-va-us/ ||  ||
-|| [http://www.c-tran.com/// C-Tran] || Clark County, WA || http://www.c-tran.com/gtfs/gtfs_agreement_form.html ||  ||
+|| [http://www.c-tran.com/// C-Tran] || Clark County, WA || http://www.c-tran.com/images/Google/GoogleTransitUpload.zip || http://www.c-tran.com/about-c-tran/business/c-tran-gtfs-data ||
 || [http://www.mthoodexpress.com// Mt. Hood Express] || Clackamas County, OR || http://oregon-gtfs.com/gtfs_data/mthoodexpress-or-us/  ||  ||
 || The Netherlands || The Netherlands || http://gtfs.ovapi.nl/nl/gtfs-nl.zip ||  ||
 || [http://www.ci.beaumont.ca.us/index.aspx?NID=160 Beaumont Transit System] || Beaumont, CA || http://trilliumtransit.com/transit_feeds/beaumont-ca-us/ ||  ||

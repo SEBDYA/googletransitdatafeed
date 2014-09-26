@@ -1,2 +1,1 @@
-#labels Featured
 Moved to https://github.com/google/transitfeed/wiki/ScheduleViewer

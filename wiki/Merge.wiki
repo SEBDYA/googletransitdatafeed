@@ -1,2 +1,2 @@
 #labels Documentation
-https://github.com/google/transitfeed/wiki/Merge
+Moved to https://github.com/google/transitfeed/wiki/Merge

@@ -1,2 +1,2 @@
-#labels Featured,Phase-Deploy,Documentation
+#labels Phase-Deploy,Documentation
 Moved to https://github.com/google/transitfeed/wiki/FeedValidator

@@ -270,7 +270,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.agenziamobilita.roma.it Agenzia per la mobilità] || Roma (Italy) || http://dati.muovi.roma.it/gtfs/google_transit.zip  || http://www.agenziamobilita.roma.it/it/servizi/open-data/dataset.html ||
 || [http://www.norta.com Norta] || New Orleans, LA ||  http://www.norta.com/myrta || Requires sign up to MY RTA ||
 || Mornington Railway || Moorooduc/Mornington in Victoria, Australia ||  http://addtransit.com/gtfs/MorningtonRailway/MorningtonRailway.zip || ||
-|| [http://www.wichita.gov Wichita Transit] || Wichita, KS ||  http://www.gtfs-data-exchange.com/agency/wichita-transit/ || ||
+|| [http://www.wichita.gov Wichita Transit] || Wichita, KS || http://www.gtfs-data-exchange.com/agency/wichita-transit/ || ||
+|| [http://www.amat.pa.it/ AMAT Palermo] || Palermo (Italy) || http://www.comune.palermo.it/opendata_dld.php?id=318#.VF84bvmG9Fm || http://creativecommons.org/licenses/by/4.0/deed.it ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

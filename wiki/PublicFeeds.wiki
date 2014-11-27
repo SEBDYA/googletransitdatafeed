@@ -271,7 +271,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.norta.com Norta] || New Orleans, LA ||  http://www.norta.com/myrta || Requires sign up to MY RTA ||
 || Mornington Railway || Moorooduc/Mornington in Victoria, Australia ||  http://addtransit.com/gtfs/MorningtonRailway/MorningtonRailway.zip || ||
 || [http://www.wichita.gov Wichita Transit] || Wichita, KS || http://www.gtfs-data-exchange.com/agency/wichita-transit/ || ||
-|| [http://www.action.act.gov.au/ ACT Government] || Canberra (Australia) || http://www.action.act.gov.au/timetables_and_maps/Plan-Your-Trip || ||
+|| [http://www.action.act.gov.au/ ACTION Buses] || Canberra (Australia) || http://www.action.act.gov.au/timetables_and_maps/Plan-Your-Trip || ||
 || [http://www.piercetransit.org Pierce Transit] || Pierce County, WA || ftp://ops.piercetranst.org/schedulefeed || Submission of signed disclaimer required ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

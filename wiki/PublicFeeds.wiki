@@ -277,7 +277,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.kerntransit.org Kern Transit] || Kern County, CA || http://data.trilliumtransit.com/gtfs/kerncounty-ca-us/ || ||
 || [http://www.jeffcoexpress.org JeffCo Express] || Jefferson County, MO || http://data.trilliumtransit.com/gtfs/jeffersoncounty-mo-us/ || ||
 || [http://www.mercedthebus.com The Bus (Merced)] || Merced County, CA || http://data.trilliumtransit.com/gtfs/mercedthebus-ca-us/ || ||
-|| [http://siouxfalls.org/sam Sioux Area Metro || Sioux Falls, SD || http://data.trilliumtransit.com/gtfs/siouxareametro-sd-us/ || ||
+|| [http://siouxfalls.org/sam Sioux Area Metro] || Sioux Falls, SD || http://data.trilliumtransit.com/gtfs/siouxareametro-sd-us/ || ||
 || [http://thebus.com The Bus (Marble Valley Regional Transit District] || Marble Valley, VT || http://data.trilliumtransit.com/gtfs/thebus-vt-us/ || ||
 || [https://sites.google.com/a/rctvt.org/riderct/ Rural Community Transportation] || Rural VT || http://data.trilliumtransit.com/gtfs/ruralcommunity-vt-us/ || ||
 || [http://us.megabus.com/burlington.aspx Megabus] || Nationwide US and Canada || http://data.trilliumtransit.com/gtfs/megabus-ct-us/|| ||

@@ -92,8 +92,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.cumtd.com/ Champaign-Urbana Mass Transit District] || Champaign-Urbana, IL || http://www.cumtd.com/google/google_transit.zip  || ||
 || Rockland County || Rockland County, NY || https://geopower.jws.com/rockland/DataPage.jsp#  || ||
 || [http://www.dartfirststate.com/ Delaware First State] || Delaware || http://www.dartfirststate.com/information/routes/gtfs_data/dartfirststate_de_us.zip   || ||
-|| [http://data.trilliumtransit.com/gtfs/spacecoast-fl-us/ SpaceCoast FL US] || Space Coast, FL || http://data.trilliumtransit.com/gtfs/spacecoast-fl-us/ || ||
-|| [http://data.trilliumtransit.com/gtfs/stanislaus-ca-us/ Stanislaus County, CA] || Stanislaus County || http://data.trilliumtransit.com/gtfs/stanislaus-ca-us/ || Stanislaus Area Regional Transit (Stanislaus County), Bus Line Service of Turlock (Turlock, California), Ceres Area Transit (Ceres, California) ||
+|| [http://www.ridescat.com SpaceCoast FL US] || Space Coast, FL || http://data.trilliumtransit.com/gtfs/spacecoast-fl-us/ || ||
+|| [http://www.srt.org Stanislaus County, CA] || Stanislaus County || http://data.trilliumtransit.com/gtfs/stanislaus-ca-us/ || Stanislaus Area Regional Transit (Stanislaus County), Bus Line Service of Turlock (Turlock, California), Ceres Area Transit (Ceres, California) ||
 || [http://www.rvtd.org/ Rogue Valley Transportation District ] || Rogue Valley, OR || http://www.rvtd.org/images/subpages/GTFS_feed.zip || ||
 || [http://www.calgarytransit.com/ Calgary Transit ] || Calgary, AB || https://data.calgary.ca/OpenData/Pages/DatasetDetails.aspx?DatasetID=PDC0-99999-99999-00501-P%28CITYonlineDefault%29 || ||
 || [http://www.metlink.org.nz// Greater Wellington's public transportation network ] || Greater Wellington (New Zealand) || http://www.metlink.org.nz/googletransit/google_transit.zip || ||
@@ -222,7 +222,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.ruraltransit.org// Fresno County Rural Transit Agency] || Fresno, CA || http://data.trilliumtransit.com/gtfs/fresnocounty-ca-us || ||
 || Minneapolis-St.Paul Regional GIS Consortium || Minnepolis-St.Paul, MN || ftp://gisftp.metc.state.mn.us || ||
 || [http://www.ci.oshkosh.wi.us/Transit// Go Transit] || Oshkosh, WI || http://data.trilliumtransit.com/gtfs/oshkosh-wi-us || ||
-|| [http://www.rvarc.org/ Roanoke Valley Region] ([http://www.valleymetro.com Valley Metro], [http://www.radartransit.org/ Radar Transit]) || Roanoke Valley Region, VA || http://data.trilliumtransit.com/gtfs/roanoke-va-us || ||
+|| [http://www.rvarc.org/ Roanoke Valley Region], ([http://www.valleymetro.com Valley Metro], [http://www.radartransit.org/ Radar Transit]) || Roanoke Valley Region, VA || http://data.trilliumtransit.com/gtfs/roanoke-va-us || ||
 || [https://data.qld.gov.au/ Queensland] || Queensland (Australia) || translink.com.au/sites/default/files/assets/resources/about-translink/reporting-and-publications/open-data/gtfs/SEQ.zip?140718 || ||
 || Mexico City || Mexico City (Mexico) || http://datosabiertos.df.gob.mx/index.php/busqueda-por-dependencia/81-transporte-y-vialidad/787-base-de-datos-abiertos-de-transporte-del-distrito-federal || || 
 || [http://mot.gov.il Israel Public Transportation] || Israel || ftp://gtfs.mot.gov.il/israel-public-transportation.zip || Note: Requires right-to-left text processing capability || 
@@ -235,14 +235,13 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.highdesert-point.com/high-desert-point/ HighDesert POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/highdesertpoint-or-us/ ||  ||
 || [http://www.highdesert-point.com/eastern-point/ Eastern POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/easternpoint-or-us ||  ||
 || [http://www.highdesert-point.com/eugene-to-bend/ Eugene to BEND] || Oregon || http://oregon-gtfs.com/gtfs_data/eugenetobend-or-us ||  ||
-|| [http://www.ltd.org/diamondex// Diamond Express] || Oakridge, OR || http://oregon-gtfs.com/gtfs_data/diamondexpress-or-us ||  ||
+|| [http://www.ltd.org/diamondex/ Diamond Express] || Oakridge, OR || http://oregon-gtfs.com/gtfs_data/diamondexpress-or-us ||  ||
 || Tisséo || Toulouse (France) || http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs ||  ||
-|| [http://www.radfordtransit.com/// Radford Transit] || Radford, VA || http://data.trilliumtransit.com/gtfs/radford-va-us/ ||  ||
-|| [http://www.c-tran.com/// C-Tran] || Clark County, WA || http://www.c-tran.com/images/Google/GoogleTransitUpload.zip || http://www.c-tran.com/about-c-tran/business/c-tran-gtfs-data ||
+|| [http://www.radfordtransit.com/ Radford Transit] || Radford, VA || http://data.trilliumtransit.com/gtfs/radford-va-us/ ||  ||
+|| [http://www.c-tran.com/ C-Tran] || Clark County, WA || http://www.c-tran.com/images/Google/GoogleTransitUpload.zip || http://www.c-tran.com/about-c-tran/business/c-tran-gtfs-data ||
 || [http://www.mthoodexpress.com// Mt. Hood Express] || Clackamas County, OR || http://oregon-gtfs.com/gtfs_data/mthoodexpress-or-us/  ||  ||
 || The Netherlands || The Netherlands || http://gtfs.ovapi.nl/nl/gtfs-nl.zip ||  ||
 || [http://www.ci.beaumont.ca.us/index.aspx?NID=160 Beaumont Transit System] || Beaumont, CA || http://data.trilliumtransit.com/gtfs/beaumont-ca-us/ ||  ||
-|| [http://www.yubasuttertransit.com/ Yuba Sutter Transit] || Yuba City, CA || http://data.trilliumtransit.com/gtfs/yubasutter-ca-us/ ||  ||
 || [http://www.linktransit.com/ Link Transit] || Wenatchee, WA || http://data.trilliumtransit.com/gtfs/linktransit-wa-us/ ||  ||
 || [http://www.athenstransit.org/ Athens Transit] || Athens, OH || http://www.athenstransit.org/code/wp-content/athenstransit-athens-oh-us/google_transit.zip ||  ||
 || [http://transit.torranceca.gov/ Torrance Transit] || Torrance, CA || http://transit.torranceca.gov/24436.htm ||  ||
@@ -275,6 +274,14 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.piercetransit.org Pierce Transit] || Pierce County, WA || ftp://ops.piercetranst.org/schedulefeed || Submission of signed disclaimer required ||
 || [http://www.comune.palermo.it AMAT Palermo SPA] || Palermo (Italy) || http://www.comune.palermo.it/gtfs/amat_feed_gtfs.zip || ||
 || [http://www.redwoodcoasttransit.org Redwood Coast Transit] || Del Norte County, California || http://data.trilliumtransit.com/gtfs/delnorte-ca-us/ || ||
+|| [http://www.kerntransit.org Kern Transit] || Kern County, CA || http://data.trilliumtransit.com/gtfs/kerncounty-ca-us/ || ||
+|| [http://www.jeffcoexpress.org JeffCo Express] || Jefferson County, MO || http://data.trilliumtransit.com/gtfs/jeffersoncounty-mo-us/ || ||
+|| [http://www.mercedthebus.com The Bus (Merced)] || Merced County, CA || http://data.trilliumtransit.com/gtfs/mercedthebus-ca-us/ || ||
+|| [http://siouxfalls.org/sam Sioux Area Metro || Sioux Falls, SD || http://data.trilliumtransit.com/gtfs/siouxareametro-sd-us/ || ||
+|| [http://thebus.com The Bus (Marble Valley Regional Transit District] || Marble Valley, VT || http://data.trilliumtransit.com/gtfs/thebus-vt-us/ || ||
+|| [https://sites.google.com/a/rctvt.org/riderct/ Rural Community Transportation] || Rural VT || http://data.trilliumtransit.com/gtfs/ruralcommunity-vt-us/ || ||
+|| [http://us.megabus.com/burlington.aspx Megabus] || Nationwide US and Canada || http://data.trilliumtransit.com/gtfs/megabus-ct-us/|| ||
+|| [http://elevatedtransit.com Elevated Transit] || Statewide Utah || http://data.trilliumtransit.com/gtfs/elevatedtransit-ut-us/|| ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

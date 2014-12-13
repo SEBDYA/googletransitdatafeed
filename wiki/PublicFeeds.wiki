@@ -102,7 +102,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://sites.google.com/site/gotrianglegtfs/ GoTriangle] || Research Triangle, NC || http://sites.google.com/site/gotrianglegtfs/google-transit || ||
 || [http://www.vitoria-gasteiz.org/ Red de Transporte urbano de Vitoria-Gasteiz] || Vitoria-Gasteiz (Spain) || http://www.vitoria-gasteiz.org/we001/http/vgTransit/google_transit.zip || ||
 || [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://adelaidemetro.com.au/GTFS/google_transit.zip || ||
-|| [http://www.toronto.ca/ TTC] || Toronto, ON || http://www.toronto.ca/open/datasets/ttc-routes/ || ||
+|| [http://www.toronto.ca/ TTC] || Toronto, ON || http://www.toronto.ca/open/datasets/ttc-routes/ || http://www1.toronto.ca/wps/portal/contentonly?vgnextoid=4a37e03bb8d1e310VgnVCM10000071d60f89RCRD ||
 || [http://www.hamilton.ca/ Hamilton Street Railway] || Hamilton, ON || http://www.hamilton.ca/ProjectsInitiatives/OpenData/ || ||
 || [http://www.vvta.org/ Victor Valley Transit Authority] || Victor Valley, CA ||http://data.trilliumtransit.com/gtfs/victorville-ca-us/ || ||
 || [http://data.keolis-rennes.com Rennes] || Rennes (France) || http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html || ||

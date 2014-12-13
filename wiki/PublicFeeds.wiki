@@ -20,7 +20,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://unitrans.ucdavis.edu/ Unitrans] || Davis, CA || http://iportal.sacrt.com/GTFS/Unitrans || [http://www.sacrt.com/gtfs.stm License Agreement] ||
 || [http://www.rtd-denver.com Regional Transportation District] || Denver, CO || http://www.rtd-denver.com/GoogleFeeder/ || [http://www.rtd-denver.com/License_Agreement/License_Agreement.pdf License Agreement] ||
 || [http://www.transperth.wa.gov.au/ Transperth] || Perth, WA (Australia) || http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx || [http://www.transperth.wa.gov.au/TimetablesMaps/SpatialDataAccess/tabid/254/language/en-AU/Default.aspx License Agreement] ||
-|| [http://www.yrt.ca York Region Transit] || York County, ON || http://www.yrt.ca/google/google_transit.zip || [http://www.yrt.ca/google/ License Agreement] ||
+|| [http://www.yrt.ca York Region Transit] || York County, ON || http://www.yrt.ca/google/google_transit.zip || ||
 || [http://www.ridemcts.com/ Milwaukee County Transit System] || Milwaukee, WI || http://kamino.mcts.org/gtfs/google_transit.zip || [http://kamino.mcts.org/gtfs/ Terms of Use] ||
 || [http://www.thebus.org Oahu Transit Services, Inc] || Honolulu, HI || http://webapps.thebus.org/transitdata/Production/google_transit.zip || [http://www.thebus.org/transitfeed/terms-of-use.asp Terms of Use] ||
 || [http://www.gohrt.com/ Hampton Roads Transit] || Hampton Roads, VA || http://googletf.gohrt.com/ ||  ||

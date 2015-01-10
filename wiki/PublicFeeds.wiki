@@ -285,7 +285,9 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Kakegawa City || Kagewa (Japan) || http://opentrans.it/feed/gtfs/5707702298738688/google_transit.zip || ||
 || Omaezaki City || Omaezaki (Japan) || http://opentrans.it/feed/gtfs/5634472569470976/google_transit.zip || ||
 || Susono City || Susono (Japan) || http://opentrans.it/feed/gtfs/5649391675244544/google_transit.zip || ||
+|| [http://cityofgainesville.org City of Gainesville] || Gainesville, FL || https://data.cityofgainesville.org/Infrastructure-Transportation/Regional-Transit-System-GTFS-Data/3u4x-kz6r || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
+
 
 ==How to add a feed to this page==
 If you work with a transit agency or other data provider, and would like to add your public feed to this list, please send an email to the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed.  (Thanks for making your data available to interested developers!)

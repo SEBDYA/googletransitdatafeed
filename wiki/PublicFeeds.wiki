@@ -269,7 +269,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.agenziamobilita.roma.it Agenzia per la mobilità] || Roma (Italy) || http://dati.muovi.roma.it/gtfs/google_transit.zip  || http://www.agenziamobilita.roma.it/it/servizi/open-data/dataset.html ||
 || [http://www.norta.com Norta] || New Orleans, LA ||  http://www.norta.com/myrta || Requires sign up to MY RTA ||
 || Mornington Railway || Moorooduc/Mornington in Victoria, Australia ||  http://addtransit.com/gtfs/MorningtonRailway/MorningtonRailway.zip || ||
-|| [http://www.wichita.gov Wichita Transit] || Wichita, KS || http://www.gtfs-data-exchange.com/agency/wichita-transit/ || ||
+|| [http://www.wichita.gov Wichita Transit] || Wichita, KS || http://www.gtfs-data-exchange.com/agency/wichita-transit/ || [http://www.wichitatransit.org/Policy/Pages/default.aspx Terms of Use] ||
 || [http://www.action.act.gov.au/ ACTION Buses] || Canberra (Australia) || http://www.action.act.gov.au/timetables_and_maps/Plan-Your-Trip || ||
 || [http://www.piercetransit.org Pierce Transit] || Pierce County, WA || ftp://ops.piercetranst.org/schedulefeed || Submission of signed disclaimer required ||
 || [http://www.comune.palermo.it AMAT Palermo SPA] || Palermo (Italy) || http://www.comune.palermo.it/gtfs/amat_feed_gtfs.zip || ||

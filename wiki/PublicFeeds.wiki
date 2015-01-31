@@ -52,7 +52,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.tankbus.org TANK] || Covington, KY || http://imi.nku.edu/tankgoogletransit/latest/google_transit.zip || [http://imi.nku.edu/tankgoogletransit/latest/Data%20Downloads%20legal%20notice%20for%20google%20site.pdf Legal Notice] ||
 || [http://www.rabaride.com Redding Area Bus Authority] || Redding, CA || http://data.trilliumtransit.com/gtfs/redding-ca-us/ ||  ||
 || [http://www.gonctd.com/ North County Transit District] || North San Diego County, CA || http://www.gonctd.com/google_transit.zip ||  ||
-|| [http://www.kcata.org/ Kansas City Area Transportation Authority (KCATA)] || Kansas City, MS || http://www.kcata.org/transit_data ||  ||
+|| [http://www.kcata.org/ Kansas City Area Transportation Authority (KCATA)] || Kansas City, MO || http://www.kcata.org/transit_data ||  ||
 || [http://www.riderta.com/ Greater Cleveland Regional Transit Authority] || Cleveland, Ohio ||  http://www.riderta.com/sites/default/files/gtfs/latest/google_transit.zip ||  ||
 || [http://www.rtcsnv.com/ Regional Transportation Commission of Southern Nevada] || Southern Nevada || http://rtcws.rtcsnv.com/g/google_transit.zip ||  ||
 || [http://www.ltd.org Lane Transit District] || Lane County, Oregon || http://www.ltd.org/googlepublic/ || ||

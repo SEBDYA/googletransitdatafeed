@@ -207,7 +207,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://dati.trentino.it Trentino] || Trentino (Italy) || http://www.dati.trentino.it/dataset/trasporti-pubblici-del-trentino-formato-gtfs || http://dati.trentino.it/it/storage/f/2013-03-15T085950/mitt_opendata.zip ||
 || [http://www.springsgov.com Mountain Metro Transit] || Colorado Springs, CO || http://www.springsgov.com/units/transit/google_transit.zip || ||
 || [http://www.ridewta.com Whatcom Transportation Authority] || Whatcom County, WA || https://github.com/whatcomtrans/publicwtadata/raw/master/GTFS/wta_gtfs_latest.zip || ||
-|| [http://www.cmrtransit.org Central Maryland Regional Transit] || Central Maryland || http://www.cmrtransit.org/Portals/0/Google/google_transit.zip || ||
+|| [http://www.cmrtransit.org Central Maryland Regional Transit] || Central Maryland || http://www.cmrtransit.org/about/developer-resources/ || ||
 || [http://www.lagunabeachcity.net/cityhall/pw/transit/ Laguna Beach Transit] || Laguna Beach, CA || http://data.trilliumtransit.com/gtfs/lagunabeach-ca-us || ||
 || [http://www.amtrakcascades.com/ Cascades POINT] || Oregon || http://oregon-gtfs.com/gtfs_data/cascadespoint-or-us || [http://oregon-gtfs.com/ Terms of use] ||
 || [http://www.nashvillemta.org/ Nashville MTA] || Nashville, TN || http://www.nashvillemta.org/Nashville-MTA-Developer-Data-Request.asp || ||

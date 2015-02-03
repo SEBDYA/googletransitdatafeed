@@ -288,7 +288,12 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://cityofgainesville.org City of Gainesville] || Gainesville, FL || https://data.cityofgainesville.org/Infrastructure-Transportation/Regional-Transit-System-GTFS-Data/3u4x-kz6r || ||
 || [http://pt.berkeley.edu/around/beartransit Bear Transit] || University of California, Berkeley shuttle system || http://data.trilliumtransit.com/gtfs/beartransit-ca-us/|| ||
 || [http://www.cttransit.com Conneticut Department of Transportation] || Conneticut || http://www.cttransit.com/about/developers/gtfsdata/ || ||
-|| [http://www.suusex,nj.us Sussex County] || Sussex County, NJ || http://www.sussex.nj.us/documents/transit/google/google_transit.zip || ||
+|| [AMTAB S.p.A. Bari] || Bari (Italy) || http://bari.opendata.planetek.it/OrariBus/v2.1/ || ||
+|| [https://www.rigassatiksme.lv/lv/ Riga Satiksme] || Riga (Latvia) || http://saraksti.rigassatiksme.lv/riga/gtfs.zip || ||
+|| [http://amat-mi.it/it/ AMAT] || Milan (Italy) || http://amat-mi.it/it/downloads/data/gtfs/current/Export_OpenDataTPL_Current.zip || ||
+|| [Paris] || Paris (France) || http://dataratp.download.opendatasoft.com/RATP_GTFS_FULL.zip || ||
+|| [http://www.mtmmolfetta.it/ MTM Molfetta] || Molfetta (Italy) || http://www.amat-mi.it/it/mobilita/dati-strumenti-tecnologie/dati-gtfs/ || ||
+|| [Sussex County] || Sussex County, NJ || http://www.sussex.nj.us/documents/transit/google/google_transit.zip || ||
 || [http://rctransit.org RiverCities Transit] || Kelso-Longview, WA || http://data.trilliumtransit.com/gtfs/rivercitiestransit-wa-us/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 

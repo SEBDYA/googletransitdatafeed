@@ -295,7 +295,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.mtmmolfetta.it/ MTM Molfetta] || Molfetta (Italy) || http://www.amat-mi.it/it/mobilita/dati-strumenti-tecnologie/dati-gtfs/ || ||
 || [ Sussex County] || Sussex County, NJ || http://www.sussex.nj.us/documents/transit/google/google_transit.zip || ||
 || [http://rctransit.org River Cities Transit] || Kelso-Longview, WA || http://data.trilliumtransit.com/gtfs/rivercitiestransit-wa-us/ || ||
-|| [http://www.muni.org/Departments/transit/PeopleMover/Pages/default.aspx Anchorage People Mover] || Anchorage, AL ||  http://gtfs.muni.org/People_Mover.gtfs.zip || ||
+|| [http://www.muni.org/Departments/transit/PeopleMover/Pages/default.aspx Anchorage People Mover] || Anchorage, AK ||  http://gtfs.muni.org/People_Mover.gtfs.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 

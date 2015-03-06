@@ -200,7 +200,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.rochestercitylines.com/ Rochester City Lines] || Rochester, MN || http://data.trilliumtransit.com/gtfs/rochestercitylines-mn-us || ||
 || [http://www.palosverdes.com/pvtransit/ PVPTA] || Palos Verdes Peninsula, CA || http://data.trilliumtransit.com/gtfs/pvpta-ca-us || ||
 || [http://www.buttebus.org/ Butte Silver-Bow] || Butte, MT || http://data.trilliumtransit.com/gtfs/butte-mt-us || ||
-|| [http://www.thunderbay.ca/ Thunder Bay Transit] || Thunder Bay, ON || http://ftp.thunderbay.ca/transit/google_transit.zip || ||
+|| [http://www.thunderbay.ca/ Thunder Bay Transit] || Thunder Bay, ON || http://api.nextlift.ca/gtfs.zip || ||
 || [http://swanislandtma.org Swan Island TMA] || Portland, OR || http://oregon-gtfs.com/gtfs_data/swanisland-or-us || ||
 || [http://www.mymanatee.org/mcat Manatee County Area Transit] || Bradenton, FL || http://data.trilliumtransit.com/gtfs/manatee-fl-us || ||
 || [http://www.neotransit.org Northeast Oregon Public Transit] || La Grand, OR || http://oregon-gtfs.com/gtfs_data/northeast-or-us || ||

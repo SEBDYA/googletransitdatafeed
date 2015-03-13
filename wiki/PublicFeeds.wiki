@@ -257,7 +257,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.mississauga.ca/portal/miway MiWay] || Mississauga, ON || https://www.miapp.ca/GTFS/google_transit.zip?# ||  ||
 || [http://www.omnitrans.org OmniTrans] || San Bernardino County, CA || http://www.omnitrans.org/google/ ||  ||
 || [http://www.lawrenceks.org Lawrence Transit] || Lawrence, KS || http://lawrenceks.org/assets/gis/google-transit/google_transit.zip ||  ||
-|| [http://ladot.lacity.org/index.htm LA DOT] || LA DOT, CA || http://lacitydot.com/gtfs/administrator/gtfszip/ladotgtfs.zip ||  ||
+|| [http://ladot.lacity.org/index.htm LA DOT] || Los Angeles, CA || http://lacitydot.com/gtfs/administrator/gtfszip/ladotgtfs.zip ||  ||
 || [http://www.suntran.com Suntran] || Tucson, AZ || http://www.suntran.com/gtfs/SuntranGTFS.zip ||  ||
 || [http://www.cityofkinston.ca City of Kingston] || Kingston, ON || http://www.cityofkingston.ca/cok/data/transit_feeds/google_transit.zip ||  ||
 || Société de transport de Sherbrooke (STS) || Sherbrooke, QC ||  http://donnees.ville.sherbrooke.qc.ca/dataset/transpo || http://donnees.ville.sherbrooke.qc.ca/licence ||

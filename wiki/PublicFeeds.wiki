@@ -285,7 +285,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Kakegawa City || Kagewa (Japan) || http://opentrans.it/feed/gtfs/5707702298738688/google_transit.zip || ||
 || Omaezaki City || Omaezaki (Japan) || http://opentrans.it/feed/gtfs/5634472569470976/google_transit.zip || ||
 || Susono City || Susono (Japan) || http://opentrans.it/feed/gtfs/5649391675244544/google_transit.zip || ||
-|| [http://cityofgainesville.org City of Gainesville] || Gainesville, FL || https://data.cityofgainesville.org/Infrastructure-Transportation/Regional-Transit-System-GTFS-Data/3u4x-kz6r || ||
+|| [http://go-rts.com Regional Transit System] || Gainesville, FL || http://go-rts.com/about-rts/ || ||
 || [http://pt.berkeley.edu/around/beartransit Bear Transit] || University of California, Berkeley shuttle system || http://data.trilliumtransit.com/gtfs/beartransit-ca-us/|| ||
 || [http://www.cttransit.com Conneticut Department of Transportation] || Conneticut || http://www.cttransit.com/about/developers/gtfsdata/ || ||
 || [AMTAB S.p.A. Bari] || Bari (Italy) || http://www.ferrovienordbarese.it/download/?type=upload&id=513 || ||

@@ -49,7 +49,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.eot.state.ma.us/developers Massachusetts Executive Office of Transportation] || Massachusetts || [http://www.eot.state.ma.us/developers Links to bay, regional and ferry GTFS] || [http://www.eot.state.ma.us/developers/downloads/TOS.pdf Developer's License Agreement]||
 || All SF Bay ferry operators || San Francisco Bay, CA || http://data.trilliumtransit.com/gtfs/sfbay-ferries-ca-us/ ||  ||
 || The JO || Johnson County, KS || http://www.jocogov.org/sites/default/files/documents/TRN/google_transit.zip ||  ||
-|| [http://www.tankbus.org TANK] || Covington, KY || http://caistage.nku.edu/tankgoogletransit/google_transit.zip || [http://caistage.nku.edu/tankgoogletransit/google_transit.zip/Data%20Downloads%20legal%20notice%20for%20google%20site.pdf Legal Notice] ||
+|| [http://www.tankbus.org TANK] || Covington, KY || http://caistage.nku.edu/tankgoogletransit/google_transit.zip || ||
 || [http://www.rabaride.com Redding Area Bus Authority] || Redding, CA || http://data.trilliumtransit.com/gtfs/redding-ca-us/ ||  ||
 || [http://www.gonctd.com/ North County Transit District] || North San Diego County, CA || http://www.gonctd.com/google_transit.zip ||  ||
 || [http://www.kcata.org/ Kansas City Area Transportation Authority (KCATA)] || Kansas City, MO || http://www.kcata.org/transit_data ||  ||

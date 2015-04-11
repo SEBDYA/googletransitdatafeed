@@ -296,6 +296,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [ Sussex County] || Sussex County, NJ || http://www.sussex.nj.us/documents/transit/google/google_transit.zip || ||
 || [http://rctransit.org River Cities Transit] || Kelso-Longview, WA || http://data.trilliumtransit.com/gtfs/rivercitiestransit-wa-us/ || ||
 || [http://www.muni.org/Departments/transit/PeopleMover/Pages/default.aspx Anchorage People Mover] || Anchorage, AK ||  http://gtfs.muni.org/People_Mover.gtfs.zip || ||
+|| [http://www.dashbus.com Alexandria Transit Company (DASH)] || Alexandria, VA || http://www.dashbus.com/google_transit.zip  || ||
+|| [http://www.golynx.com Orlando FL LYNX Central Florida Regional Transportation Authority] || Orlando, FL || http://www.golynx.com/maps-schedules/data-download.stml || ||
 || Metro Tasmania || Hobart, Launceston and Burnie (Australia) || http://www.metrotas.com.au/community/gtfs/ || ||
 || Biella e Vercelli Province || Piedmont (Italy) || http://www.magellanoprogetti.it/atap/google_transit.zip  || ||
 || Pamplona || Pamplona (Spain) || 86.109.125.18:88/gt/google_transit.zip  || ||

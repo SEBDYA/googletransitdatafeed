@@ -297,6 +297,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://rctransit.org River Cities Transit] || Kelso-Longview, WA || http://data.trilliumtransit.com/gtfs/rivercitiestransit-wa-us/ || ||
 || [http://www.muni.org/Departments/transit/PeopleMover/Pages/default.aspx Anchorage People Mover] || Anchorage, AK ||  http://gtfs.muni.org/People_Mover.gtfs.zip || ||
 || [http://www.ridetransfort.com Transfort] || Fort Collins, CO ||  http://www.ridetransfort.com/developers || ||
+|| [http://www.vic.gov.au Victoria] || Victoria (Australia) ||  https://www.data.vic.gov.au/data/dataset/ptv-timetable-and-geographic-information-2015-gtfs || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 

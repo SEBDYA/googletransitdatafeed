@@ -302,7 +302,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Biella e Vercelli Province || Piedmont (Italy) || http://www.magellanoprogetti.it/atap/google_transit.zip  || ||
 || Pamplona || Pamplona (Spain) || 86.109.125.18:88/gt/google_transit.zip  || ||
 || [http://www.vic.gov.au Public Transport Victoria] || Victoria (Australia) || https://www.data.vic.gov.au/data/dataset/ptv-timetable-and-geographic-information-2015-gtfs || ||
-|| [http://www.ridetransfort.com Transfort] || Fort Collins, CO ||  http://www.ridetransfort.com/developers || ||
+|| [http://www.ridetransfort.com Transfort] || Fort Collins, CO || http://www.ridetransfort.com/developers || ||
+|| [http://www.zditm.szczecin.pl/ ZDiTM Szczecin] || Szczecin (Poland) || http://www.zditm.szczecin.pl/rozklady/GTFS/latest/google_gtfs.zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 

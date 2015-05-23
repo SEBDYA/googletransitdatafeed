@@ -288,7 +288,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://go-rts.com Regional Transit System] || Gainesville, FL || http://go-rts.com/about-rts/ || ||
 || [http://pt.berkeley.edu/around/beartransit Bear Transit] || University of California, Berkeley shuttle system || http://data.trilliumtransit.com/gtfs/beartransit-ca-us/|| ||
 || [http://www.cttransit.com Conneticut Department of Transportation] || Conneticut || http://www.cttransit.com/about/developers/gtfsdata/ || ||
-|| [AMTAB S.p.A. Bari] || Bari (Italy) || http://www.ferrovienordbarese.it/download/?type=upload&id=513 || ||
+|| [AMTAB S.p.A. Bari] || Bari (Italy) || http://www.comune.palermo.it/opendata_dld.php?id=329 || ||
 || [https://www.rigassatiksme.lv/lv/ Riga Satiksme] || Riga (Latvia) || http://saraksti.rigassatiksme.lv/riga/gtfs.zip || ||
 || [http://amat-mi.it/it/ AMAT] || Milan (Italy) || http://amat-mi.it/it/downloads/data/gtfs/current/Export_OpenDataTPL_Current.zip || ||
 || [ Paris] || Paris (France) || http://dataratp.download.opendatasoft.com/RATP_GTFS_FULL.zip || ||

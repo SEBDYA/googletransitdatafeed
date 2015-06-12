@@ -29,7 +29,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.naipta.az.gov/ Mountain Line] || Flagstaff, AZ || http://data.trilliumtransit.com/gtfs/naipta-az-us/ || || 
 || [http://www.jeffersontransit.com/ Jefferson Transit Authority] || Port Townsend, WA || http://www.gtfs-data-exchange.com/agency/jefferson-transit-authority/ || [http://www.jeffersontransit.com/information.html License Agreement] ||
 || [http://www.islandtransit.org/ Island Transit] || Island County, WA || http://www.gtfs-data-exchange.com/agency/island-transit/ || [http://islandtransit.org/license_agreement/ License Agreement] ||
-|| [http://ridemetro.org/ METRO] || Houston, TX || http://www.ridemetro.org/News/Downloads/DataDownloads.aspx || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||
+|| [http://ridemetro.org/ METRO] || Houston, TX || http://www.ridemetro.org/Pages/NewsDownloads.aspx || [http://ridemetro.org/AboutUs/Publications/DataDownloads.aspx Legal Notice] ||
 || [http://www.sfmta.com SFMTA (Muni)] || San Francisco, CA || http://www.sfmta.com/transitdata || [http://www.sfmta.com/transitdata License Agreement] ||
 || [http://irvineshuttle.net/ The Irvine Shuttle] || Irvine, CA || http://irvineshuttle.net/files/managed/Document/70/google_transit.zip || [http://www.cityofirvine.org/civica/filebank/blobdload.asp?BlobID=12803 Website Policy] ||
 || [http://www.broward.org/bct/ Broward County Transit] || Broward County, FL || www.broward.org/bct/google/latest/google_transit.zip || ||

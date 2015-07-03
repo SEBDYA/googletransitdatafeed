@@ -171,7 +171,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.go-metro.com Cincinnati Metro] || Cincinnati, OH || http://www.go-metro.com/uploads/google_transit.zip || [http://www.go-metro.com/about-metro/developer-data Terms of Use] ||
 || [http://www.go-metro.com Washington State Ferries] || Washington State || https://business.wsdot.wa.gov/Transit/csv_files/wsf/google_transit.zip || ||
 || [http://www.sanbenitocountyexpress.org/ San Benito County Express] || San Benito County, CA || http://data.trilliumtransit.com/gtfs/sanbenito-ca-us/ || ||
-|| [http://www.aata.org/ Ann Arbor Transportation Authority] || Ann Arbor, MI || http://aata.org/google/ || ||
+|| [http://www.theride.org/ Ann Arbor Area Transportation Authority] || Ann Arbor, MI || http://www.theride.org/google/ || ||
 || [http://www.metroplan.org/ Central Arkansas Transit Authority] || Central Arkansas, AR || http://metroplan.org/maps/transit/ || ||
 || [http://www.4mta.org/ Mendocino Transit Authority] || Mendocino County, CA || http://data.trilliumtransit.com/gtfs/mendocino-ca-us/ || ||
 || [http://cabq.gov/ City of Albuquerque] || Albuquerque, NM || http://data.cabq.gov/transit/gtfs/ || ||

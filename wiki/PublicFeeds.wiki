@@ -98,7 +98,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || [http://www.calgarytransit.com/ Calgary Transit ] || Calgary, AB || https://data.calgary.ca/OpenData/Pages/DatasetDetails.aspx?DatasetID=PDC0-99999-99999-00501-P%28CITYonlineDefault%29 || https://data.calgary.ca/OpenData/Pages/TermsOfUse.aspx ||
 || [http://www.metlink.org.nz// Greater Wellington's public transportation network ] || Greater Wellington (New Zealand) || http://www.metlink.org.nz/googletransit/google_transit.zip || ||
 || [http://www.halifax.ca// Halifax Metro] || Halifax, NS || http://halifax.ca/GoogleTransit/developerdata.html || ||
-|| [http://www.cota.com/ Central Ohio Transit Authority] || Columbus, OH || http://www.cota.com/data.asp || ||
+|| [http://www.cota.com/ Central Ohio Transit Authority] || Columbus, OH || http://www.cota.com/Auxiliary/Data.aspx || ||
 || [http://sites.google.com/site/gotrianglegtfs/ GoTriangle] || Research Triangle, NC || http://sites.google.com/site/gotrianglegtfs/google-transit || ||
 || [http://www.vitoria-gasteiz.org/ Red de Transporte urbano de Vitoria-Gasteiz] || Vitoria-Gasteiz (Spain) || http://www.vitoria-gasteiz.org/we001/http/vgTransit/google_transit.zip || ||
 || [http://www.adelaidemetro.com.au/ Adelaide Metro] || Adelaide (Australia) || http://adelaidemetro.com.au/GTFS/google_transit.zip || ||

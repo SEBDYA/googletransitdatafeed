@@ -40,6 +40,7 @@ This is a list of non-GTFS feeds. It includes known links to GTFS-realtime feeds
 || [http://www.opendata.ch/ OpenData.ch] || Switzerland || http://transport.opendata.ch/ || Public timetable data || REST/JSON || ||
 || [http://www.octranspo1.com OC Transpo] || Ottawa, ON || http://www.octranspo1.com/developers || Real time departure predictions || REST/XML || ||
 || [http://www.vic.gov.au/ Victorian Government] || Victoria (Australia) || https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056 || Timetable API || REST/JSON || Documentation at http://stevage.github.io/PTV-API-doc/ ||
+|| [http://www.ridetarc.org/ Transit Authority of River City] || Louisville, KY || http://gtfsrealtime.ridetarc.org/ || Real-Time Data in GTFS-realtime Format || GTFS-realtime || ||
 
 ==We want to hear from you==
 Not on this list? Please contact the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed. (Thanks for making your data available to interested developers!)

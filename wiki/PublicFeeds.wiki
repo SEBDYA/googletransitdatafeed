@@ -318,11 +318,15 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Belgian railwaycompany NMBS || Belgium || http://gtfs.irail.be/nmbs/ || ||
 || [http://www.reittiopas.fi Reittiopas] || Helsinki (Finland) || http://developer.reittiopas.fi/pages/en/other-apis.php || ||
 || [http://www.peatus.ee PATUS] || Estonia || http://www.peatus.ee/gtfs/ || ||
-|| [www.stops.lt Vilnius] || Vilnius (Lithuania) || http://www.stops.lt/vilnius/vilnius/gtfs.zip || ||
-|| [www.stops.lt/kaunas Kaunas] || Kaunas (Lithuania) || http://www.stops.lt/kaunas/kaunas/gtfs.zip || ||
-|| [www.stops.lt/klaipeda Klaipėda] || Klaipėda (Lithuania) || http://www.stops.lt/klaipeda/klaipeda/gtfs.zip || ||
-|| [www.stops.lt/panevezys Panevėžys] || Panevėžys (Lithuania) || http://www.stops.lt/panevezys/panevezys/gtfs.zip || ||
-|| [www.stops.lt/druskininkai Druskininkai] || Druskininkai (Lithuania) || http://www.stops.lt/druskininkai/druskininkai/gtfs.zip || ||
+|| [http://www.stops.lt Vilnius] || Vilnius (Lithuania) || http://www.stops.lt/vilnius/vilnius/gtfs.zip || ||
+|| [http://www.stops.lt/kaunas Kaunas] || Kaunas (Lithuania) || http://www.stops.lt/kaunas/kaunas/gtfs.zip || ||
+|| [http://www.stops.lt/klaipeda Klaipėda] || Klaipėda (Lithuania) || http://www.stops.lt/klaipeda/klaipeda/gtfs.zip || ||
+|| [http://www.stops.lt/panevezys Panevėžys] || Panevėžys (Lithuania) || http://www.stops.lt/panevezys/panevezys/gtfs.zip || ||
+|| [http://www.stops.lt/druskininkai Druskininkai] || Druskininkai (Lithuania) || http://www.stops.lt/druskininkai/druskininkai/gtfs.zip || ||
+|| La Palma Island || La Palma Island (Balearic Islands, Spain) || http://194.179.122.188/files/google_transit.zip || ||
+|| Mallorca Island || Mallorca Island (Balearic Islands, Spain) || http://www.tib.org/portal/documents/10286/110211/es-ctm-mallorca.zip || ||
+|| Bologna || Bologna (Italy) || https://solweb.tper.it/web/tools/open-data/open-data-download.aspx?source=tper.it&filename=gommagtfsbo&version=20150512&format=zip || ||
+|| Ferrara || Ferrara (Italy) || https://solweb.tper.it/web/tools/open-data/open-data-download.aspx?source=tper.it&filename=gommagtfsfe&version=20150512&format=zip || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

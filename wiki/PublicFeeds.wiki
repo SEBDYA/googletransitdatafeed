@@ -316,7 +316,8 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Terre Haute Transit || Terre Haute, IN || http://data.trilliumtransit.com/gtfs/terrehautetransit-in-us/terrehautetransit-in-us.zip || ||
 || Des Moines Area Regional Transit Authority (DART) || Des Moines, IA || http://api.ridedart.com/gtfs/file?key=ef0bd8fa9ef652bcfaea713da3b64078 || ||
 || Belgian railwaycompany NMBS || Belgium || http://gtfs.irail.be/nmbs/ || ||
-|| [http://www.reittiopas.fi/ Reittiopas] || Helsinki (Finland) || http://developer.reittiopas.fi/pages/en/other-apis.php || ||
+|| [http://www.reittiopas.fi Reittiopas] || Helsinki (Finland) || http://developer.reittiopas.fi/pages/en/other-apis.php || ||
+|| [http://www.peatus.ee PATUS] || Estonia || http://www.peatus.ee/gtfs/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
 
 ==How to add a feed to this page==

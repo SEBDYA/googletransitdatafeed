@@ -329,6 +329,7 @@ For details on the feed format, see the [http://code.google.com/transit/spec/tra
 || Ferrara || Ferrara (Italy) || https://solweb.tper.it/web/tools/open-data/open-data-download.aspx?source=tper.it&filename=gommagtfsfe&version=20150512&format=zip || ||
 || AMTAB S.p.A. Bari || Bari (Italy) || http://bari.opendata.planetek.it/OrariBus/v2.1/ || ||
 || Demo Transit Agency || Death Valley, CA || http://code.google.com/transit/spec/sample-feed.zip || This is a sample feed for demonstrating the format. ||
+|| Varese || Varese (Italy) || http://www.avtvarese.it/google_transit.zip || ||
 
 ==How to add a feed to this page==
 If you work with a transit agency or other data provider, and would like to add your public feed to this list, please send an email to the group list at [mailto:googletransitdatafeed@googlegroups.com googletransitdatafeed@googlegroups.com] telling us the name of your organization and the web address of the feed.  (Thanks for making your data available to interested developers!)
